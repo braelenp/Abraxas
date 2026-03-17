@@ -1,0 +1,6 @@
+<svg width="240" height="48" viewBox="0 0 240 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="46" height="46" rx="12" stroke="#6366F1" stroke-width="2"/>
+  <path d="M13 32L24 12L35 32" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M17 25H31" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+  <text x="60" y="31" fill="#E2E8F0" font-size="22" font-family="Inter, Arial, sans-serif">ABRAXAS</text>
+</svg>

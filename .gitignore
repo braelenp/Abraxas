@@ -1,0 +1,26 @@
+# Rust / Anchor
+/target/
+**/*.rs.bk
+
+# Node / frontend
+app/node_modules/
+app/dist/
+app/.vite/
+app/.env
+app/.env.*
+
+# Android / Capacitor build artifacts
+app/android/.gradle/
+app/android/build/
+app/android/app/build/
+app/android/capacitor-cordova-android-plugins/build/
+app/android/local.properties
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/

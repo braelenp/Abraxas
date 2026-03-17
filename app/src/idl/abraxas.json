@@ -1,0 +1,46 @@
+{
+  "address": "GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm",
+  "metadata": {
+    "name": "abraxas",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "initializeVault",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "name", "type": "string" },
+        { "name": "assetType", "type": "string" },
+        { "name": "rwaMint", "type": "publicKey" }
+      ]
+    },
+    {
+      "name": "assignAgent",
+      "accounts": [
+        { "name": "owner", "isMut": false, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "agentMint", "type": "publicKey" },
+        { "name": "rulesHash", "type": "string" }
+      ]
+    },
+    {
+      "name": "evaluateCircuit",
+      "accounts": [
+        { "name": "authority", "isMut": false, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "priceSpeedBps", "type": "u64" },
+        { "name": "liquidityDrainBps", "type": "u64" },
+        { "name": "activitySpikeBps", "type": "u64" }
+      ]
+    }
+  ]
+}

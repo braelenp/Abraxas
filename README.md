@@ -1,30 +1,120 @@
-# Abraxas – Sovereign Guardians for RWAs
+# Abraxas - Sovereign Guardians for RWAs
 
 **Mobile-first AI-powered protection protocol for Real-World Assets on Solana**
 
-Abraxas transforms passive tokenized Real-World Assets (RWAs) — such as real estate, art, invoices, and more — into actively managed, protected holdings using autonomous AI agents. Built with a mobile-first approach (optimized for Solana Mobile devices like Seeker/Saga), Abraxas lets users tokenize and deposit RWAs into secure vaults, assign intelligent **Sophia** AI agents for ongoing optimization (rebalancing, hedging, yield generation), and deploy **Circuit** — an autonomous safety agent that monitors on-chain signals in real time and triggers preventive actions to mitigate volatility risks before significant damage occurs.
+Abraxas is a Solana-native Real World Asset (RWA) protocol that combines on-chain vaults, AI-driven Sophia agents, and an automated Circuit protection layer, wrapped in a mobile-first app built for Seeker and Saga.
 
-## Features
+## Overview
 
-- **Tokenize & Vault RWAs** — Securely bring real-world assets on-chain using Metaplex NFTs.
-- **Sophia AI Agents** — Autonomous agents (rentable/buyable as NFTs) that intelligently manage assets: rebalancing, hedging, yield optimization.
-- **Circuit Safety Agent** — Proactive on-chain monitoring of price speed, liquidity drains, activity spikes; crosses predefined thresholds → executes small, transparent preventive payouts.
-- **Mobile-Native Dashboard** — Real-time visibility into vaults, agents, signals, payouts, and audit logs — intuitive touch UI for on-the-go management.
-- **On-Chain Verifiability** — All rules, actions, and payouts are fully transparent, auditable, and executed on Solana.
+| Layer | What It Does |
+|---|---|
+| Vaults | Non-custodial on-chain accounts holding tokenized RWAs (invoices, art, carbon credits) |
+| Sophia Agents | NFT-gated AI agents assigned to vaults for autonomous risk management and yield routing |
+| Circuit | Real-time signal evaluation (price speed, liquidity drain, activity spike) triggering automatic protective actions |
+| Orion | In-app AI assistant, context-aware per page |
+| Mobile | Android APK via Capacitor with native wallet connectivity |
 
-## How It Works
+## Architecture
 
-1. Connect your Solana wallet and deposit/tokenize RWAs into dedicated vaults.
-2. Assign or acquire Sophia AI agents (as NFTs) to autonomously manage your assets.
-3. Circuit Agent continuously monitors on-chain activity and risk signals.
-4. When multiple risk thresholds are crossed, Circuit triggers small preventive payouts to protect capital.
-5. View everything in real-time via the mobile dashboard — signals, agent activity, vault status, and logs.
+```
+Abraxas/
+├── programs/abraxas/       # Anchor smart contract (Solana)
+│   └── src/lib.rs          # initialize_vault · deposit · withdraw
+│                           # assign_agent · evaluate_circuit
+├── app/                    # React + Vite + Tailwind frontend
+│   ├── src/
+│   │   ├── pages/          # Dashboard · Vaults · Circuit · Sophia · Orion
+│   │   ├── providers/      # SolanaProvider · AbraxasProvider
+│   │   ├── components/     # BrandLogo · OrionAssistant
+│   │   ├── lib/            # program.ts · types.ts · solana.ts · mobile.ts
+│   │   └── idl/            # abraxas.json (Anchor IDL)
+│   └── android/            # Capacitor Android project
+└── target/                 # Compiled Anchor artifacts & IDL
+```
 
-## Tech Stack
+## Smart Contract
 
-- **Frontend**: React, Vite, Capacitor (native mobile builds for Android/iOS), Solana Wallet Adapter
-- **On-Chain**: Anchor (Rust) – vaults, agent logic, Circuit rules, payout execution
-- **Agents & Off-Chain**: Node.js for autonomous agent operations and signal processing
-- **NFT Standard**: Metaplex for RWA representation, agent NFTs, and vault metadata
-- **Blockchain**: Solana (high-speed, low-cost real-time monitoring)
+Program ID (Devnet): `GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm`
 
+### Instructions
+
+- `initialize_vault`: Create a PDA vault for a given owner and RWA mint
+- `deposit`: Transfer SOL lamports into the vault
+- `withdraw`: Pull lamports back to the owner (owner-only)
+- `assign_agent`: Link a Sophia agent NFT mint and rules hash to the vault
+- `evaluate_circuit`: Score market signals in BPS and emit `CircuitEvaluated`
+
+### Circuit Actions
+
+- `None`: All signals below threshold
+- `ReleaseLiquidity`: Price speed or liquidity drain >= 50% of threshold
+- `PauseRisk`: Any signal meets or exceeds threshold
+
+## Frontend
+
+### Prerequisites
+
+- Node 18+
+- npm or yarn
+
+### Run Locally (Devnet)
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+Set your environment variables:
+
+```bash
+# app/.env
+VITE_ABRAXAS_PROGRAM_ID=GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm
+VITE_SOLANA_RPC=https://api.devnet.solana.com
+VITE_ENABLE_NATIVE_MWA=true
+```
+
+## Android APK
+
+### One-Time Android SDK Setup
+
+```bash
+cd app/android
+cp local.properties.example local.properties
+# Set sdk.dir to your Android SDK path, e.g.:
+# sdk.dir=/usr/lib/android-sdk
+```
+
+Or export:
+
+```bash
+export ANDROID_HOME=/usr/lib/android-sdk
+```
+
+### Build Debug APK
+
+```bash
+cd app
+npm install
+npm run android:apk
+```
+
+Output: `app/android/app/build/outputs/apk/debug/app-debug.apk`
+
+### Native Wallet Support Order
+
+1. Phantom
+2. Solflare
+3. Solana Mobile Wallet Adapter (MWA)
+
+## Anchor Development
+
+```bash
+anchor build
+anchor test
+anchor deploy --provider.cluster devnet
+```
+
+## License
+
+MIT

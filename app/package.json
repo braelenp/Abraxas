@@ -1,0 +1,47 @@
+{
+  "name": "abraxas-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "cap:sync": "npm run build && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "android:apk:release": "npm run cap:sync && cd android && ./gradlew assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.1.0",
+    "@capacitor/cli": "^8.1.0",
+    "@capacitor/core": "^8.1.0",
+    "@capacitor/haptics": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.1",
+    "@coral-xyz/anchor": "^0.32.1",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@solana-mobile/wallet-adapter-mobile": "^2.2.5",
+    "@solana/pay": "^0.2.6",
+    "@solana/wallet-adapter-base": "^0.9.27",
+    "@solana/wallet-adapter-react": "^0.15.39",
+    "@solana/wallet-adapter-react-ui": "^0.9.39",
+    "@solana/wallet-adapter-wallets": "^0.19.37",
+    "@solana/web3.js": "^1.98.4",
+    "@vitejs/plugin-react": "^5.1.4",
+    "autoprefixer": "^10.4.27",
+    "bignumber.js": "^10.0.2",
+    "lucide-react": "^0.576.0",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
+    "tailwindcss": "^4.2.1",
+    "vite": "^7.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  }
+}
