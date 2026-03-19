@@ -20,12 +20,12 @@ export function DashboardPage() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-200/85">Abraxas RWA Stock Market</p>
         <h1 className="mt-2 text-2xl font-semibold text-cyan-50">Athlete equity is the first live asset class.</h1>
         <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
-          La Casa NFTs become instant stablecoin exposure, auto-route into vaults, and feed King AI development loops that grow athlete token value instead of only trading it.
+          Early adopter access is now token-first: ABRA holders unlock vault setup and route capital through class-level market infrastructure while individual athlete issuance phases in.
         </p>
         <div className="mt-4 grid grid-cols-3 gap-2 text-xs text-slate-200/90">
           <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
             <p className="text-slate-400/90">Live basket</p>
-            <p className="mt-1 font-semibold">OYM Athlete Equity</p>
+            <p className="mt-1 font-semibold">Athlete Equity Class</p>
           </div>
           <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
             <p className="text-slate-400/90">King AI state</p>
@@ -65,7 +65,7 @@ export function DashboardPage() {
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs text-slate-300/80">Leader token</p>
+            <p className="text-xs text-slate-300/80">Lead class signal</p>
             <p className="mt-1 text-2xl font-semibold">{stats.leadingToken?.symbol ?? 'N/A'}</p>
           </div>
           <div className="text-right text-xs text-slate-300/85">
@@ -73,7 +73,7 @@ export function DashboardPage() {
             <p className="mt-1 text-cyan-200">{stats.leadingToken ? `${stats.leadingToken.valueGrowthPct.toFixed(1)}% value growth` : 'No athlete positions yet'}</p>
           </div>
         </div>
-        <p className="mt-3 text-xs text-slate-400/80">Deposited exposure: ${stats.totalDeposited.toLocaleString()} across vaults and La Casa auto-routing.</p>
+        <p className="mt-3 text-xs text-slate-400/80">Deposited exposure: ${stats.totalDeposited.toLocaleString()} across vaults and class-level routing logic.</p>
       </article>
 
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
@@ -97,7 +97,7 @@ export function DashboardPage() {
         <p className="mb-3 text-sm font-medium">Agent Activity Logs</p>
         <div className="space-y-2">
           {logs.length === 0 ? (
-            <p className="text-xs text-slate-300/80">No actions yet. Route La Casa deposits or execute a King AI plan.</p>
+            <p className="text-xs text-slate-300/80">No actions yet. Verify ABRA threshold, create a vault, or execute a King AI plan.</p>
           ) : (
             logs.slice(0, 6).map((log) => (
               <div key={log.id} className="rounded-xl border border-cyan-300/20 px-3 py-2 text-xs">

@@ -31,6 +31,7 @@ function ProtectedDapp() {
 function DappShell() {
   const { connected } = useWallet();
   const introAmbientRef = useRef<HTMLAudioElement | null>(null);
+  const contentRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
   const dappBackgroundCandidates = useMemo(
     () => [
@@ -96,8 +97,13 @@ function DappShell() {
     audio.currentTime = 0;
   }, [connected, showIntroModal]);
 
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
   return (
-    <div className="dapp-theme tech-distortion relative mx-auto h-[100dvh] min-h-[100dvh] w-full max-w-md overflow-x-hidden overflow-y-auto text-slate-100">
+    <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md flex-col overflow-hidden text-slate-100">
       <div className="pointer-events-none absolute inset-0 -z-30 bg-slate-950" />
       {showAnimatedBackground ? (
         <>
@@ -123,7 +129,7 @@ function DappShell() {
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-20 mix-blend-screen [background:repeating-linear-gradient(180deg,rgba(148,163,184,0.07)_0px,rgba(148,163,184,0.07)_1px,transparent_2px,transparent_5px)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-30 mix-blend-screen [background:linear-gradient(105deg,transparent_20%,rgba(34,211,238,0.18)_50%,transparent_78%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
 
-      <header className="sticky top-0 z-50 border-b border-cyan-200/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 flex-none border-b border-cyan-200/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
         <div className="mb-2 flex items-center justify-between gap-3">
           <BrandLogo size="sm" showWordmark className="dapp-header-brand" />
           <div className="dapp-header-wallet">
@@ -133,7 +139,10 @@ function DappShell() {
         <p className="text-xs text-slate-300/80">La Casa deposits + Athlete Equity + Circuit Safety</p>
       </header>
 
-      <main className="px-4 py-4 pb-[calc(5.25rem+env(safe-area-inset-bottom))]">
+      <main
+        ref={contentRef}
+        className="flex-1 overflow-y-auto overscroll-y-none px-4 py-4 pb-4"
+      >
         <Routes>
           <Route index element={<DashboardPage />} />
           <Route path="vaults" element={<VaultsPage />} />
@@ -153,13 +162,14 @@ function DappShell() {
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
                 <p className="text-base font-semibold text-cyan-100">Welcome to ABRAXAS</p>
                 <p className="mt-2 leading-relaxed text-slate-300">
-                  You are entering the World Labs RWA stock market on Solana, where La Casa exposure, athlete equity development, Sophia management, and circuit safety converge.
+                  You are entering the World Labs RWA stock market on Solana, where live ABRA onboarding, devnet vault simulation, Sophia management, and circuit safety converge.
                 </p>
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">What you can do</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• Convert La Casa NFT purchases into stablecoin exposure that auto-deposits into Abraxas vaults.</li>
-                  <li>• Trade athlete equity as the first live RWA class through $CDUBB, $AJWILL, and $HAILEE baskets.</li>
+                  <li>• Acquire ABRA live for early market participation through the onboarding tab.</li>
+                  <li>• Explore the full vault lifecycle in Devnet as a working proof-of-concept.</li>
+                  <li>• Track athlete equity as the first live class layer while individual athlete token issuance is staged.</li>
                   <li>• Review the Market data book for listed assets, class filters, and hypothetical listing pipelines.</li>
                   <li>• Run King AI for development guidance across training, stats, and NIL actions that grow token value.</li>
                   <li>• Configure Circuit thresholds to stage payouts and protect the market during volatility.</li>
@@ -169,16 +179,16 @@ function DappShell() {
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">Tab overview</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
                   <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> the market overview for live RWA value, athlete momentum, and portfolio protection.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> buy La Casa exposure, auto-route deposits, and manage athlete-equity positions.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> create and manage devnet vaults to showcase the Abraxas control flow.</li>
                   <li>• <span className="font-semibold text-cyan-100">Market:</span> browse listed assets, compare classes, and track hypothetical examples in one data book.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Onboard:</span> mint La Casa NFTs to onboard capital and earn a token airdrop, or acquire ABX tokens for immediate stake.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Onboard:</span> buy ABRA now for live early-adopter participation and future Genesis NFT airdrop eligibility.</li>
                   <li>• <span className="font-semibold text-cyan-100">King AI:</span> analyze athlete development metrics and push value-creation actions into the market.</li>
                   <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune safety logic for warning, protective liquidity, and payout triggers.</li>
                   <li>• <span className="font-semibold text-cyan-100">Sophia:</span> manage vault oversight and prepare autonomous managers for future classes.</li>
                 </ul>
 
                 <p className="mt-3 leading-relaxed text-slate-300">
-                  Start with an athlete-equity vault, route La Casa exposure into it, then let King AI decide the next development move.
+                  Start by acquiring ABRA, then use the devnet vault stack to showcase full Abraxas operations while live onboarding ramps.
                 </p>
               </div>
 
@@ -219,7 +229,7 @@ function DappShell() {
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
-      <nav className="fixed right-0 bottom-[env(safe-area-inset-bottom)] left-0 z-40 mx-auto flex w-full max-w-md border-t border-cyan-200/25 bg-slate-950/88 p-2 backdrop-blur-xl">
+      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-cyan-200/25 bg-slate-950/94 p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur-xl">
         {navItems.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}

@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Brain } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 
 type ChatMessage = {
@@ -466,9 +467,9 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
           <button
             onClick={() => setOpen((current) => !current)}
             aria-label="Toggle King AI Assistant"
-            className="orion-widget-pulse ui-action pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-cyan-300/65 bg-slate-900/88 text-2xl shadow-[0_0_24px_rgba(34,211,238,0.55)]"
+            className="orion-widget-pulse ui-action pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-cyan-300/65 bg-slate-900/88 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.55)]"
           >
-            K
+            <Brain size={24} strokeWidth={2.1} />
           </button>
         </div>
 

@@ -4,6 +4,11 @@ import { BaseWalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { BrandLogo } from '../components/BrandLogo';
 
+const LA_CASA_COLLECTION_ADDRESS = '0x99879b6bf05c893ba01f1bd18e042cf592a10210';
+const ABRA_SYMBOL = 'ABRA';
+const ABRA_TOKEN_CONTRACT_ADDRESS = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_TOKEN_BAGS_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || 'https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+
 const LANDING_WALLET_LABELS = {
 	'change-wallet': 'Change wallet',
 	connecting: 'Connecting ...',
@@ -238,7 +243,7 @@ export function LandingPage() {
 	};
 
 	return (
-		<section className="tech-distortion relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+		<section className="tech-distortion relative h-[100dvh] overflow-hidden bg-slate-950 text-slate-100">
 			{showBackgroundImage ? (
 				<>
 					<img
@@ -264,8 +269,9 @@ export function LandingPage() {
 			<div className="pointer-events-none absolute inset-0 opacity-24 mix-blend-screen [background:repeating-linear-gradient(180deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_1px,transparent_2px,transparent_5px)]" />
 			<div className="pointer-events-none absolute inset-0 opacity-34 mix-blend-screen [background:linear-gradient(110deg,transparent_18%,rgba(34,211,238,0.2)_50%,transparent_80%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
 
-			<div className="relative z-20 mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-center px-6 text-center">
-				<div className="landing-frame-blue-glow pointer-events-auto relative w-full rounded-3xl border border-transparent bg-slate-950/65 p-7 backdrop-blur-xl">
+			<div className="relative z-20 mx-auto h-full w-full max-w-md overflow-y-auto overflow-x-hidden px-6 py-8">
+				<div className="flex min-h-full flex-col items-center justify-center text-center">
+					<div className="landing-frame-blue-glow pointer-events-auto relative w-full rounded-3xl border border-transparent bg-slate-950/65 p-7 backdrop-blur-xl">
 					{hasAudioTrack ? (
 						<div className="absolute top-3 right-3 z-30">
 							<button
@@ -303,35 +309,59 @@ export function LandingPage() {
 					<h1 className="abraxas-hero-title text-4xl font-extrabold tracking-[0.22em]">ABRAXAS</h1>
 
 						<p className="landing-subtitle-glow mt-4 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-100">
-						Create, automate, and protect tokenized RWA strategies in one control surface
-					</p>
+							Acquire ABRA live and explore full Abraxas flows in Devnet showcase mode
+						</p>
+
+						<p className="mt-4 text-xs leading-relaxed text-slate-300">
+							Abraxas is live in token-first early adoption mode. Accumulate <span className="font-semibold text-amber-200">{ABRA_SYMBOL}</span> for immediate stake while the app demonstrates full vault and agent mechanics in Devnet as an on-chain proof-of-concept. Genesis NFTs can be airdropped later to qualifying holders.
+						</p>
 
 					<div className="mt-4 flex flex-wrap justify-center gap-2">
 						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-							Vault Automation
+								Token-first Onboarding
 						</span>
 						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-							Sophia Agents
+								ABRA Early Stake
 						</span>
 						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-							Circuit Defense
+								Devnet Full Showcase
 						</span>
 					</div>
 
 					<div className="mt-4 grid grid-cols-3 gap-2 text-left">
 						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-							<p className="text-[10px] text-slate-400">Active Vaults</p>
-							<p className="mt-1 text-sm font-semibold text-cyan-200">24+</p>
+								<p className="text-[10px] text-slate-400">Launch Paths</p>
+								<p className="mt-1 text-sm font-semibold text-cyan-200">Token-first</p>
 						</div>
 						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-							<p className="text-[10px] text-slate-400">Agent Routines</p>
-							<p className="mt-1 text-sm font-semibold text-cyan-200">Always On</p>
+								<p className="text-[10px] text-slate-400">Live Token</p>
+								<p className="mt-1 text-sm font-semibold text-cyan-200">ABRA</p>
 						</div>
 						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-							<p className="text-[10px] text-slate-400">Circuit Checks</p>
-							<p className="mt-1 text-sm font-semibold text-cyan-200">Realtime</p>
+								<p className="text-[10px] text-slate-400">Showcase Mode</p>
+								<p className="mt-1 text-sm font-semibold text-cyan-200">Devnet</p>
 						</div>
 					</div>
+
+						<div className="mt-4 space-y-2 rounded-2xl border border-cyan-300/25 bg-slate-900/75 p-3 text-left">
+							<div>
+								<p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-200/80">Genesis NFT (Future Airdrop)</p>
+								<p className="mt-1 break-all font-mono text-[11px] text-slate-200">{LA_CASA_COLLECTION_ADDRESS}</p>
+							</div>
+							<div className="border-t border-slate-700/70 pt-2">
+								<p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-200/80">Abraxas Token</p>
+								<p className="mt-1 text-[11px] text-slate-200">Symbol: <span className="font-semibold text-amber-200">{ABRA_SYMBOL}</span></p>
+								<p className="mt-1 break-all font-mono text-[11px] text-slate-200">{ABRA_TOKEN_CONTRACT_ADDRESS}</p>
+								<a
+									href={ABRA_TOKEN_BAGS_URL}
+									target="_blank"
+									rel="noreferrer"
+									className="mt-1 inline-flex text-[10px] text-cyan-200 underline decoration-cyan-300/50 underline-offset-2 hover:text-cyan-100"
+								>
+									View on BAGS
+								</a>
+							</div>
+						</div>
 
 					<div className="mt-7 space-y-3">
 						<div className="flex justify-center">
@@ -367,8 +397,9 @@ export function LandingPage() {
 					</div>
 
 					<p className="mt-4 text-[11px] leading-relaxed text-slate-400">
-						Connect wallet to unlock dashboard controls, assign Sophia behaviors, and execute circuit responses.
+						Connect wallet to buy ABRA for early participation, then explore the full vault, market, King AI, and circuit control flow in Devnet showcase mode.
 					</p>
+					</div>
 				</div>
 			</div>
 

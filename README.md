@@ -131,6 +131,9 @@ VITE_SOLANA_RPC=https://api.devnet.solana.com
 VITE_ENABLE_NATIVE_MWA=true
 VITE_OYM_DATA_URL=           # OYM live athlete data endpoint
 VITE_OYM_APP_URL=https://own-your-moment.vercel.app/app
+VITE_LA_CASA_BUY_URL=        # Public La Casa NFT buy page URL
+VITE_ABRA_TOKEN_CONTRACT_ADDRESS=  # ABRA token contract address on BAGS
+VITE_ABRA_TOKEN_BAGS_URL=          # Public BAGS token page URL
 ```
 
 ---
