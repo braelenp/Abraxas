@@ -20,6 +20,66 @@
       ]
     },
     {
+      "name": "depositLaCasaNft",
+      "accounts": [
+        { "name": "owner", "isMut": false, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "stablecoinAmount", "type": "u64" },
+        { "name": "stablecoinMint", "type": "publicKey" }
+      ]
+    },
+    {
+      "name": "depositAthleteEquity",
+      "accounts": [
+        { "name": "owner", "isMut": false, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "athleteSymbol", "type": "string" },
+        { "name": "athleteMint", "type": "publicKey" },
+        { "name": "stablecoinMint", "type": "publicKey" },
+        { "name": "amount", "type": "u64" }
+      ]
+    },
+    {
+      "name": "recordAthleteGrowth",
+      "accounts": [
+        { "name": "authority", "isMut": false, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "athleteSymbol", "type": "string" },
+        { "name": "statsGrowthBps", "type": "u16" },
+        { "name": "trainingGrowthBps", "type": "u16" },
+        { "name": "nilRewardsLamports", "type": "u64" },
+        { "name": "updatedPerformanceScore", "type": "u16" },
+        { "name": "kingSignal", "type": "string" }
+      ]
+    },
+    {
+      "name": "deposit",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "amount", "type": "u64" }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false }
+      ],
+      "args": [
+        { "name": "amount", "type": "u64" }
+      ]
+    },
+    {
       "name": "assignAgent",
       "accounts": [
         { "name": "owner", "isMut": false, "isSigner": true },
@@ -41,6 +101,51 @@
         { "name": "liquidityDrainBps", "type": "u64" },
         { "name": "activitySpikeBps", "type": "u64" }
       ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "vaultAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "publicKey" },
+          { "name": "name", "type": "string" },
+          { "name": "assetType", "type": "string" },
+          { "name": "assetClass", "type": "string" },
+          { "name": "rwaMint", "type": "publicKey" },
+          { "name": "stablecoinMint", "type": "publicKey" },
+          { "name": "athleteEquityMint", "type": "publicKey" },
+          { "name": "agentMint", "type": "publicKey" },
+          { "name": "leadAssetSymbol", "type": "string" },
+          { "name": "rulesHash", "type": "string" },
+          { "name": "depositedLamports", "type": "u64" },
+          { "name": "totalValueUsdc", "type": "u64" },
+          { "name": "stablecoinExposureUsdc", "type": "u64" },
+          { "name": "valueGrowthBps", "type": "i64" },
+          { "name": "performanceScore", "type": "u16" },
+          { "name": "nilRewardsLamports", "type": "u64" },
+          { "name": "lastKingSignal", "type": "string" },
+          { "name": "priceSpeedThresholdBps", "type": "u64" },
+          { "name": "liquidityDrainThresholdBps", "type": "u64" },
+          { "name": "activitySpikeThresholdBps", "type": "u64" },
+          { "name": "lastCircuitAction", "type": { "defined": { "name": "circuitAction" } } }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "circuitAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          { "name": "none" },
+          { "name": "releaseLiquidity" },
+          { "name": "moveToStables" },
+          { "name": "pauseRisk" }
+        ]
+      }
     }
   ]
 }

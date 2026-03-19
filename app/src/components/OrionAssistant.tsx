@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAbraxas } from '../providers/AbraxasProvider';
 
 type ChatMessage = {
   id: string;
@@ -24,7 +25,7 @@ type ScopedChatState = {
 
 type OrionStorageState = Partial<Record<OrionScope, ScopedChatState>>;
 
-const ORION_STORAGE_KEY = 'abraxas_orion_saved_chats_v1';
+const ORION_STORAGE_KEY = 'abraxas_king_saved_chats_v1';
 
 function createId() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -52,22 +53,22 @@ function getOrionScope(pathname: string, embedded: boolean): OrionScope {
 
 function getOrionChatIntro(pathname: string) {
   if (pathname.includes('/app/vaults')) {
-    return 'I am Orion. In Vaults, I can help compare allocation moves, highlight risk-sensitive metrics, and suggest the safest next rebalance step.';
+    return 'I am King AI. In Vaults, I can help route La Casa deposits, compare athlete-equity exposure, and highlight the safest next value-creation move.';
   }
 
   if (pathname.includes('/app/circuit')) {
-    return 'I am Orion. In Circuit, I can help tune trigger thresholds, stress test scenarios, and explain exactly which metric shifts warning to protect.';
+    return 'I am King AI. In Circuit, I can help tune protection thresholds, stage payouts, and explain exactly which metric shifts warning into protection.';
   }
 
   if (pathname.includes('/app/sophia')) {
-    return 'I am Orion. In Sophia, I can guide mint flow, agent setup, and the cleanest sequence of actions after wallet connection.';
+    return 'I am King AI. In Sophia, I can guide manager assignment, mint flow, and the cleanest sequence of actions after wallet connection.';
   }
 
   if (pathname.includes('/app/orion')) {
-    return 'I am Orion. This is your command hub—ask for cross-tab strategy across vaults, circuit safety, and Sophia execution planning.';
+    return 'I am King AI. This is your athlete-equity command hub. Ask for development strategy across training, value growth, circuit safety, and Sophia execution planning.';
   }
 
-  return 'I am Orion. On Dashboard, I can translate live signals into clear next actions across vault operations, safety checks, and execution flow.';
+  return 'I am King AI. On Dashboard, I can translate athlete momentum, vault value growth, and safety signals into the next action.';
 }
 
 function isOrionIntroMessage(text: string) {
@@ -78,7 +79,7 @@ function isOrionIntroMessage(text: string) {
     getOrionChatIntro('/app/circuit'),
     getOrionChatIntro('/app/sophia'),
     getOrionChatIntro('/app/orion'),
-    'I am Orion. Ask me anything about vaults, circuit safety, or Sophia workflows.',
+    'I am King AI. Ask me anything about athlete equity, circuit safety, or Sophia workflows.',
   ];
 
   return introCandidates.includes(normalized);
@@ -104,55 +105,59 @@ function getOrionReply(question: string, pathname: string, scope: OrionScope) {
   const normalized = question.toLowerCase();
 
   if (scope === 'vaults') {
+    if (normalized.includes('deposit') || normalized.includes('la casa') || normalized.includes('exposure')) {
+      return 'In Vaults, route La Casa exposure into the OYM vault first, then allocate incrementally into the athlete token with the strongest development signal. That keeps your cost basis aligned with live growth mechanics.';
+    }
+
     if (normalized.includes('risk') || normalized.includes('warning') || normalized.includes('protect')) {
-      return 'In Vaults, pair utilization changes with circuit sensitivity before reallocation. Shift size gradually and re-check warning/protect behavior after each move.';
+      return 'In Vaults, keep athlete-equity additions smaller when Circuit is already in warning. Build exposure through staged La Casa deposits and let Sophia widen the protective buffer before pushing harder.';
     }
 
-    if (normalized.includes('apy') || normalized.includes('yield') || normalized.includes('allocation') || normalized.includes('rebalance')) {
-      return 'In Vaults, compare utilization and projected APY first, then rebalance in smaller steps. Orion recommends incremental allocation moves instead of single large shifts.';
-    }
-
-    return 'Vaults mode active. Ask me to compare allocations, identify risk-sensitive vault metrics, or plan your next rebalance step.';
+    return 'Vaults mode active. Ask me to compare athlete tokens, size a La Casa deposit, or identify the next safest allocation move.';
   }
 
   if (scope === 'circuit') {
     if (normalized.includes('trigger') || normalized.includes('threshold') || normalized.includes('stress') || normalized.includes('risk')) {
-      return 'In Circuit, tune one threshold at a time and run Evaluate Circuit after each change. Start near 450/350/500 bps, then raise stress inputs to see warning/protect transitions clearly.';
+      return 'In Circuit, tune one threshold at a time and run Evaluate Circuit after each change. Start near 450/350/500 bps, then raise stress inputs until athlete-equity volatility transitions from warning to protection.';
     }
 
-    return 'Circuit mode active. Ask me to tune trigger values, run stress scenarios, or explain why a state stayed normal, warning, or protect.';
+    return 'Circuit mode active. Ask me to tune trigger values, stage protective payouts, or explain why a state stayed normal, warning, or protected.';
   }
 
   if (scope === 'sophia') {
-    if (normalized.includes('list') || normalized.includes('rent') || normalized.includes('fee') || normalized.includes('market')) {
-      return 'In Sophia, set a clear daily fee, list first, and then validate renter flow with a small test. Keep wallet connected so logs and actions stay synchronized.';
+    if (normalized.includes('manager') || normalized.includes('assign') || normalized.includes('vault')) {
+      return 'In Sophia, assign the Sentinel profile to athlete-equity vaults first, then widen into Yield or Defensive once you have a stable development cadence and clear Circuit behavior.';
     }
 
     if (normalized.includes('mint') || normalized.includes('agent') || normalized.includes('nft')) {
-      return 'Sophia mint checkout is reserved for V2 in this build. Use the current Sophia stubs to validate flow sequencing and prepare agent operations.';
+      return 'Sophia mint checkout is still a stub in this build. Use it to validate wallet-first manager setup while the vault and King AI loops mature on devnet.';
     }
 
-    return 'Sophia mode active. Ask me to plan listing/renting steps, tune daily fee strategy, or sequence wallet-first actions.';
+    return 'Sophia mode active. Ask me to plan manager assignment, tune rental strategy, or sequence wallet-first actions.';
   }
 
   if (normalized.includes('wallet') || normalized.includes('connect')) {
     return 'Tap Connect Wallet in the header, choose Phantom or Backpack, and approve the session. Once connected, all simulator actions are unlocked.';
   }
 
+  if (normalized.includes('cdubb') || normalized.includes('ajwill') || normalized.includes('hailee') || normalized.includes('athlete')) {
+    return 'Focus on the athlete with the strongest mix of training score, stat index, and NIL momentum. The best Abraxas move is the one that compounds measurable development into valuation, not the one that simply chases the hottest print.';
+  }
+
   if (scope === 'dashboard' || pathname.includes('/app/orion')) {
     if (normalized.includes('circuit') || normalized.includes('risk') || normalized.includes('trigger')) {
-      return 'Use the Circuit tab to set speed, liquidity drain, and activity spike thresholds, then stress test to confirm warning/protect behavior before production moves.';
+      return 'Use the Circuit tab to set speed, liquidity drain, and activity spike thresholds, then stress test to confirm warning/protect behavior before increasing athlete-equity exposure.';
     }
 
-    if (normalized.includes('vault') || normalized.includes('yield') || normalized.includes('allocation')) {
-      return 'Use Vaults to compare utilization, APY, and allocation drift. Orion recommends gradual reallocations with circuit checks between each step.';
+    if (normalized.includes('vault') || normalized.includes('allocation') || normalized.includes('market')) {
+      return 'Use Vaults to route La Casa exposure into the OYM basket, then allocate gradually across the athlete tokens with the cleanest King AI signal. Smaller staged moves keep Circuit optionality intact.';
     }
 
     if (normalized.includes('sophia') || normalized.includes('agent') || normalized.includes('mint')) {
-      return 'In this V1 build, Sophia mint checkout is reserved for V2. You can still test listing/renting stubs and agent workflow sequencing.';
+      return 'In this build, Sophia remains the manager layer around the athlete-equity vault. You can assign agents now and keep the mint stub for devnet validation until the full autonomous loop is wired.';
     }
 
-    return 'Ask me for cross-tab strategy across vault allocations, circuit risk posture, and Sophia execution planning.';
+    return 'Ask me for cross-tab strategy across athlete development, vault allocations, circuit posture, and Sophia execution planning.';
   }
 
   return 'Ask me for the next best action in this tab and I will keep guidance scoped to your current workflow.';
@@ -187,34 +192,34 @@ function getOrionTabIntro(pathname: string) {
   if (pathname.includes('/app/vaults')) {
     return {
       title: 'Vaults Guidance',
-      description: 'I help you compare utilization, allocation moves, and assignment choices so you can rebalance with confidence.',
+      description: 'I help you price La Casa deposits, compare athlete-equity allocations, and keep exposure growth aligned with Circuit safety.',
     };
   }
 
   if (pathname.includes('/app/circuit')) {
     return {
       title: 'Circuit Guidance',
-      description: 'I help you tune trigger thresholds, stress-test scenarios, and isolate which metric shifts warning to protect.',
+      description: 'I help you tune trigger thresholds, stage protective payouts, and isolate which metric shifts warning to protection.',
     };
   }
 
   if (pathname.includes('/app/sophia')) {
     return {
       title: 'Sophia Guidance',
-      description: 'I help you walk through mint and agent workflows, verify setup, and sequence next actions after connection.',
+      description: 'I help you walk through manager workflows, verify setup, and sequence the next actions after connection.',
     };
   }
 
   if (pathname.includes('/app/orion')) {
     return {
-      title: 'Orion Command Hub',
-      description: 'Use me for cross-tab strategy: vault decisions, circuit safety checks, and execution planning in one thread.',
+      title: 'King AI Command Hub',
+      description: 'Use me for cross-tab strategy: athlete development, vault decisions, circuit safety checks, and execution planning in one thread.',
     };
   }
 
   return {
     title: 'Dashboard Guidance',
-    description: 'I help you interpret platform signals and turn dashboard context into clear, high-confidence next moves.',
+    description: 'I help you interpret athlete momentum and turn dashboard context into clear, high-confidence next moves.',
   };
 }
 
@@ -224,6 +229,7 @@ type OrionAssistantProps = {
 
 export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
   const { pathname } = useLocation();
+  const { athleteTokens } = useAbraxas();
   const scope = useMemo(() => getOrionScope(pathname, embedded), [embedded, pathname]);
   const [open, setOpen] = useState(embedded);
   const [input, setInput] = useState('');
@@ -294,13 +300,17 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
 
   const placeholder = useMemo(() => {
     if (pathname.includes('/app/circuit')) return 'How do I test a circuit trigger?';
-    if (pathname.includes('/app/vaults')) return 'Which vault metric should I watch first?';
-    if (pathname.includes('/app/sophia')) return 'How do I mint a Sophia NFT?';
-    return 'Type your question...';
+    if (pathname.includes('/app/vaults')) return 'Which athlete token should absorb the next La Casa deposit?';
+    if (pathname.includes('/app/sophia')) return 'Which Sophia profile fits this vault?';
+    return 'Ask about athlete equity, King AI, or Circuit safety...';
   }, [pathname]);
 
   const chatIntro = useMemo(() => getOrionChatIntro(pathname), [pathname]);
   const tabIntro = useMemo(() => getOrionTabIntro(pathname), [pathname]);
+  const athleteTicker = useMemo(
+    () => athleteTokens.map((token) => `${token.symbol} ${token.valueGrowthPct.toFixed(1)}%`).join(' • '),
+    [athleteTokens],
+  );
   const visibleMessages = useMemo(
     () => activeSession?.messages.filter((message) => !(message.role === 'assistant' && isOrionIntroMessage(message.text))) ?? [],
     [activeSession?.messages],
@@ -356,7 +366,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       }`}
     >
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold text-cyan-300">Orion Assistant</h2>
+        <h2 className="text-xl font-semibold text-cyan-300">King AI Assistant</h2>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setHistoryOpen((current) => !current)}
@@ -384,6 +394,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       <div className="mb-2 rounded-xl border border-cyan-300/30 bg-slate-900/70 p-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-cyan-200/90">{tabIntro.title}</p>
         <p className="mt-1 text-xs leading-relaxed text-slate-300">{tabIntro.description}</p>
+        <p className="mt-2 text-[11px] text-slate-400/90">Live basket: {athleteTicker}</p>
       </div>
 
       {historyOpen ? (
@@ -454,10 +465,10 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
         <div className="flex justify-end">
           <button
             onClick={() => setOpen((current) => !current)}
-            aria-label="Toggle Orion Assistant"
+            aria-label="Toggle King AI Assistant"
             className="orion-widget-pulse ui-action pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-cyan-300/65 bg-slate-900/88 text-2xl shadow-[0_0_24px_rgba(34,211,238,0.55)]"
           >
-            🧠
+            K
           </button>
         </div>
 

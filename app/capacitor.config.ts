@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.abraxas.mobile',
+  appId: 'io.abraxas.app',
   appName: 'Abraxas',
   webDir: 'dist',
   plugins: {

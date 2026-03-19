@@ -1,11 +1,13 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Brain, LayoutDashboard, ShieldAlert, Sparkles, Vault } from 'lucide-react';
+import { Brain, CandlestickChart, LayoutDashboard, ShieldAlert, Sparkles, Vault, Zap } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
+import { MarketPage } from './pages/MarketPage';
+import { OnboardPage } from './pages/OnboardPage';
 import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
@@ -16,9 +18,10 @@ import { OrionAssistant } from './components/OrionAssistant';
 const navItems = [
   { to: '/app', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/app/vaults', label: 'Vaults', icon: Vault },
-  { to: '/app/orion', label: 'Orion', icon: Brain },
+  { to: '/app/market', label: 'Market', icon: CandlestickChart },
+  { to: '/app/onboard', label: 'Onboard', icon: Zap },
+  { to: '/app/orion', label: 'King AI', icon: Brain },
   { to: '/app/circuit', label: 'Circuit', icon: ShieldAlert },
-  { to: '/app/sophia', label: 'Sophia', icon: Sparkles },
 ];
 
 function ProtectedDapp() {
@@ -127,13 +130,15 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">RWA Vaults + Sophia Agents + Circuit Safety</p>
+        <p className="text-xs text-slate-300/80">La Casa deposits + Athlete Equity + Circuit Safety</p>
       </header>
 
       <main className="px-4 py-4 pb-[calc(5.25rem+env(safe-area-inset-bottom))]">
         <Routes>
           <Route index element={<DashboardPage />} />
           <Route path="vaults" element={<VaultsPage />} />
+          <Route path="market" element={<MarketPage />} />
+          <Route path="onboard" element={<OnboardPage />} />
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
           <Route path="sophia" element={<SophiaMintPage />} />
@@ -148,29 +153,32 @@ function DappShell() {
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
                 <p className="text-base font-semibold text-cyan-100">Welcome to ABRAXAS</p>
                 <p className="mt-2 leading-relaxed text-slate-300">
-                  You are entering a command layer for intelligent, real-world asset strategy on Solana — where vault orchestration, autonomous agents, and circuit safety converge.
+                  You are entering the World Labs RWA stock market on Solana, where La Casa exposure, athlete equity development, Sophia management, and circuit safety converge.
                 </p>
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">What you can do</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• Monitor dashboard signals across liquidity, activity, and protocol behavior.</li>
-                  <li>• Build and manage RWA vaults with guided allocation and assignment flows.</li>
-                  <li>• Run Orion for tactical assistance on risk, vault operations, and next actions.</li>
-                  <li>• Configure Circuit thresholds to simulate warning and protection states.</li>
-                  <li>• Explore Sophia workflows for minting and agent-based execution paths.</li>
+                  <li>• Convert La Casa NFT purchases into stablecoin exposure that auto-deposits into Abraxas vaults.</li>
+                  <li>• Trade athlete equity as the first live RWA class through $CDUBB, $AJWILL, and $HAILEE baskets.</li>
+                  <li>• Review the Market data book for listed assets, class filters, and hypothetical listing pipelines.</li>
+                  <li>• Run King AI for development guidance across training, stats, and NIL actions that grow token value.</li>
+                  <li>• Configure Circuit thresholds to stage payouts and protect the market during volatility.</li>
+                  <li>• Explore Sophia workflows for vault management and future autonomous execution paths.</li>
                 </ul>
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">Tab overview</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> your live command center for ecosystem signals and rapid status checks.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> create and manage RWA vault positions, allocations, and operational assignments.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Orion:</span> strategic assistant for guided decisions across risk, flows, and execution paths.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune protection thresholds and test warning/protect behavior under stress.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Sophia:</span> run agent and mint workflows powering autonomous on-chain actions.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> the market overview for live RWA value, athlete momentum, and portfolio protection.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> buy La Casa exposure, auto-route deposits, and manage athlete-equity positions.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Market:</span> browse listed assets, compare classes, and track hypothetical examples in one data book.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Onboard:</span> mint La Casa NFTs to onboard capital and earn a token airdrop, or acquire ABX tokens for immediate stake.</li>
+                  <li>• <span className="font-semibold text-cyan-100">King AI:</span> analyze athlete development metrics and push value-creation actions into the market.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune safety logic for warning, protective liquidity, and payout triggers.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Sophia:</span> manage vault oversight and prepare autonomous managers for future classes.</li>
                 </ul>
 
                 <p className="mt-3 leading-relaxed text-slate-300">
-                  Start with a vault, stress-test your circuit logic, then let Orion guide your optimal move.
+                  Start with an athlete-equity vault, route La Casa exposure into it, then let King AI decide the next development move.
                 </p>
               </div>
 
@@ -236,6 +244,8 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/app/*" element={<ProtectedDapp />} />
       <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
+      <Route path="/market" element={<Navigate to="/app/market" replace />} />
+      <Route path="/onboard" element={<Navigate to="/app/onboard" replace />} />
       <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
       <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
       <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />

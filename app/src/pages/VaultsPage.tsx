@@ -3,12 +3,35 @@ import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
 
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
+const laCasaCollections = ['La Casa Genesis', 'La Casa Athlete Series', 'La Casa Founder Drop'];
+
+function assetTypeLabel(assetType: VaultAssetType) {
+  if (assetType === 'athlete_equity') return 'Athlete Equity';
+  if (assetType === 'real_estate') return 'Real Estate Development';
+  return 'Trading Portfolios';
+}
 
 export function VaultsPage() {
-  const { vaults, createVault, assignAgent } = useAbraxas();
+  const {
+    vaults,
+    athleteTokens,
+    futureAssetClasses,
+    createVault,
+    assignAgent,
+    depositLaCasa,
+    oymSyncStatus,
+    oymSource,
+    lastOymSyncAt,
+    refreshOymData,
+  } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
-  const [assetType, setAssetType] = useState<VaultAssetType>('invoice');
+  const [assetType, setAssetType] = useState<VaultAssetType>('athlete_equity');
   const [selectedAgents, setSelectedAgents] = useState<Record<string, string>>({});
+  const [selectedVaultId, setSelectedVaultId] = useState(vaults[0]?.id ?? '');
+  const [depositLabel, setDepositLabel] = useState('La Casa Athlete Series #104');
+  const [depositCollection, setDepositCollection] = useState(laCasaCollections[1]);
+  const [stablecoinAmount, setStablecoinAmount] = useState(2500);
+  const [athleteTokenId, setAthleteTokenId] = useState(athleteTokens[0]?.id ?? '');
 
   const getSelectedAgent = (vaultId: string, assignedAgent?: string | null) => {
     return selectedAgents[vaultId] ?? assignedAgent ?? agentOptions[0];
@@ -23,8 +46,139 @@ export function VaultsPage() {
     setVaultName('');
   };
 
+  const onDepositLaCasa = (event: FormEvent) => {
+    event.preventDefault();
+    if (!selectedVaultId || !depositLabel.trim() || stablecoinAmount <= 0) {
+      return;
+    }
+
+    depositLaCasa({
+      vaultId: selectedVaultId,
+      label: depositLabel.trim(),
+      collection: depositCollection,
+      stablecoinAmount,
+      athleteTokenId: athleteTokenId || undefined,
+    });
+    setDepositLabel('La Casa Athlete Series #105');
+    setStablecoinAmount(1800);
+  };
+
   return (
     <section className="space-y-4">
+      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas Vault Market</p>
+        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Athlete Equity (First Asset Class)</h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
+          Buy La Casa NFTs with stablecoin, route exposure into the vault, then allocate it across $CDUBB, $AJWILL, and $HAILEE while King AI develops underlying value.
+        </p>
+        <p className="mt-3 text-sm text-amber-100/90">Real Estate Development and Trading Portfolios are already staged as the next classes in the same market structure.</p>
+        <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3 text-xs text-slate-300/85">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p>
+              OYM sync status:
+              <span className="ml-1 font-semibold text-cyan-100">{oymSyncStatus}</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => void refreshOymData()}
+              className="ui-action rounded-xl bg-cyan-300 px-2.5 py-1.5 text-xs font-semibold text-slate-950"
+            >
+              Refresh OYM data
+            </button>
+          </div>
+          {oymSource ? <p className="mt-2 truncate text-[11px] text-slate-400">Source: {oymSource}</p> : null}
+          {lastOymSyncAt ? <p className="mt-1 text-[11px] text-slate-400">Last sync: {new Date(lastOymSyncAt).toLocaleString()}</p> : null}
+        </div>
+      </article>
+
+      <form onSubmit={onDepositLaCasa} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <p className="mb-3 text-sm font-medium">La Casa NFT auto-deposit</p>
+        <select
+          value={selectedVaultId}
+          onChange={(event) => setSelectedVaultId(event.target.value)}
+          className="mb-2 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+        >
+          {vaults.map((vault) => (
+            <option key={vault.id} value={vault.id}>
+              {vault.name}
+            </option>
+          ))}
+        </select>
+        <input
+          value={depositLabel}
+          onChange={(event) => setDepositLabel(event.target.value)}
+          className="mb-2 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+          placeholder="La Casa NFT label"
+        />
+        <select
+          value={depositCollection}
+          onChange={(event) => setDepositCollection(event.target.value)}
+          className="mb-2 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+        >
+          {laCasaCollections.map((collection) => (
+            <option key={collection} value={collection}>
+              {collection}
+            </option>
+          ))}
+        </select>
+        <input
+          type="number"
+          min="1"
+          value={stablecoinAmount}
+          onChange={(event) => setStablecoinAmount(Number(event.target.value))}
+          className="mb-2 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+          placeholder="Stablecoin exposure"
+        />
+        <select
+          value={athleteTokenId}
+          onChange={(event) => setAthleteTokenId(event.target.value)}
+          className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+        >
+          {athleteTokens.map((token) => (
+            <option key={token.id} value={token.id}>
+              {token.symbol} • {token.name}
+            </option>
+          ))}
+        </select>
+        <button type="submit" className="ui-action w-full rounded-xl bg-cyan-300 px-3 py-2 text-sm font-semibold text-slate-950">
+          Deposit La Casa Exposure
+        </button>
+      </form>
+
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <p className="mb-3 text-sm font-medium">Athlete equity board</p>
+        <div className="space-y-3">
+          {athleteTokens.map((token) => (
+            <div key={token.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-slate-100">{token.symbol}</p>
+                  <p className="text-xs text-slate-400/80">{token.name}</p>
+                </div>
+                <div className="text-right text-xs text-slate-300/85">
+                  <p>${token.price.toFixed(2)}</p>
+                  <p className="mt-1 text-cyan-200">+{token.changePct.toFixed(1)}%</p>
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-3 gap-2 text-[11px] text-slate-300/85">
+                <div className="rounded-xl border border-cyan-300/15 bg-slate-900/80 px-2 py-2">
+                  <p className="text-slate-500">Exposure</p>
+                  <p className="mt-1 font-semibold text-slate-100">${token.exposure.toLocaleString()}</p>
+                </div>
+                <div className="rounded-xl border border-cyan-300/15 bg-slate-900/80 px-2 py-2">
+                  <p className="text-slate-500">Training</p>
+                  <p className="mt-1 font-semibold text-slate-100">{token.trainingScore}/99</p>
+                </div>
+                <div className="rounded-xl border border-cyan-300/15 bg-slate-900/80 px-2 py-2">
+                  <p className="text-slate-500">Growth</p>
+                  <p className="mt-1 font-semibold text-slate-100">{token.valueGrowthPct.toFixed(1)}%</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+
       <form onSubmit={onCreateVault} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
         <p className="mb-3 text-sm font-medium">Create RWA Vault</p>
         <input
@@ -38,9 +192,9 @@ export function VaultsPage() {
           onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
           className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
         >
-          <option value="invoice">Tokenized Invoices</option>
-          <option value="art">Tokenized Art</option>
-          <option value="carbon">Carbon Credits</option>
+          <option value="athlete_equity">Athlete Equity</option>
+          <option value="real_estate">Real Estate Development</option>
+          <option value="trading_portfolio">Trading Portfolios</option>
         </select>
         <button type="submit" className="ui-action w-full rounded-xl bg-cyan-300 px-3 py-2 text-sm font-semibold text-slate-950">
           Create Vault
@@ -52,8 +206,10 @@ export function VaultsPage() {
           <div key={vault.id} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
             <p className="text-sm font-medium">{vault.name}</p>
             <p className="mt-1 text-xs text-slate-300/80">
-              {vault.assetType.toUpperCase()} • Circuit: {vault.circuitState}
+              {assetTypeLabel(vault.assetType)} • Circuit: {vault.circuitState}
             </p>
+            <p className="mt-1 text-xs text-slate-300/80">Vault value: ${vault.vaultValue.toLocaleString()} • La Casa deposits: {vault.laCasaDeposits}</p>
+            <p className="mt-1 text-xs text-slate-300/80">Athlete exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
             <p className="mt-1 text-xs text-slate-300/80">Assigned: {vault.assignedAgent ?? 'None'}</p>
             <div className="mt-3 flex gap-2">
               <select
@@ -81,6 +237,23 @@ export function VaultsPage() {
             </div>
           </div>
         ))}
+      </article>
+
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <p className="mb-3 text-sm font-medium">Future asset class hints</p>
+        <div className="space-y-2">
+          {futureAssetClasses.map((assetClass) => (
+            <div key={assetClass.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-medium text-slate-100">{assetClass.title}</p>
+                <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
+                  {assetClass.status === 'coming_soon' ? 'Coming soon' : 'Blueprint'}
+                </span>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-slate-300/80">{assetClass.description}</p>
+            </div>
+          ))}
+        </div>
       </article>
     </section>
   );

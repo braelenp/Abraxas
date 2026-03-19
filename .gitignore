@@ -24,3 +24,4 @@ Thumbs.db
 # IDE / editor
 .vscode/
 .idea/
+app/android/abraxas-release.jks
