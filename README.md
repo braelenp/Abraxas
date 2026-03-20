@@ -1,27 +1,28 @@
-# Abraxas - Sovereign Guardians for RWAs
-# Abraxas — RWA Stock Market on Solana
+# Abraxas – The RWA Stock Market on Solana
 
-**The first on-chain Real World Asset Stock Market. Tokenized athlete equity, real estate, music rights, trading portfolios, and IP licensing — built on Solana, managed by AI agents, protected by an on-chain circuit breaker.**
+**World Labs Protocol**
 
----
+Abraxas is the first RWA Stock Market on Solana. Buy the ABRA token directly in the app (Bags ~0% fees) to own equity in the entire platform. Stake ABRA for multipliers and priority airdrops.
 
-## What Is Abraxas?
+Sophia agents manage future vaults, Circuit safety protects during volatility, and King AI delivers real-time insights. Athlete equity (OYM structure) is the first planned asset class. La Casa NFTs and full RWA access will be airdropped to ABRA holders during beta.
 
-Abraxas is a decentralized RWA Stock Market where real-world assets are tokenized, vaulted, and grown by AI agents using verifiable performance data. It is available as a web app (Vercel) and a native Android app.
+## Token Model
+- **ABRA** – main utility & platform equity (live)
+- Future asset-class tokens (e.g., planned OYM) – vertical representatives
+- Athlete tokens – sub-assets (planned examples only)
 
-The first live asset class is **Athlete Equity** — fractional ownership tokens tied to the real training, game stats, and NIL economics of individual athletes. Every token price is driven by on-chain data, not speculation.
+## Staking
+Buy ABRA → stake for 30/90/180 days  
+Multipliers: 1.2x / 1.8x / 2.5x  
+Longer locks = higher airdrop priority
 
----
+## Quick Start
+1. `yarn install`
+2. `yarn dev`
+3. Buy ABRA on the Onboard tab (Bags integration)
+4. Stake directly in the app
 
-## Early Adoption: Two Onboarding Paths
-
-### 1. Token Acquisition — Direct equity stake
-Abraxas tokens are **live**. Buying now means owning fractional equity in the RWA market infrastructure at its earliest valuation. Token holders gain position before Real Estate, Music Rights, Trading Portfolios, and IP Licensing expand the underlying demand surface.
-
-### 2. La Casa NFT Onboarding — Capital bridge → token airdrop
-La Casa NFTs are the stablecoin-backed capital onboarding mechanism for Abraxas vaults. Each NFT embeds a USDC deposit that routes into a specific RWA vault on-chain. Early NFT holders are recorded as capital founders and receive a **proportional Abraxas token airdrop** at launch.
-
-Both paths converge at the token — two roads to the same destination: early equity in the Abraxas RWA Stock Market.
+Devnet showcase mode shows the full vision (vaults, Sophia, Circuit, King AI) while token-first onboarding ramps up.
 
 ---
 
