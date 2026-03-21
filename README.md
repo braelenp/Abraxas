@@ -4,6 +4,16 @@
 
 Abraxas is the first RWA Stock Market on Solana. Buy the ABRA token directly in the app (Bags ~0% fees) to own equity in the entire platform. Stake ABRA for multipliers and priority airdrops.
 
+# ABRA Token & Asset Links
+
+**ABRA CA:** `5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS`
+
+[View ABRA Bag](https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS)
+
+[Live dApp (Vercel)](https://abraxas-ten.vercel.app/)
+
+---
+
 Sophia agents manage future vaults, Circuit safety protects during volatility, and King AI delivers real-time insights. Athlete equity (OYM structure) is the first planned asset class. La Casa NFTs and full RWA access will be airdropped to ABRA holders during beta.
 
 ## Token Model

@@ -8,6 +8,10 @@ const MAX_RULES_HASH: usize = 96;
 const MAX_ASSET_CLASS_LEN: usize = 32;
 const MAX_SYMBOL_LEN: usize = 12;
 const MAX_SIGNAL_LEN: usize = 160;
+const SECONDS_PER_DAY: u64 = 86_400;
+const THIRTY_DAY_SECONDS: u64 = 30 * SECONDS_PER_DAY;
+const NINETY_DAY_SECONDS: u64 = 90 * SECONDS_PER_DAY;
+const ONE_EIGHTY_DAY_SECONDS: u64 = 180 * SECONDS_PER_DAY;
 
 #[program]
 pub mod abraxas {
@@ -329,6 +333,97 @@ pub mod abraxas {
 
         Ok(())
     }
+
+    pub fn stake_abra(
+        ctx: Context<StakeAbra>,
+        amount: u64,
+        duration_days: u64,
+    ) -> Result<()> {
+        require!(amount > 0, AbraxasError::InvalidAmount);
+        require!(
+            duration_days == 30 || duration_days == 90 || duration_days == 180,
+            AbraxasError::InvalidLockDuration
+        );
+
+        let stake = &mut ctx.accounts.stake;
+        stake.staker = ctx.accounts.staker.key();
+        stake.abra_amount = amount;
+        stake.lock_duration_days = duration_days;
+        stake.staked_at = Clock::get()?.unix_timestamp as u64;
+        stake.unlock_at = stake.staked_at
+            + match duration_days {
+                30 => THIRTY_DAY_SECONDS,
+                90 => NINETY_DAY_SECONDS,
+                180 => ONE_EIGHTY_DAY_SECONDS,
+                _ => return Err(AbraxasError::InvalidLockDuration.into()),
+            };
+        stake.multiplier_bps = match duration_days {
+            30 => 12_000,  // 1.2x
+            90 => 18_000,  // 1.8x
+            180 => 25_000, // 2.5x
+            _ => return Err(AbraxasError::InvalidLockDuration.into()),
+        };
+        stake.is_active = true;
+        stake.claimed_rewards = 0;
+
+        emit!(AbraStaked {
+            staker: ctx.accounts.staker.key(),
+            amount,
+            duration_days,
+            multiplier_bps: stake.multiplier_bps,
+            unlock_at: stake.unlock_at,
+        });
+
+        Ok(())
+    }
+
+    pub fn unstake_abra(ctx: Context<UnstakeAbra>) -> Result<()> {
+        let stake = &mut ctx.accounts.stake;
+        let now = Clock::get()?.unix_timestamp as u64;
+
+        require!(stake.staker == ctx.accounts.staker.key(), AbraxasError::Unauthorized);
+        require!(stake.is_active, AbraxasError::StakeNotActive);
+        require!(now >= stake.unlock_at, AbraxasError::StakeLocked);
+
+        stake.is_active = false;
+
+        emit!(AbraUnstaked {
+            staker: ctx.accounts.staker.key(),
+            amount: stake.abra_amount,
+            total_earned: stake.abra_amount
+                .checked_mul(stake.multiplier_bps)
+                .unwrap_or(0)
+                .checked_div(10_000)
+                .unwrap_or(0),
+        });
+
+        Ok(())
+    }
+
+    pub fn claim_stakes(ctx: Context<ClaimStakes>) -> Result<()> {
+        let stake = &mut ctx.accounts.stake;
+        require!(stake.staker == ctx.accounts.staker.key(), AbraxasError::Unauthorized);
+        require!(stake.is_active == false, AbraxasError::StakeNotUnstaked);
+
+        let earned = stake.abra_amount
+            .checked_mul(stake.multiplier_bps)
+            .ok_or(AbraxasError::MathOverflow)?
+            .checked_div(10_000)
+            .ok_or(AbraxasError::MathOverflow)?
+            .checked_sub(stake.abra_amount)
+            .ok_or(AbraxasError::MathOverflow)?;
+
+        stake.claimed_rewards = earned;
+
+        emit!(AbrasRewardsClaimed {
+            staker: ctx.accounts.staker.key(),
+            original_stake: stake.abra_amount,
+            rewards_earned: earned,
+            total_value: stake.abra_amount.checked_add(earned).unwrap_or(0),
+        });
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -391,6 +486,35 @@ pub struct TrackKingSignal<'info> {
     pub vault: Account<'info, VaultAccount>,
 }
 
+#[derive(Accounts)]
+pub struct StakeAbra<'info> {
+    #[account(mut)]
+    pub staker: Signer<'info>,
+    #[account(
+        init,
+        payer = staker,
+        space = 8 + StakeAccount::INIT_SPACE,
+        seeds = [b"stake", staker.key().as_ref()],
+        bump
+    )]
+    pub stake: Account<'info, StakeAccount>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct UnstakeAbra<'info> {
+    pub staker: Signer<'info>,
+    #[account(mut, seeds = [b"stake", staker.key().as_ref()], bump)]
+    pub stake: Account<'info, StakeAccount>,
+}
+
+#[derive(Accounts)]
+pub struct ClaimStakes<'info> {
+    pub staker: Signer<'info>,
+    #[account(mut, seeds = [b"stake", staker.key().as_ref()], bump)]
+    pub stake: Account<'info, StakeAccount>,
+}
+
 #[account]
 #[derive(InitSpace)]
 pub struct VaultAccount {
@@ -429,6 +553,19 @@ pub enum CircuitAction {
     ReleaseLiquidity,
     MoveToStables,
     PauseRisk,
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct StakeAccount {
+    pub staker: Pubkey,
+    pub abra_amount: u64,
+    pub lock_duration_days: u64,
+    pub staked_at: u64,
+    pub unlock_at: u64,
+    pub multiplier_bps: u64,
+    pub is_active: bool,
+    pub claimed_rewards: u64,
 }
 
 #[event]
@@ -479,6 +616,30 @@ pub struct KingSignalTracked {
     pub king_signal: String,
 }
 
+#[event]
+pub struct AbraStaked {
+    pub staker: Pubkey,
+    pub amount: u64,
+    pub duration_days: u64,
+    pub multiplier_bps: u64,
+    pub unlock_at: u64,
+}
+
+#[event]
+pub struct AbraUnstaked {
+    pub staker: Pubkey,
+    pub amount: u64,
+    pub total_earned: u64,
+}
+
+#[event]
+pub struct AbrasRewardsClaimed {
+    pub staker: Pubkey,
+    pub original_stake: u64,
+    pub rewards_earned: u64,
+    pub total_value: u64,
+}
+
 #[error_code]
 pub enum AbraxasError {
     #[msg("Unauthorized request")]
@@ -499,4 +660,12 @@ pub enum AbraxasError {
     AthleteSymbolTooLong,
     #[msg("King signal exceeds max length")]
     SignalTooLong,
+    #[msg("Invalid lock duration - must be 30, 90, or 180 days")]
+    InvalidLockDuration,
+    #[msg("Stake is not active")]
+    StakeNotActive,
+    #[msg("Stake is still locked")]
+    StakeLocked,
+    #[msg("Stake has not been unstaked yet")]
+    StakeNotUnstaked,
 }

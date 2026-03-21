@@ -4,6 +4,28 @@ export type CircuitState = 'normal' | 'warning' | 'protected';
 
 export type VaultPolicy = 'growth' | 'balanced' | 'defensive';
 
+export type StakeDuration = 30 | 90 | 180;
+
+export type StakeRecord = {
+  address: string;
+  staker: string;
+  abraAmount: number;
+  lockDurationDays: number;
+  stakedAt: number;
+  unlockedAt: number;
+  multiplierBps: number;
+  isActive: boolean;
+  claimedRewards: number;
+};
+
+export type StakeConfig = {
+  duration: StakeDuration;
+  multiplier: number;
+  displayMultiplier: string;
+  label: string;
+  description: string;
+};
+
 export type KingSuggestion = {
   id: string;
   title: string;
@@ -74,4 +96,49 @@ export type FutureAssetClass = {
   title: string;
   description: string;
   status: 'blueprint' | 'coming_soon';
+};
+
+export type SophiaAgent = {
+  id: string;
+  name: string;
+  description: string;
+  personality: 'aggressive' | 'balanced' | 'conservative' | 'momentum' | 'mean_reversion';
+  specialty: string; // e.g., "Athlete Equity Specialist", "RWA Swing Trader"
+  status: 'active' | 'training' | 'retired';
+  tradingStyle: string;
+  riskTolerance: 'low' | 'medium' | 'high';
+  // Performance metrics
+  totalTradesExecuted: number;
+  totalVolumeTraded: number; // in USDC equivalent
+  totalPnL: number; // total profit/loss
+  winRate: number; // 0-100, percentage of profitable trades
+  averageReturnBps: number; // basis points per trade
+  performanceScore: number; // 0-100, derived from metrics
+  // Tracking
+  createdAt: string;
+  lastTradeAt?: string;
+  monthlyWinRate?: number;
+  sharpeRatio?: number; // risk-adjusted return
+  maxDrawdown?: number; // worst peak-to-trough decline
+  // Value tracking
+  assignedToVaults: string[]; // vault IDs
+  mintedTokenAmount?: number; // if minted as token
+};
+
+export type SophiaTradeRecord = {
+  id: string;
+  sophiaAgentId: string;
+  timestamp: string;
+  fromMint: string;
+  toMint: string;
+  fromSymbol: string;
+  toSymbol: string;
+  inputAmount: number;
+  outputAmount: number;
+  executedPrice: number;
+  entryReason: string; // brief description of why this trade was executed
+  priceAtEntry: number;
+  priceAtExit?: number;
+  pnl?: number;
+  status: 'executed' | 'pending' | 'cancelled';
 };

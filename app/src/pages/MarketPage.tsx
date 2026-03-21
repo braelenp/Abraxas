@@ -1,5 +1,166 @@
+// --- RWA Prediction Market Types ---
+type PredictionMarket = {
+  id: string;
+  question: string;
+  category: 'athlete' | 'real_estate' | 'other';
+  status: 'open' | 'closed' | 'settled';
+  outcomes: string[];
+  totalYes: number;
+  totalNo: number;
+  userBet?: 'yes' | 'no';
+  kingProbability: number; // 0-100
+  circuitFlag?: 'warning' | 'critical';
+  streak?: number;
+  multiplier?: number;
+  challenge?: string;
+  reward?: string;
+};
+
+const initialPredictionMarkets: PredictionMarket[] = [
+  {
+    id: 'pred-1',
+    question: 'Will Caleb score >25 next game?',
+    category: 'athlete',
+    status: 'open',
+    outcomes: ['Yes', 'No'],
+    totalYes: 1200,
+    totalNo: 800,
+    kingProbability: 68,
+    circuitFlag: undefined,
+    streak: 2,
+    multiplier: 1.2,
+    challenge: 'Daily Streak: 2+',
+    reward: '25 ABRA + La Casa NFT fragment',
+  },
+  {
+    id: 'pred-2',
+    question: 'Will La Casa REIT yield >7% this quarter?',
+    category: 'real_estate',
+    status: 'open',
+    outcomes: ['Yes', 'No'],
+    totalYes: 900,
+    totalNo: 1100,
+    kingProbability: 41,
+    circuitFlag: 'warning',
+    streak: 0,
+    multiplier: 1.0,
+    challenge: 'First bet bonus',
+    reward: '10 ABRA',
+  },
+];
+// --- RWA Predictions Section ---
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useEffect } from 'react';
+function RwaPredictions() {
+  const { publicKey } = useWallet();
+  const [markets, setMarkets] = useState<PredictionMarket[]>(initialPredictionMarkets);
+  const [betting, setBetting] = useState<string | null>(null);
+  const [betAmount, setBetAmount] = useState<string>('');
+  const [betOutcome, setBetOutcome] = useState<'yes' | 'no' | null>(null);
+  const [betSuccess, setBetSuccess] = useState(false);
+
+  // Simulate King AI suggestion
+  function getKingSuggestion(market: PredictionMarket) {
+    if (market.kingProbability > 60) return 'King AI: High probability for YES';
+    if (market.kingProbability < 40) return 'King AI: High probability for NO';
+    return 'King AI: Market is balanced, use your edge!';
+  }
+
+  // Simulate circuit flag
+  function getCircuitFlag(flag?: 'warning' | 'critical') {
+    if (flag === 'critical') return <span className="text-rose-400 font-bold ml-2">Circuit: High Risk</span>;
+    if (flag === 'warning') return <span className="text-amber-300 font-bold ml-2">Circuit: Warning</span>;
+    return null;
+  }
+
+  // Simulate bet placement
+  function placeBet(marketId: string, outcome: 'yes' | 'no') {
+    if (!betAmount || isNaN(Number(betAmount)) || Number(betAmount) <= 0) return;
+    setMarkets((prev) => prev.map((m) =>
+      m.id === marketId
+        ? {
+            ...m,
+            userBet: outcome,
+            totalYes: outcome === 'yes' ? m.totalYes + Number(betAmount) : m.totalYes,
+            totalNo: outcome === 'no' ? m.totalNo + Number(betAmount) : m.totalNo,
+          }
+        : m
+    ));
+    setBetting(null);
+    setBetSuccess(true);
+    setTimeout(() => setBetSuccess(false), 2000);
+    setBetAmount('');
+    setBetOutcome(null);
+  }
+
+  return (
+    <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/80 p-4 backdrop-blur mt-6">
+      <div className="flex items-center gap-2 mb-2">
+        <Sparkles className="text-cyan-200" size={16} />
+        <h3 className="text-lg font-semibold text-cyan-100">RWA Predictions</h3>
+        <span className="ml-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-xs text-cyan-200 font-semibold">New</span>
+      </div>
+      <p className="text-xs text-slate-300/80 mb-4">Predict real-world asset outcomes. Bet ABRA, win rewards, and climb the leaderboard. Powered by Bags for ~0% fee settlement. King AI provides smart probability estimates. Circuit flags high-risk markets. Top predictors earn ABRA and La Casa NFT fragments.</p>
+      <div className="space-y-4">
+        {markets.map((market) => (
+          <div key={market.id} className="rounded-xl border border-cyan-300/15 bg-slate-950/60 p-4 mb-2">
+            <div className="flex items-center gap-2 mb-1">
+              <Dumbbell size={14} className="text-cyan-300" />
+              <span className="font-semibold text-slate-100 text-sm">{market.question}</span>
+              {getCircuitFlag(market.circuitFlag)}
+            </div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-xs text-cyan-200">King AI Probability: <span className="font-bold">{market.kingProbability}%</span></span>
+              <span className="text-xs text-violet-200">{getKingSuggestion(market)}</span>
+              {market.streak ? <span className="text-xs text-emerald-300 ml-2">Streak: {market.streak}x</span> : null}
+              {market.multiplier && market.multiplier > 1 ? <span className="text-xs text-amber-200 ml-2">Multiplier: {market.multiplier}x</span> : null}
+            </div>
+            <div className="flex items-center gap-4 mb-2">
+              <span className="text-xs text-cyan-100">Yes: <span className="font-bold">{market.totalYes}</span></span>
+              <span className="text-xs text-rose-200">No: <span className="font-bold">{market.totalNo}</span></span>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-2">
+              <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-xs text-emerald-200 font-semibold">{market.reward}</span>
+              <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2 py-0.5 text-xs text-cyan-200 font-semibold">{market.challenge}</span>
+            </div>
+            {market.status === 'open' && !market.userBet && (
+              <div className="flex flex-col sm:flex-row gap-2 mt-2">
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="Bet ABRA amount"
+                  value={betting === market.id ? betAmount : ''}
+                  onChange={(e) => { setBetting(market.id); setBetAmount(e.target.value); }}
+                  className="px-3 py-2 rounded-lg bg-slate-800/60 border border-cyan-400/20 text-white text-xs focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none w-32"
+                />
+                <button
+                  className="px-4 py-2 rounded-lg bg-cyan-500/80 text-white font-semibold text-xs hover:bg-cyan-600/90 transition"
+                  onClick={() => { setBetting(market.id); setBetOutcome('yes'); placeBet(market.id, 'yes'); }}
+                  disabled={!betAmount || Number(betAmount) <= 0}
+                >Bet Yes</button>
+                <button
+                  className="px-4 py-2 rounded-lg bg-rose-500/80 text-white font-semibold text-xs hover:bg-rose-600/90 transition"
+                  onClick={() => { setBetting(market.id); setBetOutcome('no'); placeBet(market.id, 'no'); }}
+                  disabled={!betAmount || Number(betAmount) <= 0}
+                >Bet No</button>
+              </div>
+            )}
+            {market.userBet && (
+              <div className="mt-2 text-xs text-emerald-300 font-semibold">Your bet: {market.userBet.toUpperCase()}</div>
+            )}
+          </div>
+        ))}
+      </div>
+      {betSuccess && <div className="mt-3 text-center text-emerald-300 font-bold">Bet placed! Good luck!</div>}
+      <div className="mt-6 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-3 text-xs text-cyan-200">
+        <span className="font-semibold">Leaderboard, daily challenges, and NFT rewards coming soon.</span>
+      </div>
+    </article>
+  );
+}
 import { useMemo, useState } from 'react';
-import { ArrowUpRight, Banknote, Building2, Dumbbell, ExternalLink, Lightbulb, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Banknote, Brain, Building2, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap } from 'lucide-react';
+import { useAbraxas } from '../providers/AbraxasProvider';
 
 type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing';
 
@@ -304,6 +465,7 @@ const hypothesisExamples = [
   },
 ];
 
+
 export function MarketPage() {
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
@@ -317,17 +479,19 @@ export function MarketPage() {
     if (selectedClass === 'all') {
       return listedAssets;
     }
-
     return listedAssets.filter((asset) => asset.marketClass === selectedClass);
   }, [selectedClass]);
 
   return (
     <section className="space-y-4">
+      {/* --- Polymarket-style RWA Prediction Market --- */}
+      <RwaPredictions />
+
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Market Data Book</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Listed assets and hypothetical pipelines</h2>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas RWA Prediction Market</p>
+        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Predict Real-World Outcomes. Win Big. Go Viral.</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
-          This section acts like a market intelligence sheet: active listings, pilot classes, and future hypothetical examples across RWA categories.
+          The world’s first viral, gamified RWA prediction market. Bet on athlete stats, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
         </p>
       </article>
 
@@ -477,6 +641,114 @@ export function MarketPage() {
           </div>
         </div>
       </article>
+
+      <SophiaAgentsMarketplace />
+      <RwaPredictions />
     </section>
+  );
+}
+
+function SophiaAgentsMarketplace() {
+  const { sophiaAgents } = useAbraxas();
+
+  const sortedAgents = useMemo(() => {
+    return [...sophiaAgents].sort((a, b) => b.performanceScore - a.performanceScore);
+  }, [sophiaAgents]);
+
+  return (
+    <article className="glow-panel rounded-2xl border border-violet-300/20 bg-slate-900/75 p-4 backdrop-blur">
+      <div className="mb-3 flex items-center gap-2">
+        <Brain size={16} className="text-violet-300" />
+        <p className="text-sm font-medium text-violet-100">Sophia Agents Marketplace</p>
+      </div>
+      <p className="mb-3 text-xs leading-relaxed text-slate-300/85">
+        Autonomous trading agents with verifiable performance history. Each Sophia earns value through successful trades and can be assigned to vaults or minted as tokens.
+      </p>
+
+      <div className="space-y-2">
+        <div className="overflow-x-auto rounded-lg border border-violet-300/20 bg-slate-950/55">
+          <table className="min-w-full text-left text-xs">
+            <thead className="border-b border-violet-300/20 bg-slate-900/80 text-slate-300/90">
+              <tr>
+                <th className="px-3 py-2 font-medium">Agent</th>
+                <th className="px-3 py-2 font-medium">Specialty</th>
+                <th className="px-3 py-2 font-medium">Status</th>
+                <th className="px-3 py-2 font-medium text-right">Score</th>
+                <th className="px-3 py-2 font-medium text-right">Win Rate</th>
+                <th className="px-3 py-2 font-medium text-right">Trades</th>
+                <th className="px-3 py-2 font-medium text-right">Volume</th>
+                <th className="px-3 py-2 font-medium text-right">Total PnL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedAgents.map((agent) => (
+                <tr key={agent.id} className="border-b border-violet-300/10 last:border-b-0">
+                  <td className="px-3 py-2">
+                    <p className="font-semibold text-violet-100">{agent.name}</p>
+                    <p className="text-[11px] text-slate-400">{agent.description}</p>
+                  </td>
+                  <td className="px-3 py-2 text-slate-300">{agent.specialty}</td>
+                  <td className="px-3 py-2">
+                    <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                      agent.status === 'active'
+                        ? 'border-emerald-300/40 bg-emerald-300/10 text-emerald-200'
+                        : agent.status === 'training'
+                          ? 'border-amber-300/40 bg-amber-300/10 text-amber-100'
+                          : 'border-slate-400/40 bg-slate-400/10 text-slate-300'
+                    }`}>
+                      {agent.status}
+                    </span>
+                  </td>
+                  <td className="px-3 py-2 text-right">
+                    <span className="font-semibold text-violet-200">{agent.performanceScore}/100</span>
+                  </td>
+                  <td className="px-3 py-2 text-right text-cyan-200">{agent.winRate.toFixed(1)}%</td>
+                  <td className="px-3 py-2 text-right text-slate-300">{agent.totalTradesExecuted}</td>
+                  <td className="px-3 py-2 text-right text-slate-300">${(agent.totalVolumeTraded / 1000000).toFixed(2)}M</td>
+                  <td className={`px-3 py-2 text-right font-semibold ${agent.totalPnL >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                    ${(agent.totalPnL / 1000).toFixed(1)}K
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-3 pt-3">
+        {sortedAgents.slice(0, 3).map((agent) => (
+          <div key={agent.id} className="rounded-2xl border border-violet-300/20 bg-slate-950/45 px-3 py-3">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex-1">
+                <p className="font-semibold text-violet-100">{agent.name}</p>
+                <p className="mt-1 text-xs text-slate-400">{agent.tradingStyle}</p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <span className="rounded-full border border-violet-300/30 bg-violet-300/10 px-2 py-0.5 text-[10px] text-violet-200">
+                    {agent.personality}
+                  </span>
+                  <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-2 py-0.5 text-[10px] text-cyan-200">
+                    {agent.riskTolerance} risk
+                  </span>
+                  {agent.sharpeRatio && (
+                    <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-2 py-0.5 text-[10px] text-emerald-200">
+                      Sharpe: {agent.sharpeRatio.toFixed(2)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold text-violet-300">{agent.performanceScore}</p>
+                <p className="text-[10px] text-slate-400">score</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 rounded-lg border border-violet-300/20 bg-violet-500/10 p-3 text-xs text-violet-200/80">
+        <p className="font-semibold">Performance Tracking:</p>
+        <p className="mt-1">Each agent's score updates dynamically based on trade execution, win rate, volume, and risk-adjusted returns (Sharpe ratio). Higher scores unlock access to larger vault allocations and tokenization opportunities.</p>
+      </div>
+    </article>
   );
 }

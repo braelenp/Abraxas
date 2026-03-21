@@ -1,13 +1,14 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Brain, CandlestickChart, LayoutDashboard, ShieldAlert, Sparkles, Vault, Zap } from 'lucide-react';
+import { Brain, CandlestickChart, LayoutDashboard, ShieldAlert, Sparkles, ArrowRightLeft, Vault, Zap } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
 import { OnboardPage } from './pages/OnboardPage';
+import { TradePage } from './pages/TradePage';
 import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
@@ -20,6 +21,7 @@ const navItems = [
   { to: '/app/vaults', label: 'Vaults', icon: Vault },
   { to: '/app/market', label: 'Market', icon: CandlestickChart },
   { to: '/app/onboard', label: 'Onboard', icon: Zap },
+  { to: '/app/trade', label: 'Trade', icon: ArrowRightLeft },
   { to: '/app/orion', label: 'King AI', icon: Brain },
   { to: '/app/circuit', label: 'Circuit', icon: ShieldAlert },
 ];
@@ -35,10 +37,7 @@ function DappShell() {
   const location = useLocation();
   const dappBackgroundCandidates = useMemo(
     () => [
-      '/assets/abraxas-background.jpg',
-      '/assets/abraxas-background.jpeg',
-      '/assets/abraxas-background.png',
-      '/assets/abraxas-background.webp',
+      '/assets/sophia-minted.jpg',
       '/assets/abraxas-logo-graphic.jpg',
     ],
     [],
@@ -51,18 +50,8 @@ function DappShell() {
   const onBackgroundError = () => {
     if (backgroundIndex < dappBackgroundCandidates.length - 1) {
       setBackgroundIndex((current) => current + 1);
-      return;
     }
-    setShowAnimatedBackground(false);
   };
-
-  useEffect(() => {
-    if (connected) return;
-    const activeElement = document.activeElement;
-    if (activeElement instanceof HTMLElement) {
-      activeElement.blur();
-    }
-  }, [connected]);
 
   useEffect(() => {
     if (!connected) {
@@ -136,7 +125,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">La Casa deposits + Athlete Equity + Circuit Safety</p>
+        <p className="text-xs text-slate-300/80">Buy & Stake ABRA • RWA Market Onboarding • Devnet Showcase</p>
       </header>
 
       <main
@@ -148,6 +137,7 @@ function DappShell() {
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="onboard" element={<OnboardPage />} />
+          <Route path="trade" element={<TradePage />} />
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
           <Route path="sophia" element={<SophiaMintPage />} />
@@ -256,6 +246,7 @@ export default function App() {
       <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
       <Route path="/market" element={<Navigate to="/app/market" replace />} />
       <Route path="/onboard" element={<Navigate to="/app/onboard" replace />} />
+      <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
       <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
       <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
       <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />

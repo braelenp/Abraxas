@@ -4,6 +4,7 @@ import {
   starterFutureAssetClasses,
   starterLaCasaDeposits,
   starterLogs,
+  starterSophiaAgents,
   starterVaults,
 } from '../lib/mockData';
 import { applyOymSnapshotToTokens, estimateLaCasaRecordsFromSnapshot, fetchOymSnapshot } from '../lib/oymAdapter';
@@ -13,6 +14,8 @@ import type {
   CircuitSignal,
   FutureAssetClass,
   LaCasaDepositRecord,
+  SophiaAgent,
+  SophiaTradeRecord,
   VaultAssetType,
   VaultSummary,
 } from '../lib/types';
@@ -23,6 +26,8 @@ type AbraxasContextValue = {
   futureAssetClasses: FutureAssetClass[];
   laCasaDeposits: LaCasaDepositRecord[];
   logs: AgentActionLog[];
+  sophiaAgents: SophiaAgent[];
+  sophiaTradeRecords: SophiaTradeRecord[];
   createVault: (name: string, assetType: VaultAssetType) => void;
   assignAgent: (vaultId: string, agentLabel: string) => void;
   depositLaCasa: (input: {
@@ -35,6 +40,9 @@ type AbraxasContextValue = {
   executeKingPlan: (tokenId: string) => void;
   runCircuitCheck: (vaultId: string, signal: CircuitSignal) => 'none' | 'stabilize' | 'pause';
   addLog: (entry: Omit<AgentActionLog, 'id' | 'timestamp'>) => void;
+  recordSophiaTrade: (input: Omit<SophiaTradeRecord, 'id'>) => void;
+  recordSophiaTradeSuccess: (tradeId: string, exitPrice: number, pnl: number) => void;
+  calculateSophiaScore: (agent: SophiaAgent) => number;
   oymSyncStatus: 'idle' | 'loading' | 'ready' | 'error';
   oymSource?: string;
   lastOymSyncAt?: string;
@@ -57,6 +65,8 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [futureAssetClasses] = useState<FutureAssetClass[]>(starterFutureAssetClasses);
   const [laCasaDeposits, setLaCasaDeposits] = useState<LaCasaDepositRecord[]>(starterLaCasaDeposits);
   const [logs, setLogs] = useState<AgentActionLog[]>(starterLogs);
+  const [sophiaAgents, setSophiaAgents] = useState<SophiaAgent[]>(starterSophiaAgents);
+  const [sophiaTradeRecords, setSophiaTradeRecords] = useState<SophiaTradeRecord[]>([]);
   const [oymSyncStatus, setOymSyncStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const [oymSource, setOymSource] = useState<string | undefined>(undefined);
   const [lastOymSyncAt, setLastOymSyncAt] = useState<string | undefined>(undefined);
@@ -306,6 +316,83 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
     [addLog],
   );
 
+  const calculateSophiaScore = useCallback((agent: SophiaAgent): number => {
+    // Score calculation based on multiple factors
+    const winRateComponent = Math.min(agent.winRate / 100, 1) * 25; // 0-25 points
+    const volumeComponent = Math.min(agent.totalVolumeTraded / 5000000, 1) * 20; // 0-20 points
+    const pnlComponent = Math.min(Math.max(agent.totalPnL / 500000, -10), 20) / 2; // 0-10 points
+    const sharpeComponent = agent.sharpeRatio ? Math.min(agent.sharpeRatio / 3, 1) * 20 : 0; // 0-20 points
+    const drawdownComponent = agent.maxDrawdown ? Math.max(0, 15 - Math.abs(agent.maxDrawdown) * 2) : 15; // 0-15 points
+    const tradeCountComponent = Math.min(agent.totalTradesExecuted / 200, 1) * 10; // 0-10 points
+
+    return Math.max(0, Math.min(100, roundToTwo(
+      winRateComponent + volumeComponent + pnlComponent + sharpeComponent + drawdownComponent + tradeCountComponent,
+    )));
+  }, []);
+
+  const recordSophiaTrade = useCallback((input: Omit<SophiaTradeRecord, 'id'>) => {
+    const tradeId = crypto.randomUUID();
+    const trade: SophiaTradeRecord = {
+      id: tradeId,
+      ...input,
+    };
+
+    setSophiaTradeRecords((current) => [trade, ...current]);
+
+    // Update the Sophia agent's trade count
+    setSophiaAgents((current) =>
+      current.map((agent) =>
+        agent.id === input.sophiaAgentId
+          ? {
+              ...agent,
+              totalTradesExecuted: agent.totalTradesExecuted + 1,
+              totalVolumeTraded: roundToTwo(agent.totalVolumeTraded + input.inputAmount),
+              lastTradeAt: input.timestamp,
+            }
+          : agent,
+      ),
+    );
+
+    addLog({
+      vaultId: 'global',
+      action: `Sophia trade executed: ${input.fromSymbol} → ${input.toSymbol}`,
+      detail: `${input.inputAmount} ${input.fromSymbol} swapped at ${input.executedPrice} for ${input.outputAmount} ${input.toSymbol}. Reason: ${input.entryReason}`,
+    });
+  }, [addLog]);
+
+  const recordSophiaTradeSuccess = useCallback((tradeId: string, exitPrice: number, pnl: number) => {
+    setSophiaTradeRecords((current) =>
+      current.map((trade) =>
+        trade.id === tradeId
+          ? {
+              ...trade,
+              status: 'executed',
+              priceAtExit: exitPrice,
+              pnl: pnl,
+            }
+          : trade,
+      ),
+    );
+
+    const updatedTrade = sophiaTradeRecords.find((t) => t.id === tradeId);
+    if (updatedTrade) {
+      setSophiaAgents((current) =>
+        current.map((agent) =>
+          agent.id === updatedTrade.sophiaAgentId
+            ? {
+                ...agent,
+                totalPnL: roundToTwo(agent.totalPnL + pnl),
+                performanceScore: calculateSophiaScore({
+                  ...agent,
+                  totalPnL: agent.totalPnL + pnl,
+                }),
+              }
+            : agent,
+        ),
+      );
+    }
+  }, [sophiaTradeRecords, calculateSophiaScore]);
+
   const refreshOymData = useCallback(async () => {
     setOymSyncStatus('loading');
 
@@ -357,11 +444,16 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       futureAssetClasses,
       laCasaDeposits,
       logs,
+      sophiaAgents,
+      sophiaTradeRecords,
       createVault,
       assignAgent,
       depositLaCasa,
       executeKingPlan,
       runCircuitCheck,
+      recordSophiaTrade,
+      recordSophiaTradeSuccess,
+      calculateSophiaScore,
       addLog,
       oymSyncStatus,
       oymSource,
@@ -374,11 +466,16 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       futureAssetClasses,
       laCasaDeposits,
       logs,
+      sophiaAgents,
+      sophiaTradeRecords,
       createVault,
       assignAgent,
       depositLaCasa,
       executeKingPlan,
       runCircuitCheck,
+      recordSophiaTrade,
+      recordSophiaTradeSuccess,
+      calculateSophiaScore,
       addLog,
       oymSyncStatus,
       oymSource,

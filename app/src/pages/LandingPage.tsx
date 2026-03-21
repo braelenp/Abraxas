@@ -1,13 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { BaseWalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { Sparkles, Volume2, VolumeX, X } from 'lucide-react';
+import { BagsBuyWidget } from '../components/BagsBuyWidget';
 import { BrandLogo } from '../components/BrandLogo';
 
-const LA_CASA_COLLECTION_ADDRESS = '0x99879b6bf05c893ba01f1bd18e042cf592a10210';
-const ABRA_SYMBOL = 'ABRA';
-const ABRA_TOKEN_CONTRACT_ADDRESS = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
-const ABRA_TOKEN_BAGS_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || 'https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 
 const LANDING_WALLET_LABELS = {
 	'change-wallet': 'Change wallet',
@@ -21,111 +20,29 @@ const LANDING_WALLET_LABELS = {
 
 export function LandingPage() {
 	const { connected } = useWallet();
-	const navigate = useNavigate();
 	const soundtrackRef = useRef<HTMLAudioElement | null>(null);
-	const enterTimerRef = useRef<number | null>(null);
-	const imageCandidates = useMemo(
-		() => [
-			'/assets/abraxas-background.jpg',
-			'/assets/abraxas-background.jpeg',
-			'/assets/abraxas-background.png',
-			'/assets/abraxas-background.webp',
-			'/assets/abraxas-landing.jpg',
-			'/assets/abraxas-landing.jpeg',
-			'/assets/abraxas-landing.png',
-			'/assets/abraxas-landing.webp',
-			'/assets/abraxas-logo-graphic.jpg',
-			'/assets/landing.jpg',
-			'/assets/landing.png',
-		],
-		[],
-	);
-	const audioCandidates = useMemo(
-		() => [
-			'/assets/landing-theme.mp3',
-			'/assets/landing-theme.wav',
-			'/assets/landing-theme.ogg',
-			'/assets/abraxas-theme.mp3',
-			'/assets/abraxas-cinematic.mp3',
-		],
-		[],
-	);
-	const [candidateIndex, setCandidateIndex] = useState(0);
-	const [showBackgroundImage, setShowBackgroundImage] = useState(true);
-	const [audioCandidateIndex, setAudioCandidateIndex] = useState(0);
-	const [hasAudioTrack, setHasAudioTrack] = useState(true);
-	const [soundtrackEnabled, setSoundtrackEnabled] = useState(true);
+	const [soundtrackEnabled, setSoundtrackEnabled] = useState(false);
 	const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 	const [isSoundtrackPlaying, setIsSoundtrackPlaying] = useState(false);
-	const [isEntering, setIsEntering] = useState(false);
-
-	const handleImageError = () => {
-		if (candidateIndex < imageCandidates.length - 1) {
-			setCandidateIndex((current) => current + 1);
-			return;
-		}
-		setShowBackgroundImage(false);
-	};
-
-	const handleAudioError = () => {
-		if (audioCandidateIndex < audioCandidates.length - 1) {
-			setAudioCandidateIndex((current) => current + 1);
-			return;
-		}
-
-		setHasAudioTrack(false);
-		setSoundtrackEnabled(false);
-	};
-
-	const toggleSoundtrack = async () => {
-		const audio = soundtrackRef.current;
-
-		if (!audio || !hasAudioTrack) {
-			return;
-		}
-
-		if (soundtrackEnabled) {
-			audio.muted = true;
-			setSoundtrackEnabled(false);
-			setAutoplayBlocked(false);
-			setIsSoundtrackPlaying(false);
-			return;
-		}
-
-		audio.muted = false;
-		setSoundtrackEnabled(true);
-
-		try {
-			if (audio.paused) {
-				await audio.play();
-			}
-			setAutoplayBlocked(false);
-			setIsSoundtrackPlaying(true);
-		} catch {
-			setAutoplayBlocked(true);
-			setIsSoundtrackPlaying(false);
-		}
-	};
+	const [isBuyOpen, setIsBuyOpen] = useState(false);
 
 	useEffect(() => {
 		const audio = soundtrackRef.current;
-
-		if (!audio || !hasAudioTrack) {
+		if (!audio) {
 			return;
 		}
 
 		audio.loop = true;
 		audio.volume = 0.42;
 		audio.preload = 'auto';
+		audio.muted = !soundtrackEnabled;
 
 		if (!soundtrackEnabled) {
-			audio.muted = true;
+			audio.pause();
 			setAutoplayBlocked(false);
 			setIsSoundtrackPlaying(false);
 			return;
 		}
-
-		audio.muted = false;
 
 		const attemptPlay = async () => {
 			try {
@@ -138,7 +55,6 @@ export function LandingPage() {
 			}
 		};
 
-		audio.load();
 		void attemptPlay();
 
 		const onPlay = () => {
@@ -146,232 +62,144 @@ export function LandingPage() {
 			setIsSoundtrackPlaying(true);
 		};
 
-		const onPlaying = () => {
-			setAutoplayBlocked(false);
-			setIsSoundtrackPlaying(!audio.muted);
-		};
-
 		const onPause = () => {
 			setIsSoundtrackPlaying(false);
-		};
-
-		const onCanPlay = () => {
-			if (!audio.paused) {
-				setAutoplayBlocked(false);
-			}
 		};
 
 		const resumeOnInteraction = () => {
 			if (!soundtrackEnabled || !audio.paused) {
 				return;
 			}
-
 			void attemptPlay();
 		};
 
-		const resumeWhenVisible = () => {
-			if (document.visibilityState !== 'visible' || !audio.paused || !soundtrackEnabled) {
-				return;
-			}
-
-			void attemptPlay();
-		};
-
+		audio.addEventListener('play', onPlay);
+		audio.addEventListener('pause', onPause);
 		window.addEventListener('pointerdown', resumeOnInteraction);
 		window.addEventListener('keydown', resumeOnInteraction);
-		document.addEventListener('visibilitychange', resumeWhenVisible);
-		audio.addEventListener('play', onPlay);
-		audio.addEventListener('playing', onPlaying);
-		audio.addEventListener('pause', onPause);
-		audio.addEventListener('canplay', onCanPlay);
 
 		return () => {
+			audio.removeEventListener('play', onPlay);
+			audio.removeEventListener('pause', onPause);
 			window.removeEventListener('pointerdown', resumeOnInteraction);
 			window.removeEventListener('keydown', resumeOnInteraction);
-			document.removeEventListener('visibilitychange', resumeWhenVisible);
-			audio.removeEventListener('play', onPlay);
-			audio.removeEventListener('playing', onPlaying);
-			audio.removeEventListener('pause', onPause);
-			audio.removeEventListener('canplay', onCanPlay);
 		};
-	}, [audioCandidateIndex, hasAudioTrack, soundtrackEnabled]);
+	}, [soundtrackEnabled]);
 
-	useEffect(() => {
-		return () => {
-			if (enterTimerRef.current !== null) {
-				window.clearTimeout(enterTimerRef.current);
-			}
-		};
-	}, []);
-
-	const handleEnterAbraxas = (event: React.MouseEvent<HTMLAnchorElement>) => {
-		if (!connected || isEntering) {
-			event.preventDefault();
+	const toggleSoundtrack = async () => {
+		const audio = soundtrackRef.current;
+		if (!audio) {
 			return;
 		}
 
-		event.preventDefault();
-
-		if ('speechSynthesis' in window) {
-			try {
-				window.speechSynthesis.cancel();
-				const utterance = new SpeechSynthesisUtterance('Welcome to ABRAXAS');
-				utterance.rate = 0.82;
-				utterance.pitch = 0.92;
-				utterance.volume = 1;
-
-				const voices = window.speechSynthesis.getVoices();
-				const preferredVoice =
-					voices.find((voice) => /google us english|microsoft aria|microsoft guy|samantha|zira/i.test(voice.name))
-					?? voices.find((voice) => voice.lang.toLowerCase().startsWith('en'));
-
-				if (preferredVoice) {
-					utterance.voice = preferredVoice;
-				}
-
-				window.speechSynthesis.speak(utterance);
-			} catch {
-				// Ignore speech synthesis failures and continue navigation.
-			}
+		if (soundtrackEnabled) {
+			audio.pause();
+			audio.muted = true;
+			setSoundtrackEnabled(false);
+			setAutoplayBlocked(false);
+			setIsSoundtrackPlaying(false);
+			return;
 		}
 
-		setIsEntering(true);
+		audio.muted = false;
+		setSoundtrackEnabled(true);
 
-		enterTimerRef.current = window.setTimeout(() => {
-			navigate('/app');
-		}, 1450);
+		try {
+			await audio.play();
+			setAutoplayBlocked(false);
+			setIsSoundtrackPlaying(true);
+		} catch {
+			setAutoplayBlocked(true);
+			setIsSoundtrackPlaying(false);
+		}
 	};
 
 	return (
-		<section className="tech-distortion relative h-[100dvh] overflow-hidden bg-slate-950 text-slate-100">
-			{showBackgroundImage ? (
-				<>
-					<img
-						src={imageCandidates[candidateIndex]}
-						alt=""
-						className="landing-moving-background pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-						onError={handleImageError}
-					/>
-					<img
-						src={imageCandidates[candidateIndex]}
-						alt=""
-						className="landing-moving-background-secondary pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-						onError={handleImageError}
-					/>
-				</>
-			) : null}
+		<section className="tech-distortion relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+			<img
+				src="/assets/sophia-minted.jpg"
+				alt=""
+				className="landing-moving-background pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+			/>
+			<img
+				src="/assets/sophia-minted.jpg"
+				alt=""
+				className="landing-moving-background-secondary pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+			/>
+			<div className="pointer-events-none absolute inset-0 bg-slate-950/84" />
+			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.18),transparent_48%)]" />
+			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(8,47,73,0.2),transparent_35%,rgba(120,53,15,0.1)_100%)]" />
+			<div className="pointer-events-none absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-400/12 blur-3xl" />
 
-			<div className="pointer-events-none absolute inset-0 bg-slate-950/70" />
-			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.2),transparent_52%)]" />
-			<div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-950/10 via-slate-950/60 to-slate-950/95" />
-			<div className="pointer-events-none absolute top-[12%] left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-3xl" />
-			<div className="pointer-events-none absolute bottom-[20%] left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-blue-300/16 blur-3xl" />
-			<div className="pointer-events-none absolute inset-0 opacity-24 mix-blend-screen [background:repeating-linear-gradient(180deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_1px,transparent_2px,transparent_5px)]" />
-			<div className="pointer-events-none absolute inset-0 opacity-34 mix-blend-screen [background:linear-gradient(110deg,transparent_18%,rgba(34,211,238,0.2)_50%,transparent_80%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
-
-			<div className="relative z-20 mx-auto h-full w-full max-w-md overflow-y-auto overflow-x-hidden px-6 py-8">
-				<div className="flex min-h-full flex-col items-center justify-center text-center">
-					<div className="landing-frame-blue-glow pointer-events-auto relative w-full rounded-3xl border border-transparent bg-slate-950/65 p-7 backdrop-blur-xl">
-					{hasAudioTrack ? (
-						<div className="absolute top-3 right-3 z-30">
-							<button
-								onClick={() => {
-									void toggleSoundtrack();
-								}}
-								aria-label={soundtrackEnabled ? 'Mute cinematic audio' : 'Unmute cinematic audio'}
-								title={soundtrackEnabled ? 'Cinematic Audio On' : 'Cinematic Audio Off'}
-								className="ui-action inline-flex h-10 w-10 items-center justify-center rounded-full border border-violet-300/60 bg-slate-950/55 text-violet-100 backdrop-blur-md hover:bg-violet-500/30"
-							>
-								{soundtrackEnabled ? (
-									<svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-										<polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5" />
-										<path d="M15.5 8.5a5 5 0 0 1 0 7" />
-										<path d="M18.5 6a8.5 8.5 0 0 1 0 12" />
-									</svg>
-								) : (
-									<svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-										<polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5" />
-										<line x1="22" y1="9" x2="16" y2="15" />
-										<line x1="16" y1="9" x2="22" y2="15" />
-									</svg>
-								)}
-							</button>
-							{autoplayBlocked && soundtrackEnabled && !isSoundtrackPlaying && !connected ? (
-								<p className="mt-2 max-w-[9.5rem] rounded-lg border border-violet-300/35 bg-slate-950/75 px-2 py-1 text-[10px] text-violet-100/85 backdrop-blur">
-									Tap icon to start audio
-								</p>
-							) : null}
+			<div className="relative z-20 mx-auto flex min-h-screen w-full max-w-md items-center px-4 py-5 sm:px-6">
+				<div className="w-full">
+					<div className="mb-3 flex items-center justify-between">
+						<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-100">
+							<Sparkles size={12} />
+							Live On Solana Devnet
 						</div>
+
+						<button
+							onClick={() => {
+								void toggleSoundtrack();
+							}}
+							className="ui-action inline-flex h-10 w-10 items-center justify-center rounded-full border border-violet-300/50 bg-slate-950/70 text-violet-100 backdrop-blur-md"
+							aria-label={soundtrackEnabled ? 'Mute soundtrack' : 'Play soundtrack'}
+						>
+							{soundtrackEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+						</button>
+					</div>
+
+					{autoplayBlocked && soundtrackEnabled && !isSoundtrackPlaying ? (
+						<p className="mb-3 text-right text-[9px] font-medium uppercase tracking-[0.14em] text-violet-200/80">
+							Tap sound to start music
+						</p>
 					) : null}
-					<div className="landing-logo-gold-ring mb-6 inline-flex rounded-2xl p-0">
-						<BrandLogo size="3xl" showWordmark={false} className="landing-logo-no-blue-border justify-center" />
-					</div>
-					<h1 className="abraxas-hero-title text-4xl font-extrabold tracking-[0.22em]">ABRAXAS</h1>
 
-						<p className="landing-subtitle-glow mt-4 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-100">
-							Acquire ABRA live and explore full Abraxas flows in Devnet showcase mode
-						</p>
-
-						<p className="mt-4 text-xs leading-relaxed text-slate-300">
-							Abraxas is live in token-first early adoption mode. Accumulate <span className="font-semibold text-amber-200">{ABRA_SYMBOL}</span> for immediate stake while the app demonstrates full vault and agent mechanics in Devnet as an on-chain proof-of-concept. Genesis NFTs can be airdropped later to qualifying holders.
-						</p>
-
-					<div className="mt-4 flex flex-wrap justify-center gap-2">
-						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-								Token-first Onboarding
-						</span>
-						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-								ABRA Early Stake
-						</span>
-						<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2 py-1 text-[10px] font-medium text-cyan-100">
-								Devnet Full Showcase
-						</span>
-					</div>
-
-					<div className="mt-4 grid grid-cols-3 gap-2 text-left">
-						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-								<p className="text-[10px] text-slate-400">Launch Paths</p>
-								<p className="mt-1 text-sm font-semibold text-cyan-200">Token-first</p>
+					<div className="landing-frame-blue-glow rounded-[2rem] border border-cyan-300/20 bg-slate-950/78 p-5 backdrop-blur-xl sm:p-6">
+						<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-100">
+							<Sparkles size={12} />
+							Abraxas Control Surface
 						</div>
-						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-								<p className="text-[10px] text-slate-400">Live Token</p>
-								<p className="mt-1 text-sm font-semibold text-cyan-200">ABRA</p>
-						</div>
-						<div className="rounded-xl border border-cyan-300/25 bg-slate-900/75 px-2 py-2">
-								<p className="text-[10px] text-slate-400">Showcase Mode</p>
-								<p className="mt-1 text-sm font-semibold text-cyan-200">Devnet</p>
-						</div>
-					</div>
 
-						<div className="mt-4 space-y-2 rounded-2xl border border-cyan-300/25 bg-slate-900/75 p-3 text-left">
+						<div className="mt-4 flex items-center gap-3">
+							<div className="landing-logo-gold-ring inline-flex rounded-2xl p-0">
+								<BrandLogo size="xl" showWordmark={false} className="landing-logo-no-blue-border justify-center" />
+							</div>
 							<div>
-								<p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-200/80">Genesis NFT (Future Airdrop)</p>
-								<p className="mt-1 break-all font-mono text-[11px] text-slate-200">{LA_CASA_COLLECTION_ADDRESS}</p>
-							</div>
-							<div className="border-t border-slate-700/70 pt-2">
-								<p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-200/80">Abraxas Token</p>
-								<p className="mt-1 text-[11px] text-slate-200">Symbol: <span className="font-semibold text-amber-200">{ABRA_SYMBOL}</span></p>
-								<p className="mt-1 break-all font-mono text-[11px] text-slate-200">{ABRA_TOKEN_CONTRACT_ADDRESS}</p>
-								<a
-									href={ABRA_TOKEN_BAGS_URL}
-									target="_blank"
-									rel="noreferrer"
-									className="mt-1 inline-flex text-[10px] text-cyan-200 underline decoration-cyan-300/50 underline-offset-2 hover:text-cyan-100"
-								>
-									View on BAGS
-								</a>
+								<p className="landing-subtitle-glow text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">Prediction Economy Entry</p>
+								<h1 className="abraxas-hero-title mt-1 text-3xl font-extrabold tracking-[0.14em] text-cyan-50 sm:text-4xl">ABRAXAS</h1>
 							</div>
 						</div>
 
-					<div className="mt-7 space-y-3">
-						<div className="flex justify-center">
-							<BaseWalletMultiButton
-								labels={LANDING_WALLET_LABELS}
-												className="ui-action !h-8 !w-auto !min-w-[14rem] !rounded-xl !border !border-violet-300/55 !bg-violet-500/30 !px-5 !text-[11px] !font-semibold !text-violet-50 hover:!bg-violet-500/42"
-							/>
+						<p className="mt-4 text-xs leading-6 text-slate-300 sm:text-sm">
+							A bold entry into the ABRA economy: prediction-market narrative, token-first onboarding, vault operations, King AI guidance, and circuit protection in one place.
+						</p>
+
+						<div className="mt-4 flex flex-wrap gap-2">
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">ABRA Live</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Prediction Markets</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Vault Showcase</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">King AI</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Circuit Safety</span>
 						</div>
 
-						<div className="grid grid-cols-2 gap-2">
+						<div className="mt-5 grid gap-2">
+							<button
+								type="button"
+								onClick={() => setIsBuyOpen(true)}
+								className="ui-action inline-flex h-11 w-full items-center justify-center gap-2 rounded-2xl border border-cyan-300/45 bg-cyan-500/20 px-4 text-sm font-semibold text-cyan-50"
+							>
+								Buy ABRA
+							</button>
+
+							<div className="flex justify-center">
+								<BaseWalletMultiButton
+									labels={LANDING_WALLET_LABELS}
+									className="ui-action !h-10 !w-full !rounded-xl !border !border-violet-300/55 !bg-violet-500/30 !px-5 !text-[11px] !font-semibold !text-violet-50 hover:!bg-violet-500/42"
+								/>
+							</div>
+
 							<a
 								href="https://x.com/abraxasdapp"
 								target="_blank"
@@ -383,7 +211,6 @@ export function LandingPage() {
 
 							<Link
 								to="/app"
-									onClick={handleEnterAbraxas}
 								aria-disabled={!connected}
 								className={`ui-action group relative inline-flex h-11 w-full items-center justify-center overflow-hidden rounded-2xl border px-5 text-sm font-semibold tracking-wide transition ${
 									connected
@@ -395,34 +222,41 @@ export function LandingPage() {
 							</Link>
 						</div>
 					</div>
-
-					<p className="mt-4 text-[11px] leading-relaxed text-slate-400">
-						Connect wallet to buy ABRA for early participation, then explore the full vault, market, King AI, and circuit control flow in Devnet showcase mode.
-					</p>
-					</div>
 				</div>
 			</div>
 
-						{hasAudioTrack ? (
-							<audio
-								ref={soundtrackRef}
-								src={audioCandidates[audioCandidateIndex]}
-								autoPlay
-								playsInline
-								preload="auto"
-								onError={handleAudioError}
-							/>
-						) : null}
-
-						{isEntering ? (
-							<div className="abraxas-entry-overlay" aria-hidden="true">
-								<div className="abraxas-entry-core" />
-								<div className="abraxas-entry-ring" />
-								<div className="abraxas-entry-ring abraxas-entry-ring-secondary" />
-								<div className="abraxas-entry-scanline" />
-								<p className="abraxas-entry-text">Entering ABRAXAS</p>
+			{isBuyOpen ? (
+				<div className="absolute inset-0 z-30 flex items-center justify-center bg-slate-950/72 px-4 backdrop-blur-md">
+					<div className="landing-frame-blue-glow w-full max-w-sm rounded-[1.75rem] border border-cyan-300/25 bg-slate-950/95 p-4 shadow-[0_0_40px_rgba(8,145,178,0.25)]">
+						<div className="mb-3 flex items-center justify-between gap-3">
+							<div>
+								<p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-200/80">Instant Entry</p>
+								<h2 className="mt-1 text-sm font-semibold text-white">Buy ABRA On Landing</h2>
 							</div>
-						) : null}
+							<button
+								type="button"
+								onClick={() => setIsBuyOpen(false)}
+								className="ui-action inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200/20 bg-slate-900/70 text-slate-100"
+								aria-label="Close buy panel"
+							>
+								<X size={14} />
+							</button>
+						</div>
+
+						<BagsBuyWidget tokenAddress={ABRA_TOKEN_CA} compact />
+
+						<button
+							type="button"
+							onClick={() => setIsBuyOpen(false)}
+							className="ui-action mt-3 inline-flex h-10 w-full items-center justify-center rounded-xl border border-slate-200/20 bg-slate-900/70 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200"
+						>
+							Back to Landing
+						</button>
+					</div>
+				</div>
+			) : null}
+
+			<audio ref={soundtrackRef} src="/assets/landing-theme.mp3" preload="auto" playsInline />
 		</section>
 	);
 }
