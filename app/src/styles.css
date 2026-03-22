@@ -7,7 +7,8 @@
 
 html {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -15,8 +16,8 @@ body {
   margin: 0;
   height: 100%;
   min-height: 100dvh;
-  overflow: hidden;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 code,
@@ -31,7 +32,7 @@ textarea {
   height: 100%;
   min-height: 100dvh;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .ui-action {

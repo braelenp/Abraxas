@@ -156,13 +156,13 @@ export function LandingPage() {
 						</p>
 					) : null}
 
-					<div className="landing-frame-blue-glow rounded-[2rem] border border-cyan-300/20 bg-slate-950/78 p-5 backdrop-blur-xl sm:p-6">
+					<div className="landing-frame-blue-glow rounded-[2rem] border border-cyan-300/20 bg-slate-950/78 p-5 text-center backdrop-blur-xl sm:p-6">
 						<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-100">
 							<Sparkles size={12} />
 							Abraxas Control Surface
 						</div>
 
-						<div className="mt-4 flex items-center gap-3">
+						<div className="mt-4 flex flex-col items-center gap-3">
 							<div className="landing-logo-gold-ring inline-flex rounded-2xl p-0">
 								<BrandLogo size="xl" showWordmark={false} className="landing-logo-no-blue-border justify-center" />
 							</div>
@@ -176,7 +176,7 @@ export function LandingPage() {
 							A bold entry into the ABRA economy: prediction-market narrative, token-first onboarding, vault operations, King AI guidance, and circuit protection in one place.
 						</p>
 
-						<div className="mt-4 flex flex-wrap gap-2">
+						<div className="mt-4 flex flex-wrap justify-center gap-2">
 							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">ABRA Live</span>
 							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Prediction Markets</span>
 							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Vault Showcase</span>
@@ -185,6 +185,13 @@ export function LandingPage() {
 						</div>
 
 						<div className="mt-5 grid gap-2">
+							<div className="flex justify-center">
+								<BaseWalletMultiButton
+									labels={LANDING_WALLET_LABELS}
+									className="ui-action !h-10 !w-full !rounded-xl !border !border-violet-300/55 !bg-violet-500/30 !px-5 !text-[11px] !font-semibold !text-violet-50 hover:!bg-violet-500/42"
+								/>
+							</div>
+
 							<button
 								type="button"
 								onClick={() => setIsBuyOpen(true)}
@@ -192,13 +199,6 @@ export function LandingPage() {
 							>
 								Buy ABRA
 							</button>
-
-							<div className="flex justify-center">
-								<BaseWalletMultiButton
-									labels={LANDING_WALLET_LABELS}
-									className="ui-action !h-10 !w-full !rounded-xl !border !border-violet-300/55 !bg-violet-500/30 !px-5 !text-[11px] !font-semibold !text-violet-50 hover:!bg-violet-500/42"
-								/>
-							</div>
 
 							<a
 								href="https://x.com/abraxasdapp"

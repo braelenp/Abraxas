@@ -1,10 +1,11 @@
 import { CheckCircle, Coins, Gem, Lock, Sparkles, TrendingUp, Wallet, Zap } from 'lucide-react';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useCallback, useEffect, useState } from 'react';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
-import type { StakeRecord } from '../lib/types';
-import { PublicKey, SystemProgram, Transaction, Connection } from '@solana/web3.js';
-import { SOLANA_RPC_ENDPOINT } from '../lib/solana';
+import type { StakeDuration, StakeRecord } from '../lib/types';
+import { PublicKey, Transaction } from '@solana/web3.js';
+import { createStakeInstruction, fetchStakeRecord, getStakePDA } from '../lib/staking';
+import { getProgramId } from '../lib/solana';
 
 type TokenTier = {
   id: string;
@@ -24,8 +25,7 @@ type StakeTier = {
 
 const ABRA_SYMBOL = 'ABRA';
 const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
-const STAKE_DESTINATION = '7xyCkPPMQfEmRzzvpyboHVkWMn6u8BTvhMYuH3MWUjfX';
-
+const DEV_STAKE_WALLET = '7xyCkPPMQfEmRzzvpyboHVkWMn6u8BTvhMYuH3MWUjfX';
 const TOKEN_TIERS: TokenTier[] = [
   { id: 'starter', label: 'Starter', amount: '500 ABRA', note: 'Entry early-adopter stake' },
   { id: 'builder', label: 'Builder', amount: '2,500 ABRA', note: 'Balanced early allocation', highlight: true },
@@ -56,7 +56,8 @@ const STAKE_TIERS: StakeTier[] = [
 ];
 
 export function OnboardPage() {
-  const { connected, publicKey, signTransaction } = useWallet();
+  const { connection } = useConnection();
+  const { connected, publicKey, sendTransaction, connect } = useWallet();
   const [selectedStakeDuration, setSelectedStakeDuration] = useState<number | null>(null);
   const [stakeAmount, setStakeAmount] = useState<string>('');
   const [showSuccess, setShowSuccess] = useState(false);
@@ -65,6 +66,22 @@ export function OnboardPage() {
   const [isStaking, setIsStaking] = useState(false);
   const [stakeError, setStakeError] = useState<string | null>(null);
   const [stakeSuccess, setStakeSuccess] = useState(false);
+  const programId = getProgramId();
+
+  const refreshStakeRecord = useCallback(async () => {
+    if (!publicKey || !programId) {
+      setUserStakes([]);
+      return;
+    }
+
+    try {
+      const stakeRecord = await fetchStakeRecord(connection, publicKey, programId);
+      setUserStakes(stakeRecord ? [stakeRecord] : []);
+    } catch (error) {
+      console.error('Failed to fetch live stake record', error);
+      setUserStakes([]);
+    }
+  }, [connection, programId, publicKey]);
 
   useEffect(() => {
     if (!connected || !publicKey) {
@@ -72,59 +89,143 @@ export function OnboardPage() {
       return;
     }
 
-    setUserStakes([
-      {
-        address: 'stake123',
-        staker: publicKey.toString(),
-        abraAmount: 2500,
-        lockDurationDays: 90,
-        stakedAt: Date.now() - 30 * 24 * 60 * 60 * 1000,
-        unlockedAt: Date.now() + 60 * 24 * 60 * 60 * 1000,
-        multiplierBps: 18_000,
-        isActive: true,
-        claimedRewards: 0,
-      },
-    ]);
-  }, [connected, publicKey]);
+    void refreshStakeRecord();
+  }, [connected, publicKey, refreshStakeRecord]);
 
-  // Send ABRA (SOL for demo) to the provided SOL address
   const handleStakeSend = async () => {
     setIsStaking(true);
     setStakeError(null);
     setStakeSuccess(false);
     try {
-      if (!connected && typeof window !== 'undefined') {
-        if (typeof window.solana?.connect === 'function') {
-          await window.solana.connect();
-        }
+      if (!connected) {
+        await connect();
         setIsStaking(false);
         return;
       }
-      if (!publicKey || !stakeAmount || Number(stakeAmount) <= 0) {
+      if (!publicKey || !sendTransaction || !programId || !stakeAmount || Number(stakeAmount) <= 0 || !selectedStakeDuration) {
         setStakeError('Enter a valid amount.');
         setIsStaking(false);
         return;
       }
-      const connection = new Connection(SOLANA_RPC_ENDPOINT, 'confirmed');
-      const lamports = Math.max(1, Number(stakeAmount)) * 1000000; // 0.001 SOL per unit (for demo)
-      const tx = new Transaction().add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: new PublicKey(STAKE_DESTINATION),
-          lamports,
-        })
-      );
-      const { blockhash } = await connection.getLatestBlockhash();
-      tx.recentBlockhash = blockhash;
-      tx.feePayer = publicKey;
-      if (!signTransaction) throw new Error('Wallet not ready.');
-      const signed = await signTransaction(tx);
-      const sig = await connection.sendRawTransaction(signed.serialize());
-      await connection.confirmTransaction(sig, 'confirmed');
+
+      const wholeAmount = Math.floor(Number(stakeAmount));
+      if (!Number.isFinite(wholeAmount) || wholeAmount <= 0) {
+        setStakeError('Stake amount must be a positive whole number of ABRA.');
+        setIsStaking(false);
+        return;
+      }
+
+      const existingStake = await fetchStakeRecord(connection, publicKey, programId);
+      if (existingStake?.isActive) {
+        setStakeError('This live staking program currently supports one active stake per wallet.');
+        setIsStaking(false);
+        return;
+      }
+
+      const [stakePda] = getStakePDA(publicKey, programId);
+      const latestBlockhash = await connection.getLatestBlockhash('confirmed');
+      const mintAddress = new PublicKey(ABRA_TOKEN_CA);
+      const treasuryWallet = new PublicKey(DEV_STAKE_WALLET);
+      const {
+        ASSOCIATED_TOKEN_PROGRAM_ID,
+        createAssociatedTokenAccountInstruction,
+        createTransferCheckedInstruction,
+        getAssociatedTokenAddressSync,
+        getMint,
+        TOKEN_PROGRAM_ID,
+      } = await import('@solana/spl-token');
+      const mintAccount = await getMint(connection, mintAddress, 'confirmed', TOKEN_PROGRAM_ID);
+      const sourceTokenAccount = getAssociatedTokenAddressSync(mintAddress, publicKey, false, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID);
+      const treasuryTokenAccount = getAssociatedTokenAddressSync(mintAddress, treasuryWallet, false, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID);
+      const tokenAmount = BigInt(wholeAmount) * (10n ** BigInt(mintAccount.decimals));
+
+      if (tokenAmount <= 0n) {
+        setStakeError('Stake amount is too low for ABRA settlement.');
+        setIsStaking(false);
+        return;
+      }
+
+      const sourceTokenAccountInfo = await connection.getAccountInfo(sourceTokenAccount, 'confirmed');
+      if (!sourceTokenAccountInfo) {
+        setStakeError('No ABRA token account found for this wallet. Buy ABRA first, then try staking again.');
+        setIsStaking(false);
+        return;
+      }
+
+      const treasuryTokenAccountInfo = await connection.getAccountInfo(treasuryTokenAccount, 'confirmed');
+
+      const instruction = createStakeInstruction(publicKey, wholeAmount, selectedStakeDuration as StakeDuration, programId);
+      const tx = new Transaction({
+        feePayer: publicKey,
+        blockhash: latestBlockhash.blockhash,
+        lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+      });
+
+      if (!treasuryTokenAccountInfo) {
+        tx.add(
+          createAssociatedTokenAccountInstruction(
+            publicKey,
+            treasuryTokenAccount,
+            treasuryWallet,
+            mintAddress,
+            TOKEN_PROGRAM_ID,
+            ASSOCIATED_TOKEN_PROGRAM_ID,
+          ),
+        );
+      }
+
+      tx
+		.add(
+			createTransferCheckedInstruction(
+				sourceTokenAccount,
+				mintAddress,
+				treasuryTokenAccount,
+				publicKey,
+				tokenAmount,
+				mintAccount.decimals,
+				[],
+				TOKEN_PROGRAM_ID,
+			),
+		)
+		.add(instruction);
+
+      const signature = await sendTransaction(tx, connection, {
+        skipPreflight: false,
+        preflightCommitment: 'confirmed',
+      });
+
+      await connection.confirmTransaction({
+        signature,
+        blockhash: latestBlockhash.blockhash,
+        lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+      }, 'confirmed');
+
       setStakeSuccess(true);
+      setSuccessData({
+        amount: wholeAmount.toString(),
+        duration: selectedStakeDuration,
+        multiplier:
+          selectedStakeDuration === 30
+            ? '1.2x'
+            : selectedStakeDuration === 90
+              ? '1.8x'
+              : '2.5x',
+      });
+      setShowSuccess(true);
       setStakeAmount('');
+      await refreshStakeRecord();
+
+      window.setTimeout(() => {
+        setShowSuccess(false);
+        setSuccessData(null);
+      }, 3000);
     } catch (e: any) {
-      setStakeError(e?.message || 'Failed to stake ABRA.');
+      const errorMessage = typeof e?.message === 'string' ? e.message : 'Failed to stake ABRA live on devnet.';
+      if (errorMessage.includes('already in use')) {
+        setStakeError('A live stake account already exists for this wallet. Use the existing position or a new wallet until multi-stake support is added on-chain.');
+      } else {
+        setStakeError(errorMessage);
+      }
     } finally {
       setIsStaking(false);
     }
@@ -200,6 +301,10 @@ export function OnboardPage() {
             </p>
             <p className="text-[11px] break-all font-mono text-slate-100">{ABRA_TOKEN_CA}</p>
           </div>
+          <div className="rounded-xl border border-cyan-300/25 bg-slate-900/70 p-3 space-y-1">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-cyan-200/75 font-semibold">Devnet Stake Wallet</p>
+            <p className="text-[11px] break-all font-mono text-slate-100">{DEV_STAKE_WALLET}</p>
+          </div>
           {/* Already have ABRA? Stake now button */}
           <button
             onClick={() => setSelectedStakeDuration(90)}
@@ -222,7 +327,7 @@ export function OnboardPage() {
               <h2 className="text-sm font-semibold text-white">Step 2: Immediate Stake ABRA</h2>
             </div>
             <p className="text-xs text-white/60 leading-relaxed">
-              Stake your freshly acquired ABRA tokens for 30, 90, or 180 days to earn multiplied returns. Choose your lock period below.
+              Stake your freshly acquired ABRA tokens for 30, 90, or 180 days to write a live stake position on the Abraxas devnet program. Choose your lock period below.
             </p>
 
             {/* Stake Duration Selection */}
@@ -324,6 +429,13 @@ export function OnboardPage() {
             </div>
           )}
 
+          <div className="rounded-lg border border-cyan-400/20 bg-cyan-500/10 p-3 text-xs text-cyan-100/80">
+            Live mode transfers real ABRA tokens into the dev staking wallet and writes a real stake record to the deployed program. Current on-chain logic supports one active stake position per wallet.
+          </div>
+          <div className="rounded-lg border border-slate-200/15 bg-slate-900/70 p-3 text-xs text-slate-300/80">
+            Real ABRA tokens are transferred to the dev staking wallet ATA for <span className="font-mono text-slate-100">{DEV_STAKE_WALLET}</span> before the live stake record is written.
+          </div>
+
           {/* CTA Buttons */}
           <div className="flex gap-2">
             <button
@@ -340,10 +452,10 @@ export function OnboardPage() {
               disabled={!stakeAmount || Number(stakeAmount) <= 0 || isStaking}
               className="flex-1 h-10 rounded-lg border border-green-400/45 bg-green-500/25 text-green-100 font-semibold text-sm hover:bg-green-500/35 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {isStaking ? 'Staking...' : 'Stake'}
+              {isStaking ? 'Submitting Stake...' : 'Stake Live'}
             </button>
           </div>
-          {stakeSuccess && <p className="text-green-300 text-xs mt-1">Stake successful!</p>}
+          {stakeSuccess && <p className="text-green-300 text-xs mt-1">Live stake submitted successfully.</p>}
           {stakeError && <p className="text-red-400 text-xs mt-1">{stakeError}</p>}
         </div>
       )}

@@ -1,6 +1,6 @@
 import { clusterApiUrl, PublicKey } from '@solana/web3.js';
 
-const PROGRAM_ID_PLACEHOLDER = 'YOUR_PROGRAM_ID_HERE';
+const PROGRAM_ID_PLACEHOLDER = 'GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm';
 const PROGRAM_ID_STORAGE_KEY = 'abraxasProgramId';
 
 export const ABRAXAS_PROGRAM_ID_RAW = (import.meta.env.VITE_ABRAXAS_PROGRAM_ID ?? PROGRAM_ID_PLACEHOLDER).trim();

@@ -1,8 +1,11 @@
-import * as anchor from '@coral-xyz/anchor';
-import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
+import { PublicKey, SystemProgram, TransactionInstruction } from '@solana/web3.js';
+import type { Connection } from '@solana/web3.js';
 import type { StakeDuration } from './types';
+import type { StakeRecord } from './types';
 
 export const STAKING_SEED = 'stake';
+export const STAKE_INSTRUCTION_DISCRIMINATOR = new Uint8Array([174, 52, 15, 177, 172, 229, 247, 123]);
+export const STAKE_ACCOUNT_DISCRIMINATOR = new Uint8Array([80, 158, 67, 124, 50, 189, 192, 255]);
 
 export const STAKE_MULTIPLIERS: Record<StakeDuration, number> = {
   30: 1.2,
@@ -20,8 +23,9 @@ export const STAKE_DESCRIPTIONS: Record<StakeDuration, string> = {
  * Get the stake PDA for a user
  */
 export function getStakePDA(userPublicKey: PublicKey, programId: PublicKey): [PublicKey, number] {
+  const seedBytes = new TextEncoder().encode(STAKING_SEED);
   return PublicKey.findProgramAddressSync(
-    [Buffer.from(STAKING_SEED), userPublicKey.toBuffer()],
+    [seedBytes, userPublicKey.toBuffer()],
     programId
   );
 }
@@ -34,13 +38,94 @@ export function createStakeInstruction(
   amount: number,
   durationDays: StakeDuration,
   programId: PublicKey
-): Transaction {
+): TransactionInstruction {
   const stakePDA = getStakePDA(userPublicKey, programId)[0];
+  const data = new Uint8Array(24);
+  data.set(STAKE_INSTRUCTION_DISCRIMINATOR, 0);
+  writeU64(data, BigInt(amount), 8);
+  writeU64(data, BigInt(durationDays), 16);
 
-  const tx = new Transaction();
-  // This would be filled in when Anchor IDL is generated
-  // For now, returning placeholder
-  return tx;
+  return new TransactionInstruction({
+    programId,
+    keys: [
+      { pubkey: userPublicKey, isSigner: true, isWritable: true },
+      { pubkey: stakePDA, isSigner: false, isWritable: true },
+      { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+    ],
+    data: data as any,
+  });
+}
+
+export async function fetchStakeRecord(
+  connection: Connection,
+  userPublicKey: PublicKey,
+  programId: PublicKey,
+): Promise<StakeRecord | null> {
+  const [stakePda] = getStakePDA(userPublicKey, programId);
+  const accountInfo = await connection.getAccountInfo(stakePda, 'confirmed');
+
+  if (!accountInfo) {
+    return null;
+  }
+
+  const data = new Uint8Array(accountInfo.data);
+  if (!hasDiscriminator(data, STAKE_ACCOUNT_DISCRIMINATOR)) {
+    return null;
+  }
+
+  let offset = 8;
+  const staker = new PublicKey(data.slice(offset, offset + 32)).toBase58();
+  offset += 32;
+
+  const abraAmount = Number(readU64(data, offset));
+  offset += 8;
+  const lockDurationDays = Number(readU64(data, offset));
+  offset += 8;
+  const stakedAtSeconds = Number(readU64(data, offset));
+  offset += 8;
+  const unlockedAtSeconds = Number(readU64(data, offset));
+  offset += 8;
+  const multiplierBps = Number(readU64(data, offset));
+  offset += 8;
+  const isActive = data[offset] === 1;
+  offset += 1;
+  const claimedRewards = Number(readU64(data, offset));
+
+  return {
+    address: stakePda.toBase58(),
+    staker,
+    abraAmount,
+    lockDurationDays,
+    stakedAt: stakedAtSeconds * 1000,
+    unlockedAt: unlockedAtSeconds * 1000,
+    multiplierBps,
+    isActive,
+    claimedRewards,
+  };
+}
+
+function writeU64(target: Uint8Array, value: bigint, offset: number) {
+  const view = new DataView(target.buffer, target.byteOffset, target.byteLength);
+  view.setBigUint64(offset, value, true);
+}
+
+function readU64(source: Uint8Array, offset: number): bigint {
+  const view = new DataView(source.buffer, source.byteOffset, source.byteLength);
+  return view.getBigUint64(offset, true);
+}
+
+function hasDiscriminator(data: Uint8Array, discriminator: Uint8Array): boolean {
+  if (data.length < discriminator.length) {
+    return false;
+  }
+
+  for (let index = 0; index < discriminator.length; index += 1) {
+    if (data[index] !== discriminator[index]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**

@@ -92,7 +92,7 @@ function DappShell() {
   }, [location.pathname]);
 
   return (
-    <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md flex-col overflow-hidden text-slate-100">
+    <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
       <div className="pointer-events-none absolute inset-0 -z-30 bg-slate-950" />
       {showAnimatedBackground ? (
         <>
@@ -130,7 +130,7 @@ function DappShell() {
 
       <main
         ref={contentRef}
-        className="flex-1 overflow-y-auto overscroll-y-none px-4 py-4 pb-4"
+        className="flex-1 min-h-0 overflow-y-auto overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
       >
         <Routes>
           <Route index element={<DashboardPage />} />
