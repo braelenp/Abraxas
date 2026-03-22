@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 export function BagsBuyWidget({ tokenAddress, compact = false }: { tokenAddress: string; compact?: boolean }) {
   const [amount, setAmount] = useState('');
+  const [showEmbeddedMarket, setShowEmbeddedMarket] = useState(false);
   const marketUrl = useMemo(() => {
     const baseUrl = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || `https://bags.fm/${tokenAddress}`;
     if (!amount) {
@@ -15,11 +16,15 @@ export function BagsBuyWidget({ tokenAddress, compact = false }: { tokenAddress:
   }, [amount, tokenAddress]);
 
   const handleBuy = () => {
+    setShowEmbeddedMarket(true);
+  };
+
+  const openExternalMarket = () => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    window.location.assign(marketUrl);
+    window.open(marketUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -40,12 +45,33 @@ export function BagsBuyWidget({ tokenAddress, compact = false }: { tokenAddress:
           className={`ui-action rounded-lg border border-cyan-400/45 bg-cyan-500/25 text-cyan-100 font-semibold hover:bg-cyan-500/35 disabled:opacity-50 disabled:cursor-not-allowed transition-all ${compact ? 'h-10 px-3 py-2 text-xs' : 'h-11 min-w-[6.5rem] px-4 py-2 text-sm'}`}
         >
           <span className="inline-flex items-center gap-2">
-            Continue To Bags <ArrowUpRight size={14} />
+            Open Embedded Swap <ArrowUpRight size={14} />
           </span>
         </button>
       </div>
+
+      {showEmbeddedMarket ? (
+        <div className={`mt-3 overflow-hidden rounded-xl border border-cyan-300/20 bg-slate-950/70 ${compact ? 'h-[26rem]' : 'h-[38rem]'}`}>
+          <iframe
+            src={marketUrl}
+            title="Bags ABRA market"
+            className="h-full w-full border-0"
+            allow="clipboard-read; clipboard-write"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+      ) : null}
+
+      <button
+        onClick={openExternalMarket}
+        type="button"
+        className="mt-3 text-xs font-semibold text-cyan-200/80 underline decoration-cyan-300/50 underline-offset-2 hover:text-cyan-100"
+      >
+        Open in full page instead
+      </button>
+
       <p className={`${compact ? 'mt-1 text-[10px]' : 'mt-2 text-xs'} text-cyan-200/70`}>
-        Redirects straight to the live Bags market so the swap completes against the real liquidity venue.
+        Loads the live Bags market inside the dapp so users can complete the transaction without leaving the app shell.
       </p>
     </div>
   );
