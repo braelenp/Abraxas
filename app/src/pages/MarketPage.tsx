@@ -56,24 +56,7 @@ function RwaPredictions() {
   const [markets, setMarkets] = useState<PredictionMarket[]>(initialPredictionMarkets);
   const [betting, setBetting] = useState<string | null>(null);
   const [betAmount, setBetAmount] = useState<string>('');
-  const [betOutcome, setBetOutcome] = useState<'yes' | 'no' | null>(null);
-  const [betSuccess, setBetSuccess] = useState(false);
 
-  // Simulate King AI suggestion
-  function getKingSuggestion(market: PredictionMarket) {
-    if (market.kingProbability > 60) return 'King AI: High probability for YES';
-    if (market.kingProbability < 40) return 'King AI: High probability for NO';
-    return 'King AI: Market is balanced, use your edge!';
-  }
-
-  // Simulate circuit flag
-  function getCircuitFlag(flag?: 'warning' | 'critical') {
-    if (flag === 'critical') return <span className="text-rose-400 font-bold ml-2">Circuit: High Risk</span>;
-    if (flag === 'warning') return <span className="text-amber-300 font-bold ml-2">Circuit: Warning</span>;
-    return null;
-  }
-
-  // Simulate bet placement
   function placeBet(marketId: string, outcome: 'yes' | 'no') {
     if (!betAmount || isNaN(Number(betAmount)) || Number(betAmount) <= 0) return;
     setMarkets((prev) => prev.map((m) =>
@@ -87,82 +70,61 @@ function RwaPredictions() {
         : m
     ));
     setBetting(null);
-    setBetSuccess(true);
-    setTimeout(() => setBetSuccess(false), 2000);
     setBetAmount('');
-    setBetOutcome(null);
   }
 
   return (
-    <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/80 p-4 backdrop-blur mt-6">
-      <div className="flex items-center gap-2 mb-2">
+    <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/80 p-4 backdrop-blur">
+      <div className="flex items-center gap-2 mb-3">
         <Sparkles className="text-cyan-200" size={16} />
-        <h3 className="text-lg font-semibold text-cyan-100">RWA Predictions</h3>
-        <span className="ml-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-xs text-cyan-200 font-semibold">New</span>
+        <h3 className="text-sm font-semibold text-cyan-100">Predictions</h3>
       </div>
-      <p className="text-xs text-slate-300/80 mb-4">Predict real-world asset outcomes. Bet ABRA, win rewards, and climb the leaderboard. Powered by Bags for ~0% fee settlement. King AI provides smart probability estimates. Circuit flags high-risk markets. Top predictors earn ABRA and La Casa NFT fragments.</p>
-      <div className="space-y-4">
+      <div className="space-y-2">
         {markets.map((market) => (
-          <div key={market.id} className="rounded-xl border border-cyan-300/15 bg-slate-950/60 p-4 mb-2">
-            <div className="flex items-center gap-2 mb-1">
-              <Dumbbell size={14} className="text-cyan-300" />
-              <span className="font-semibold text-slate-100 text-sm">{market.question}</span>
-              {getCircuitFlag(market.circuitFlag)}
-            </div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs text-cyan-200">King AI Probability: <span className="font-bold">{market.kingProbability}%</span></span>
-              <span className="text-xs text-violet-200">{getKingSuggestion(market)}</span>
-              {market.streak ? <span className="text-xs text-emerald-300 ml-2">Streak: {market.streak}x</span> : null}
-              {market.multiplier && market.multiplier > 1 ? <span className="text-xs text-amber-200 ml-2">Multiplier: {market.multiplier}x</span> : null}
-            </div>
-            <div className="flex items-center gap-4 mb-2">
-              <span className="text-xs text-cyan-100">Yes: <span className="font-bold">{market.totalYes}</span></span>
-              <span className="text-xs text-rose-200">No: <span className="font-bold">{market.totalNo}</span></span>
-            </div>
-            <div className="flex flex-wrap gap-2 mb-2">
-              <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-xs text-emerald-200 font-semibold">{market.reward}</span>
-              <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2 py-0.5 text-xs text-cyan-200 font-semibold">{market.challenge}</span>
+          <div key={market.id} className="rounded-lg border border-cyan-300/15 bg-slate-950/60 p-3">
+            <p className="text-sm font-medium text-slate-100 mb-2">{market.question}</p>
+            <div className="flex items-center justify-between mb-2 text-xs text-slate-300">
+              <span>Yes: <span className="font-semibold text-cyan-200">{market.totalYes}</span></span>
+              <span>No: <span className="font-semibold text-rose-300">{market.totalNo}</span></span>
+              <span>AI: <span className="font-semibold text-violet-200">{market.kingProbability}%</span></span>
             </div>
             {market.status === 'open' && !market.userBet && (
-              <div className="flex flex-col sm:flex-row gap-2 mt-2">
+              <div className="flex gap-2">
                 <input
                   type="number"
                   min="1"
-                  placeholder="Bet ABRA amount"
+                  placeholder="Amount"
                   value={betting === market.id ? betAmount : ''}
                   onChange={(e) => { setBetting(market.id); setBetAmount(e.target.value); }}
-                  className="px-3 py-2 rounded-lg bg-slate-800/60 border border-cyan-400/20 text-white text-xs focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none w-32"
+                  className="flex-1 px-2 py-1.5 rounded-lg bg-slate-800/60 border border-slate-600 text-white text-xs focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none"
                 />
                 <button
-                  className="px-4 py-2 rounded-lg bg-cyan-500/80 text-white font-semibold text-xs hover:bg-cyan-600/90 transition"
-                  onClick={() => { setBetting(market.id); setBetOutcome('yes'); placeBet(market.id, 'yes'); }}
+                  className="px-2.5 py-1.5 rounded-lg bg-cyan-500/80 text-white font-semibold text-xs hover:bg-cyan-600/90 transition"
+                  onClick={() => placeBet(market.id, 'yes')}
                   disabled={!betAmount || Number(betAmount) <= 0}
-                >Bet Yes</button>
+                >Yes</button>
                 <button
-                  className="px-4 py-2 rounded-lg bg-rose-500/80 text-white font-semibold text-xs hover:bg-rose-600/90 transition"
-                  onClick={() => { setBetting(market.id); setBetOutcome('no'); placeBet(market.id, 'no'); }}
+                  className="px-2.5 py-1.5 rounded-lg bg-rose-500/80 text-white font-semibold text-xs hover:bg-rose-600/90 transition"
+                  onClick={() => placeBet(market.id, 'no')}
                   disabled={!betAmount || Number(betAmount) <= 0}
-                >Bet No</button>
+                >No</button>
               </div>
             )}
             {market.userBet && (
-              <div className="mt-2 text-xs text-emerald-300 font-semibold">Your bet: {market.userBet.toUpperCase()}</div>
+              <div className="text-xs text-emerald-300 font-semibold">Bet: {market.userBet.toUpperCase()}</div>
             )}
           </div>
         ))}
       </div>
-      {betSuccess && <div className="mt-3 text-center text-emerald-300 font-bold">Bet placed! Good luck!</div>}
-      <div className="mt-6 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-3 text-xs text-cyan-200">
-        <span className="font-semibold">Leaderboard, daily challenges, and NFT rewards coming soon.</span>
-      </div>
     </article>
   );
 }
+// --- RWA Market Listings ---
 import { useMemo, useState } from 'react';
-import { ArrowUpRight, Banknote, Brain, Building2, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap } from 'lucide-react';
+import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 
-type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing';
+type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing' | 'horses' | 'golf';
 
 type MarketListing = {
   id: string;
@@ -185,9 +147,9 @@ const marketClassLabels: Record<MarketClass, string> = {
   trading_portfolio: 'Trading Portfolio',
   music_rights: 'Music Rights',
   ip_licensing: 'IP Licensing',
+  horses: 'Horse Racing',
+  golf: 'Golf',
 };
-
-const OYM_APP_DEFAULT_URL = 'https://own-your-moment.vercel.app/app';
 
 const listedAssets: MarketListing[] = [
   {
@@ -400,6 +362,34 @@ const listedAssets: MarketListing[] = [
     score: 62,
     thesis: 'Cross-platform character IP model where retention and conversion metrics influence pricing bands.',
   },
+  {
+    id: 'mk-derby-index',
+    symbol: '$DERBY',
+    name: 'Triple Crown Index',
+    marketClass: 'horses',
+    status: 'live',
+    price: 45.50,
+    changePct: 12.4,
+    marketCap: 2250000,
+    floatPct: 52,
+    dailyVolume: 487300,
+    score: 85,
+    thesis: 'Tokenized exposure to Kentucky Derby, Preakness, and Belmont outcomes with real-time settlement via Solana.',
+  },
+  {
+    id: 'mk-pga-points',
+    symbol: '$PGAPT',
+    name: 'PGA Tour Points Tracker',
+    marketClass: 'golf',
+    status: 'live',
+    price: 125.75,
+    changePct: 8.2,
+    marketCap: 1875000,
+    floatPct: 48,
+    dailyVolume: 256800,
+    score: 82,
+    thesis: 'Real-time golf performance derivatives tied to official PGA Tour scoring with instant settlement.',
+  },
 ];
 
 const hypothesisExamples = [
@@ -468,7 +458,36 @@ const hypothesisExamples = [
 
 export function MarketPage() {
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
-  const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
+  const [showMarketInfo, setShowMarketInfo] = useState(false);
+  const [expandedThesis, setExpandedThesis] = useState<Record<string, boolean>>({});
+  const [showAllExamples, setShowAllExamples] = useState(false);
+  const [showAllAssets, setShowAllAssets] = useState(false);
+  const { vaults } = useAbraxas();
+
+  const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
+
+  // Swap state
+  const [selectedPairId, setSelectedPairId] = useState<string>('abra-usdc');
+  const [fromAmount, setFromAmount] = useState<string>('');
+  const [toAmount, setToAmount] = useState<string>('');
+  const [isLoadingQuote, setIsLoadingQuote] = useState(false);
+
+  const swapPairs = [
+    { id: 'abra-usdc', label: 'ABRA → USDC', price: 0.95 },
+    { id: 'usdc-abra', label: 'USDC → ABRA', price: 1.05 },
+    { id: 'usdc-sol', label: 'USDC → SOL', price: 0.024 },
+  ];
+
+  const selectedSwapPair = swapPairs.find(p => p.id === selectedPairId);
+
+  const handleQuote = async () => {
+    if (!fromAmount || isNaN(Number(fromAmount))) return;
+    setIsLoadingQuote(true);
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    const quote = Number(fromAmount) * selectedSwapPair!.price;
+    setToAmount(quote.toFixed(2));
+    setIsLoadingQuote(false);
+  };
 
   const classes = useMemo(() => {
     const uniqueClasses = Array.from(new Set(listedAssets.map((asset) => asset.marketClass)));
@@ -482,35 +501,105 @@ export function MarketPage() {
     return listedAssets.filter((asset) => asset.marketClass === selectedClass);
   }, [selectedClass]);
 
+  // Show limited (4) or all assets based on toggle
+  const displayedAssets = useMemo(() => {
+    return showAllAssets ? filteredAssets : filteredAssets.slice(0, 4);
+  }, [filteredAssets, showAllAssets]);
+
   return (
     <section className="space-y-4">
-      {/* --- Polymarket-style RWA Prediction Market --- */}
+      {/* --- Top-Up Section --- */}
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
+        <p className="text-xs text-slate-300/80">Available Balance</p>
+        <p className="mt-2 text-4xl font-bold text-cyan-50">${portfolioValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
+        <p className="mt-1 text-xs text-slate-300/70">From your vaults</p>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button className="rounded-xl border border-cyan-300/40 bg-cyan-300/10 px-3 py-2.5 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/15 transition">
+            + Add Funds
+          </button>
+          <button className="rounded-xl border border-slate-500/40 bg-slate-950/40 px-3 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-950/60 transition">
+            Withdraw
+          </button>
+        </div>
+      </article>
+
+      {/* --- RWA Prediction Market --- */}
       <RwaPredictions />
 
+      {/* --- Swap Widget --- */}
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <div className="flex items-center gap-2 mb-3">
+          <Zap className="text-cyan-200" size={16} />
+          <h3 className="text-sm font-semibold text-cyan-100">Quick Trade</h3>
+        </div>
+        <div className="space-y-3">
+          {/* Pair Selector */}
+          <select
+            value={selectedPairId}
+            onChange={(e) => {
+              setSelectedPairId(e.target.value);
+              setToAmount('');
+            }}
+            className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm font-medium text-slate-100"
+          >
+            {swapPairs.map((pair) => (
+              <option key={pair.id} value={pair.id}>
+                {pair.label}
+              </option>
+            ))}
+          </select>
+
+          {/* From/To Inputs */}
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <input
+                type="number"
+                value={fromAmount}
+                onChange={(e) => setFromAmount(e.target.value)}
+                placeholder="From amount"
+                className="w-full rounded-lg border border-slate-600 bg-slate-950/60 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none"
+              />
+            </div>
+            <button
+              onClick={handleQuote}
+              disabled={!fromAmount || isLoadingQuote}
+              className="px-3 py-2 rounded-lg bg-cyan-500/80 text-white font-semibold text-xs hover:bg-cyan-600/90 disabled:opacity-50 transition"
+            >
+              {isLoadingQuote ? '...' : '→'}
+            </button>
+          </div>
+
+          {/* To Amount */}
+          {toAmount && (
+            <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 px-3 py-2">
+              <p className="text-xs text-slate-300 mb-1">You get</p>
+              <p className="text-lg font-bold text-emerald-300">{Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+            </div>
+          )}
+
+          {/* Swap Button */}
+          {toAmount && (
+            <button className="w-full rounded-lg bg-cyan-500/90 hover:bg-cyan-600 text-white font-semibold py-2 transition text-sm">
+              Swap Now
+            </button>
+          )}
+        </div>
+      </article>
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas RWA Prediction Market</p>
         <h2 className="mt-2 text-xl font-semibold text-cyan-50">Predict Real-World Outcomes. Win Big. Go Viral.</h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
-          The world’s first viral, gamified RWA prediction market. Bet on athlete stats, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
-        </p>
-      </article>
-
-      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="text-sm font-medium">Asset Development Layer Demo (OYM)</p>
-        <p className="mt-2 text-xs leading-relaxed text-slate-300/85">
-          Link users from Abraxas Market directly into OYM so they can see how athlete development activity drives asset value in practice.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <a
-            href={oymAppUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ui-action inline-flex items-center gap-1 rounded-xl border border-cyan-200/55 bg-cyan-300/20 px-3 py-2 text-xs font-semibold text-cyan-50"
-          >
-            Open OYM dApp
-            <ExternalLink size={13} />
-          </a>
-        </div>
+        <button
+          onClick={() => setShowMarketInfo(!showMarketInfo)}
+          className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"
+        >
+          <span>{showMarketInfo ? 'Hide' : 'Show'} how it works</span>
+          <ChevronDown size={14} className={`transition-transform ${showMarketInfo ? 'rotate-180' : ''}`} />
+        </button>
+        {showMarketInfo && (
+          <p className="mt-3 text-sm leading-relaxed text-slate-300/90">
+            The world's first viral, gamified RWA prediction market. Bet on athlete stats, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
+          </p>
+        )}
       </article>
 
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
@@ -519,7 +608,10 @@ export function MarketPage() {
             <button
               key={entry}
               type="button"
-              onClick={() => setSelectedClass(entry)}
+              onClick={() => {
+                setSelectedClass(entry);
+                setShowAllAssets(false);
+              }}
               className={`rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide transition ${
                 selectedClass === entry
                   ? 'border-cyan-200/65 bg-cyan-300/15 text-cyan-100'
@@ -547,7 +639,7 @@ export function MarketPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredAssets.map((asset) => (
+              {displayedAssets.map((asset) => (
                 <tr key={asset.id} className="border-b border-cyan-300/10 last:border-b-0">
                   <td className="px-3 py-2">
                     <p className="font-semibold text-slate-100">{asset.symbol}</p>
@@ -579,43 +671,47 @@ export function MarketPage() {
               ))}
             </tbody>
           </table>
+
+          {/* View More Button */}
+          {filteredAssets.length > 4 && (
+            <button
+              onClick={() => setShowAllAssets(!showAllAssets)}
+              className="w-full mt-3 py-2 px-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-xs font-semibold text-cyan-200 transition-colors"
+            >
+              {showAllAssets ? 'Show Less' : `View More (${filteredAssets.length - 4} more)`}
+            </button>
+          )}
         </div>
       </article>
 
+      {/* --- Listing Thesis Cards --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-sm font-medium">Listing thesis cards</p>
+        <p className="mb-3 text-sm font-medium">Listing thesis</p>
         <div className="space-y-2">
           {filteredAssets.slice(0, 4).map((asset) => (
             <div key={asset.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
-              <div className="flex items-center justify-between gap-2">
+              <button
+                onClick={() => setExpandedThesis(prev => ({ ...prev, [asset.id]: !prev[asset.id] }))}
+                className="w-full flex items-center justify-between gap-2 text-left hover:opacity-80 transition"
+              >
                 <p className="text-sm font-semibold text-slate-100">{asset.symbol} · {asset.name}</p>
-                <span className="inline-flex items-center gap-1 text-[11px] text-cyan-200">
-                  <ArrowUpRight size={12} />
-                  {asset.score}/100
-                </span>
-              </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300/85">{asset.thesis}</p>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[11px] text-cyan-200">
+                    <ArrowUpRight size={12} />
+                    {asset.score}/100
+                  </span>
+                  <ChevronDown size={14} className={`text-cyan-300 transition-transform ${expandedThesis[asset.id] ? 'rotate-180' : ''}`} />
+                </div>
+              </button>
+              {expandedThesis[asset.id] && (
+                <p className="mt-2 text-xs leading-relaxed text-slate-300/85">{asset.thesis}</p>
+              )}
             </div>
           ))}
         </div>
       </article>
 
-      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <div className="flex items-center gap-2">
-          <Lightbulb className="text-amber-200" size={16} />
-          <p className="text-sm font-medium">Hypothetical examples pipeline</p>
-        </div>
-        <div className="mt-3 grid gap-3">
-          {hypothesisExamples.map((example) => (
-            <div key={example.title} className="rounded-2xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
-              <p className="text-sm font-semibold text-slate-100">{example.title}</p>
-              <p className="mt-1 text-[11px] uppercase tracking-wide text-cyan-200/90">{example.classLabel}</p>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300/85">{example.premise}</p>
-            </div>
-          ))}
-        </div>
-      </article>
-
+      {/* --- Class Radar --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
         <p className="mb-3 text-sm font-medium">Class Radar</p>
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-200/90">
@@ -642,8 +738,28 @@ export function MarketPage() {
         </div>
       </article>
 
-      <SophiaAgentsMarketplace />
-      <RwaPredictions />
+      {/* --- Hypothetical Examples --- */}
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <button
+          onClick={() => setShowAllExamples(!showAllExamples)}
+          className="flex items-center gap-2 hover:opacity-80 transition"
+        >
+          <Lightbulb className="text-amber-200" size={16} />
+          <p className="text-sm font-medium">Hypothetical examples ({hypothesisExamples.length})</p>
+          <ChevronDown size={14} className={`ml-auto text-amber-200/80 transition-transform ${showAllExamples ? 'rotate-180' : ''}`} />
+        </button>
+        {showAllExamples && (
+          <div className="mt-3 grid gap-3">
+            {hypothesisExamples.map((example) => (
+              <div key={example.title} className="rounded-2xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
+                <p className="text-sm font-semibold text-slate-100">{example.title}</p>
+                <p className="mt-1 text-[11px] uppercase tracking-wide text-cyan-200/90">{example.classLabel}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-300/85">{example.premise}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </article>
     </section>
   );
 }

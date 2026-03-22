@@ -1,7 +1,6 @@
 export { DashboardPage } from './DashboardPage';
 export { VaultsPage } from './VaultsPage';
 export { MarketPage } from './MarketPage';
-export { OnboardPage } from './OnboardPage';
 export { TradePage } from './TradePage';
 export { CircuitPage } from './CircuitPage';
 export { SophiaMintPage } from './SophiaMintPage';

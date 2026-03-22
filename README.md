@@ -1,8 +1,8 @@
-# Abraxas – The RWA Stock Market on Solana
+# Abraxas – RWA Stock Market + Live Polymarket Prediction Trading on Solana
 
 **World Labs Protocol**
 
-Abraxas is the first RWA Stock Market on Solana. Buy the ABRA token directly in the app (Bags ~0% fees) to own equity in the entire platform. Stake ABRA for multipliers and priority airdrops.
+Abraxas is the first RWA Stock Market on Solana with integrated live Polymarket prediction markets. Buy the ABRA token directly in the app (Bags ~0% fees) to own equity in the platform and place prediction bets on live Polymarket odds. Stake ABRA for multipliers and priority airdrops.
 
 # ABRA Token & Asset Links
 
@@ -14,7 +14,7 @@ Abraxas is the first RWA Stock Market on Solana. Buy the ABRA token directly in 
 
 ---
 
-Sophia agents manage future vaults, Circuit safety protects during volatility, and King AI delivers real-time insights. Athlete equity (OYM structure) is the first planned asset class. La Casa NFTs and full RWA access will be airdropped to ABRA holders during beta.
+Sophia agents manage future vaults, Circuit safety protects during volatility, and King AI delivers real-time insights. Live Polymarket integration allows users to bet ABRA tokens on real prediction markets with King AI probability guidance. Athlete equity (OYM structure) is the first planned asset class. La Casa NFTs and full RWA access will be airdropped to ABRA holders during beta.
 
 ## Token Model
 - **ABRA** – main utility & platform equity (live)
@@ -29,10 +29,12 @@ Longer locks = higher airdrop priority
 ## Quick Start
 1. `yarn install`
 2. `yarn dev`
-3. Buy ABRA on the Onboard tab (Bags integration)
-4. Stake directly in the app
+3. Buy ABRA on the Trade tab (Bags integration)
+4. Stake ABRA for multipliers and airdrop priority
+5. Bet ABRA on live Polymarket prediction markets from the Dashboard
+6. Explore vaults, athlete equity, and circuit protection
 
-Devnet showcase mode shows the full vision (vaults, Sophia, Circuit, King AI) while token-first onboarding ramps up.
+Devnet showcase mode shows the full vision (vaults, Sophia, Circuit, King AI, live Polymarket) while token-first onboarding ramps up.
 
 ---
 
@@ -53,7 +55,8 @@ Devnet showcase mode shows the full vision (vaults, Sophia, Circuit, King AI) wh
 | Layer | Role |
 |---|---|
 | **Vaults** | On-chain PDA accounts holding RWA positions — stablecoin exposure, athlete mints, value growth, protective buffer |
-| **King AI (Orion)** | Performance engine — reads athlete metrics, emits `build / accelerate / protect` signals, executes growth on-chain |
+| **Polymarket Integration** | Live prediction market feed from Polymarket CLOB API — real-time odds, volume pools, King AI probability guidance, ABRA token betting interface |
+| **King AI (Orion)** | Performance engine — reads athlete metrics and market data, emits `build / accelerate / protect` signals, calculates prediction probabilities, executes growth on-chain |
 | **Sophia Agents** | Per-vault AI agents (Sentinel / Yield / Defensive) — assignable on-chain with auditable rules hash |
 | **Circuit Breaker** | Three-signal risk system — price speed, liquidity drain, activity spike → `None / ReleaseLiquidity / PauseRisk` |
 | **La Casa NFTs** | Capital onboarding layer — NFT purchase → stablecoin vault deposit → athlete token appreciation |
@@ -74,10 +77,10 @@ Abraxas/
 ├── app/
 │   ├── src/
 │   │   ├── pages/
-│   │   │   ├── DashboardPage.tsx    # Portfolio overview — market value, agent logs
+│   │   │   ├── DashboardPage.tsx    # Portfolio + live Polymarket carousels — predictions, perps, following
 │   │   │   ├── VaultsPage.tsx       # Vault management, La Casa deposits, athlete board
 │   │   │   ├── MarketPage.tsx       # Market data book — all RWA listings + OYM link
-│   │   │   ├── OnboardPage.tsx      # NFT mint + token acquisition (early adoption)
+│   │   │   ├── TradePage.tsx        # Token acquisition + ABRA staking (consolidated Trade/Onboard)
 │   │   │   ├── CircuitPage.tsx      # Circuit breaker monitor
 │   │   │   ├── SophiaMintPage.tsx   # Agent minting
 │   │   │   └── OrionPage.tsx        # King AI assistant
@@ -86,8 +89,11 @@ Abraxas/
 │   │   │   └── SolanaProvider.tsx   # Wallet adapter
 │   │   ├── lib/
 │   │   │   ├── types.ts             # All core types
+│   │   │   ├── polymarket.ts        # Polymarket CLOB API integration & utilities
 │   │   │   ├── oymAdapter.ts        # OYM live data → Abraxas token normalization
 │   │   │   └── program.ts           # Anchor client helpers
+│   │   ├── hooks/
+│   │   │   └── usePolymarketBets.ts # Hook for live market data fetching + refresh
 │   │   └── idl/abraxas.json         # Program IDL
 │   └── android/                     # Capacitor Android project
 └── target/deploy/                   # Compiled program + keypair

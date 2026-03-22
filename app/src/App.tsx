@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
-import { OnboardPage } from './pages/OnboardPage';
 import { TradePage } from './pages/TradePage';
 import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
@@ -20,7 +19,6 @@ const navItems = [
   { to: '/app', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/app/vaults', label: 'Vaults', icon: Vault },
   { to: '/app/market', label: 'Market', icon: CandlestickChart },
-  { to: '/app/onboard', label: 'Onboard', icon: Zap },
   { to: '/app/trade', label: 'Trade', icon: ArrowRightLeft },
   { to: '/app/orion', label: 'King AI', icon: Brain },
   { to: '/app/circuit', label: 'Circuit', icon: ShieldAlert },
@@ -125,7 +123,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">Buy & Stake ABRA • RWA Market Onboarding • Devnet Showcase</p>
+        <p className="text-xs text-slate-300/80">Buy & Stake ABRA • Live Polymarket • King AI Forecasting</p>
       </header>
 
       <main
@@ -136,7 +134,7 @@ function DappShell() {
           <Route index element={<DashboardPage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
-          <Route path="onboard" element={<OnboardPage />} />
+          <Route path="onboard" element={<TradePage />} />
           <Route path="trade" element={<TradePage />} />
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
@@ -152,33 +150,34 @@ function DappShell() {
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
                 <p className="text-base font-semibold text-cyan-100">Welcome to ABRAXAS</p>
                 <p className="mt-2 leading-relaxed text-slate-300">
-                  You are entering the World Labs RWA stock market on Solana, where live ABRA onboarding, devnet vault simulation, Sophia management, and circuit safety converge.
+                  You are entering the World Labs RWA stock market on Solana, where live ABRA onboarding, real-time Polymarket prediction trading, King AI forecasting, Sophia management, and circuit safety converge.
                 </p>
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">What you can do</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• Acquire ABRA live for early market participation through the onboarding tab.</li>
-                  <li>• Explore the full vault lifecycle in Devnet as a working proof-of-concept.</li>
+                  <li>• Acquire ABRA live for early market participation and prediction market betting.</li>
+                  <li>• Bet ABRA tokens on real Polymarket prediction markets with live odds and King AI probability guidance.</li>
+                  <li>• Explore the full vault lifecycle in Devnet as a working proof-of-concept for RWA management.</li>
                   <li>• Track athlete equity as the first live class layer while individual athlete token issuance is staged.</li>
                   <li>• Review the Market data book for listed assets, class filters, and hypothetical listing pipelines.</li>
-                  <li>• Run King AI for development guidance across training, stats, and NIL actions that grow token value.</li>
+                  <li>• Run King AI for market analysis, athlete development guidance, and value-creation actions.</li>
                   <li>• Configure Circuit thresholds to stage payouts and protect the market during volatility.</li>
                   <li>• Explore Sophia workflows for vault management and future autonomous execution paths.</li>
                 </ul>
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">Tab overview</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> the market overview for live RWA value, athlete momentum, and portfolio protection.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> live Polymarket betting carousels, RWA value, athlete momentum, market perps, and portfolio tracking.</li>
                   <li>• <span className="font-semibold text-cyan-100">Vaults:</span> create and manage devnet vaults to showcase the Abraxas control flow.</li>
                   <li>• <span className="font-semibold text-cyan-100">Market:</span> browse listed assets, compare classes, and track hypothetical examples in one data book.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Onboard:</span> buy ABRA now for live early-adopter participation and future Genesis NFT airdrop eligibility.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Trade:</span> buy ABRA tokens, stake for multipliers, and swap between RWA pairs using Jupiter DEX.</li>
                   <li>• <span className="font-semibold text-cyan-100">King AI:</span> analyze athlete development metrics and push value-creation actions into the market.</li>
                   <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune safety logic for warning, protective liquidity, and payout triggers.</li>
                   <li>• <span className="font-semibold text-cyan-100">Sophia:</span> manage vault oversight and prepare autonomous managers for future classes.</li>
                 </ul>
 
                 <p className="mt-3 leading-relaxed text-slate-300">
-                  Start by acquiring ABRA, then use the devnet vault stack to showcase full Abraxas operations while live onboarding ramps.
+                  Start by acquiring ABRA tokens, place bets on live Polymarket predictions, and then explore devnet vaults to showcase full Abraxas operations.
                 </p>
               </div>
 

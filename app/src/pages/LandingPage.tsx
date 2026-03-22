@@ -167,19 +167,19 @@ export function LandingPage() {
 								<BrandLogo size="xl" showWordmark={false} className="landing-logo-no-blue-border justify-center" />
 							</div>
 							<div>
-								<p className="landing-subtitle-glow text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">Prediction Economy Entry</p>
+								<p className="landing-subtitle-glow text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">Live Polymarket Integration</p>
 								<h1 className="abraxas-hero-title mt-1 text-3xl font-extrabold tracking-[0.14em] text-cyan-50 sm:text-4xl">ABRAXAS</h1>
 							</div>
 						</div>
 
 						<p className="mt-4 text-xs leading-6 text-slate-300 sm:text-sm">
-							A bold entry into the ABRA economy: prediction-market narrative, token-first onboarding, vault operations, King AI guidance, and circuit protection in one place.
+							Trade real-time Polymarket odds with ABRA tokens. AI-guided portfolio vaults, live prediction markets, and circuit-protected stability in one sovereign control surface.
 						</p>
 
 						<div className="mt-4 flex flex-wrap justify-center gap-2">
-							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">ABRA Live</span>
-							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Prediction Markets</span>
-							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Vault Showcase</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Polymarket Live</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">ABRA Betting</span>
+							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Live Odds</span>
 							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">King AI</span>
 							<span className="rounded-full border border-cyan-300/35 bg-cyan-400/15 px-2.5 py-1 text-[9px] font-medium text-cyan-100">Circuit Safety</span>
 						</div>
@@ -201,12 +201,12 @@ export function LandingPage() {
 							</button>
 
 							<a
-								href="https://x.com/abraxasdapp"
+								href="https://x.com/abraxasxyz"
 								target="_blank"
 								rel="noreferrer"
 								className="follow-x-pulse ui-action inline-flex h-11 w-full items-center justify-center rounded-2xl border border-slate-200/65 bg-black px-3 text-sm font-semibold text-white"
 							>
-								Follow on X
+								Follow @abraxasxyz
 							</a>
 
 							<Link

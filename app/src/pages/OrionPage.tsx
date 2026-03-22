@@ -1,9 +1,14 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { ChevronDown, Sparkles } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
 
+const OYM_APP_DEFAULT_URL = 'https://own-your-moment.vercel.app/app';
+
 export function OrionPage() {
   const { athleteTokens, executeKingPlan } = useAbraxas();
+  const [showOymExample, setShowOymExample] = useState(false);
+  const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
 
   const totals = useMemo(() => {
     const totalNIL = athleteTokens.reduce((sum, token) => sum + token.nilRewards, 0);
@@ -13,13 +18,16 @@ export function OrionPage() {
 
   return (
     <section className="space-y-4">
-      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-cyan-200/85">King AI Development Engine</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Athlete equity analytics and value creation</h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
-          King AI turns athlete development into the first live Abraxas growth loop: training inputs, stat improvements, and NIL outputs feed directly into token value expansion.
-        </p>
-        <div className="mt-4 grid grid-cols-2 gap-3 text-xs text-slate-200/90">
+      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-cyan-200/85">King AI Development Engine</p>
+          <h2 className="mt-2 text-xl font-semibold text-cyan-50">Athlete equity analytics and value creation</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
+            King AI turns athlete development into the first live Abraxas growth loop: training inputs, stat improvements, and NIL outputs feed directly into token value expansion.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
           <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
             <p className="text-slate-500">Average training score</p>
             <p className="mt-1 text-lg font-semibold">{totals.averageTraining.toFixed(1)}</p>
@@ -29,6 +37,32 @@ export function OrionPage() {
             <p className="mt-1 text-lg font-semibold">${totals.totalNIL.toLocaleString()}</p>
           </div>
         </div>
+
+        <button
+          onClick={() => setShowOymExample(!showOymExample)}
+          className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
+            showOymExample
+              ? 'border-cyan-300/70 bg-gradient-to-r from-cyan-500/30 to-cyan-400/20 shadow-lg shadow-cyan-500/20'
+              : 'border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <Sparkles size={16} className="text-cyan-300 shrink-0" />
+            <span className="text-sm text-cyan-50">View OYM Value Creation dApp</span>
+          </div>
+          <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 ${showOymExample ? 'rotate-180' : ''}`} />
+        </button>
+
+        {showOymExample && (
+          <div className="rounded-lg border border-cyan-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '600px' }}>
+            <iframe
+              src={oymAppUrl}
+              title="OYM - Own Your Moment dApp"
+              className="w-full h-full border-0"
+              allow="clipboard-read; clipboard-write"
+            />
+          </div>
+        )}
       </article>
 
       <article className="space-y-3">
