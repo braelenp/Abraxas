@@ -1,3 +1,7 @@
+// Polyfill for Buffer (needed for Solana SPL Token in browser)
+import { Buffer } from 'buffer';
+globalThis.Buffer = Buffer;
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
