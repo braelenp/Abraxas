@@ -210,6 +210,8 @@ export function DashboardPage() {
         </article>
       )}
 
+      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
+
       {/* Vaults Section */}
       {vaults.length > 0 && (
         <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
