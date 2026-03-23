@@ -7,6 +7,7 @@ import { BagsBuyWidget } from '../components/BagsBuyWidget';
 import { BagsSwapWidget } from '../components/BagsSwapWidget';
 import { BagsCredibilityBanner } from '../components/BagsCredibilityBanner';
 import { FiatOffRampWidget } from '../components/FiatOffRampWidget';
+import SpendAbra from '../components/SpendAbra';
 import { FeatureBadge } from '../components/FeatureBadge';
 import type { StakeDuration, StakeRecord } from '../lib/types';
 import { PublicKey, Transaction } from '@solana/web3.js';
@@ -175,6 +176,7 @@ export function TradePage() {
   const [userStakes, setUserStakes] = useState<StakeRecord[]>([]);
   const [isSwapping, setIsSwapping] = useState(false);
   const [swapError, setSwapError] = useState<string | null>(null);
+  const [showSpendAbra, setShowSpendAbra] = useState(false);
   const programId = getProgramId();
 
   const selectedSophia = useMemo(() => {
@@ -579,6 +581,15 @@ export function TradePage() {
         >
           <DollarSign size={16} />
           Cash Out to Fiat
+        </button>
+
+        {/* Spend ABRA Button */}
+        <button
+          onClick={() => setShowSpendAbra(true)}
+          className="w-full rounded-lg border border-purple-400/30 bg-purple-500/10 hover:bg-purple-500/20 px-4 py-3 text-sm font-semibold text-purple-200 transition-colors flex items-center justify-center gap-2"
+        >
+          <Zap size={16} />
+          Spend ABRA Direct
         </button>
 
         {/* Buy ABRA Widget */}
@@ -1041,6 +1052,9 @@ export function TradePage() {
           </div>
         </div>
       </div>
+
+      {/* Spend ABRA Modal */}
+      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </div>
   );
 }

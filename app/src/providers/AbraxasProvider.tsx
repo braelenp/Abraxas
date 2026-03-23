@@ -43,6 +43,14 @@ type AbraxasContextValue = {
   recordSophiaTrade: (input: Omit<SophiaTradeRecord, 'id'>) => void;
   recordSophiaTradeSuccess: (tradeId: string, exitPrice: number, pnl: number) => void;
   calculateSophiaScore: (agent: SophiaAgent) => number;
+  recordSpendAbra: (input: {
+    abraAmount: number;
+    usdcAmount: number;
+    fiatAmount: number;
+    destination: string;
+    provider: 'ramp' | 'transak';
+    walletAddress: string;
+  }) => void;
   oymSyncStatus: 'idle' | 'loading' | 'ready' | 'error';
   oymSource?: string;
   lastOymSyncAt?: string;
@@ -393,6 +401,37 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, [sophiaTradeRecords, calculateSophiaScore]);
 
+  const recordSpendAbra = useCallback(
+    ({
+      abraAmount,
+      usdcAmount,
+      fiatAmount,
+      destination,
+      provider,
+      walletAddress,
+    }: {
+      abraAmount: number;
+      usdcAmount: number;
+      fiatAmount: number;
+      destination: string;
+      provider: 'ramp' | 'transak';
+      walletAddress: string;
+    }) => {
+      const destinationLabel = destination === 'apple_pay' ? 'Apple Pay'
+        : destination === 'cash_app' ? 'Cash App'
+        : destination === 'bank_transfer' ? 'Bank Transfer'
+        : destination === 'paypal' ? 'PayPal'
+        : destination;
+
+      addLog({
+        vaultId: 'spend-abra-flow',
+        action: `ABRA spent via ${provider.charAt(0).toUpperCase() + provider.slice(1)}`,
+        detail: `User spent ${roundToTwo(abraAmount)} ABRA (${roundToTwo(usdcAmount)} USDC equivalent) → ${roundToTwo(fiatAmount)} USD to ${destinationLabel}. Wallet: ${walletAddress.slice(0, 8)}...`,
+      });
+    },
+    [addLog],
+  );
+
   const refreshOymData = useCallback(async () => {
     setOymSyncStatus('loading');
 
@@ -454,6 +493,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       recordSophiaTrade,
       recordSophiaTradeSuccess,
       calculateSophiaScore,
+      recordSpendAbra,
       addLog,
       oymSyncStatus,
       oymSource,
@@ -476,6 +516,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       recordSophiaTrade,
       recordSophiaTradeSuccess,
       calculateSophiaScore,
+      recordSpendAbra,
       addLog,
       oymSyncStatus,
       oymSource,

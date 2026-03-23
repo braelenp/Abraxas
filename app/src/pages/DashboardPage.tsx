@@ -1,11 +1,12 @@
 import { useMemo, useState, useEffect } from 'react';
-import { TrendingDown, Star, Sparkles, ChevronLeft, ChevronRight, Send, ArrowRightLeft, LogIn, Plus, DollarSign } from 'lucide-react';
+import { TrendingDown, Star, Sparkles, ChevronLeft, ChevronRight, Send, ArrowRightLeft, LogIn, Plus, DollarSign, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { fetchPolymarketBets, type PolymarketBet, POLYMARKET_CATEGORIES, filterByCategory } from '../lib/polymarket';
 import { usePolymarketBets } from '../hooks/usePolymarketBets';
 import { getKingAIProbability } from '../lib/polymarket';
 import { FeatureBadge } from '../components/FeatureBadge';
+import SpendAbra from '../components/SpendAbra';
 import { useNavigate } from 'react-router-dom';
 
 // Token address for transparency & trust with degen crowd
@@ -27,6 +28,7 @@ export function DashboardPage() {
   const [placingBet, setPlacingBet] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showOffRampWidget, setShowOffRampWidget] = useState(false);
+  const [showSpendAbra, setShowSpendAbra] = useState(false);
 
   // Filter markets by selected category
   const filteredBets = useMemo(() => filterByCategory(polymarketBets, selectedCategory), [polymarketBets, selectedCategory]);
@@ -176,6 +178,19 @@ export function DashboardPage() {
           <DollarSign size={24} className="mx-auto text-emerald-300" />
           <p className="mt-2 text-sm font-medium text-slate-200">Cash Out</p>
           <p className="text-xs text-slate-400 mt-1">Convert to Fiat</p>
+        </button>
+
+        <button 
+          onClick={() => setShowSpendAbra(true)}
+          disabled={!connected}
+          className="relative glow-panel rounded-2xl border border-purple-300/20 bg-slate-900/75 p-4 backdrop-blur text-center hover:border-purple-300/40 disabled:opacity-50 transition-all"
+        >
+          <div className="absolute top-2 right-2">
+            <FeatureBadge status="live" size="sm" />
+          </div>
+          <Zap size={24} className="mx-auto text-purple-300" />
+          <p className="mt-2 text-sm font-medium text-slate-200">Spend ABRA</p>
+          <p className="text-xs text-slate-400 mt-1">Direct to wallet</p>
         </button>
       </div>
 
@@ -446,6 +461,9 @@ export function DashboardPage() {
           </div>
         )}
       </article>
+
+      {/* Spend ABRA Modal */}
+      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </section>
   );
 }
