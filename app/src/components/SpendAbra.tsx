@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { getAssociatedTokenAddressSync, getMint, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } from '@solana/spl-token';
@@ -41,7 +41,7 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
   const [offrampProvider, setOfframpProvider] = useState<'ramp' | 'transak'>('ramp');
 
   // Fetch ABRA balance on-chain
-  const fetchAbra0Balance = async () => {
+  const fetchAbra0Balance = useCallback(async () => {
     if (!publicKey) {
       setLoadingBalance(false);
       setError('Wallet not connected');
@@ -85,12 +85,12 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
     } finally {
       setLoadingBalance(false);
     }
-  };
+  }, [publicKey, connection]);
 
   // Fetch balance on component load and when wallet changes
   useEffect(() => {
     fetchAbra0Balance();
-  }, [publicKey, connection]);
+  }, [fetchAbra0Balance]);
 
   // Handle "Get Quote" button click
   const handleGetQuote = async () => {
