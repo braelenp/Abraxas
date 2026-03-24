@@ -283,12 +283,12 @@ export function OnboardPage() {
         </p>
       </div>
 
-      {/* Step 1: Buy ABRA or Stake if already holding */}
+      {/* Step 1: Buy ABRA or stake if already holding */}
       <div className="grid grid-cols-1 gap-4">
         <div className="glow-panel p-5 space-y-3">
           <div className="flex items-center gap-2 text-yellow-300">
             <Coins size={16} />
-            <h2 className="text-sm font-semibold text-white">Step 1: Buy ABRA Token (Live)</h2>
+            <h2 className="text-sm font-semibold text-white">Step 1: Buy ABRA Now</h2>
           </div>
           <p className="text-xs text-white/60 leading-relaxed">
             Acquire ABRA now for immediate liquid stake in the Abraxas RWA Stock Market.

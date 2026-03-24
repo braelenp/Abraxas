@@ -231,7 +231,7 @@ export function LandingPage() {
 						<div className="mb-3 flex items-center justify-between gap-3">
 							<div>
 								<p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-200/80">Instant Entry</p>
-								<h2 className="mt-1 text-sm font-semibold text-white">Buy ABRA On Landing</h2>
+								<h2 className="mt-1 text-sm font-semibold text-white">Buy ABRA Now</h2>
 							</div>
 							<button
 								type="button"

@@ -36,8 +36,21 @@ type StakeTier = {
   highlight?: boolean;
 };
 
+type QuickTradePair = {
+  id: string;
+  label: string;
+  inputMint: string;
+  outputMint: string;
+  inputSymbol: string;
+  outputSymbol: string;
+  inputDecimals: number;
+  outputDecimals: number;
+  fallbackPrice: number;
+};
+
 const ABRA_SYMBOL = 'ABRA';
 const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || `https://bags.fm/${ABRA_TOKEN_CA}`;
 const DEV_STAKE_WALLET = '7xyCkPPMQfEmRzzvpyboHVkWMn6u8BTvhMYuH3MWUjfX';
 
 const STAKE_TIERS: StakeTier[] = [
@@ -458,23 +471,178 @@ export function TradePage() {
     }
   };
 
-  // Quick Trade pairs
-  const quickTradePairs = [
-    { id: 'abra-usdc', label: 'ABRA → USDC', price: 0.95 },
-    { id: 'usdc-abra', label: 'USDC → ABRA', price: 1.05 },
-    { id: 'usdc-sol', label: 'USDC → SOL', price: 0.024 },
+  const quickTradePairs: QuickTradePair[] = [
+    {
+      id: 'abra-usdc',
+      label: 'ABRA → USDC',
+      inputMint: ABRA_TOKEN_CA,
+      outputMint: 'EPjFWaLb3dScJwNmtppq5g5Lg6ieifqiGFC1t4UM5z1',
+      inputSymbol: 'ABRA',
+      outputSymbol: 'USDC',
+      inputDecimals: 6,
+      outputDecimals: 6,
+      fallbackPrice: 0.95,
+    },
+    {
+      id: 'usdc-abra',
+      label: 'USDC → ABRA',
+      inputMint: 'EPjFWaLb3dScJwNmtppq5g5Lg6ieifqiGFC1t4UM5z1',
+      outputMint: ABRA_TOKEN_CA,
+      inputSymbol: 'USDC',
+      outputSymbol: 'ABRA',
+      inputDecimals: 6,
+      outputDecimals: 6,
+      fallbackPrice: 1.05,
+    },
+    {
+      id: 'usdc-sol',
+      label: 'USDC → SOL',
+      inputMint: 'EPjFWaLb3dScJwNmtppq5g5Lg6ieifqiGFC1t4UM5z1',
+      outputMint: 'So11111111111111111111111111111111111111112',
+      inputSymbol: 'USDC',
+      outputSymbol: 'SOL',
+      inputDecimals: 6,
+      outputDecimals: 9,
+      fallbackPrice: 0.024,
+    },
   ];
 
   const selectedQuickTradePair = quickTradePairs.find(p => p.id === selectedPairId);
+  const quickTradeUsesBagsRoute = Boolean(
+    selectedQuickTradePair && (
+      selectedQuickTradePair.inputMint === ABRA_TOKEN_CA ||
+      selectedQuickTradePair.outputMint === ABRA_TOKEN_CA
+    ),
+  );
+  const quickTradeActionLabel = !selectedQuickTradePair
+    ? 'Trade'
+    : selectedQuickTradePair.outputSymbol === 'ABRA'
+      ? 'Buy ABRA via Bags'
+      : selectedQuickTradePair.inputSymbol === 'ABRA'
+        ? 'Swap ABRA via Bags'
+        : 'Swap In Abraxas';
 
   const handleQuickTradeQuote = async () => {
-    if (!fromAmount || isNaN(Number(fromAmount))) return;
+    if (!fromAmount || isNaN(Number(fromAmount)) || !selectedQuickTradePair) return;
     setIsLoadingQuote(true);
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    const quote = Number(fromAmount) * selectedQuickTradePair!.price;
-    setToAmount(quote.toFixed(2));
-    setIsLoadingQuote(false);
+    setSwapError(null);
+
+    if (quickTradeUsesBagsRoute) {
+      const fallbackQuote = Number(fromAmount) * selectedQuickTradePair.fallbackPrice;
+      setToAmount(fallbackQuote.toFixed(4));
+      setIsLoadingQuote(false);
+      return;
+    }
+
+    try {
+      const quote = await getJupiterQuote(
+        selectedQuickTradePair.inputMint,
+        selectedQuickTradePair.outputMint,
+        Number(fromAmount),
+        50,
+        selectedQuickTradePair.inputDecimals,
+      );
+
+      if (quote) {
+        const outputAmount = Number(quote.outAmount) / 10 ** selectedQuickTradePair.outputDecimals;
+        setToAmount(outputAmount.toFixed(selectedQuickTradePair.outputDecimals === 9 ? 6 : 4));
+        return;
+      }
+
+      const fallbackQuote = Number(fromAmount) * selectedQuickTradePair.fallbackPrice;
+      setToAmount(fallbackQuote.toFixed(4));
+      setSwapError('Live quote unavailable. Showing a fallback estimate.');
+    } catch (error) {
+      console.error('Quick trade quote error:', error);
+      const fallbackQuote = Number(fromAmount) * selectedQuickTradePair.fallbackPrice;
+      setToAmount(fallbackQuote.toFixed(4));
+      setSwapError('Live quote unavailable. Showing a fallback estimate.');
+    } finally {
+      setIsLoadingQuote(false);
+    }
   };
+
+  const openQuickTradeBagsRoute = useCallback(() => {
+    if (!selectedQuickTradePair || typeof window === 'undefined') {
+      return;
+    }
+
+    const baseUrl = selectedQuickTradePair.outputSymbol === 'ABRA'
+      ? `https://bags.fm/${ABRA_TOKEN_CA}`
+      : `https://bags.fm/${selectedQuickTradePair.inputMint}/${selectedQuickTradePair.outputMint}`;
+
+    const amountSuffix = fromAmount ? `?amount=${encodeURIComponent(fromAmount)}` : '';
+    window.open(`${baseUrl}${amountSuffix}`, '_blank', 'noopener,noreferrer');
+  }, [selectedQuickTradePair, fromAmount]);
+
+  const handleQuickTradeSwap = useCallback(async () => {
+    if (!connected || !publicKey || !sendTransaction || !selectedQuickTradePair || !fromAmount) {
+      setSwapError('Connect your wallet to trade inside Abraxas.');
+      return;
+    }
+
+    if (quickTradeUsesBagsRoute) {
+      openQuickTradeBagsRoute();
+      return;
+    }
+
+    setIsSwapping(true);
+    setSwapError(null);
+
+    try {
+      const swapTxResponse = await getJupiterSwapTransaction(
+        publicKey.toString(),
+        selectedQuickTradePair.inputMint,
+        selectedQuickTradePair.outputMint,
+        Number(fromAmount),
+        50,
+      );
+
+      if (!swapTxResponse) {
+        setSwapError('In-app routing is temporarily unavailable. Use the optional Bags 0% fee route below.');
+        return;
+      }
+
+      const signature = await executeSwap(connection, swapTxResponse.swapTransaction, sendTransaction);
+
+      if (!signature) {
+        setSwapError('Swap transaction failed. Please check your balance and try again.');
+        return;
+      }
+
+      if (selectedSophia) {
+        recordSophiaTrade({
+          sophiaAgentId: selectedSophia.id,
+          timestamp: new Date().toISOString(),
+          fromMint: selectedQuickTradePair.inputMint,
+          toMint: selectedQuickTradePair.outputMint,
+          fromSymbol: selectedQuickTradePair.inputSymbol,
+          toSymbol: selectedQuickTradePair.outputSymbol,
+          inputAmount: Number(fromAmount),
+          outputAmount: Number(toAmount || 0),
+          executedPrice: Number(toAmount || 0) / Math.max(Number(fromAmount), 1),
+          entryReason: `Manual in-app trade - ${selectedQuickTradePair.label}`,
+          priceAtEntry: Number(toAmount || 0) / Math.max(Number(fromAmount), 1),
+          status: 'executed',
+        });
+      }
+
+      if (selectedQuickTradePair.outputSymbol === 'ABRA') {
+        setRecentSwapAmount(Number(toAmount || 0));
+      }
+
+      setShowTradeSuccess(true);
+      setTimeout(() => setShowTradeSuccess(false), 3000);
+      setFromAmount('');
+      setToAmount('');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Trade failed. Please try again.';
+      console.error('Quick trade swap error:', errorMessage);
+      setSwapError(errorMessage);
+    } finally {
+      setIsSwapping(false);
+    }
+  }, [connected, connection, fromAmount, openQuickTradeBagsRoute, publicKey, quickTradeUsesBagsRoute, recordSophiaTrade, selectedQuickTradePair, selectedSophia, sendTransaction, toAmount]);
 
   const swapFeePercentage = 0.02;
   const estimatedFee = Number(toAmount) * (swapFeePercentage / 100);
@@ -592,6 +760,91 @@ export function TradePage() {
           Spend ABRA Direct
         </button>
 
+        <article id="in-app-trade" className="glow-panel rounded-2xl border border-emerald-300/30 bg-emerald-500/10 p-4 flex-shrink-0 w-full">
+          <div className="flex items-center gap-2 mb-3">
+            <Zap className="text-emerald-200" size={16} />
+            <h3 className="text-sm font-semibold text-emerald-100">Trade In Abraxas</h3>
+            <FeatureBadge status="live" size="sm" />
+          </div>
+          <p className="text-xs text-emerald-100/80 mb-3">
+            {quickTradeUsesBagsRoute
+              ? 'ABRA routes currently execute through Bags. Use the button below to buy or swap ABRA with the live Bags flow.'
+              : 'This is the recommended route. Quotes and swaps execute inside the dapp through Jupiter. Bags stays available below if users want the optional 0% fee path.'}
+          </p>
+          <div className="space-y-3">
+            <select
+              value={selectedPairId}
+              onChange={(e) => {
+                setSelectedPairId(e.target.value);
+                setToAmount('');
+                setSwapError(null);
+              }}
+              className="w-full rounded-lg border border-emerald-400/30 bg-slate-950/70 px-3 py-2 text-sm font-medium text-slate-100"
+            >
+              {quickTradePairs.map((pair) => (
+                <option key={pair.id} value={pair.id}>
+                  {pair.label}
+                </option>
+              ))}
+            </select>
+
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <input
+                  type="number"
+                  value={fromAmount}
+                  onChange={(e) => setFromAmount(e.target.value)}
+                  placeholder={`Amount (${selectedQuickTradePair?.inputSymbol ?? 'token'})`}
+                  className="w-full rounded-lg border border-slate-600 bg-slate-950/60 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/30 outline-none"
+                />
+              </div>
+              <button
+                onClick={handleQuickTradeQuote}
+                disabled={!fromAmount || isLoadingQuote || isSwapping}
+                className="px-3 py-2 rounded-lg bg-emerald-500/80 text-white font-semibold text-xs hover:bg-emerald-600/90 disabled:opacity-50 transition"
+              >
+                {isLoadingQuote ? '...' : 'Quote'}
+              </button>
+            </div>
+
+            {toAmount && (
+              <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 px-3 py-2">
+                <p className="text-xs text-slate-300 mb-1">Estimated output</p>
+                <p className="text-lg font-bold text-emerald-300">
+                  {Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 6 })} {selectedQuickTradePair?.outputSymbol}
+                </p>
+              </div>
+            )}
+
+            <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
+              <div className="flex justify-between">
+                <p className="text-white/50">Route</p>
+                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'Bags direct' : 'Jupiter in-app'}</p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-white/50">Fallback</p>
+                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'External Bags market' : 'Bags 0% fee option below'}</p>
+              </div>
+              {swapError && !quickTradeUsesBagsRoute ? (
+                <p className="text-amber-200">{swapError}</p>
+              ) : null}
+              {quickTradeUsesBagsRoute ? (
+                <p className="text-amber-200">ABRA liquidity is currently routed through Bags, so this button opens the live Bags execution path instead of showing the temporary Jupiter warning.</p>
+              ) : null}
+            </div>
+
+            {toAmount && (
+              <button
+                onClick={handleQuickTradeSwap}
+                disabled={isSwapping || isLoadingQuote}
+                className="w-full rounded-lg bg-emerald-500/90 hover:bg-emerald-600 text-white font-semibold py-2 transition text-sm disabled:opacity-50"
+              >
+                {isSwapping ? 'Processing...' : quickTradeActionLabel}
+              </button>
+            )}
+          </div>
+        </article>
+
         {/* Buy ABRA Widget */}
         <BagsBuyWidget tokenAddress={ABRA_TOKEN_CA} compact={false} />
 
@@ -650,66 +903,6 @@ export function TradePage() {
             />
           </div>
         )}
-
-        {/* Quick Trade Box */}
-        <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 flex-shrink-0 w-full">
-          <div className="flex items-center gap-2 mb-3">
-            <Zap className="text-cyan-200" size={16} />
-            <h3 className="text-sm font-semibold text-cyan-100">Quick Trade</h3>
-          </div>
-          <div className="space-y-3">
-            {/* Pair Selector */}
-            <select
-              value={selectedPairId}
-              onChange={(e) => {
-                setSelectedPairId(e.target.value);
-                setToAmount('');
-              }}
-              className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm font-medium text-slate-100"
-            >
-              {quickTradePairs.map((pair) => (
-                <option key={pair.id} value={pair.id}>
-                  {pair.label}
-                </option>
-              ))}
-            </select>
-
-            {/* From/To Inputs */}
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <input
-                  type="number"
-                  value={fromAmount}
-                  onChange={(e) => setFromAmount(e.target.value)}
-                  placeholder="From amount"
-                  className="w-full rounded-lg border border-slate-600 bg-slate-950/60 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none"
-                />
-              </div>
-              <button
-                onClick={handleQuickTradeQuote}
-                disabled={!fromAmount || isLoadingQuote}
-                className="px-3 py-2 rounded-lg bg-cyan-500/80 text-white font-semibold text-xs hover:bg-cyan-600/90 disabled:opacity-50 transition"
-              >
-                {isLoadingQuote ? '...' : '→'}
-              </button>
-            </div>
-
-            {/* To Amount */}
-            {toAmount && (
-              <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 px-3 py-2">
-                <p className="text-xs text-slate-300 mb-1">You get</p>
-                <p className="text-lg font-bold text-emerald-300">{Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-              </div>
-            )}
-
-            {/* Swap Button */}
-            {toAmount && (
-              <button className="w-full rounded-lg bg-cyan-500/90 hover:bg-cyan-600 text-white font-semibold py-2 transition text-sm">
-                Swap Now
-              </button>
-            )}
-          </div>
-        </article>
 
         {/* RWA Pairs */}
         <div className="glow-panel p-4 space-y-3 flex-shrink-0 w-full">
@@ -823,16 +1016,17 @@ export function TradePage() {
           {showLiveMarket && (
             <div className="w-full h-[600px] rounded-lg overflow-hidden border border-cyan-400/20 bg-black transition-all duration-300">
               <iframe
-                title="Dex Screener Chart"
-                src="https://dexscreener.com/solana/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS?theme=dark"
+                title="ABRA Bags Market"
+                src={ABRA_BAGS_MARKET_URL}
                 width="100%"
                 height="600"
                 style={{ border: 0 }}
                 allowFullScreen
+                referrerPolicy="no-referrer"
               ></iframe>
             </div>
           )}
-          <p className="text-xs text-white/30 mt-2">Powered by Dex Screener. Chart shows ABRA/USDC on Solana.</p>
+          <p className="text-xs text-white/30 mt-2">Powered by Bags. Live market embed loads the ABRA token page using mint {ABRA_TOKEN_CA}.</p>
         </div>
       </div>
 
@@ -894,13 +1088,13 @@ export function TradePage() {
               </div>
             )}
 
-            {/* Buy ABRA */}
+            {/* Buy ABRA now */}
             <div className="glow-panel p-5 space-y-3">
               <div className="flex items-center gap-2 text-amber-300">
-                <span>Step 1: Acquire ABRA Token</span>
+                <span>Step 1: Buy ABRA Now</span>
               </div>
               <p className="text-xs text-white/60">
-                Get ABRA tokens to participate in early adopter staking. After purchase, proceed to staking step below.
+                Buy ABRA first, then move directly into staking below if you want the early adopter multiplier route.
               </p>
               <div className="rounded-lg border border-amber-300/25 bg-slate-900/50 p-3 space-y-1 text-xs">
                 <p className="text-amber-200/75 font-semibold uppercase tracking-wide">ABRA Token Address</p>
