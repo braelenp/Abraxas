@@ -190,7 +190,7 @@ function CTAButton({ text, href, variant = 'primary' }: CTAButtonProps) {
 // Main landing page component
 function CinematicLanding() {
   const topBarTyping = useTypingEffect('ACCESSING SOVEREIGN ARCHIVES...', 40, 0);
-  const mainHeadlineTyping = useTypingEffect('Welcome to the new degree.', 60, 0);
+  const mainHeadlineTyping = useTypingEffect('Welcome to the next degree.', 60, 0);
   const loreRef = useRef<HTMLElement | null>(null);
   const loreVisible = useScrollReveal(loreRef, 0.2);
   
