@@ -6,3 +6,4 @@ export { CircuitPage } from './CircuitPage';
 export { SophiaMintPage } from './SophiaMintPage';
 export { OrionPage } from './OrionPage';
 export { LandingPage } from './LandingPage';
+export { StakePage } from './StakePage';

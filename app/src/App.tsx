@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link, Routes, Route, useLocation } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { ExternalLink } from 'lucide-react';
-import { DashboardPage } from './pages/DashboardPage';
+import { DashboardPage, VaultsPage, MarketPage, TradePage, CircuitPage, SophiaMintPage, OrionPage, StakePage } from './pages';
 
 // Typing effect hook
 function useTypingEffect(text: string, speed: number = 50, delay: number = 0) {
@@ -714,11 +714,67 @@ function CinematicLanding() {
   );
 }
 
+// App navigation tabs component
+function AppNav() {
+  const location = useLocation();
+  
+  const tabs = [
+    { label: 'Dashboard', path: '/app/dashboard' },
+    { label: 'Vaults', path: '/app/vaults' },
+    { label: 'Market', path: '/app/market' },
+    { label: 'Trade', path: '/app/trade' },
+    { label: 'Circuit', path: '/app/circuit' },
+    { label: 'Sophia Mint', path: '/app/sophia-mint' },
+    { label: 'Orion', path: '/app/orion' },
+    { label: 'Stake', path: '/app/stake' },
+  ];
+  
+  return (
+    <nav className="flex gap-2 border-b border-cyan-300/10 bg-slate-950 px-4 py-3 overflow-x-auto">
+      {tabs.map((tab) => {
+        const isActive = location.pathname === tab.path;
+        return (
+          <Link
+            key={tab.path}
+            to={tab.path}
+            className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold transition ${
+              isActive
+                ? 'bg-cyan-300/20 text-cyan-200 border border-cyan-300/40'
+                : 'text-slate-400 hover:text-cyan-200 border border-transparent'
+            }`}
+          >
+            {tab.label}
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
+
+// App layout wrapper with navigation
+function AppLayout() {
+  return (
+    <div className="min-h-screen bg-slate-950">
+      <AppNav />
+      <Routes>
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/vaults" element={<VaultsPage />} />
+        <Route path="/market" element={<MarketPage />} />
+        <Route path="/trade" element={<TradePage />} />
+        <Route path="/circuit" element={<CircuitPage />} />
+        <Route path="/sophia-mint" element={<SophiaMintPage />} />
+        <Route path="/orion" element={<OrionPage />} />
+        <Route path="/stake" element={<StakePage />} />
+      </Routes>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<CinematicLanding />} />
-      <Route path="/app/dashboard" element={<DashboardPage />} />
+      <Route path="/app/*" element={<AppLayout />} />
     </Routes>
   );
 }
