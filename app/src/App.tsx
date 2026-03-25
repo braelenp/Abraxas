@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { ExternalLink } from 'lucide-react';
 
@@ -173,20 +174,37 @@ interface CTAButtonProps {
 function CTAButton({ text, href, variant = 'primary' }: CTAButtonProps) {
   // All buttons are now slate with cyan text and cyan pulsing glow
   const buttonClass = 'bg-slate-900/60 border border-cyan-300/40 text-cyan-200 shadow-[0_0_24px_rgba(6,182,212,0.0)] hover:shadow-[0_0_32px_rgba(6,182,212,0.4)] hover:border-cyan-300/60';
+  
+  // Detect if link is internal (starts with /) or external
+  const isInternal = href.startsWith('/');
+  
+  const sharedClassName = `inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold uppercase tracking-wider transition duration-300 ${buttonClass} group`;
 
+  // Use React Router Link for internal routes
+  if (isInternal) {
+    return (
+      <Link
+        to={href}
+        className={sharedClassName}
+      >
+        {text}
+      </Link>
+    );
+  }
+
+  // Use standard anchor tag for external links
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold uppercase tracking-wider transition duration-300 ${buttonClass} group`}
+      className={sharedClassName}
     >
       {text}
       <ExternalLink size={16} className="transition group-hover:translate-x-0.5" />
     </a>
   );
 }
-
 // Main landing page component
 function CinematicLanding() {
   const topBarTyping = useTypingEffect('ACCESSING SOVEREIGN ARCHIVES...', 40, 0);
