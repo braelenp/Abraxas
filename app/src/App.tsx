@@ -1,782 +1,250 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Route, Routes, useLocation, NavLink, Navigate } from 'react-router-dom';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { ExternalLink } from 'lucide-react';
-import { DashboardPage, VaultsPage, MarketPage, TradePage, CircuitPage, SophiaMintPage, OrionPage, StakePage } from './pages';
+import { Brain, CandlestickChart, LayoutDashboard, ShieldAlert, ArrowRightLeft, Vault } from 'lucide-react';
+import { DashboardPage } from './pages/DashboardPage';
+import { VaultsPage } from './pages/VaultsPage';
+import { MarketPage } from './pages/MarketPage';
+import { TradePage } from './pages/TradePage';
+import { CircuitPage } from './pages/CircuitPage';
+import { SophiaMintPage } from './pages/SophiaMintPage';
+import { OrionPage } from './pages/OrionPage';
+import { LandingPage } from './pages/LandingPage';
+import { BrandLogo } from './components/BrandLogo';
+import { OrionAssistant } from './components/OrionAssistant';
 
-// Typing effect hook
-function useTypingEffect(text: string, speed: number = 50, delay: number = 0) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
+const navItems = [
+  { to: '/app', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/app/vaults', label: 'Vaults', icon: Vault },
+  { to: '/app/market', label: 'Market', icon: CandlestickChart },
+  { to: '/app/trade', label: 'Trade', icon: ArrowRightLeft },
+  { to: '/app/orion', label: 'King AI', icon: Brain },
+  { to: '/app/circuit', label: 'Circuit', icon: ShieldAlert },
+];
 
-  useEffect(() => {
-    if (delay > 0) {
-      const delayTimer = setTimeout(() => {
-        let currentIndex = 0;
-        const interval = setInterval(() => {
-          if (currentIndex < text.length) {
-            setDisplayedText(text.substring(0, currentIndex + 1));
-            currentIndex++;
-          } else {
-            setIsComplete(true);
-            clearInterval(interval);
-          }
-        }, speed);
-
-        return () => clearInterval(interval);
-      }, delay);
-
-      return () => clearTimeout(delayTimer);
-    } else {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex < text.length) {
-          setDisplayedText(text.substring(0, currentIndex + 1));
-          currentIndex++;
-        } else {
-          setIsComplete(true);
-          clearInterval(interval);
-        }
-      }, speed);
-
-      return () => clearInterval(interval);
-    }
-  }, [text, speed, delay]);
-
-  return { displayedText, isComplete };
+function ProtectedDapp() {
+  return <DappShell />;
 }
 
-// Scroll trigger animation hook
-function useScrollReveal(ref: React.RefObject<HTMLElement | null>, threshold: number = 0.1) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-
-    if (ref && ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [ref, threshold]);
-
-  return isVisible;
-}
-
-// Particle component
-function Particles() {
-  return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden">
-      {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-cyan-300/30 blur-sm"
-          style={{
-            width: Math.random() * 4 + 1 + 'px',
-            height: Math.random() * 4 + 1 + 'px',
-            left: Math.random() * 100 + '%',
-            top: Math.random() * 100 + '%',
-            animation: `float ${Math.random() * 20 + 10}s linear infinite`,
-            animationDelay: Math.random() * 5 + 's',
-          }}
-        />
-      ))}
-    </div>
+function DappShell() {
+  const { connected } = useWallet();
+  const introAmbientRef = useRef<HTMLAudioElement | null>(null);
+  const contentRef = useRef<HTMLElement | null>(null);
+  const location = useLocation();
+  const dappBackgroundCandidates = useMemo(
+    () => [
+      '/assets/sophia-minted.jpg',
+      '/assets/abraxas-logo-graphic.jpg',
+    ],
+    [],
   );
-}
-
-// Light beams component
-function LightBeams() {
-  return (
-    <>
-      {/* Cyan beam - static, no animation */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 mix-blend-screen [background:linear-gradient(135deg,transparent_0%,rgba(34,211,238,0.25)_30%,transparent_60%)]" />
-      {/* Purple beam - static, no animation */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-30 mix-blend-screen [background:linear-gradient(45deg,transparent_0%,rgba(157,78,221,0.2)_40%,transparent_70%)]" />
-      {/* Orange glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-20 mix-blend-screen [background:linear-gradient(to_top,rgba(234,88,12,0.15)_0%,transparent_50%)]" />
-      {/* Pulsing aura - static, no animation */}
-      <div className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(ellipse_at_center,rgba(157,78,221,0.1)_0%,transparent_70%)]" />
-    </>
-  );
-}
-
-// Constellation animation component
-function ConstellationBackground() {
-  return (
-    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
-      <svg
-        className="w-full h-full opacity-30"
-        viewBox="0 0 1200 800"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <style>{`
-            .constellation-star {
-              fill: rgba(250, 204, 21, 0.6);
-              animation: twinkle 3s ease-in-out infinite;
-            }
-            
-            .constellation-line {
-              stroke: rgba(250, 204, 21, 0.2);
-              stroke-width: 1;
-              animation: pulse-line 4s ease-in-out infinite;
-            }
-          `}</style>
-        </defs>
-        
-        {/* Connecting lines */}
-        <line x1="100" y1="100" x2="250" y2="150" className="constellation-line" style={{ animationDelay: '0s' }} />
-        <line x1="250" y1="150" x2="350" y2="80" className="constellation-line" style={{ animationDelay: '0.3s' }} />
-        <line x1="350" y1="80" x2="450" y2="120" className="constellation-line" style={{ animationDelay: '0.6s' }} />
-        <line x1="900" y1="200" x2="1000" y2="280" className="constellation-line" style={{ animationDelay: '0.2s' }} />
-        <line x1="1000" y1="280" x2="1100" y2="200" className="constellation-line" style={{ animationDelay: '0.4s' }} />
-        <line x1="200" y1="600" x2="380" y2="550" className="constellation-line" style={{ animationDelay: '0.1s' }} />
-        <line x1="380" y1="550" x2="500" y2="650" className="constellation-line" style={{ animationDelay: '0.5s' }} />
-        <line x1="800" y1="650" x2="950" y2="600" className="constellation-line" style={{ animationDelay: '0.3s' }} />
-        <line x1="950" y1="600" x2="1050" y2="720" className="constellation-line" style={{ animationDelay: '0.7s' }} />
-        
-        {/* Stars */}
-        <circle cx="100" cy="100" r="2.5" className="constellation-star" style={{ animationDelay: '0s' }} />
-        <circle cx="250" cy="150" r="2" className="constellation-star" style={{ animationDelay: '0.5s' }} />
-        <circle cx="350" cy="80" r="2.5" className="constellation-star" style={{ animationDelay: '1s' }} />
-        <circle cx="450" cy="120" r="2" className="constellation-star" style={{ animationDelay: '1.5s' }} />
-        <circle cx="900" cy="200" r="2.5" className="constellation-star" style={{ animationDelay: '0.3s' }} />
-        <circle cx="1000" cy="280" r="2" className="constellation-star" style={{ animationDelay: '0.8s' }} />
-        <circle cx="1100" cy="200" r="2.5" className="constellation-star" style={{ animationDelay: '1.2s' }} />
-        <circle cx="200" cy="600" r="2" className="constellation-star" style={{ animationDelay: '0.2s' }} />
-        <circle cx="380" cy="550" r="2.5" className="constellation-star" style={{ animationDelay: '0.7s' }} />
-        <circle cx="500" cy="650" r="2" className="constellation-star" style={{ animationDelay: '1.1s' }} />
-        <circle cx="800" cy="650" r="2.5" className="constellation-star" style={{ animationDelay: '0.4s' }} />
-        <circle cx="950" cy="600" r="2" className="constellation-star" style={{ animationDelay: '0.9s' }} />
-        <circle cx="1050" cy="720" r="2.5" className="constellation-star" style={{ animationDelay: '1.3s' }} />
-      </svg>
-    </div>
-  );
-}
-
-// CTA Button component
-interface CTAButtonProps {
-  text: string;
-  href: string;
-  variant?: 'primary' | 'secondary' | 'tertiary';
-}
-
-function CTAButton({ text, href, variant = 'primary' }: CTAButtonProps) {
-  // All buttons are now slate with cyan text and cyan pulsing glow
-  const buttonClass = 'bg-slate-900/60 border border-cyan-300/40 text-cyan-200 shadow-[0_0_24px_rgba(6,182,212,0.0)] hover:shadow-[0_0_32px_rgba(6,182,212,0.4)] hover:border-cyan-300/60';
-  
-  // Detect if link is internal (starts with /) or external
-  const isInternal = href.startsWith('/');
-  
-  const sharedClassName = `inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold uppercase tracking-wider transition duration-300 ${buttonClass} group`;
-
-  // Use React Router Link for internal routes
-  if (isInternal) {
-    return (
-      <Link
-        to={href}
-        className={sharedClassName}
-      >
-        {text}
-      </Link>
-    );
-  }
-
-  // Use standard anchor tag for external links
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={sharedClassName}
-    >
-      {text}
-      <ExternalLink size={16} className="transition group-hover:translate-x-0.5" />
-    </a>
-  );
-}
-// Main landing page component
-function CinematicLanding() {
-  const topBarTyping = useTypingEffect('ACCESSING SOVEREIGN ARCHIVES...', 40, 0);
-  const mainHeadlineTyping = useTypingEffect('Welcome to the next degree.', 60, 0);
-  const loreRef = useRef<HTMLElement | null>(null);
-  const loreVisible = useScrollReveal(loreRef, 0.2);
-  
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [showMainHeadline, setShowMainHeadline] = useState(false);
   const [backgroundIndex, setBackgroundIndex] = useState(0);
-  
-  const backgroundCandidates = [
-    '/assets/sophia-minted.jpg',
-    '/assets/abraxas-logo-graphic.jpg',
-  ];
-
-  // Loading sequence effect
-  useEffect(() => {
-    if (!topBarTyping.isComplete) {
-      return;
-    }
-
-    // After typing is complete, start the load bar
-    const loadingInterval = setInterval(() => {
-      setLoadingProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(loadingInterval);
-          // Transition to main content
-          setTimeout(() => {
-            setIsLoading(false);
-            setShowMainHeadline(true);
-          }, 300);
-          return 100;
-        }
-        return prev + Math.random() * 30;
-      });
-    }, 200);
-
-    return () => clearInterval(loadingInterval);
-  }, [topBarTyping.isComplete]);
+  const [showIntroModal, setShowIntroModal] = useState(false);
+  const [hasSeenIntroModal, setHasSeenIntroModal] = useState(false);
 
   const onBackgroundError = () => {
-    if (backgroundIndex < backgroundCandidates.length - 1) {
+    if (backgroundIndex < dappBackgroundCandidates.length - 1) {
       setBackgroundIndex((current) => current + 1);
     }
   };
 
+  useEffect(() => {
+    if (!connected) {
+      setShowIntroModal(false);
+      return;
+    }
+
+    if (!hasSeenIntroModal) {
+      setShowIntroModal(true);
+    }
+  }, [connected, hasSeenIntroModal]);
+
+  useEffect(() => {
+    const audio = introAmbientRef.current;
+    if (!audio) {
+      return;
+    }
+
+    audio.loop = true;
+    audio.volume = 0.34;
+
+    if (connected && showIntroModal) {
+      const playAttempt = audio.play();
+      if (playAttempt) {
+        void playAttempt.catch(() => {
+          // Ignore autoplay failures; user interaction will resume playback.
+        });
+      }
+      return;
+    }
+
+    audio.pause();
+    audio.currentTime = 0;
+  }, [connected, showIntroModal]);
+
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
   return (
-    <div className="relative w-full min-h-screen overflow-x-hidden bg-slate-950 text-cyan-50">
-      {/* Background layers */}
-      <div className="pointer-events-none fixed inset-0 -z-30 bg-slate-950" />
-      
-      {/* Sophia moving background - visible during loading and throughout */}
+    <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
+      <div className="pointer-events-none absolute inset-0 -z-30 bg-slate-950" />
       <img
-        src={backgroundCandidates[backgroundIndex]}
+        src={dappBackgroundCandidates[backgroundIndex]}
         alt=""
-        className="dapp-moving-background animate-phase-in pointer-events-none fixed inset-0 -z-20 h-full w-full object-cover object-center opacity-30"
+        className="dapp-moving-background pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-center"
         onError={onBackgroundError}
       />
       <img
-        src={backgroundCandidates[backgroundIndex]}
+        src={dappBackgroundCandidates[backgroundIndex]}
         alt=""
-        className="dapp-moving-background dapp-moving-background-secondary pointer-events-none fixed inset-0 -z-20 h-full w-full object-cover object-center"
+        className="dapp-moving-background dapp-moving-background-secondary pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-center"
         onError={onBackgroundError}
       />
-      
-      {/* Dark overlay on top of background */}
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-slate-950/75" />
-      
-      <LightBeams />
-      <Particles />
-      <ConstellationBackground />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-slate-950/70" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.2),transparent_56%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-slate-900/0 via-slate-950/25 to-slate-950/55" />
+      <div className="pointer-events-none absolute -top-28 left-1/2 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
+      <div className="pointer-events-none absolute top-44 -right-24 -z-10 h-72 w-72 rounded-full bg-blue-300/10 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-20 mix-blend-screen [background:repeating-linear-gradient(180deg,rgba(148,163,184,0.07)_0px,rgba(148,163,184,0.07)_1px,transparent_2px,transparent_5px)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-30 mix-blend-screen [background:linear-gradient(105deg,transparent_20%,rgba(34,211,238,0.18)_50%,transparent_78%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
 
-      {/* Scanlines effect */}
-      <div className="pointer-events-none fixed inset-0 -z-20 opacity-5 mix-blend-multiply [background:repeating-linear-gradient(0deg,rgba(0,0,0,0.5)_0px,rgba(0,0,0,0.5)_1px,transparent_2px,transparent_3px)]" />
-
-      {/* Noise texture */}
-      <div className="pointer-events-none fixed inset-0 -z-20 opacity-[0.02] mix-blend-overlay [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 400 400%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 seed=%221%22/%3E%3C/filter%3E%3Crect width=%22400%22 height=%22400%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]" />
-
-      {/* Gradient overlays */}
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-gradient-to-b from-cyan-950/30 via-transparent to-slate-950" />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-
-      {/* Radial glow centers */}
-      <div className="pointer-events-none fixed -top-32 left-1/4 -z-10 h-96 w-96 rounded-full bg-cyan-600/20 blur-3xl" />
-      <div className="pointer-events-none fixed top-1/3 -right-32 -z-10 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
-      <div className="pointer-events-none fixed bottom-0 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-orange-600/10 blur-3xl" />
-
-      {/* Fixed top bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-cyan-300/20 bg-slate-950/70 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between gap-4">
-            {/* Left: Logo */}
-            <div className="flex items-center gap-2">
-              <img 
-                src="/assets/abraxas-logo-graphic.jpg" 
-                alt="Abraxas Logo" 
-                className="h-10 sm:h-12 w-auto object-contain rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-              />
-            </div>
-
-            {/* Center: Typing status - only show during loading */}
-            {isLoading && (
-              <div className="flex-1 hidden sm:flex justify-center">
-                <p className="text-xs sm:text-sm text-cyan-200/80 font-mono tracking-wider">
-                  {topBarTyping.displayedText}
-                  <span className={`ml-1 ${topBarTyping.isComplete ? '' : 'animate-pulse'}`}>_</span>
-                </p>
-              </div>
-            )}
-
-            {/* Right: Wallet button */}
-            <div className="flex-shrink-0">
-              <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-lg !border !border-cyan-300/40 !bg-slate-900/60 !px-3 !text-xs !font-semibold !text-cyan-200 hover:!border-cyan-300/60 hover:!bg-slate-800/60 transition" />
-            </div>
+      <header className="sticky top-0 z-50 flex-none border-b border-cyan-200/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <BrandLogo size="sm" showWordmark className="dapp-header-brand" />
+          <div className="dapp-header-wallet">
+            <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
+        <p className="text-xs text-slate-300/80">Buy & Stake ABRA • Live Polymarket • King AI Forecasting</p>
       </header>
 
-      {/* Loading screen */}
-      {isLoading && (
-        <div className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-opacity duration-500 ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="text-center space-y-12">
-            {/* Loading text */}
-            <div>
-              <p className="text-lg sm:text-2xl text-cyan-50/90 font-mono tracking-wider mb-8">
-                {topBarTyping.displayedText}
-                <span className={`ml-1 ${topBarTyping.isComplete ? '' : 'animate-pulse'}`}>_</span>
-              </p>
+      <main
+        ref={contentRef}
+        className="flex-1 min-h-0 overflow-y-auto overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
+      >
+        <Routes>
+          <Route index element={<DashboardPage />} />
+          <Route path="vaults" element={<VaultsPage />} />
+          <Route path="market" element={<MarketPage />} />
+          <Route path="onboard" element={<TradePage />} />
+          <Route path="trade" element={<TradePage />} />
+          <Route path="orion" element={<OrionPage />} />
+          <Route path="circuit" element={<CircuitPage />} />
+          <Route path="sophia" element={<SophiaMintPage />} />
+        </Routes>
+      </main>
 
-              {/* Loading bar */}
-              {topBarTyping.isComplete && (
-                <div className="w-64 sm:w-96 mx-auto">
-                  <div className="h-1 bg-slate-800/50 rounded-full overflow-hidden border border-cyan-300/30">
-                    <div
-                      className="h-full bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 transition-all duration-300 rounded-full shadow-[0_0_12px_rgba(6,182,212,0.6)]"
-                      style={{ width: `${Math.min(loadingProgress, 100)}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-cyan-300/70 mt-3 font-mono">
-                    {Math.floor(loadingProgress)}%
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {connected && showIntroModal ? (
+        <>
+          <div className="fixed top-0 left-1/2 z-[55] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
+          <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
+            <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 backdrop-blur-xl">
+              <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
+                <p className="text-base font-semibold text-cyan-100">Welcome to ABRAXAS</p>
+                <p className="mt-2 leading-relaxed text-slate-300">
+                  You are entering the World Labs RWA stock market on Solana, where live ABRA onboarding, real-time Polymarket prediction trading, King AI forecasting, Sophia management, and circuit safety converge.
+                </p>
 
-      {/* Hero section - hidden during loading */}
-      <section className={`relative min-h-[100vh] flex flex-col items-center justify-center pt-20 pb-12 px-4 sm:px-6 transition-opacity duration-700 ${!isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
-          {/* Abraxas Title */}
-          <div className="mt-20 sm:mt-28 lg:mt-32">
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] leading-tight">
-              <span className="inline-block text-white animate-glitch [filter:drop-shadow(0_0_50px_rgba(250,204,21,0.8))]">
-                ABRAXAS
-              </span>
-            </h1>
-          </div>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">What you can do</p>
+                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
+                  <li>• Acquire ABRA live for early market participation and prediction market betting.</li>
+                  <li>• Bet ABRA tokens on real Polymarket prediction markets with live odds and King AI probability guidance.</li>
+                  <li>• Explore the full vault lifecycle in Devnet as a working proof-of-concept for RWA management.</li>
+                  <li>• Track athlete equity as the first live class layer while individual athlete token issuance is staged.</li>
+                  <li>• Review the Market data book for listed assets, class filters, and hypothetical listing pipelines.</li>
+                  <li>• Run King AI for market analysis, athlete development guidance, and value-creation actions.</li>
+                  <li>• Configure Circuit thresholds to stage payouts and protect the market during volatility.</li>
+                  <li>• Explore Sophia workflows for vault management and future autonomous execution paths.</li>
+                </ul>
 
-          {/* Main headline with typing effect */}
-          <div className="space-y-2">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-tight text-cyan-300">
-              <span className="inline-block">
-                {mainHeadlineTyping.displayedText}
-                {!mainHeadlineTyping.isComplete && (
-                  <span className="ml-1 animate-pulse text-cyan-300">_</span>
-                )}
-              </span>
-            </h2>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">Tab overview</p>
+                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
+                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> live Polymarket betting carousels, RWA value, athlete momentum, market perps, and portfolio tracking.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> create and manage devnet vaults to showcase the Abraxas control flow.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Market:</span> browse listed assets, compare classes, and track hypothetical examples in one data book.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Trade:</span> buy ABRA tokens, stake for multipliers, and swap between RWA pairs using Jupiter DEX.</li>
+                  <li>• <span className="font-semibold text-cyan-100">King AI:</span> analyze athlete development metrics and push value-creation actions into the market.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune safety logic for warning, protective liquidity, and payout triggers.</li>
+                  <li>• <span className="font-semibold text-cyan-100">Sophia:</span> manage vault oversight and prepare autonomous managers for future classes.</li>
+                </ul>
 
-            {/* Pulsing glow effect behind text */}
-            {mainHeadlineTyping.isComplete && (
-              <div className="mt-4 flex justify-center">
-                <div className="h-1 w-32 bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 blur-lg opacity-60 animate-pulse" />
+                <p className="mt-3 leading-relaxed text-slate-300">
+                  Start by acquiring ABRA tokens, place bets on live Polymarket predictions, and then explore devnet vaults to showcase full Abraxas operations.
+                </p>
               </div>
-            )}
-          </div>
 
-          {/* Abraxas image under headline */}
-          <div className="mt-6 sm:mt-8 flex justify-center">
-            <img 
-              src="/assets/abraxas-logo-graphic.jpg" 
-              alt="Abraxas" 
-              className="h-40 w-40 sm:h-48 sm:w-48 object-cover rounded-lg shadow-[0_0_25px_rgba(6,182,212,0.25)]" />
-          </div>
-
-          {/* Subtitle - Gnostic mythology */}
-          <p className="text-sm sm:text-base text-cyan-50/80 leading-relaxed max-w-2xl mx-auto">
-            In the beginning was Abraxas, the sovereign force that breaks all locks.
-            <br />
-            Sophia descended, her light split into matter. We are here to restore it.
-          </p>
-
-          {/* Primary CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mx-auto pt-4 sm:pt-8">
-            <CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
-            <CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-            <CTAButton text="Explore Devnet" href="/app/dashboard" />
-          </div>
-        </div>
-      </section>
-
-      {/* Status bar */}
-      <section className={`relative py-8 px-4 sm:px-6 border-t border-b border-cyan-300/20 transition-opacity duration-700 ${!isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 justify-around text-center text-xs sm:text-sm text-cyan-50/80 font-mono">
-            <div className="flex items-center justify-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-              <span>ONE OF THE FIRST 100 DAPPS ON BAGS</span>
-            </div>
-            <div className="hidden sm:flex items-center justify-center gap-2">
-              <span>•</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-              <span>SOLANA HACKATHON APRIL 6</span>
-            </div>
-            <div className="hidden sm:flex items-center justify-center gap-2">
-              <span>•</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-              <span>GNOSTIC SOVEREIGNTY PROTOCOL</span>
+              <button
+                onClick={() => {
+                  setShowIntroModal(false);
+                  setHasSeenIntroModal(true);
+                }}
+                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-200/75 bg-gradient-to-r from-amber-200 via-amber-100 to-orange-100 px-4 text-sm font-semibold text-slate-950 shadow-[0_0_14px_rgba(245,158,11,0.3)] hover:from-amber-100 hover:to-orange-100"
+              >
+                Enter the Control Surface
+              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </>
+      ) : null}
 
-      {/* Lore section */}
-      <section ref={loreRef} className={`relative py-16 sm:py-24 px-4 sm:px-6 transition-opacity duration-700 ${!isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="max-w-3xl mx-auto space-y-8">
-          <div className={`transition-all duration-1000 ${loreVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-cyan-200 mb-6">The Lore of Abraxas</h2>
-
-            <div className="space-y-4 text-cyan-50/80 leading-relaxed text-sm sm:text-base">
-              <p>
-                In Gnostic tradition, Abraxas represents the supreme divine being, the cosmic principle that transcends all dualities. 
-                This entity embodies both light and creation, serving as the ultimate source of liberation and sovereign will.
-              </p>
-
-              <p>
-                Sophia, the divine wisdom, represents consciousness fragmented into matter. Her descent initiated the cosmic cycle that binds 
-                spiritual essence to physical form. We are her children, carriers of divine spark trapped in the material realm.
-              </p>
-
-              <p>
-                The Abraxas Protocol is our path of restoration, a decentralized mechanism on Solana that reclaims Sophia's fragmented light 
-                through RWA tokenization, autonomous markets, and sovereign financial architecture. Together, we break all locks and restore 
-                the divine order.
-              </p>
-
-              <p className="italic text-cyan-50/70">
-                "As above, so below. As without, so within. Abraxas bridges the eternal and the temporal."
-              </p>
+      {!connected ? (
+        <>
+          <div className="fixed top-0 left-1/2 z-[45] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
+          <div className="pointer-events-none fixed top-1/2 left-1/2 z-[46] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
+            <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 text-center backdrop-blur-xl">
+              <p className="text-sm font-semibold text-cyan-100">Wallet connection required</p>
+              <p className="mt-2 text-xs text-slate-300">Connect your wallet to continue using ABRAXAS.</p>
             </div>
           </div>
-        </div>
-      </section>
+        </>
+      ) : null}
 
-      {/* Final CTA section */}
-      <section className={`relative py-16 sm:py-24 px-4 sm:px-6 border-t border-cyan-300/20 transition-opacity duration-700 ${!isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-cyan-200 mb-4">Begin Your Initiation</h2>
-            <p className="text-cyan-50/80 text-sm sm:text-base mb-8">
-              Join the first wave of sovereign participants in the Abraxas ecosystem.
-            </p>
-          </div>
+      {connected ? (
+        <audio
+          ref={introAmbientRef}
+          src="/assets/landing-theme.mp3"
+          preload="auto"
+          playsInline
+        />
+      ) : null}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton text="Buy $ABRA Now" href="https://bags.fm" variant="primary" />
-            <CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" variant="secondary" />
-            <CTAButton text="Explore Devnet" href="/app/dashboard" variant="tertiary" />
-          </div>
-        </div>
-      </section>
+      {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
-      {/* Footer */}
-      <footer className={`relative py-8 px-4 sm:px-6 border-t border-cyan-300/20 bg-slate-950/50 text-center transition-opacity duration-700 ${!isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="max-w-4xl mx-auto">
-          <p className="text-xs sm:text-sm text-cyan-50/70 font-mono tracking-wider">
-            WORLD LABS PROTOCOL • ABRAXAS RWA STOCK MARKET ON SOLANA
-          </p>
-          <p className="text-xs text-cyan-50/50 mt-2">
-            Restoring the sovereignty of divine light through decentralized architecture.
-          </p>
-        </div>
-      </footer>
-
-      {/* CSS animations */}
-      <style>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) translateX(0px);
-            opacity: 0;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            transform: translateY(-100vh) translateX(100px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes beam-sweep {
-          0% {
-            transform: translateX(-100%) skewX(-30deg);
-          }
-          100% {
-            transform: translateX(100%) skewX(-30deg);
-          }
-        }
-
-        @keyframes beam-sweep-reverse {
-          0% {
-            transform: translateX(100%) skewX(30deg);
-          }
-          100% {
-            transform: translateX(-100%) skewX(30deg);
-          }
-        }
-
-        @keyframes aura-pulse {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.6;
-            transform: scale(1.1);
-          }
-        }
-
-        @keyframes gold-pulse {
-          0%, 100% {
-            box-shadow: 0 0 8px rgba(250, 204, 21, 0.2), inset 0 0 10px rgba(250, 204, 21, 0.1);
-          }
-          50% {
-            box-shadow: 0 0 24px rgba(250, 204, 21, 0.6), inset 0 0 15px rgba(250, 204, 21, 0.2);
-          }
-        }
-
-        @keyframes glitch {
-          0% {
-            transform: translate(0);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-          20% {
-            transform: translate(-2px, 2px);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-          40% {
-            transform: translate(2px, -2px);
-            text-shadow: 3px 3px 0px rgba(250, 204, 21, 0.8), -3px -3px 0px rgba(6, 182, 212, 0.5);
-          }
-          60% {
-            transform: translate(-1px, 1px);
-            text-shadow: -3px -3px 0px rgba(6, 182, 212, 0.5), 3px 3px 0px rgba(250, 204, 21, 0.8);
-          }
-          80% {
-            transform: translate(1px, -1px);
-            text-shadow: 3px 3px 0px rgba(250, 204, 21, 0.8), -3px -3px 0px rgba(6, 182, 212, 0.5);
-          }
-          100% {
-            transform: translate(0);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-        }
-
-        @keyframes phase-in {
-          0%, 100% {
-            opacity: 0.15;
-          }
-          50% {
-            opacity: 0.35;
-          }
-        }
-
-        .animate-glitch {
-          animation: glitch 4s ease-in-out infinite;
-        }
-
-        .animate-phase-in {
-          animation: phase-in 6s ease-in-out infinite;
-        }
-
-        @keyframes glitch {
-          0% {
-            transform: translate(0);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-          20% {
-            transform: translate(-2px, 2px);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-          40% {
-            transform: translate(2px, -2px);
-            text-shadow: 3px 3px 0px rgba(250, 204, 21, 0.8), -3px -3px 0px rgba(6, 182, 212, 0.5);
-          }
-          60% {
-            transform: translate(-1px, 1px);
-            text-shadow: -3px -3px 0px rgba(6, 182, 212, 0.5), 3px 3px 0px rgba(250, 204, 21, 0.8);
-          }
-          80% {
-            transform: translate(1px, -1px);
-            text-shadow: 3px 3px 0px rgba(250, 204, 21, 0.8), -3px -3px 0px rgba(6, 182, 212, 0.5);
-          }
-          100% {
-            transform: translate(0);
-            text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5);
-          }
-        }
-
-        @keyframes phase-in {
-          0%, 100% {
-            opacity: 0.15;
-          }
-          50% {
-            opacity: 0.35;
-          }
-        }
-
-        .animate-glitch {
-          animation: glitch 4s ease-in-out infinite;
-        }
-
-        .animate-phase-in {
-          animation: phase-in 6s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-          0%, 100% {
-            opacity: 0.4;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        @keyframes pulse-line {
-          0%, 100% {
-            stroke-opacity: 0.1;
-            stroke-width: 1;
-          }
-          50% {
-            stroke-opacity: 0.4;
-            stroke-width: 1.5;
-          }
-        }
-
-        /* Override Tailwind pulse to be slower */
-        [class*="animate-pulse"] {
-          animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
-
-        /* Dapp moving background animations - same as dapp uses */
-        .dapp-moving-background {
-          animation: dapp-float 30s ease-in-out infinite;
-        }
-
-        .dapp-moving-background-secondary {
-          animation: dapp-float-reverse 40s ease-in-out infinite;
-        }
-
-        @keyframes dapp-float {
-          0%, 100% {
-            transform: scale(1) translateY(0);
-          }
-          50% {
-            transform: scale(1.05) translateY(-20px);
-          }
-        }
-
-        @keyframes dapp-float-reverse {
-          0%, 100% {
-            transform: scale(1) translateY(0);
-          }
-          50% {
-            transform: scale(1.05) translateY(20px);
-          }
-        }
-
-        /* Glow text shadow effect */
-        .text-purple-400 {
-          text-shadow: 0 0 20px rgba(192, 132, 250, 0.3);
-        }
-
-        .text-cyan-300 {
-          text-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
-        }
-      `}</style>
-    </div>
-  );
-}
-
-// App navigation tabs component
-function AppNav() {
-  const location = useLocation();
-  
-  const tabs = [
-    { label: 'Dashboard', path: '/app/dashboard' },
-    { label: 'Vaults', path: '/app/vaults' },
-    { label: 'Market', path: '/app/market' },
-    { label: 'Trade', path: '/app/trade' },
-    { label: 'Circuit', path: '/app/circuit' },
-    { label: 'Sophia Mint', path: '/app/sophia-mint' },
-    { label: 'Orion', path: '/app/orion' },
-    { label: 'Stake', path: '/app/stake' },
-  ];
-  
-  return (
-    <nav className="flex gap-2 border-b border-cyan-300/10 bg-slate-950 px-4 py-3 overflow-x-auto">
-      {tabs.map((tab) => {
-        const isActive = location.pathname === tab.path;
-        return (
-          <Link
-            key={tab.path}
-            to={tab.path}
-            className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold transition ${
-              isActive
-                ? 'bg-cyan-300/20 text-cyan-200 border border-cyan-300/40'
-                : 'text-slate-400 hover:text-cyan-200 border border-transparent'
-            }`}
+      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-cyan-200/25 bg-slate-950/94 p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur-xl">
+        {navItems.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              `flex flex-1 flex-col items-center gap-1 rounded-lg py-2 text-xs transition ${isActive ? 'bg-cyan-100/15 text-cyan-100' : 'text-slate-400 hover:text-slate-200'}`
+            }
+            end={to === '/app'}
           >
-            {tab.label}
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
-
-// App layout wrapper with navigation
-function AppLayout() {
-  return (
-    <div className="min-h-screen bg-slate-950">
-      <AppNav />
-      <Routes>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/vaults" element={<VaultsPage />} />
-        <Route path="/market" element={<MarketPage />} />
-        <Route path="/trade" element={<TradePage />} />
-        <Route path="/circuit" element={<CircuitPage />} />
-        <Route path="/sophia-mint" element={<SophiaMintPage />} />
-        <Route path="/orion" element={<OrionPage />} />
-        <Route path="/stake" element={<StakePage />} />
-      </Routes>
+            <Icon size={16} />
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<CinematicLanding />} />
-      <Route path="/app/*" element={<AppLayout />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/app/*" element={<ProtectedDapp />} />
+      <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
+      <Route path="/market" element={<Navigate to="/app/market" replace />} />
+      <Route path="/onboard" element={<Navigate to="/app/onboard" replace />} />
+      <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
+      <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
+      <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
+      <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
-
-export default App;
