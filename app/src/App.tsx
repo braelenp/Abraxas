@@ -387,7 +387,7 @@ function CinematicLanding() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mx-auto pt-4 sm:pt-8">
             <CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
             <CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-            <CTAButton text="Explore Devnet" href="https://abraxas-ten.vercel.app" />
+            <CTAButton text="Explore Devnet" href="/app/dashboard" />
           </div>
         </div>
       </section>
@@ -462,7 +462,7 @@ function CinematicLanding() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton text="Buy $ABRA Now" href="https://bags.fm" variant="primary" />
             <CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" variant="secondary" />
-            <CTAButton text="Explore Devnet" href="https://abraxas-ten.vercel.app" variant="tertiary" />
+            <CTAButton text="Explore Devnet" href="/app/dashboard" variant="tertiary" />
           </div>
         </div>
       </section>
