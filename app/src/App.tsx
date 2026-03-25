@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { ExternalLink } from 'lucide-react';
+import { DashboardPage } from './pages/DashboardPage';
 
 // Typing effect hook
 function useTypingEffect(text: string, speed: number = 50, delay: number = 0) {
@@ -713,4 +714,13 @@ function CinematicLanding() {
   );
 }
 
-export default CinematicLanding;
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<CinematicLanding />} />
+      <Route path="/app/dashboard" element={<DashboardPage />} />
+    </Routes>
+  );
+}
+
+export default App;
