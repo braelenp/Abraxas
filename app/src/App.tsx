@@ -181,18 +181,6 @@ function DappShell() {
         </>
       ) : null}
 
-      {!connected ? (
-        <>
-          <div className="fixed top-0 left-1/2 z-[45] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
-          <div className="pointer-events-none fixed top-1/2 left-1/2 z-[46] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
-            <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 text-center backdrop-blur-xl">
-              <p className="text-sm font-semibold text-cyan-100">Wallet connection required</p>
-              <p className="mt-2 text-xs text-slate-300">Connect your wallet to continue using ABRAXAS.</p>
-            </div>
-          </div>
-        </>
-      ) : null}
-
       {connected ? (
         <audio
           ref={introAmbientRef}
