@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { Flame } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Upload, CheckCircle, Flame, Sparkles, FileText } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
-import { useAbraxas } from '../providers/AbraxasProvider';
-import { useWallet } from '@solana/wallet-adapter-react';
 
 const RUNE_CONFIG = {
 	rune: 'ᚲ',
@@ -16,141 +14,198 @@ const RUNE_CONFIG = {
 	accentClass: 'text-orange-300',
 } as const;
 
-const QUICK_AMOUNTS = ['100', '500', '1000'];
+const STEPS = [
+	{ n: 1, label: 'Upload asset proof' },
+	{ n: 2, label: 'Self-attestation' },
+	{ n: 3, label: 'Mint La Casa NFT' },
+	{ n: 4, label: 'Auto-deposit into Sophia vault' },
+];
 
 export function ForgePage() {
-	const { connected } = useWallet();
-	const { vaults } = useAbraxas();
-	const [stakeAmount, setStakeAmount] = useState('');
-	const [isForging, setIsForging] = useState(false);
-	const [forgedMessage, setForgedMessage] = useState('');
+	const fileRef = useRef<HTMLInputElement>(null);
+	const [files, setFiles] = useState<File[]>([]);
+	const [currentStep, setCurrentStep] = useState(1);
+	const [attested, setAttested] = useState(false);
+	const [minted, setMinted] = useState(false);
+	const [isMinting, setIsMinting] = useState(false);
 
-	const handleForge = () => {
-		if (!connected || !stakeAmount) return;
-		setIsForging(true);
-		setForgedMessage('');
-		setTimeout(() => {
-			setIsForging(false);
-			setForgedMessage(`✦ ${stakeAmount} ABRA forged. Position active.`);
-			setStakeAmount('');
-		}, 2000);
+	const handleFiles = (picked: FileList | null) => {
+		if (!picked) return;
+		setFiles(Array.from(picked));
+		if (currentStep === 1) setCurrentStep(2);
 	};
+
+	const handleAttest = () => {
+		setAttested(true);
+		setCurrentStep(3);
+	};
+
+	const handleMint = () => {
+		setIsMinting(true);
+		setTimeout(() => {
+			setIsMinting(false);
+			setMinted(true);
+			setCurrentStep(4);
+		}, 2200);
+	};
+
+	const firstFile = files[0];
+	const previewUrl = firstFile && firstFile.type.startsWith('image/') ? URL.createObjectURL(firstFile) : null;
 
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
-			<section className="space-y-4 pb-6">
-				{/* Forge panel */}
-				<article className="glow-panel rounded-2xl border border-orange-300/20 bg-slate-900/75 p-4 backdrop-blur">
-					<p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-orange-200/80">
-						Kenaz Protocol
-					</p>
-					<h2 className="text-base font-semibold text-slate-100">Forge your ABRA position</h2>
-					<p className="mt-2 text-xs leading-relaxed text-slate-400">
-						Stake ABRA tokens to forge multiplier positions. Forged tokens earn compounding yield
-						from market activity, vault fees, and prediction market outcomes.
-					</p>
+			<section className="space-y-4 pb-8">
 
-					<div className="mt-4 space-y-3">
+				{/* Begin tokenization CTA */}
+				<article className="glow-panel rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/10 via-slate-900/80 to-slate-900/60 p-5 backdrop-blur">
+					<div className="flex items-center gap-3 mb-3">
+						<Flame size={20} className="text-orange-300 shrink-0" />
 						<div>
-							<label className="mb-1 block text-[10px] uppercase tracking-wider text-slate-400">
-								Amount to forge
-							</label>
-							<input
-								type="number"
-								min="0"
-								placeholder="0.00 ABRA"
-								value={stakeAmount}
-								onChange={(e) => setStakeAmount(e.target.value)}
-								className="w-full rounded-xl border border-slate-600/60 bg-slate-950/80 px-3 py-2.5 text-sm text-slate-100 placeholder-slate-600 focus:border-orange-300/50 focus:outline-none"
-							/>
+							<p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-orange-200/80">Kenaz Protocol</p>
+							<h2 className="text-base font-semibold text-slate-100 leading-tight">Tokenize a Real World Asset</h2>
 						</div>
+					</div>
+					<p className="text-xs leading-relaxed text-slate-400 mb-4">
+						Upload proof of ownership for any real world asset. Abraxas mints it as a La Casa NFT and auto-deposits it into a Sophia-managed vault.
+					</p>
+					<button
+						type="button"
+						onClick={() => fileRef.current?.click()}
+						className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-orange-300/60 bg-gradient-to-r from-orange-500/25 to-amber-500/20 px-4 py-3 text-sm font-bold uppercase tracking-wider text-orange-100 shadow-[0_0_20px_rgba(234,88,12,0.2)] transition hover:shadow-[0_0_28px_rgba(234,88,12,0.35)]"
+					>
+						<Sparkles size={15} />
+						Begin Tokenization
+					</button>
+				</article>
 
-						<div className="grid grid-cols-3 gap-2">
-							{QUICK_AMOUNTS.map((amt) => (
-								<button
-									key={amt}
-									type="button"
-									onClick={() => setStakeAmount(amt)}
-									className="rounded-lg border border-slate-600/50 bg-slate-800/60 py-1.5 text-xs text-slate-300 transition hover:border-orange-300/40 hover:text-orange-200"
-								>
-									{amt} ABRA
-								</button>
-							))}
-						</div>
+				{/* Step tracker */}
+				<article className="glow-panel rounded-2xl border border-slate-700/40 bg-slate-900/60 p-4 backdrop-blur">
+					<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">Tokenization Flow</p>
+					<ol className="space-y-2">
+						{STEPS.map(({ n, label }) => {
+							const done = currentStep > n;
+							const active = currentStep === n;
+							return (
+								<li key={n} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition ${active ? 'border border-orange-300/30 bg-orange-500/10' : 'border border-transparent'}`}>
+									<span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition ${done ? 'bg-orange-400 text-slate-950' : active ? 'border border-orange-300/60 text-orange-300' : 'border border-slate-600/60 text-slate-600'}`}>
+										{done ? <CheckCircle size={13} /> : n}
+									</span>
+									<span className={`text-xs ${done ? 'text-slate-400 line-through' : active ? 'font-semibold text-slate-200' : 'text-slate-600'}`}>{label}</span>
+								</li>
+							);
+						})}
+					</ol>
+				</article>
 
+				{/* Upload section */}
+				<article className="glow-panel rounded-2xl border border-slate-700/40 bg-slate-900/60 p-4 backdrop-blur">
+					<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">Upload Asset Proof</p>
+					<input
+						ref={fileRef}
+						type="file"
+						multiple
+						accept=".pdf,.jpg,.jpeg,.png,.webp,.heic"
+						className="hidden"
+						onChange={(e) => handleFiles(e.target.files)}
+					/>
+					{files.length === 0 ? (
 						<button
 							type="button"
-							onClick={handleForge}
-							disabled={!connected || !stakeAmount || isForging}
-							className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-orange-300/45 bg-orange-500/20 px-4 py-2.5 text-sm font-semibold text-orange-100 transition hover:bg-orange-500/30 disabled:cursor-not-allowed disabled:opacity-40"
+							onClick={() => fileRef.current?.click()}
+							className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-slate-600/60 bg-slate-950/40 px-4 py-6 text-xs text-slate-500 transition hover:border-orange-300/40 hover:text-slate-400"
 						>
-							<Flame size={14} />
-							{isForging ? 'Forging...' : 'Forge Position'}
+							<Upload size={22} className="text-slate-600" />
+							<span>Deed, Title, or Proof of Ownership</span>
+							<span className="text-[10px] text-slate-600">PDF, JPG, PNG — multiple files accepted</span>
 						</button>
-
-						{forgedMessage && (
-							<p className="text-center text-xs font-medium text-orange-300">{forgedMessage}</p>
-						)}
-
-						{!connected && (
-							<p className="text-center text-[10px] text-slate-500">
-								Connect wallet to forge positions.
-							</p>
-						)}
-					</div>
-				</article>
-
-				{/* Forge stats */}
-				<article className="glow-panel rounded-2xl border border-orange-300/15 bg-slate-900/60 p-4 backdrop-blur">
-					<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">
-						Forge Metrics
-					</p>
-					<div className="grid grid-cols-2 gap-3">
-						{[
-							{ label: 'Total Forged', value: '—' },
-							{ label: 'Estimated APY', value: '~34%' },
-							{ label: 'Unlock Cooldown', value: '7 days' },
-							{ label: 'Yield Multiplier', value: '1.6×' },
-						].map(({ label, value }) => (
-							<div
-								key={label}
-								className="rounded-xl border border-slate-700/50 bg-slate-950/50 px-3 py-3"
-							>
-								<p className="text-[10px] text-slate-500">{label}</p>
-								<p className="mt-1 text-sm font-semibold text-slate-200">{value}</p>
-							</div>
-						))}
-					</div>
-				</article>
-
-				{/* Active positions */}
-				<article className="glow-panel rounded-2xl border border-orange-300/15 bg-slate-900/60 p-4 backdrop-blur">
-					<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">
-						Active Forges
-					</p>
-					{vaults.length === 0 ? (
-						<p className="py-4 text-center text-xs text-slate-500">
-							No active forges. Begin forging above.
-						</p>
 					) : (
 						<div className="space-y-2">
-							{vaults.slice(0, 3).map((vault) => (
-								<div
-									key={vault.id}
-									className="flex items-center justify-between rounded-xl border border-slate-700/40 bg-slate-950/60 px-3 py-2.5"
-								>
-									<div>
-										<p className="text-xs font-medium text-slate-200">{vault.name}</p>
-										<p className="text-[10px] text-slate-500">{vault.circuitState}</p>
-									</div>
-									<p className="text-xs font-semibold text-orange-300">
-										{vault.vaultValue.toLocaleString()} ABRA
-									</p>
+							{files.map((f) => (
+								<div key={f.name} className="flex items-center gap-2 rounded-lg border border-slate-700/40 bg-slate-950/50 px-3 py-2">
+									<FileText size={13} className="shrink-0 text-orange-300/70" />
+									<span className="truncate text-xs text-slate-300">{f.name}</span>
+									<span className="ml-auto shrink-0 text-[10px] text-slate-500">{(f.size / 1024).toFixed(0)} KB</span>
 								</div>
 							))}
+							<button
+								type="button"
+								onClick={() => fileRef.current?.click()}
+								className="mt-1 text-[10px] text-slate-500 underline underline-offset-2 hover:text-slate-400"
+							>
+								Add more files
+							</button>
 						</div>
 					)}
 				</article>
+
+				{/* Self-attestation — step 2 */}
+				{currentStep >= 2 && !attested && (
+					<article className="glow-panel rounded-2xl border border-amber-300/25 bg-slate-900/60 p-4 backdrop-blur">
+						<p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200/70">Self-Attestation</p>
+						<p className="text-xs leading-relaxed text-slate-400 mb-4">
+							I confirm I am the lawful owner of the asset represented in the uploaded documents. I understand this initiates an on-chain tokenization process.
+						</p>
+						<button
+							type="button"
+							onClick={handleAttest}
+							className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-amber-300/40 bg-amber-400/10 px-4 py-2.5 text-sm font-semibold text-amber-200 transition hover:bg-amber-400/20"
+						>
+							<CheckCircle size={14} />
+							I Confirm Ownership
+						</button>
+					</article>
+				)}
+
+				{/* NFT preview — step 3 */}
+				{currentStep >= 3 && !minted && (
+					<article className="glow-panel rounded-2xl border border-orange-300/25 bg-slate-900/60 p-4 backdrop-blur">
+						<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">La Casa NFT Preview</p>
+						<div className="flex gap-4 items-center mb-4">
+							<div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-orange-300/25 bg-slate-950">
+								{previewUrl ? (
+									<img src={previewUrl} alt="Asset preview" className="h-full w-full object-cover" />
+								) : (
+									<div className="flex h-full w-full items-center justify-center">
+										<FileText size={24} className="text-orange-300/40" />
+									</div>
+								)}
+								<div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-orange-300/20" />
+							</div>
+							<div className="min-w-0">
+								<p className="truncate text-sm font-semibold text-slate-100">{firstFile?.name ?? 'Asset'}</p>
+								<p className="mt-0.5 text-[10px] text-slate-500">{files.length} file{files.length !== 1 ? 's' : ''} attached</p>
+								<div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-orange-300/30 bg-orange-500/10 px-2 py-0.5">
+									<span className="text-[10px] font-semibold text-orange-300">La Casa NFT</span>
+								</div>
+							</div>
+						</div>
+						<button
+							type="button"
+							onClick={handleMint}
+							disabled={isMinting}
+							className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-orange-300/50 bg-gradient-to-r from-orange-500/25 to-amber-500/20 px-4 py-2.5 text-sm font-bold text-orange-100 shadow-[0_0_16px_rgba(234,88,12,0.2)] transition hover:shadow-[0_0_24px_rgba(234,88,12,0.35)] disabled:opacity-50"
+						>
+							<Flame size={14} />
+							{isMinting ? 'Minting...' : 'Forge This Asset into Sovereignty'}
+						</button>
+					</article>
+				)}
+
+				{/* Success — step 4 */}
+				{minted && (
+					<article className="glow-panel rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/10 to-amber-500/5 p-5 backdrop-blur text-center">
+						<div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-orange-300/40 bg-orange-500/15">
+							<CheckCircle size={22} className="text-orange-300" />
+						</div>
+						<p className="text-sm font-bold text-slate-100">La Casa NFT Minted</p>
+						<p className="mt-1 text-xs text-slate-400">Your asset has been tokenized and auto-deposited into a Sophia-managed vault.</p>
+						{previewUrl && (
+							<img src={previewUrl} alt="Minted asset" className="mx-auto mt-4 h-28 w-28 rounded-xl border border-orange-300/25 object-cover shadow-[0_0_20px_rgba(234,88,12,0.2)]" />
+						)}
+						<p className="mt-3 text-[10px] font-mono text-orange-300/70">VAULT ASSIGNMENT PENDING SOPHIA REVIEW</p>
+					</article>
+				)}
+
 			</section>
 		</RuneRealm>
 	);

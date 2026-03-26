@@ -52,15 +52,10 @@ function DappShell() {
   };
 
   useEffect(() => {
-    if (!connected) {
-      setShowIntroModal(false);
-      return;
-    }
-
     if (!hasSeenIntroModal) {
       setShowIntroModal(true);
     }
-  }, [connected, hasSeenIntroModal]);
+  }, [hasSeenIntroModal]);
 
   useEffect(() => {
     const audio = introAmbientRef.current;
@@ -140,7 +135,7 @@ function DappShell() {
         </Routes>
       </main>
 
-      {connected && showIntroModal ? (
+      {showIntroModal ? (
         <>
           <div className="fixed top-0 left-1/2 z-[55] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
