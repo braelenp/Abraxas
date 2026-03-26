@@ -16,13 +16,13 @@ import { OrionAssistant } from './components/OrionAssistant';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app',         label: 'Warden',  rune: 'ᛉ' },
+  { to: '/app',         label: 'Forge',   rune: 'ᚲ' },
   { to: '/app/vaults',  label: 'Sophia',  rune: 'ᚨ' },
   { to: '/app/market',  label: 'Horizon', rune: 'ᛋ' },
   { to: '/app/trade',   label: 'Flux',    rune: 'ᛚ' },
   { to: '/app/orion',   label: 'King',    rune: 'ᛏ' },
   { to: '/app/circuit', label: 'Aegis',   rune: 'ᚦ' },
-  { to: '/app/forge',   label: 'Forge',   rune: 'ᚲ' },
+  { to: '/app/warden',  label: 'Warden',  rune: 'ᛉ' },
 ];
 
 function ProtectedDapp() {
@@ -115,7 +115,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">ᛉ Warden · ᚨ Sophia · ᛋ Horizon · ᛚ Flux · ᛏ King · ᚦ Aegis · ᚲ Forge</p>
+        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Sophia · ᛋ Horizon · ᛚ Flux · ᛏ King · ᚦ Aegis · ᛉ Warden</p>
       </header>
 
       <main
@@ -123,7 +123,7 @@ function DappShell() {
         className="flex-1 min-h-0 overflow-y-auto overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
       >
         <Routes>
-          <Route index element={<DashboardPage />} />
+          <Route index element={<ForgePage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="onboard" element={<TradePage />} />
@@ -131,7 +131,7 @@ function DappShell() {
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
           <Route path="sophia" element={<SophiaMintPage />} />
-          <Route path="forge" element={<ForgePage />} />
+          <Route path="warden" element={<DashboardPage />} />
         </Routes>
       </main>
 
@@ -148,13 +148,13 @@ function DappShell() {
 
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">The Seven Runes</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
+                  <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
                   <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
                   <li><span className="font-semibold text-amber-300">ᛋ Sowilo · Horizon</span> sees the entire market from above. Browse every listed RWA class, compare assets across athlete equity, real estate, and trading portfolios, and read the full live data book.</li>
                   <li><span className="font-semibold text-teal-300">ᛚ Laguz · Flux</span> moves where force cannot follow. Acquire ABRA, swap RWA pairs through Jupiter DEX, and route capital into position with fluid execution.</li>
                   <li><span className="font-semibold text-red-300">ᛏ Tiwaz · King</span> delivers sovereign judgment. He runs athlete development analysis, market forecasts, and pushes value creation actions directly into the protocol.</li>
                   <li><span className="font-semibold text-emerald-300">ᚦ Thurisaz · Aegis</span> holds the line. Set circuit breaker thresholds to protect your vaults from volatility, liquidity drain, and entropy before they breach.</li>
-                  <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
+                  <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
                 </ul>
 
                 <p className="mt-3 leading-relaxed text-slate-300">
