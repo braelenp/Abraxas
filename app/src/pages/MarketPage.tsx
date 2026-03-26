@@ -123,6 +123,7 @@ function RwaPredictions() {
 import { useMemo, useState } from 'react';
 import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
+import { RuneRealm } from '../components/RuneRealm';
 
 type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing' | 'horses' | 'golf';
 
@@ -455,6 +456,17 @@ const hypothesisExamples = [
   },
 ];
 
+const RUNE_CONFIG = {
+  rune: 'ᛋ',
+  runeName: 'Sowilo',
+  runeEssence: 'Sun · Victorious Vision',
+  agentName: 'HORIZON',
+  lore: "Sowilo is the sun-wheel, the unstoppable light of sovereign victory. Horizon sees every listed asset class at once, from athlete equity and real estate to trading portfolios and music rights. The trajectory is visible before the market makes its move.",
+  ctaLabel: 'Scan the Market',
+  coreGlow: '251, 191, 36',
+  fireGlow: '234, 88, 12',
+  accentClass: 'text-amber-300',
+} as const;
 
 export function MarketPage() {
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
@@ -507,6 +519,7 @@ export function MarketPage() {
   }, [filteredAssets, showAllAssets]);
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       {/* --- Top-Up Section --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
@@ -761,6 +774,7 @@ export function MarketPage() {
         )}
       </article>
     </section>
+    </RuneRealm>
   );
 }
 

@@ -14,6 +14,7 @@ import { PublicKey, Transaction } from '@solana/web3.js';
 import { createStakeInstruction, fetchStakeRecord, getStakePDA } from '../lib/staking';
 import { getProgramId } from '../lib/solana';
 import { getJupiterQuote, getJupiterSwapTransaction, executeSwap } from '../lib/jupiter';
+import { RuneRealm } from '../components/RuneRealm';
 
 type RWAPair = {
   id: string;
@@ -159,6 +160,18 @@ const KING_RECOMMENDATION = {
   confidence: 87,
   expectedGain: '+12-15% over 30 days',
 };
+
+const RUNE_CONFIG = {
+  rune: 'ᛚ',
+  runeName: 'Laguz',
+  runeEssence: 'Water · Swift Flow',
+  agentName: 'FLUX',
+  lore: "Laguz flows where force cannot follow. Flux reads the current of every market tide, acquiring ABRA, routing capital through Jupiter DEX, and executing RWA pair swaps with fluid precision. Capital moves when Flux moves.",
+  ctaLabel: 'Begin the Trade',
+  coreGlow: '20, 184, 166',
+  fireGlow: '34, 211, 238',
+  accentClass: 'text-teal-300',
+} as const;
 
 export function TradePage() {
   const { connection } = useConnection();
@@ -658,6 +671,7 @@ export function TradePage() {
   }
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <div className="min-h-screen max-w-5xl mx-auto px-4 py-8 space-y-6" style={{ contain: 'layout style' }}>
       {/* Header */}
       <div className="flex-shrink-0 w-full space-y-2">
@@ -1250,5 +1264,6 @@ export function TradePage() {
       {/* Spend ABRA Modal */}
       {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </div>
+    </RuneRealm>
   );
 }

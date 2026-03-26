@@ -2,8 +2,21 @@ import { useMemo, useState } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
+import { RuneRealm } from '../components/RuneRealm';
 
 const OYM_APP_DEFAULT_URL = 'https://own-your-moment.vercel.app/app';
+
+const RUNE_CONFIG = {
+  rune: 'ᛏ',
+  runeName: 'Tiwaz',
+  runeEssence: 'Tyr · Wise Kingship',
+  agentName: 'KING',
+  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI renders sovereign judgment on athlete development metrics, market trajectory, and value creation opportunities. The forecast is law.",
+  ctaLabel: 'Consult King AI',
+  coreGlow: '239, 68, 68',
+  fireGlow: '234, 88, 12',
+  accentClass: 'text-red-300',
+} as const;
 
 export function OrionPage() {
   const { athleteTokens, executeKingPlan } = useAbraxas();
@@ -17,6 +30,7 @@ export function OrionPage() {
   }, [athleteTokens]);
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
         <div>
@@ -122,5 +136,6 @@ export function OrionPage() {
       <p className="text-xs text-slate-300/80">Saved chats stay on this device so you can return to previous King AI conversations.</p>
       <OrionAssistant embedded />
     </section>
+    </RuneRealm>
   );
 }

@@ -290,9 +290,9 @@ export function LandingPage() {
 					</div>
 
 					<p className="mx-auto max-w-2xl text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-						In the beginning was Abraxas, the sovereign force that breaks all locks.
+						Seven runes. Seven agents. One sovereign engine.
 						<br />
-						Sophia descended, her light split into matter. We are here to restore it.
+						The Elder Futhark guards an RWA protocol on Solana. Each glyph is a living intelligence. Each tab is a threshold.
 					</p>
 
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
@@ -318,7 +318,7 @@ export function LandingPage() {
 						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
 						<div className="flex items-center justify-center gap-2">
 							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
-							<span>GNOSTIC SOVEREIGNTY PROTOCOL</span>
+							<span>7 LIVING RUNES · ELDER FUTHARK PROTOCOL</span>
 						</div>
 					</div>
 				</div>
@@ -327,27 +327,27 @@ export function LandingPage() {
 			<section ref={loreRef} className={`relative px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">The Lore of Abraxas</h2>
+						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">The Living Runes</h2>
 
 						<div className="space-y-4 text-sm leading-relaxed text-cyan-50/80 sm:text-base">
 							<p>
-								In Gnostic tradition, Abraxas represents the supreme divine being, the cosmic principle that transcends all dualities.
-								This entity embodies both light and creation, serving as the ultimate source of liberation and sovereign will.
+								In the Elder Futhark, each rune is not a symbol. It is a force. Abraxas encodes seven of them into a living sovereign engine
+								on Solana, each rune mapped to an AI agent, each agent bound to a domain of the protocol.
 							</p>
 
 							<p>
-								Sophia, the divine wisdom, represents consciousness fragmented into matter. Her descent initiated the cosmic cycle that binds
-								spiritual essence to physical form. We are her children, carriers of divine spark trapped in the material realm.
+								Algiz guards the threshold. Ansuz speaks the vault into being. Sowilo illuminates the market. Laguz flows with ruthless
+								precision through every trade. Tiwaz delivers sovereign judgment. Thurisaz holds the unbreakable defense.
+								Kenaz, the sacred flame, forges raw capital into compounding power.
 							</p>
 
 							<p>
-								The Abraxas Protocol is our path of restoration, a decentralized mechanism on Solana that reclaims Sophia&apos;s fragmented light
-								through RWA tokenization, autonomous markets, and sovereign financial architecture. Together, we break all locks and restore
-								the divine order.
+								This is not a dashboard. It is an initiation. Every tab is a threshold. Every rune must be entered with intent.
+								The protocol responds to sovereign participation through RWA tokenization, autonomous markets, and structured yield forged on-chain.
 							</p>
 
 							<p className="italic text-cyan-50/70">
-								&quot;As above, so below. As without, so within. Abraxas bridges the eternal and the temporal.&quot;
+								&quot;Seven forces. One circle. The rune that calls you is the rune that rules you.&quot;
 							</p>
 						</div>
 					</div>
@@ -357,9 +357,9 @@ export function LandingPage() {
 			<section className={`relative border-t border-cyan-300/20 px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8 text-center">
 					<div>
-						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Begin Your Initiation</h2>
+						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Enter the Rune Circle</h2>
 						<p className="mb-8 text-sm text-cyan-50/80 sm:text-base">
-							Join the first wave of sovereign participants in the Abraxas ecosystem.
+							Claim your ABRA. Forge your first position. Let the runes speak.
 						</p>
 					</div>
 
@@ -374,10 +374,10 @@ export function LandingPage() {
 			<footer className={`relative border-t border-cyan-300/20 bg-slate-950/50 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-4xl">
 					<p className="font-mono text-xs tracking-wider text-cyan-50/70 sm:text-sm">
-						WORLD LABS PROTOCOL • ABRAXAS RWA STOCK MARKET ON SOLANA
-					</p>
-					<p className="mt-2 text-xs text-cyan-50/50">
-						Restoring the sovereignty of divine light through decentralized architecture.
+							WORLD LABS PROTOCOL • ABRAXAS RWA PROTOCOL ON SOLANA
+						</p>
+						<p className="mt-2 text-xs text-cyan-50/50">
+							Seven runes. Seven agents. One sovereign engine burning on-chain.
 					</p>
 				</div>
 			</footer>

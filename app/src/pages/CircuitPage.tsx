@@ -1,5 +1,18 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { useAbraxas } from '../providers/AbraxasProvider';
+import { RuneRealm } from '../components/RuneRealm';
+
+const RUNE_CONFIG = {
+  rune: 'ᚦ',
+  runeName: 'Thurisaz',
+  runeEssence: 'Thorn · Unbreakable Defense',
+  agentName: 'AEGIS',
+  lore: "Thurisaz is the thorn of Thor, the force that stops chaos in its path. Aegis monitors every threshold of your vaults, triggering circuit protections against price speed, liquidity drain, and activity spikes before entropy can breach the walls.",
+  ctaLabel: 'Engage Circuit',
+  coreGlow: '52, 211, 153',
+  fireGlow: '34, 211, 238',
+  accentClass: 'text-emerald-300',
+} as const;
 
 export function CircuitPage() {
   const { vaults, runCircuitCheck } = useAbraxas();
@@ -29,6 +42,7 @@ export function CircuitPage() {
   };
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
         <p className="mb-3 text-sm font-medium">Circuit Safety Trigger Simulator</p>
@@ -81,5 +95,6 @@ export function CircuitPage() {
         <p className="mt-2 text-xs text-slate-400/80">Rules: warning when speed &gt; 500 or drain &gt; 600; protect when speed &gt; 1000, drain &gt; 900, or spike &gt; 1200.</p>
       </article>
     </section>
+    </RuneRealm>
   );
 }

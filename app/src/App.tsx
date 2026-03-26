@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Route, Routes, useLocation, NavLink, Navigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Brain, CandlestickChart, LayoutDashboard, ShieldAlert, ArrowRightLeft, Vault } from 'lucide-react';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
@@ -11,16 +10,19 @@ import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
+import { ForgePage } from './pages/ForgePage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 
+// ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/app/vaults', label: 'Vaults', icon: Vault },
-  { to: '/app/market', label: 'Market', icon: CandlestickChart },
-  { to: '/app/trade', label: 'Trade', icon: ArrowRightLeft },
-  { to: '/app/orion', label: 'King AI', icon: Brain },
-  { to: '/app/circuit', label: 'Circuit', icon: ShieldAlert },
+  { to: '/app',         label: 'Warden',  rune: 'ᛉ' },
+  { to: '/app/vaults',  label: 'Sophia',  rune: 'ᚨ' },
+  { to: '/app/market',  label: 'Horizon', rune: 'ᛋ' },
+  { to: '/app/trade',   label: 'Flux',    rune: 'ᛚ' },
+  { to: '/app/orion',   label: 'King',    rune: 'ᛏ' },
+  { to: '/app/circuit', label: 'Aegis',   rune: 'ᚦ' },
+  { to: '/app/forge',   label: 'Forge',   rune: 'ᚲ' },
 ];
 
 function ProtectedDapp() {
@@ -118,7 +120,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">Buy & Stake ABRA • Live Polymarket • King AI Forecasting</p>
+        <p className="text-xs text-slate-300/80">ᛉ Warden · ᚨ Sophia · ᛋ Horizon · ᛚ Flux · ᛏ King · ᚦ Aegis · ᚲ Forge</p>
       </header>
 
       <main
@@ -134,6 +136,7 @@ function DappShell() {
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
           <Route path="sophia" element={<SophiaMintPage />} />
+          <Route path="forge" element={<ForgePage />} />
         </Routes>
       </main>
 
@@ -143,36 +146,24 @@ function DappShell() {
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
             <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 backdrop-blur-xl">
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
-                <p className="text-base font-semibold text-cyan-100">Welcome to ABRAXAS</p>
+                <p className="text-base font-semibold text-cyan-100">The Seven Runes Await</p>
                 <p className="mt-2 leading-relaxed text-slate-300">
-                  You are entering the World Labs RWA stock market on Solana, where live ABRA onboarding, real-time Polymarket prediction trading, King AI forecasting, Sophia management, and circuit safety converge.
+                  You have entered the Abraxas sovereign engine. A living RWA protocol on Solana, guarded by seven Elder Futhark runes. Each rune is bound to an AI agent and a domain of power.
                 </p>
 
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">What you can do</p>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">The Seven Runes</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• Acquire ABRA live for early market participation and prediction market betting.</li>
-                  <li>• Bet ABRA tokens on real Polymarket prediction markets with live odds and King AI probability guidance.</li>
-                  <li>• Explore the full vault lifecycle in Devnet as a working proof-of-concept for RWA management.</li>
-                  <li>• Track athlete equity as the first live class layer while individual athlete token issuance is staged.</li>
-                  <li>• Review the Market data book for listed assets, class filters, and hypothetical listing pipelines.</li>
-                  <li>• Run King AI for market analysis, athlete development guidance, and value-creation actions.</li>
-                  <li>• Configure Circuit thresholds to stage payouts and protect the market during volatility.</li>
-                  <li>• Explore Sophia workflows for vault management and future autonomous execution paths.</li>
-                </ul>
-
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">Tab overview</p>
-                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li>• <span className="font-semibold text-cyan-100">Dashboard:</span> live Polymarket betting carousels, RWA value, athlete momentum, market perps, and portfolio tracking.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Vaults:</span> create and manage devnet vaults to showcase the Abraxas control flow.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Market:</span> browse listed assets, compare classes, and track hypothetical examples in one data book.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Trade:</span> buy ABRA tokens, stake for multipliers, and swap between RWA pairs using Jupiter DEX.</li>
-                  <li>• <span className="font-semibold text-cyan-100">King AI:</span> analyze athlete development metrics and push value-creation actions into the market.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Circuit:</span> tune safety logic for warning, protective liquidity, and payout triggers.</li>
-                  <li>• <span className="font-semibold text-cyan-100">Sophia:</span> manage vault oversight and prepare autonomous managers for future classes.</li>
+                  <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
+                  <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
+                  <li><span className="font-semibold text-amber-300">ᛋ Sowilo · Horizon</span> sees the entire market from above. Browse every listed RWA class, compare assets across athlete equity, real estate, and trading portfolios, and read the full live data book.</li>
+                  <li><span className="font-semibold text-teal-300">ᛚ Laguz · Flux</span> moves where force cannot follow. Acquire ABRA, swap RWA pairs through Jupiter DEX, and route capital into position with fluid execution.</li>
+                  <li><span className="font-semibold text-red-300">ᛏ Tiwaz · King</span> delivers sovereign judgment. He runs athlete development analysis, market forecasts, and pushes value creation actions directly into the protocol.</li>
+                  <li><span className="font-semibold text-emerald-300">ᚦ Thurisaz · Aegis</span> holds the line. Set circuit breaker thresholds to protect your vaults from volatility, liquidity drain, and entropy before they breach.</li>
+                  <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
                 </ul>
 
                 <p className="mt-3 leading-relaxed text-slate-300">
-                  Start by acquiring ABRA tokens, place bets on live Polymarket predictions, and then explore devnet vaults to showcase full Abraxas operations.
+                  Each rune reveals itself when you enter its tab. Step through the threshold. The protocol responds to sovereign intent.
                 </p>
               </div>
 
@@ -183,7 +174,7 @@ function DappShell() {
                 }}
                 className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-200/75 bg-gradient-to-r from-amber-200 via-amber-100 to-orange-100 px-4 text-sm font-semibold text-slate-950 shadow-[0_0_14px_rgba(245,158,11,0.3)] hover:from-amber-100 hover:to-orange-100"
               >
-                Enter the Control Surface
+                Enter the Rune Circle
               </button>
             </div>
           </div>
@@ -213,18 +204,32 @@ function DappShell() {
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
-      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-cyan-200/25 bg-slate-950/94 p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur-xl">
-        {navItems.map(({ to, label, icon: Icon }) => (
+      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl">
+        {navItems.map(({ to, label, rune }) => (
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `flex flex-1 flex-col items-center gap-1 rounded-lg py-2 text-xs transition ${isActive ? 'bg-cyan-100/15 text-cyan-100' : 'text-slate-400 hover:text-slate-200'}`
-            }
             end={to === '/app'}
+            className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition"
           >
-            <Icon size={16} />
-            <span>{label}</span>
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`text-xl font-black leading-tight transition-all duration-300 ${
+                    isActive ? 'text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)]' : 'text-slate-600'
+                  }`}
+                >
+                  {rune}
+                </span>
+                <span
+                  className={`text-[7.5px] uppercase tracking-[0.14em] transition ${
+                    isActive ? 'text-yellow-200/80' : 'text-slate-600'
+                  }`}
+                >
+                  {label}
+                </span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

@@ -8,9 +8,22 @@ import { getKingAIProbability } from '../lib/polymarket';
 import { FeatureBadge } from '../components/FeatureBadge';
 import SpendAbra from '../components/SpendAbra';
 import { useNavigate } from 'react-router-dom';
+import { RuneRealm } from '../components/RuneRealm';
 
 // Token address for transparency & trust with degen crowd
 const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+
+const RUNE_CONFIG = {
+  rune: 'ᛉ',
+  runeName: 'Algiz',
+  runeEssence: 'Protection · Divine Guardianship',
+  agentName: 'WARDEN',
+  lore: "Algiz stands as the rune of divine protection, elk antlers raised against all unseen forces. The Warden holds the threshold between chaos and the sovereign order of Abraxas. Live prediction markets, portfolio momentum, and market intelligence all answer to the Warden's watch.",
+  ctaLabel: 'Enter the Dashboard',
+  coreGlow: '168, 85, 247',
+  fireGlow: '234, 88, 12',
+  accentClass: 'text-violet-300',
+} as const;
 
 export function DashboardPage() {
   const { vaults, athleteTokens } = useAbraxas();
@@ -98,6 +111,7 @@ export function DashboardPage() {
   }, [vaults]);
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       {/* Main Balance Display */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
@@ -467,5 +481,6 @@ export function DashboardPage() {
       {/* Spend ABRA Modal */}
       {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </section>
+    </RuneRealm>
   );
 }

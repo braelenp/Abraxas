@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
+import { RuneRealm } from '../components/RuneRealm';
 
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
 
@@ -10,6 +11,18 @@ function assetTypeLabel(assetType: VaultAssetType) {
   if (assetType === 'real_estate') return 'Real Estate Development';
   return 'Trading Portfolios';
 }
+
+const RUNE_CONFIG = {
+  rune: 'ᚨ',
+  runeName: 'Ansuz',
+  runeEssence: 'Divine Wisdom · Sacred Speech',
+  agentName: 'SOPHIA',
+  lore: "Ansuz carries the breath of Odin, divine intelligence flowing into form. Sophia speaks your vaults into being, governing every deposit, allocation, and yield cycle with autonomous precision.",
+  ctaLabel: 'Open the Vaults',
+  coreGlow: '34, 211, 238',
+  fireGlow: '99, 102, 241',
+  accentClass: 'text-cyan-300',
+} as const;
 
 export function VaultsPage() {
   const {
@@ -44,6 +57,7 @@ export function VaultsPage() {
   };
 
   return (
+    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas Vault Market</p>
@@ -239,5 +253,6 @@ export function VaultsPage() {
         </div>
       </article>
     </section>
+    </RuneRealm>
   );
 }
