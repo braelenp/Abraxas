@@ -394,7 +394,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
 
       <div className="mb-2 rounded-xl border border-cyan-300/30 bg-slate-900/70 p-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-cyan-200/90">{tabIntro.title}</p>
-        <p className="mt-1 text-xs leading-relaxed text-slate-300">{tabIntro.description}</p>
+        <p className="mt-1 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-wider">{tabIntro.description}</p>
         <p className="mt-2 text-[11px] text-slate-400/90">Live basket: {athleteTicker}</p>
       </div>
 
@@ -421,7 +421,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       ) : null}
 
       <div ref={messagesContainerRef} className="mb-2 max-h-48 space-y-2 overflow-y-auto pr-1 text-sm">
-        <p className="rounded-xl border border-cyan-300/30 bg-slate-900 px-3 py-2 leading-snug text-slate-200">
+        <p className="rounded-xl border border-cyan-400/30 bg-slate-900 px-3 py-2 leading-snug text-[11px] font-mono text-cyan-200 uppercase tracking-wider">
           {chatIntro}
         </p>
         {visibleMessages.slice(-10).map((message) => (

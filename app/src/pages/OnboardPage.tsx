@@ -249,11 +249,11 @@ export function OnboardPage() {
           <h2 className="text-sm font-bold text-green-400 tracking-widest uppercase">ABRA_ACQUIRED_STAKED</h2>
           <div className="space-y-2 text-sm text-white/70">
             <p>
-              <span className="font-semibold text-amber-200">{successData.amount} ABRA</span> locked for{' '}
-              <span className="font-semibold text-violet-300">{successData.duration} days</span>
+              <span className="font-bold text-amber-400 font-mono">{successData.amount} ABRA</span> | Locked
+              <span className="font-bold text-violet-400 font-mono">{successData.duration}d</span>
             </p>
             <p>
-              Multiplier: <span className="font-semibold text-green-300">{successData.multiplier}</span>
+              Multiplier: <span className="font-bold text-green-400 font-mono">{successData.multiplier}</span>
             </p>
           </div>
           <div className="border-t border-white/10 pt-4">
@@ -344,7 +344,7 @@ export function OnboardPage() {
                 >
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 w-full">
-                      <p className="text-sm font-semibold text-white">{tier.label}</p>
+                      <p className="text-sm font-bold text-cyan-300 font-mono">{tier.label}</p>
                       {tier.highlight && (
                         <span className="ml-auto inline-flex items-center gap-0 text-violet-300 font-semibold shrink-0">
                           <Gem size={14} />
@@ -353,7 +353,7 @@ export function OnboardPage() {
                     </div>
                     <div className="space-y-1">
                       <p className="text-lg font-bold text-green-400">{tier.multiplier}</p>
-                      <p className="text-xs text-white/50">{tier.description}</p>
+                      <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{tier.description}</p>
                     </div>
                   </div>
                 </button>
@@ -381,7 +381,7 @@ export function OnboardPage() {
 
           {/* Amount Input */}
           <div className="space-y-2">
-            <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">ABRA Amount to Stake</label>
+            <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRA_AMOUNT_TO_STAKE</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -402,7 +402,7 @@ export function OnboardPage() {
           {/* Projection */}
           {stakeAmount && Number(stakeAmount) > 0 && (
             <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-2">
-              <p className="text-xs text-green-300 font-semibold">Projected Value at Unlock</p>
+              <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">PROJECTED_VALUE_AT_UNLOCK</p>
               <div className="flex items-baseline justify-between">
                 <p className="text-2xl font-bold text-green-300">
                   {(
@@ -462,7 +462,7 @@ export function OnboardPage() {
 
       {/* ABRA Position Guides */}
       <div className="space-y-3" style={{ contain: 'layout style' }}>
-        <p className="text-xs uppercase tracking-[0.14em] text-amber-200/75 font-semibold flex-shrink-0">ABRA Position Guides</p>
+        <p className="text-[10px] uppercase tracking-[0.14em] text-cyan-400 font-bold flex-shrink-0 font-mono">&gt; POSITION_GUIDES</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {TOKEN_TIERS.map((tier) => (
             <div
@@ -478,7 +478,7 @@ export function OnboardPage() {
                 ) : null}
               </div>
               <p className="text-lg font-bold text-amber-200">{tier.amount}</p>
-              <p className="text-xs text-white/55">{tier.note}</p>
+              <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{tier.note}</p>
             </div>
           ))}
         </div>
@@ -498,7 +498,7 @@ export function OnboardPage() {
         <div className="flex items-start gap-2 w-full">
           <TrendingUp size={14} className="mt-0.5 text-cyan-400 shrink-0 flex-shrink-0" />
           <div className="space-y-1 text-xs text-cyan-300/80 flex-1 min-w-0">
-            <p className="font-semibold">Devnet Showcase Flows</p>
+            <p className="font-bold text-cyan-400 font-mono">&gt; [DEVNET_SHOWCASE] FLOWS</p>
             <p>
               Vaults, Sophia AI, Circuit, and King AI remain live in devnet mode. Live trading flows with athlete tokens
               coming soon after launch.
@@ -549,7 +549,7 @@ export function OnboardPage() {
             <div className="space-y-3">
               <div className="flex items-center gap-2 flex-shrink-0 w-full" style={{ contain: 'layout style' }}>
                 <Lock size={18} className="text-cyan-400 flex-shrink-0" />
-                <h3 className="text-lg font-semibold text-white flex-shrink-0">Active Stakes</h3>
+                <h3 className="text-sm font-bold text-cyan-400 flex-shrink-0 font-mono tracking-widest uppercase">&gt; ACTIVE_STAKES</h3>
               </div>
               <div className="space-y-3">
                 {userStakes.map((stake) => {
@@ -561,7 +561,7 @@ export function OnboardPage() {
                     <div key={stake.address} className={`glow-panel p-4 space-y-3 ${stake.isActive ? '' : 'opacity-75'}`}>
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
-                          <p className="text-sm font-semibold text-white">{stake.abraAmount.toLocaleString()} ABRA</p>
+                          <p className="text-sm font-bold text-cyan-300 font-mono">{stake.abraAmount.toLocaleString()} ABRA</p>
                           <p className="text-xs text-white/50">
                             Duration: {stake.lockDurationDays} days • Multiplier: {(stake.multiplierBps / 10_000).toFixed(1)}x
                           </p>
@@ -588,7 +588,7 @@ export function OnboardPage() {
 
                       {stake.isActive && (
                         <div className="border-t border-white/10 pt-2">
-                          <p className="text-xs text-white/50">Projected Value at Unlock</p>
+                          <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">VALUE_AT_UNLOCK</p>
                           <p className="text-lg font-bold text-green-300">
                             {(stake.abraAmount * (stake.multiplierBps / 10_000)).toLocaleString()} ABRA
                           </p>

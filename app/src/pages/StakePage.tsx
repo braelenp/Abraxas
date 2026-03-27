@@ -86,7 +86,7 @@ export function StakePage() {
     return (
       <div className="min-h-screen max-w-3xl mx-auto px-4 py-8">
         <div className="glow-panel p-6 text-center space-y-3">
-          <p className="text-white/65">Connect your wallet to view staking dashboard</p>
+          <p className="text-[11px] text-white/60 font-mono uppercase tracking-wider">Connect wallet to view staking dashboard</p>
         </div>
       </div>
     );
@@ -133,7 +133,7 @@ export function StakePage() {
 
         {/* Duration Selection */}
         <div className="space-y-3">
-          <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">Lock Duration</label>
+          <label className="text-[10px] text-cyan-400 uppercase tracking-widest font-semibold font-mono">&gt; LOCK_DURATION</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {STAKE_CONFIGS.map((cfg) => (
               <button
@@ -145,9 +145,9 @@ export function StakePage() {
                     : 'border-white/15 bg-slate-900/50 hover:border-white/25'
                 }`}
               >
-                <p className="text-sm font-semibold text-white">{cfg.label}</p>
+                <p className="text-sm font-bold text-cyan-300 font-mono">{cfg.label}</p>
                 <p className="text-lg font-bold text-amber-300 mt-1">{cfg.displayMultiplier}</p>
-                <p className="text-[11px] text-white/50 mt-1">{cfg.description}</p>
+                <p className="text-[10px] text-cyan-300/60 mt-1 font-mono uppercase tracking-wider">{cfg.description}</p>
               </button>
             ))}
           </div>
@@ -155,7 +155,7 @@ export function StakePage() {
 
         {/* Amount Input */}
         <div className="space-y-2">
-          <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">ABRA Amount</label>
+          <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRA_AMOUNT</label>
           <div className="flex gap-2">
             <input
               type="number"
@@ -177,7 +177,7 @@ export function StakePage() {
         {/* Projected Rewards */}
         {stakeAmount && projectedRewards > 0 && (
           <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-1">
-            <p className="text-xs text-green-300 font-semibold">Projected Earnings</p>
+            <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">PROJECTED_EARNINGS</p>
             <p className="text-lg font-bold text-green-300">{projectedRewards.toFixed(0)} ABRA</p>
             <p className="text-xs text-green-300/60">
               Lock for {selectedDuration} days at {selectedConfig?.displayMultiplier} multiplier
@@ -220,7 +220,7 @@ export function StakePage() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="space-y-1">
-                      <p className="text-sm font-semibold text-white">{stake.abraAmount.toLocaleString()} ABRA</p>
+                      <p className="text-sm font-bold text-cyan-300 font-mono">{stake.abraAmount.toLocaleString()} ABRA</p>
                       <p className="text-xs text-white/50">
                         Duration: {stake.lockDurationDays} days • Multiplier: {(stake.multiplierBps / 10_000).toFixed(1)}x
                       </p>
@@ -250,7 +250,7 @@ export function StakePage() {
                   {/* Projected Value */}
                   {stake.isActive && (
                     <div className="border-t border-white/10 pt-2">
-                      <p className="text-xs text-white/50">Projected Value at Unlock</p>
+                      <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Value_at_unlock</p>
                       <p className="text-lg font-bold text-green-300">
                         {(stake.abraAmount * (stake.multiplierBps / 10_000)).toLocaleString()} ABRA
                       </p>

@@ -84,8 +84,8 @@ export function OrionPage() {
           <div key={token.id} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-base font-semibold text-slate-100">{token.symbol}</p>
-                <p className="mt-1 text-xs text-slate-400/80">{token.name}</p>
+                <p className="text-sm font-bold text-cyan-400 font-mono">{token.symbol}</p>
+                <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{token.name}</p>
               </div>
               <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
                 {token.kingSignal}
@@ -115,10 +115,10 @@ export function OrionPage() {
               {token.suggestions.map((suggestion) => (
                 <div key={suggestion.id} className="rounded-xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-slate-100">{suggestion.title}</p>
+                    <p className="text-sm font-bold text-cyan-300 font-mono">{suggestion.title}</p>
                     <span className="text-[11px] font-semibold text-cyan-200">+{suggestion.expectedImpactBps} bps</span>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-300/80">{suggestion.rationale}</p>
+                  <p className="mt-2 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-[0.05em]">{suggestion.rationale}</p>
                 </div>
               ))}
             </div>
@@ -133,7 +133,7 @@ export function OrionPage() {
         ))}
       </article>
 
-      <p className="text-xs text-slate-300/80">Saved chats stay on this device so you can return to previous King AI conversations.</p>
+      <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">Saved chats stay on device | Access previous King AI conversations</p>
       <OrionAssistant embedded />
     </section>
     </RuneRealm>

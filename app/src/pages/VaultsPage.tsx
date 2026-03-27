@@ -151,8 +151,8 @@ export function VaultsPage() {
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium">{vault.name}</p>
-                      <p className="mt-1 text-xs text-slate-300/80">${vault.vaultValue.toLocaleString()} • {assetTypeLabel(vault.assetType)}</p>
+                      <p className="text-sm font-bold text-cyan-300 font-mono">{vault.name}</p>
+                      <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">${vault.vaultValue.toLocaleString()} | {assetTypeLabel(vault.assetType)}</p>
                     </div>
                     <button
                       onClick={() => setExpandedVaultMetrics(prev => ({ ...prev, [vault.id]: !prev[vault.id] }))}
@@ -174,7 +174,7 @@ export function VaultsPage() {
               {/* Deposit/Action Section */}
               {activeVaultId === vault.id && (
                 <div className="mt-3 rounded-xl border border-cyan-300/20 bg-slate-950/50 p-3">
-                  <p className="text-xs font-medium mb-2">Deposit Amount</p>
+                  <p className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest font-mono">DEPOSIT_AMOUNT</p>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -244,12 +244,12 @@ export function VaultsPage() {
           {futureAssetClasses.map((assetClass) => (
             <div key={assetClass.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-slate-100">{assetClass.title}</p>
+                <p className="text-sm font-bold text-cyan-300 font-mono">{assetClass.title}</p>
                 <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
                   {assetClass.status === 'coming_soon' ? 'Coming soon' : 'Blueprint'}
                 </span>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300/80">{assetClass.description}</p>
+              <p className="mt-2 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-[0.05em]">{assetClass.description}</p>
             </div>
           ))}
         </div>

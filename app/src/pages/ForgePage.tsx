@@ -139,16 +139,16 @@ export function ForgePage() {
 						<h2 className="text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; SYSTEM_INITIALIZATION</h2>
 						<div className="space-y-3 text-sm text-slate-300/80">
 							<p>
-								<span className="text-orange-400">[01_TOKENIZE]</span> Upload your asset proof. Supported: real estate deeds, music rights, commodities, IP—anything with intrinsic value.
+								<span className="text-orange-400 font-mono">[01_TOKENIZE]</span> <span className="text-orange-400/70 text-[11px] font-mono">Upload asset proof: Deeds, Rights, Commodities, IP. Any intrinsic value asset.</span>
 							</p>
 							<p>
-								<span className="text-orange-400">[02_ATTEST]</span> Self-certify asset authenticity. No intermediaries. You maintain sovereign control of your capital.
+								<span className="text-orange-400 font-mono">[02_ATTEST]</span> <span className="text-orange-400/70 text-[11px] font-mono">Self-certify ownership. No intermediaries. Maintain sovereign control.</span>
 							</p>
 							<p>
-								<span className="text-orange-400">[03_FORGE]</span> Mint your asset as an on-chain RWA token. Now eligible for liquidity and yield protocols.
+								<span className="text-orange-400 font-mono">[03_FORGE]</span> <span className="text-orange-400/70 text-[11px] font-mono">Mint RWA token on-chain. Eligible for liquidity & yield protocols.</span>
 							</p>
 							<p>
-								<span className="text-orange-400">[04_YIELD]</span> Deposit into specialized vaults. Capital compounds autonomously. Receive continuously.
+								<span className="text-orange-400 font-mono">[04_YIELD]</span> <span className="text-orange-400/70 text-[11px] font-mono">Deposit into specialized vaults. Capital compounds autonomously.</span>
 							</p>
 						</div>
 						<p className="text-xs text-orange-300/70 pt-2 italic uppercase tracking-widest">&gt; ENTER_FORGE_TO_BEGIN</p>
@@ -191,20 +191,20 @@ export function ForgePage() {
 									<div className="relative z-10 flex flex-col h-full p-6">
 										<div className="flex items-start gap-3 mb-4">
 										<span className="text-3xl leading-none shrink-0">{daughter.rune}</span>
-										<h3 className={`text-lg font-bold tracking-wide leading-tight pt-1 ${
+											<h3 className={`text-sm font-bold tracking-widest leading-tight pt-1 uppercase font-mono ${
 												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-orange-300 transition'
 											}`}>
 												{daughter.name}
 											</h3>
 										</div>
-										<p className={`text-xs leading-relaxed mb-5 flex-grow ${
+											<p className={`text-[10px] leading-relaxed mb-5 flex-grow font-mono uppercase tracking-[0.05em] ${
 											daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
 										}`}>
 											{daughter.description}
 										</p>
 										{daughter.isComingSoon ? (
 											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
-												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+														<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
 											</div>
 										) : (
 											<button
@@ -246,20 +246,20 @@ export function ForgePage() {
 									<div className="relative z-10 flex flex-col h-full p-6">
 										<div className="flex items-start gap-3 mb-4">
 										<span className="text-3xl leading-none shrink-0">{daughter.rune}</span>
-										<h3 className={`text-base font-bold tracking-wide leading-tight pt-1 ${
+											<h3 className={`text-sm font-bold tracking-widest leading-tight pt-1 uppercase font-mono ${
 												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-amber-300 transition'
 											}`}>
 												{daughter.name}
 											</h3>
 										</div>
-										<p className={`text-xs leading-relaxed mb-5 flex-grow ${
-											daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
-										}`}>
-											{daughter.description}
-										</p>
-										{daughter.isComingSoon ? (
-											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
-												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+											<p className={`text-[10px] leading-relaxed mb-5 flex-grow font-mono uppercase tracking-[0.05em] ${
+												daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+											}`}>
+												{daughter.description}
+											</p>
+											{daughter.isComingSoon ? (
+												<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+													<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
 											</div>
 										) : (
 											<button
@@ -311,19 +311,19 @@ export function ForgePage() {
 												<IconComponent size={20} className={son.isComingSoon ? 'text-slate-500' : 'text-violet-300 group-hover:text-violet-200 transition'} />
 											</div>
 										</div>
-										<h3 className={`text-base font-bold tracking-wide mb-2 text-center ${
+											<h3 className={`text-sm font-bold tracking-widest mb-2 text-center uppercase font-mono ${
 											son.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-violet-300 transition'
 										}`}>
 											{son.name}
 										</h3>
-										<p className={`text-[10px] leading-relaxed mb-5 flex-grow text-center ${
+											<p className={`text-[10px] leading-relaxed mb-5 flex-grow text-center font-mono uppercase tracking-[0.05em] ${
 											son.isComingSoon ? 'text-slate-500' : 'text-slate-400'
 										}`}>
 											{son.description}
 										</p>
 										{son.isComingSoon ? (
 											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-3 py-2.5 w-full justify-center">
-												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+												<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
 											</div>
 										) : (
 											<button
@@ -411,7 +411,7 @@ export function ForgePage() {
 							className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-slate-600/60 bg-slate-950/40 px-4 py-6 text-xs text-slate-500 transition hover:border-orange-300/40 hover:text-slate-400"
 						>
 							<Upload size={22} className="text-slate-600" />
-							<span>Deed, Title, or Proof of Ownership</span>
+								<span className="font-mono text-orange-400">[PROOF_UPLOAD]</span>
 							<span className="text-[10px] text-slate-600">PDF, JPG, PNG — multiple files accepted</span>
 						</button>
 					) : (
@@ -468,7 +468,7 @@ export function ForgePage() {
 								<div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-orange-300/20" />
 							</div>
 							<div className="min-w-0">
-								<p className="truncate text-sm font-semibold text-slate-100">{firstFile?.name ?? 'Asset'}</p>
+								<p className="truncate text-[11px] font-bold text-cyan-300 font-mono">{firstFile?.name ?? 'Asset'}</p>
 								<p className="mt-0.5 text-[10px] text-slate-500">{files.length} file{files.length !== 1 ? 's' : ''} attached</p>
 								<div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-orange-300/30 bg-orange-500/10 px-2 py-0.5">
 									<span className="text-[10px] font-semibold text-orange-300">La Casa NFT</span>
@@ -493,8 +493,8 @@ export function ForgePage() {
 						<div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-orange-300/40 bg-orange-500/15">
 							<CheckCircle size={22} className="text-orange-300" />
 						</div>
-						<p className="text-sm font-bold text-slate-100">La Casa NFT Minted</p>
-						<p className="mt-1 text-xs text-slate-400">Your asset has been tokenized and auto-deposited into a Sophia-managed vault.</p>
+						<p className="text-sm font-bold text-green-400 font-mono">✓ [NFT_MINTED] LA_CASA</p>
+						<p className="mt-1 text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Asset tokenized | Auto-deposited to Sophia vault</p>
 						{previewUrl && (
 							<img src={previewUrl} alt="Minted asset" className="mx-auto mt-4 h-28 w-28 rounded-xl border border-orange-300/25 object-cover shadow-[0_0_20px_rgba(234,88,12,0.2)]" />
 						)}

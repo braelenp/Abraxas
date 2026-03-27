@@ -664,7 +664,7 @@ export function TradePage() {
     return (
       <div className="min-h-screen max-w-3xl mx-auto px-4 py-8">
         <div className="glow-panel p-6 text-center space-y-3">
-          <p className="text-white/65">Connect your wallet to trade and onboard</p>
+          <p className="text-[11px] text-white/60 font-mono uppercase tracking-wider">Connect wallet to trade and onboard</p>
         </div>
       </div>
     );
@@ -689,8 +689,8 @@ export function TradePage() {
         <div className="flex items-start gap-3 w-full">
           <Brain size={18} className="mt-0.5 text-cyan-400 shrink-0 flex-shrink-0" />
           <div className="space-y-1 flex-1">
-            <p className="font-semibold text-white">King AI Recommendation</p>
-            <p className="text-sm text-cyan-300/80">Strong training progress detected. Swap stables into ABRA for equity upside.</p>
+            <p className="font-bold text-cyan-400 font-mono text-sm">&gt; [AI_RECOMMENDATION]</p>
+            <p className="text-[11px] text-cyan-400/70 uppercase tracking-wider">Training progress strong | Swap stables to ABRA | Equity upside</p>
             <div className="flex items-center gap-3 mt-2 text-xs">
               <span className="text-cyan-200">Confidence: 87%</span>
               <span className="text-green-300">Expected: +12-15% over 30 days</span>
@@ -707,7 +707,7 @@ export function TradePage() {
               <Brain size={18} className="text-violet-300 shrink-0" />
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-white text-base truncate max-w-[120px]">{selectedSophia.name}</span>
+                  <span className="font-bold text-cyan-300 text-sm truncate max-w-[120px] font-mono">{selectedSophia.name}</span>
                   <select
                     value={selectedSophiaId || ''}
                     onChange={(e) => setSelectedSophiaId(e.target.value || null)}
@@ -720,7 +720,7 @@ export function TradePage() {
                     ))}
                   </select>
                 </div>
-                <div className="text-xs text-violet-200/80 mt-0.5 truncate">{selectedSophia.specialty} · {selectedSophia.personality} style</div>
+                <div className="text-[10px] text-cyan-300/60 mt-0.5 truncate font-mono uppercase tracking-wider">{selectedSophia.specialty} | {selectedSophia.personality}_STYLE</div>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-[11px] text-violet-200 bg-violet-400/10 px-2 py-0.5 rounded font-medium">
                     Score: {selectedSophia.performanceScore}/100
@@ -744,8 +744,8 @@ export function TradePage() {
           <div className="flex items-start gap-2 w-full">
             <AlertTriangle size={16} className="mt-0.5 text-yellow-400 shrink-0 flex-shrink-0" />
             <div className="text-sm text-yellow-300/80">
-              <p className="font-semibold">Circuit Warning</p>
-              <p>Large trade detected. May trigger vault rebalancing rules. Proceed with caution.</p>
+              <p className="font-bold text-orange-400 font-mono">&gt; [CIRCUIT_WARNING]</p>
+              <p className="text-[11px] text-orange-400/70 uppercase tracking-wider">Large trade detected | May trigger vault rebalancing | Proceed with caution</p>
             </div>
           </div>
         </div>
@@ -823,7 +823,7 @@ export function TradePage() {
 
             {toAmount && (
               <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 px-3 py-2">
-                <p className="text-xs text-slate-300 mb-1">Estimated output</p>
+                <p className="text-[10px] text-cyan-300/60 mb-1 font-mono uppercase tracking-wider">ESTIMATED_OUTPUT</p>
                 <p className="text-lg font-bold text-emerald-300">
                   {Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 6 })} {selectedQuickTradePair?.outputSymbol}
                 </p>
@@ -873,9 +873,7 @@ export function TradePage() {
         {toAmount && (
           <div className="glow-panel p-4 space-y-3 flex-shrink-0 w-full min-w-0">
             <div className="space-y-2">
-              <label className="text-xs text-white/60 uppercase tracking-wide font-semibold block">
-                Estimated Output: {selectedPair.toSymbol}
-              </label>
+              <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ESTIMATED_OUTPUT</p>
               <div className="px-4 py-3 rounded-lg bg-slate-900/50 border border-white/15">
                 <p className="text-2xl font-bold text-green-300">{Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
                 {estimatedFee > 0 && (
@@ -921,7 +919,7 @@ export function TradePage() {
         {/* RWA Pairs */}
         <div className="glow-panel p-4 space-y-3 flex-shrink-0 w-full">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-white">RWA Market Pairs</h3>
+            <h3 className="text-sm font-bold text-cyan-400 font-mono tracking-widest uppercase">&gt; [MARKET_PAIRS] RWA_ROUTES</h3>
             <div className="flex gap-2 items-center">
               <button
                 className={`px-2 py-1 rounded text-xs font-semibold ${pairView === 'carousel' ? 'bg-cyan-500/20 text-cyan-200' : 'bg-slate-800/60 text-white/60'}`}
@@ -1075,7 +1073,7 @@ export function TradePage() {
             {/* User Stakes Display */}
             {userStakes.length > 0 && (
               <div className="glow-panel p-4 space-y-3">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                <h3 className="text-sm font-bold text-emerald-400 flex items-center gap-2 font-mono uppercase tracking-widest">
                   <CheckCircle size={16} className="text-green-400" /> Your ABRA Stakes
                 </h3>
                 <div className="grid grid-cols-3 gap-3 text-xs">
@@ -1105,7 +1103,7 @@ export function TradePage() {
             {/* Buy ABRA now */}
             <div className="glow-panel p-5 space-y-3">
               <div className="flex items-center gap-2 text-amber-300">
-                <span>Step 1: Buy ABRA Now</span>
+                <span className="font-mono font-bold text-orange-400 uppercase tracking-wider">&gt; STEP_01_BUY_ABRA</span>
               </div>
               <p className="text-xs text-white/60">
                 Buy ABRA first, then move directly into staking below if you want the early adopter multiplier route.
@@ -1143,7 +1141,7 @@ export function TradePage() {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 w-full">
-                          <p className="text-sm font-semibold text-white">{tier.label}</p>
+                          <p className="text-sm font-bold text-cyan-300 font-mono">{tier.label}</p>
                           {tier.highlight && (
                             <span className="ml-auto inline-flex items-center gap-0 text-violet-300 font-semibold shrink-0">
                               <Gem size={14} />
@@ -1163,7 +1161,7 @@ export function TradePage() {
               <div className="glow-panel p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-sm font-semibold text-violet-300 flex items-center gap-2">
-                    <span>Confirm Your Stake</span>
+                    <span className="font-mono font-bold text-violet-400 uppercase tracking-wider">CONFIRM_STAKE</span>
                   </h2>
                   <button
                     onClick={() => {
@@ -1177,7 +1175,7 @@ export function TradePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">ABRA Amount</label>
+                  <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRA_AMOUNT</label>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -1197,7 +1195,7 @@ export function TradePage() {
 
                 {stakeAmount && Number(stakeAmount) > 0 && (
                   <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-2">
-                    <p className="text-xs text-green-300 font-semibold">Projected Value at Unlock</p>
+                    <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">VALUE_AT_UNLOCK</p>
                     <div className="flex items-baseline justify-between">
                       <p className="text-2xl font-bold text-green-300">
                         {(
@@ -1218,7 +1216,7 @@ export function TradePage() {
                         multiplier
                       </p>
                     </div>
-                    <p className="text-xs text-green-300/60">Lock for {selectedStakeDuration} days, unlock & claim anytime after</p>
+                    <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Lock {selectedStakeDuration}d | Unlock & claim anytime after</p>
                   </div>
                 )}
 

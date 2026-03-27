@@ -249,7 +249,7 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
               <p className="text-lg font-bold text-emerald-400 font-mono">
                 {abraBalance !== null ? abraBalance.toFixed(2) : '0.00'} ABRA
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+              <p className="text-[10px] text-emerald-400/60 mt-2 font-mono uppercase tracking-wider">
                 On-chain balance from {publicKey?.toBase58().slice(0, 8)}...
               </p>
             </div>
@@ -269,7 +269,7 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
               <CheckCircle size={20} className="text-green-500 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-semibold text-green-800 dark:text-green-300 mb-1">Success!</p>
-                <p className="text-sm text-green-700 dark:text-green-300">{successMessage}</p>
+                <p className="text-sm text-green-400 font-mono font-bold">{successMessage}</p>
               </div>
             </div>
           )}
@@ -318,7 +318,7 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
 
               {/* Payment Method Selection */}
               <div>
-                <label className="block text-sm font-medium mb-3 text-gray-700 dark:text-gray-300">
+                <label className="block text-[10px] font-bold mb-3 text-emerald-400 uppercase tracking-widest font-mono">&gt;
                   Send to
                 </label>
                 <div className="grid grid-cols-2 gap-3">
