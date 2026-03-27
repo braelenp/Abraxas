@@ -239,7 +239,7 @@ export function TradePage() {
       console.error('Failed to fetch stake record', error);
       setUserStakes([]);
     }
-  }, [connection, programId, publicKey]);
+  }, [programId, publicKey]);
 
   useEffect(() => {
     if (!connected || !publicKey) {

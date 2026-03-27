@@ -81,7 +81,7 @@ export function OnboardPage() {
       console.error('Failed to fetch live stake record', error);
       setUserStakes([]);
     }
-  }, [connection, programId, publicKey]);
+  }, [programId, publicKey]);
 
   useEffect(() => {
     if (!connected || !publicKey) {
