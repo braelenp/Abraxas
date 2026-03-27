@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export function LoadingPage() {
   const [displayedText, setDisplayedText] = useState('');
@@ -6,6 +6,7 @@ export function LoadingPage() {
   const [phase, setPhase] = useState(0);
   const [loadingBar, setLoadingBar] = useState(0);
   const [glitchActive, setGlitchActive] = useState(false);
+  const startTimeRef = useRef<number>(Date.now());
 
   const messages = [
     '> INITIALIZING_FORGE_PROTOCOL...',
@@ -47,20 +48,20 @@ export function LoadingPage() {
     }
   }, [displayedText, messageIndex]);
 
-  // Loading bar animation
+  // Loading bar animation - reach 100% in 3 seconds to match page transition
   useEffect(() => {
-    if (phase < messages.length - 1) {
-      const interval = setInterval(() => {
-        setLoadingBar((prev) => {
-          const increment = Math.random() * (12 - 2) + 2;
-          return Math.min(prev + increment, (phase + 1) * 14);
-        });
-      }, 200);
-      return () => clearInterval(interval);
-    } else {
-      setLoadingBar(100);
-    }
-  }, [phase]);
+    const startTime = startTimeRef.current;
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / 3000) * 100, 100);
+      setLoadingBar(progress);
+      
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="fixed inset-0 min-h-screen w-full overflow-hidden flex items-center justify-center bg-slate-950">

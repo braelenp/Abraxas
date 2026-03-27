@@ -236,7 +236,7 @@ export function LandingPage() {
 						<div className="flex justify-center">
 							<div className="border-l-2 border-r-2 border-cyan-400/60 px-6 py-4 font-mono">
 								<h2 className="text-sm font-bold tracking-[0.3em] text-cyan-400 mb-2">[SYSTEM.PROTOCOL]</h2>
-								<h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-wider text-cyan-200 uppercase">
+								<h2 className="text-lg sm:text-4xl lg:text-5xl font-black leading-tight tracking-wider text-cyan-200 uppercase">
 									<span className="inline-block">
 										{mainHeadlineTyping.displayedText}
 										{!mainHeadlineTyping.isComplete ? <span className="ml-1 animate-pulse text-cyan-400">█</span> : null}
