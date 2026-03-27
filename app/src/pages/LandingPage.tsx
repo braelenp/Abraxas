@@ -158,7 +158,6 @@ function CTAButton({ text, href }: CTAButtonProps) {
 }
 
 export function LandingPage() {
-	const topBarTyping = useTypingEffect('KINDLING THE FORGE...', 40, 0);
 	const mainHeadlineTyping = useTypingEffect('Tokenize. Forge. Yield.', 60, 0);
 	const loreRef = useRef<HTMLElement | null>(null);
 	const loreVisible = useScrollReveal(loreRef, 0.2);
@@ -215,8 +214,7 @@ export function LandingPage() {
 
 					<div className="hidden flex-1 justify-center sm:flex">
 						<p className="font-mono text-xs tracking-wider text-cyan-200/80 sm:text-sm">
-							{topBarTyping.displayedText}
-							<span className={`${topBarTyping.isComplete ? '' : 'animate-pulse'} ml-1`}>_</span>
+						&gt; Welcome to the next degree
 						</p>
 					</div>
 					</div>
