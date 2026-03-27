@@ -1,6 +1,75 @@
 import { useRef, useState } from 'react';
-import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye } from 'lucide-react';
+import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+
+// Breaking Signals mock data (imported from MarketPage data structure)
+type BreakingSignal = {
+  id: string;
+  title: string;
+  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol';
+  timestamp: string;
+  snippet: string;
+  category: 'athlete' | 'rwa' | 'gaming' | 'defi' | 'market';
+};
+
+const breakingSignals: BreakingSignal[] = [
+  {
+    id: 'signal-1',
+    title: 'Caleb Williams La Casa Equity Agreement Finalized',
+    source: 'Solana',
+    timestamp: '2 hours ago',
+    snippet: 'NFL athlete equity tokenization demonstrates strong institutional adoption of on-chain asset representation.',
+    category: 'athlete',
+  },
+  {
+    id: 'signal-2',
+    title: 'Ethereum RWA Market Gap Analysis: $2.3T Opportunity',
+    source: 'Blockworks',
+    timestamp: '4 hours ago',
+    snippet: 'Real-world assets remain significantly underrepresented on blockchain infrastructure despite regulatory clarity.',
+    category: 'rwa',
+  },
+  {
+    id: 'signal-3',
+    title: 'Bags DEX Volume Peak: $1.2B in 24hr Trading',
+    source: 'Bags',
+    timestamp: '6 hours ago',
+    snippet: 'Token liquidity pools experience sustained growth as institutional traders adopt decentralized market structure.',
+    category: 'market',
+  },
+  {
+    id: 'signal-4',
+    title: 'Polymarket Bitcoin ATH Prediction: $145K by Q3 2026',
+    source: 'Polymarket',
+    timestamp: '8 hours ago',
+    snippet: 'Prediction markets signal bullish sentiment on macro Bitcoin thesis with $890M notional volume.',
+    category: 'market',
+  },
+  {
+    id: 'signal-5',
+    title: 'Music Rights RWA Pilot Launched on Solana',
+    source: 'CoinDesk',
+    timestamp: '12 hours ago',
+    snippet: 'Independent artists tokenize royalty streams, creating new liquidity access for IP-backed securities.',
+    category: 'rwa',
+  },
+  {
+    id: 'signal-6',
+    title: 'CircuitBreaker Threshold Study: DeFi Stability Metrics',
+    source: 'DeFi Protocol',
+    timestamp: '18 hours ago',
+    snippet: 'Research indicates circuit breaker mechanisms reduce cascade liquidations by 47% in volatile markets.',
+    category: 'defi',
+  },
+  {
+    id: 'signal-7',
+    title: 'Gaming Token Markets Rally: Guild Economy Signals Strength',
+    source: 'Blockworks',
+    timestamp: '52 minutes ago',
+    snippet: 'On-chain gaming guilds reporting 27% QoQ growth in tokenized asset holdings and yield farming participation.',
+    category: 'gaming',
+  },
+];
 
 const RUNE_CONFIG = {
 	rune: 'ᚲ',
@@ -341,6 +410,78 @@ export function ForgePage() {
 					</div>
 				</div>
 
+			</section>
+
+			{/* Breaking Signals – Market Context Widget */}
+			<section className="space-y-4 py-8 border-t border-slate-700/30 mt-8">
+				<details className="group cursor-pointer">
+					<summary className="flex items-center gap-3 px-1 font-mono mb-6 select-none hover:opacity-80 transition">
+						<span className="text-sm font-bold text-orange-300 tracking-widest uppercase">&gt; [HORIZON_SIGNALS] MARKET_CONTEXT</span>
+						<span className="text-[10px] text-orange-300/60 ml-auto group-open:hidden">▸ expand</span>
+						<span className="text-[10px] text-orange-300/60 ml-auto hidden group-open:inline">▾ collapse</span>
+					</summary>
+					<article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden animate-pulse" style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}>
+						<div className="space-y-3 mb-4">
+							<div className="flex items-center gap-3">
+								<div className="relative">
+									<div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-lg animate-pulse" />
+									<Newspaper className="text-cyan-300 relative z-10 drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]" size={18} />
+								</div>
+								<div>
+									<h3 className="text-sm font-bold text-cyan-200 tracking-widest uppercase">Breaking Signals</h3>
+									<p className="text-[10px] text-cyan-300/60 font-mono">Horizon Oracle Live Feed</p>
+								</div>
+							</div>
+							<p className="text-xs leading-relaxed text-slate-300/75 italic">
+								Real-time market signals from across RWA, athlete equity, and DeFi markets inform your tokenization strategy.
+							</p>
+						</div>
+
+						{/* Scrollable News Feed */}
+						<div className="space-y-2 max-h-48 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(34,211,238,0.3)_rgba(15,23,42,0.5)]">
+							{breakingSignals.map((signal, idx) => (
+								<div
+									key={signal.id}
+									className="group relative rounded-lg border border-cyan-300/15 bg-slate-950/40 backdrop-blur-sm p-3 hover:bg-slate-950/60 hover:border-cyan-300/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+									style={{
+										animationDelay: `${idx * 50}ms`,
+										animation: 'fadeInUp 0.6s ease-out forwards',
+									}}
+								>
+									{/* Category badge */}
+									<div className="absolute top-2 right-2">
+										<span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
+											signal.category === 'athlete'
+												? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
+												: signal.category === 'rwa'
+												? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
+												: signal.category === 'gaming'
+												? 'border-violet-400/30 bg-violet-400/10 text-violet-300'
+												: signal.category === 'defi'
+												? 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
+												: 'border-amber-400/30 bg-amber-400/10 text-amber-300'
+										}`}>
+											{signal.category}
+										</span>
+									</div>
+
+									<div className="flex items-center gap-2 mb-2">
+										<span className="text-[10px] font-mono font-bold text-cyan-300/80 uppercase tracking-wider">[{signal.source}]</span>
+										<span className="text-[9px] text-slate-400/70">{signal.timestamp}</span>
+									</div>
+
+									<h4 className="text-xs font-semibold text-slate-100 mb-1 line-clamp-2">
+										{signal.title}
+									</h4>
+
+									<p className="text-[11px] leading-relaxed text-slate-300/80 line-clamp-1">
+										{signal.snippet}
+									</p>
+								</div>
+							))}
+						</div>
+					</article>
+				</details>
 			</section>
 
 			{/* Optional: Tokenization Form (Collapsible Section) */}

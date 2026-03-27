@@ -590,6 +590,85 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
+      {/* --- Breaking Signals – The Horizon Speaks --- */}
+      <article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden">
+        <div className="space-y-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-lg" />
+              <Newspaper className="text-cyan-300 relative z-10 drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]" size={18} />
+            </div>
+            <div>
+              <h2 className="text-sm font-bold text-cyan-200 tracking-widest uppercase">Breaking Signals</h2>
+              <p className="text-[10px] text-cyan-300/60 font-mono">The Horizon Speaks</p>
+            </div>
+          </div>
+          <p className="text-xs leading-relaxed text-slate-300/75 italic">
+            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and athlete equity flows.
+          </p>
+        </div>
+
+        {/* Scrollable News Feed */}
+        <div className="space-y-2 max-h-96 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(34,211,238,0.3)_rgba(15,23,42,0.5)]">
+          {breakingSignals.map((signal, idx) => (
+            <div
+              key={signal.id}
+              className="group relative rounded-lg border border-cyan-300/15 bg-slate-950/40 backdrop-blur-sm p-3 hover:bg-slate-950/60 hover:border-cyan-300/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+              style={{
+                animationDelay: `${idx * 50}ms`,
+                animation: 'fadeInUp 0.6s ease-out forwards',
+              }}
+            >
+              {/* Category badge */}
+              <div className="absolute top-2 right-2">
+                <span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
+                  signal.category === 'athlete'
+                    ? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
+                    : signal.category === 'rwa'
+                    ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
+                    : signal.category === 'gaming'
+                    ? 'border-violet-400/30 bg-violet-400/10 text-violet-300'
+                    : signal.category === 'defi'
+                    ? 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
+                    : 'border-amber-400/30 bg-amber-400/10 text-amber-300'
+                }`}>
+                  {signal.category}
+                </span>
+              </div>
+
+              {/* Header with source and timestamp */}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono font-bold text-cyan-300/80 uppercase tracking-wider">[{signal.source}]</span>
+                <span className="text-[9px] text-slate-400/70">{signal.timestamp}</span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-sm font-semibold text-slate-100 mb-2 group-hover:text-cyan-200 transition line-clamp-2">
+                {signal.title}
+              </h3>
+
+              {/* Snippet */}
+              <p className="text-xs leading-relaxed text-slate-300/80 line-clamp-2 mb-2">
+                {signal.snippet}
+              </p>
+
+              {/* Rune accent line */}
+              <div className="flex items-center gap-2 text-[10px] text-cyan-400/60">
+                <div className="flex-1 h-px bg-gradient-to-r from-cyan-400/30 to-transparent" />
+                <span>ᛋ</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-4 pt-3 border-t border-cyan-300/10">
+          <p className="text-[9px] text-slate-400/70 text-center font-mono uppercase tracking-wider">
+            Live feed refreshes every 30 seconds • Powered by Horizon oracle network
+          </p>
+        </div>
+      </article>
+
       {/* --- Top-Up Section --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
         <p className="text-xs text-slate-300/80">Available Balance</p>
@@ -845,84 +924,7 @@ export function MarketPage() {
         )}
       </article>
 
-      {/* --- Breaking Signals – The Horizon Speaks --- */}
-      <article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden">
-        <div className="space-y-3 mb-4">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-lg" />
-              <Newspaper className="text-cyan-300 relative z-10 drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]" size={18} />
-            </div>
-            <div>
-              <h2 className="text-sm font-bold text-cyan-200 tracking-widest uppercase">Breaking Signals</h2>
-              <p className="text-[10px] text-cyan-300/60 font-mono">The Horizon Speaks</p>
-            </div>
-          </div>
-          <p className="text-xs leading-relaxed text-slate-300/75 italic">
-            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and athlete equity flows.
-          </p>
-        </div>
 
-        {/* Scrollable News Feed */}
-        <div className="space-y-2 max-h-96 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(34,211,238,0.3)_rgba(15,23,42,0.5)]">
-          {breakingSignals.map((signal, idx) => (
-            <div
-              key={signal.id}
-              className="group relative rounded-lg border border-cyan-300/15 bg-slate-950/40 backdrop-blur-sm p-3 hover:bg-slate-950/60 hover:border-cyan-300/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-              style={{
-                animationDelay: `${idx * 50}ms`,
-                animation: 'fadeInUp 0.6s ease-out forwards',
-              }}
-            >
-              {/* Category badge */}
-              <div className="absolute top-2 right-2">
-                <span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
-                  signal.category === 'athlete'
-                    ? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
-                    : signal.category === 'rwa'
-                    ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
-                    : signal.category === 'gaming'
-                    ? 'border-violet-400/30 bg-violet-400/10 text-violet-300'
-                    : signal.category === 'defi'
-                    ? 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
-                    : 'border-amber-400/30 bg-amber-400/10 text-amber-300'
-                }`}>
-                  {signal.category}
-                </span>
-              </div>
-
-              {/* Header with source and timestamp */}
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] font-mono font-bold text-cyan-300/80 uppercase tracking-wider">[{signal.source}]</span>
-                <span className="text-[9px] text-slate-400/70">{signal.timestamp}</span>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-sm font-semibold text-slate-100 mb-2 group-hover:text-cyan-200 transition line-clamp-2">
-                {signal.title}
-              </h3>
-
-              {/* Snippet */}
-              <p className="text-xs leading-relaxed text-slate-300/80 line-clamp-2 mb-2">
-                {signal.snippet}
-              </p>
-
-              {/* Rune accent line */}
-              <div className="flex items-center gap-2 text-[10px] text-cyan-400/60">
-                <div className="flex-1 h-px bg-gradient-to-r from-cyan-400/30 to-transparent" />
-                <span>ᛋ</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer note */}
-        <div className="mt-4 pt-3 border-t border-cyan-300/10">
-          <p className="text-[9px] text-slate-400/70 text-center font-mono uppercase tracking-wider">
-            Live feed refreshes every 30 seconds • Powered by Horizon oracle network
-          </p>
-        </div>
-      </article>
     </section>
     </RuneRealm>
   );
