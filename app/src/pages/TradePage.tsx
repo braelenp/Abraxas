@@ -692,8 +692,8 @@ export function TradePage() {
             <p className="font-bold text-cyan-400 font-mono text-sm">&gt; [AI_RECOMMENDATION]</p>
             <p className="text-[11px] text-cyan-400/70 uppercase tracking-wider">Training progress strong | Swap stables to ABRA | Equity upside</p>
             <div className="flex items-center gap-3 mt-2 text-xs">
-              <span className="text-cyan-200">Confidence: 87%</span>
-              <span className="text-green-300">Expected: +12-15% over 30 days</span>
+              <span className="text-cyan-400 font-mono">Confidence: 87%</span>
+              <span className="text-green-400 font-mono">Projection: +12% | 30d</span>
             </div>
           </div>
         </div>
@@ -832,18 +832,18 @@ export function TradePage() {
 
             <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
               <div className="flex justify-between">
-                <p className="text-white/50">Route</p>
-                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'Bags direct' : 'Jupiter in-app'}</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">ROUTE</p>
+                <p className="text-cyan-300 font-mono">{quickTradeUsesBagsRoute ? 'Bags_Direct' : 'Jupiter_InApp'}</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-white/50">Fallback</p>
-                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'External Bags market' : 'Bags 0% fee option below'}</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">FALLBACK</p>
+                <p className="text-cyan-300 font-mono">{quickTradeUsesBagsRoute ? 'External_Bags' : 'Bags_0pct_Fee'}</p>
               </div>
               {swapError && !quickTradeUsesBagsRoute ? (
-                <p className="text-amber-200">{swapError}</p>
+                <p className="text-amber-400 font-mono text-[11px] uppercase">&gt; {swapError}</p>
               ) : null}
               {quickTradeUsesBagsRoute ? (
-                <p className="text-amber-200">ABRA liquidity is currently routed through Bags, so this button opens the live Bags execution path instead of showing the temporary Jupiter warning.</p>
+                <p className="text-orange-400 font-mono text-[11px] uppercase tracking-wider">ABRA routed via Bags | Opens live Bags execution</p>
               ) : null}
             </div>
 
@@ -885,12 +885,12 @@ export function TradePage() {
             {/* Trade Info */}
             <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
               <div className="flex justify-between">
-                <p className="text-white/50">Price Impact</p>
-                <p className="text-white/70">0.02%</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">PRICE_IMPACT</p>
+                <p className="text-cyan-300 font-mono">0.02%</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-white/50">Route</p>
-                <p className="text-white/70">Bags DEX</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">ROUTE</p>
+                <p className="text-cyan-300 font-mono">Bags_DEX</p>
               </div>
             </div>
           </div>
@@ -1045,14 +1045,14 @@ export function TradePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4">
         <div className="glow-panel p-4 space-y-2">
-          <p className="text-xs text-white/50 uppercase tracking-wide font-semibold">24h Volume</p>
+          <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">24h_VOLUME</p>
           <p className="text-2xl font-bold text-cyan-300">${selectedPair.volume24h.toLocaleString()}</p>
-          <p className="text-xs text-white/40">{selectedPair.fromSymbol}/{selectedPair.toSymbol}</p>
+          <p className="text-[10px] text-cyan-300/60 font-mono">{selectedPair.fromSymbol}/{selectedPair.toSymbol}</p>
         </div>
         <div className="glow-panel p-4 space-y-2">
-          <p className="text-xs text-white/50 uppercase tracking-wide font-semibold">Liquidity Source</p>
-          <p className="text-lg font-bold text-amber-200">Bags</p>
-          <p className="text-xs text-white/40">~0% protocol fees</p>
+          <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">LIQUIDITY_SOURCE</p>
+          <p className="text-lg font-bold text-amber-200 font-mono">Bags</p>
+          <p className="text-[10px] text-cyan-300/60 font-mono">~0% protocol fees</p>
         </div>
       </div>
 

@@ -520,25 +520,25 @@ export function OnboardPage() {
               </div>
               <div className="grid grid-cols-3 gap-4 min-w-0 max-w-full overflow-hidden">
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Total Staked</p>
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-widest font-mono">TOTAL_STAKED</p>
                   <p className="text-2xl font-bold text-amber-200 truncate">
                     {userStakes.reduce((sum, s) => sum + s.abraAmount, 0).toLocaleString()}
                   </p>
-                  <p className="text-xs text-white/40 truncate">ABRA</p>
+                  <p className="text-[10px] text-cyan-300/60 font-mono truncate">ABRA</p>
                 </div>
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Projected Value</p>
+                  <p className="text-[10px] text-violet-400 uppercase tracking-widest font-mono truncate">PROJECTED_VALUE</p>
                   <p className="text-2xl font-bold text-violet-300 truncate">
                     {Math.round(
                       userStakes.reduce((sum, s) => sum + s.abraAmount * (s.multiplierBps / 10_000), 0)
                     ).toLocaleString()}
                   </p>
-                  <p className="text-xs text-white/40 truncate">ABRA</p>
+                  <p className="text-[10px] text-violet-300/60 font-mono truncate">ABRA</p>
                 </div>
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Active Stakes</p>
+                  <p className="text-[10px] text-green-400 uppercase tracking-widest font-mono truncate">ACTIVE_STAKES</p>
                   <p className="text-2xl font-bold text-green-400 truncate">{userStakes.filter((s) => s.isActive).length}</p>
-                  <p className="text-xs text-white/40 truncate">Position(s)</p>
+                  <p className="text-[10px] text-green-300/60 font-mono truncate">Position(s)</p>
                 </div>
               </div>
             </div>

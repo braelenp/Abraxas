@@ -108,19 +108,19 @@ export function StakePage() {
       {/* Staking Stats */}
       <div className="grid grid-cols-3 gap-4">
         <div className="glow-panel p-4 space-y-1">
-          <p className="text-xs text-white/50 uppercase tracking-wide">Total Staked</p>
+          <p className="text-[10px] text-cyan-400 uppercase tracking-widest font-mono">TOTAL_STAKED</p>
           <p className="text-2xl font-bold text-amber-200">{totalStaked.toLocaleString()}</p>
-          <p className="text-xs text-white/40">ABRA</p>
+          <p className="text-[10px] text-cyan-300/60 font-mono">ABRA</p>
         </div>
         <div className="glow-panel p-4 space-y-1">
-          <p className="text-xs text-white/50 uppercase tracking-wide">Projected Value</p>
+          <p className="text-[10px] text-violet-400 uppercase tracking-widest font-mono">PROJECTED_VALUE</p>
           <p className="text-2xl font-bold text-violet-300">{totalProjectedValue.toLocaleString()}</p>
-          <p className="text-xs text-white/40">ABRA</p>
+          <p className="text-[10px] text-violet-300/60 font-mono">ABRA</p>
         </div>
         <div className="glow-panel p-4 space-y-1">
-          <p className="text-xs text-white/50 uppercase tracking-wide">Active Stakes</p>
+          <p className="text-[10px] text-green-400 uppercase tracking-widest font-mono">ACTIVE_STAKES</p>
           <p className="text-2xl font-bold text-green-400">{userStakes.filter((s) => s.isActive).length}</p>
-          <p className="text-xs text-white/40">Position(s)</p>
+          <p className="text-[10px] text-green-300/60 font-mono">Position(s)</p>
         </div>
       </div>
 
