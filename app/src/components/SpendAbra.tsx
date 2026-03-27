@@ -230,7 +230,7 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
       <div className="bg-white dark:bg-slate-900 rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 flex justify-between items-center p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
-          <h2 className="text-2xl font-bold">Spend ABRA</h2>
+          <h2 className="text-sm font-bold text-emerald-400 tracking-widest uppercase font-mono">&gt; [SPEND] ABRA_FLOW</h2>
           <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
             <X size={24} />
           </button>
@@ -245,8 +245,8 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
             </div>
           ) : (
             <div className="bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-emerald-900/20 dark:to-cyan-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Wallet Balance</p>
-              <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+              <p className="text-[10px] text-emerald-400/70 mb-2 uppercase tracking-wider font-mono">WALLET_BALANCE</p>
+              <p className="text-lg font-bold text-emerald-400 font-mono">
                 {abraBalance !== null ? abraBalance.toFixed(2) : '0.00'} ABRA
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
@@ -309,8 +309,8 @@ export default function SpendAbra({ onClose }: SpendAbraProps) {
               {/* Estimated Fiat */}
               {estimatedFiat > 0 && phase === 'input' && (
                 <div className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Estimated Fiat (after 1.5% fee)</p>
-                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <p className="text-[10px] text-emerald-400/60 mb-1 uppercase tracking-wider font-mono">Estimate | 1.5% Fee Applied</p>
+                  <p className="text-lg font-bold text-emerald-400 font-mono">
                     ${estimatedFiat.toFixed(2)} USD
                   </p>
                 </div>

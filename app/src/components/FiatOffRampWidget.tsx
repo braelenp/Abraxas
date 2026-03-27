@@ -205,8 +205,8 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
     return (
       <div className={`rounded-2xl border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm p-6 shadow-lg ${compact ? 'max-w-sm' : ''}`}>
         <div className="mb-6">
-          <h3 className="text-xl font-semibold text-white mb-2">Convert ABRA to Cash</h3>
-          <p className="text-cyan-400/60 text-sm">Swap ABRA to USDC, then send to your Cash App</p>
+          <h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-2 font-mono">&gt; [CONVERT] ABRA_TO_CASH</h3>
+          <p className="text-[11px] text-cyan-300/60 uppercase tracking-wide">Swap ABRA to USDC | Send to Cash App</p>
         </div>
 
         {/* Amount Display */}
@@ -272,8 +272,8 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
     return (
       <div className={`rounded-2xl border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm p-6 shadow-lg ${compact ? 'max-w-sm' : ''}`}>
         <div className="mb-6">
-          <h3 className="text-xl font-semibold text-white">Conversion Quote</h3>
-          <p className="text-cyan-400/60 text-sm mt-1">Review before continuing</p>
+          <h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase font-mono">&gt; [QUOTE] REVIEW_CONVERSION</h3>
+          <p className="text-[10px] text-cyan-300/60 uppercase tracking-wider mt-1">Verify details before proceeding</p>
         </div>
 
         {/* Conversion Breakdown */}
@@ -363,8 +363,8 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
       <div className={`rounded-2xl border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm p-6 shadow-lg ${compact ? 'max-w-sm' : ''}`}>
         <div className="flex flex-col items-center justify-center py-12">
           <Loader2 className="w-12 h-12 text-cyan-400 animate-spin mb-4" />
-          <h3 className="text-xl font-semibold text-white mb-2">Converting Your ABRA</h3>
-          <p className="text-cyan-400/60 text-center max-w-xs">
+          <h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-2 font-mono text-center">&gt; [PROCESSING] CONVERSION_ACTIVE</h3>
+          <p className="text-cyan-400/60 text-center max-w-xs text-[10px]">
             Swapping ABRA to USDC and initiating off-ramp transfer...
           </p>
         </div>
@@ -378,8 +378,8 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
       <div className={`rounded-2xl border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm p-6 shadow-lg ${compact ? 'max-w-sm' : ''}`}>
         <div className="flex flex-col items-center justify-center py-12">
           <Loader2 className="w-12 h-12 text-cyan-400 animate-spin mb-4" />
-          <h3 className="text-xl font-semibold text-white mb-2">Completing Transfer</h3>
-          <p className="text-cyan-400/60 text-center max-w-xs">
+          <h3 className="text-sm font-bold text-green-400 tracking-widest uppercase mb-2 font-mono text-center">&gt; [FINALIZING] TRANSFER_STAGE</h3>
+          <p className="text-cyan-400/60 text-center max-w-xs text-[10px]">
             A new window has opened to complete your off-ramp. Please complete the payment process.
           </p>
         </div>
@@ -393,8 +393,8 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
       <div className={`rounded-2xl border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm p-6 shadow-lg ${compact ? 'max-w-sm' : ''}`}>
         <div className="flex flex-col items-center justify-center py-8">
           <CheckCircle className="w-16 h-16 text-cyan-400 mb-4" />
-          <h3 className="text-2xl font-semibold text-white mb-2 text-center">Conversion Complete!</h3>
-          <p className="text-cyan-400 text-center mb-6">
+          <h3 className="text-sm font-bold text-green-400 tracking-widest uppercase mb-2 text-center font-mono">✓ [SUCCESS] CONVERSION_COMPLETE</h3>
+          <p className="text-green-400 text-center mb-6 text-[11px]">
             ABRA swapped and sent to {step.paymentMethod === 'cash-app' ? 'Cash App' : 'Apple Pay'}
           </p>
 

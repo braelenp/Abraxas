@@ -777,12 +777,12 @@ export function TradePage() {
         <article id="in-app-trade" className="glow-panel rounded-2xl border border-emerald-300/30 bg-emerald-500/10 p-4 flex-shrink-0 w-full">
           <div className="flex items-center gap-2 mb-3">
             <Zap className="text-emerald-200" size={16} />
-            <h3 className="text-sm font-semibold text-emerald-100">Trade In Abraxas</h3>
+            <h3 className="text-sm font-bold text-emerald-300 tracking-widest uppercase font-mono">&gt; [TRADE] ABRAXAS_LIVE</h3>
             <FeatureBadge status="live" size="sm" />
           </div>
-          <p className="text-xs text-emerald-100/80 mb-3">
+          <p className="text-[10px] text-emerald-100/70 mb-3 uppercase tracking-wider">
             {quickTradeUsesBagsRoute
-              ? 'ABRA routes currently execute through Bags. Use the button below to buy or swap ABRA with the live Bags flow.'
+              ? 'ABRA routes execute via Bags | Use button to buy or swap ABRA | Live Bags flow'
               : 'This is the recommended route. Quotes and swaps execute inside the dapp through Jupiter. Bags stays available below if users want the optional 0% fee path.'}
           </p>
           <div className="space-y-3">
@@ -902,7 +902,7 @@ export function TradePage() {
         {showOffRampWidget && (
           <div className="flex-shrink-0 w-full">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-white">Cash Out to Fiat</h3>
+              <h3 className="text-sm font-bold text-amber-400 tracking-widest uppercase font-mono">&gt; [OFFRAMP] CASH_CONVERSION</h3>
               <button
                 onClick={() => setShowOffRampWidget(false)}
                 className="text-xs text-white/60 hover:text-white/80 underline"
@@ -1122,10 +1122,10 @@ export function TradePage() {
               <div className="glow-panel p-5 space-y-4">
                 <div className="flex items-center gap-2 text-violet-300">
                   <Lock size={16} />
-                  <h2 className="text-sm font-semibold text-white">Step 2: Stake Your ABRA</h2>
+                  <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase font-mono">STEP_02_STAKE_ABRA</h2>
                 </div>
-                <p className="text-xs text-white/60">
-                  Stake freshly acquired ABRA tokens for 30, 90, or 180 days. Higher multipliers for longer lock periods.
+                <p className="text-[10px] text-white/60 uppercase tracking-wider font-mono">
+                  Stakes lock for 30/90/180 days | Higher multipliers = Longer periods
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {STAKE_TIERS.map((tier) => (

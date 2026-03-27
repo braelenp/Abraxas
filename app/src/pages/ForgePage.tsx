@@ -346,11 +346,9 @@ export function ForgePage() {
 			{/* Optional: Tokenization Form (Collapsible Section) */}
 			<section className="space-y-4 py-12 border-t border-slate-700/30 mt-8">
 				<div className="space-y-2 mb-6">
-					<h2 className="text-2xl font-bold text-slate-100 tracking-wider">
-						Direct Tokenization
-					</h2>
-					<p className="text-sm text-slate-400">
-						Or begin a raw asset tokenization flow
+					<h2 className="text-sm font-bold text-slate-300 tracking-widest uppercase font-mono">&gt; [DIRECT] TOKENIZATION_FLOW</h2>
+					<p className="text-[10px] text-slate-400/70 mt-1 uppercase tracking-wider">
+						Begin raw asset tokenization process
 					</p>
 				</div>
 
@@ -360,11 +358,11 @@ export function ForgePage() {
 						<Flame size={20} className="text-orange-300 shrink-0" />
 						<div>
 							<p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-orange-200/80">Kenaz Protocol</p>
-							<h2 className="text-base font-semibold text-slate-100 leading-tight">Tokenize a Real World Asset</h2>
-						</div>
+						<h2 className="text-sm font-bold text-slate-300 tracking-widest uppercase font-mono">INITIALIZE_TOKENIZATION</h2>
 					</div>
-					<p className="text-xs leading-relaxed text-slate-400 mb-4">
-						Upload proof of ownership for any real world asset. Abraxas mints it as a La Casa NFT and auto-deposits it into a Sophia-managed vault.
+				</div>
+				<p className="text-[10px] leading-relaxed text-slate-400/70 mb-4 uppercase tracking-[0.05em]">
+					Upload proof of ownership | Abraxas mints La Casa NFT | Auto-deposit to Sophia Vault
 					</p>
 					<button
 						type="button"
@@ -440,8 +438,8 @@ export function ForgePage() {
 				{currentStep >= 2 && !attested && (
 					<article className="glow-panel rounded-2xl border border-amber-300/25 bg-slate-900/60 p-4 backdrop-blur">
 						<p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200/70">Self-Attestation</p>
-						<p className="text-xs leading-relaxed text-slate-400 mb-4">
-							I confirm I am the lawful owner of the asset represented in the uploaded documents. I understand this initiates an on-chain tokenization process.
+						<p className="text-[10px] leading-relaxed text-slate-400/70 mb-4 uppercase tracking-[0.05em] font-mono">
+							&gt; I confirm lawful ownership of this asset. Initiating on-chain tokenization.
 						</p>
 						<button
 							type="button"

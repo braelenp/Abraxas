@@ -367,7 +367,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       }`}
     >
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold text-cyan-300">King AI Assistant</h2>
+        <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase font-mono">&gt; [KING_AI] ASSISTANT_ACTIVE</h2>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setHistoryOpen((current) => !current)}

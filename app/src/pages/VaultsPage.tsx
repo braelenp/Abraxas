@@ -115,7 +115,7 @@ export function VaultsPage() {
       </div>
 
       <form onSubmit={onCreateVault} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-sm font-medium">Create RWA Vault</p>
+        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; CREATE_VAULT</p>
         <input
           value={vaultName}
           onChange={(event) => setVaultName(event.target.value)}
@@ -142,7 +142,7 @@ export function VaultsPage() {
       <article className="space-y-3">
         {vaults.length === 0 ? (
           <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 p-4 text-center">
-            <p className="text-sm text-slate-300/80">No vaults yet. Create your first vault above to get started.</p>
+            <p className="text-[10px] text-slate-400/70 uppercase tracking-wider font-mono">No vaults yet | Create your first vault above</p>
           </div>
         ) : (
           vaults.map((vault) => (
@@ -239,7 +239,7 @@ export function VaultsPage() {
       </article>
 
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-sm font-medium">Future asset class hints</p>
+        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; ASSET_CLASS_HINTS</p>
         <div className="space-y-2">
           {futureAssetClasses.map((assetClass) => (
             <div key={assetClass.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
