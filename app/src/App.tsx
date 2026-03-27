@@ -188,6 +188,13 @@ function DappShell() {
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
+      {/* Bags Integration Badge */}
+      <div className="z-35 mx-auto flex w-full max-w-md flex-none border-b border-emerald-400/20 bg-emerald-950/40 px-3 py-1.5 backdrop-blur-sm">
+        <div className="text-[9px] font-mono uppercase tracking-wider text-emerald-300/80">
+          ✓ <span className="text-emerald-300 font-semibold">Powered by Bags</span> • Deep Integration • Fee-Share Active
+        </div>
+      </div>
+
       <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl relative">
         {navItems.map(({ to, label, rune }) => (
           <NavLink

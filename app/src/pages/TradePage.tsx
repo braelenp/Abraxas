@@ -6,6 +6,7 @@ import { useAbraxas } from '../providers/AbraxasProvider';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
 import { BagsSwapWidget } from '../components/BagsSwapWidget';
 import { BagsCredibilityBanner } from '../components/BagsCredibilityBanner';
+import { BagsDashboard } from '../components/BagsDashboard';
 import { FiatOffRampWidget } from '../components/FiatOffRampWidget';
 import SpendAbra from '../components/SpendAbra';
 import { FeatureBadge } from '../components/FeatureBadge';
@@ -755,6 +756,9 @@ export function TradePage() {
       <div className="space-y-4 flex-shrink-0 min-w-0">
         {/* BAGS Credibility Banner */}
         <BagsCredibilityBanner />
+
+        {/* Bags Integration Dashboard */}
+        <BagsDashboard />
 
         {/* Off-Ramp Button */}
         <button
