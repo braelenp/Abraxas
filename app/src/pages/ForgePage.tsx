@@ -58,8 +58,8 @@ const DAUGHTERS_PHASE2 = [
 		name: 'Verdant',
 		description: 'Carbon & Environmental Assets',
 		rune: '🌿',
-		url: '#',
-		isComingSoon: true,
+		url: 'https://verdant-puce.vercel.app/',
+		isComingSoon: false,
 	},
 ];
 
