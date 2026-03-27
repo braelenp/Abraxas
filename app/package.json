@@ -40,6 +40,7 @@
     "react-router-dom": "^7.13.1",
     "stream-browserify": "^3.0.0",
     "tailwindcss": "^4.2.1",
+    "vercel": "^50.37.2",
     "vite": "^7.3.1",
     "vm-browserify": "^1.1.2"
   },

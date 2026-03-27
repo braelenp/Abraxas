@@ -162,31 +162,11 @@ export function LandingPage() {
 	const mainHeadlineTyping = useTypingEffect('Tokenize. Forge. Yield.', 60, 0);
 	const loreRef = useRef<HTMLElement | null>(null);
 	const loreVisible = useScrollReveal(loreRef, 0.2);
-	const [isLoading, setIsLoading] = useState(true);
-	const [loadingProgress, setLoadingProgress] = useState(0);
 	const [backgroundIndex, setBackgroundIndex] = useState(0);
 
 	const backgroundCandidates = ['/assets/sophia-minted.jpg', '/assets/abraxas-logo-graphic.jpg'];
 
-	useEffect(() => {
-		if (!topBarTyping.isComplete) {
-			return;
-		}
 
-		const loadingInterval = setInterval(() => {
-			setLoadingProgress((previous) => {
-				if (previous >= 100) {
-					clearInterval(loadingInterval);
-					setTimeout(() => setIsLoading(false), 300);
-					return 100;
-				}
-
-				return previous + Math.random() * 30;
-			});
-		}, 200);
-
-		return () => clearInterval(loadingInterval);
-	}, [topBarTyping.isComplete]);
 
 	const onBackgroundError = () => {
 		if (backgroundIndex < backgroundCandidates.length - 1) {
@@ -233,30 +213,18 @@ export function LandingPage() {
 							/>
 						</div>
 
-						{isLoading ? (
-							<div className="hidden flex-1 justify-center sm:flex">
-								<p className="font-mono text-xs tracking-wider text-cyan-200/80 sm:text-sm">
-									{topBarTyping.displayedText}
-									<span className={`${topBarTyping.isComplete ? '' : 'animate-pulse'} ml-1`}>_</span>
-								</p>
-							</div>
-						) : <div className="hidden sm:block" />}
+					<div className="hidden flex-1 justify-center sm:flex">
+						<p className="font-mono text-xs tracking-wider text-cyan-200/80 sm:text-sm">
+							{topBarTyping.displayedText}
+							<span className={`${topBarTyping.isComplete ? '' : 'animate-pulse'} ml-1`}>_</span>
+						</p>
+					</div>
 					</div>
 
-					{isLoading ? (
-						<div className="mx-auto mt-4 max-w-md">
-							<div className="h-1.5 overflow-hidden rounded-full bg-slate-800/80">
-								<div
-									className="h-full rounded-full bg-gradient-to-r from-cyan-300 via-cyan-200 to-amber-200 transition-all duration-300"
-									style={{ width: `${Math.min(loadingProgress, 100)}%` }}
-								/>
-							</div>
-						</div>
-					) : null}
 				</div>
 			</header>
 
-			<section className={`relative flex min-h-[100vh] flex-col items-center justify-center px-4 pb-12 pt-20 transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className="relative flex min-h-[100vh] flex-col items-center justify-center px-4 pb-12 pt-20 sm:px-6">
 				<div className="mx-auto max-w-5xl space-y-6 text-center sm:space-y-8">
 					<div className="mt-20 sm:mt-28 lg:mt-32">
 						<h1 className="text-5xl font-black leading-tight tracking-[0.15em] sm:text-7xl sm:tracking-[0.2em] lg:text-8xl">
@@ -313,7 +281,7 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<section className={`relative border-b border-t border-cyan-400/30 px-4 py-6 transition-opacity duration-700 sm:px-6 font-mono ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className="relative border-b border-t border-cyan-400/30 px-4 py-6 sm:px-6 font-mono">
 				<div className="mx-auto max-w-4xl">
 					<div className="flex flex-col justify-around gap-3 text-center text-xs text-cyan-300/80 sm:flex-row sm:gap-0 sm:text-sm tracking-widest uppercase">
 						<div className="flex items-center justify-center gap-2">
@@ -334,7 +302,7 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<section ref={loreRef} className={`relative px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section ref={loreRef} className="relative px-4 py-16 sm:px-6 sm:py-24">
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
 						<div className="border-l-4 border-cyan-400/50 pl-6 mb-6">
@@ -363,7 +331,7 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<section className={`relative border-t border-cyan-300/20 px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className="relative border-t border-cyan-300/20 px-4 py-16 sm:px-6 sm:py-24">
 				<div className="mx-auto max-w-3xl space-y-8 text-center">
 					<div className="font-mono">
 						<h2 className="text-xs font-bold tracking-[0.2em] text-cyan-400 mb-3 uppercase">[INITIALIZATION_SEQUENCE]</h2>
@@ -381,7 +349,7 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<footer className={`relative border-t border-cyan-400/30 bg-slate-950/80 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 font-mono ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<footer className="relative border-t border-cyan-400/30 bg-slate-950/80 px-4 py-8 text-center sm:px-6 font-mono">
 				<div className="mx-auto max-w-4xl space-y-3">
 					<p className="text-xs tracking-widest text-cyan-300/70 uppercase">
 						[ABRAXAS_RWA_FORGE_v1.0] • DEPLOYED_ON_SOLANA

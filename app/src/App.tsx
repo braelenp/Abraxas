@@ -11,6 +11,7 @@ import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
 import { ForgePage } from './pages/ForgePage';
+import { LoadingPage } from './pages/LoadingPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 
@@ -221,6 +222,21 @@ function DappShell() {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Show loading screen for 3 seconds on app startup
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
