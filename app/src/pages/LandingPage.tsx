@@ -394,7 +394,6 @@ export function LandingPage() {
 					</p>
 				</div>
 			</footer>
-			</footer>
 
 			<style>{`
 				@keyframes float {
