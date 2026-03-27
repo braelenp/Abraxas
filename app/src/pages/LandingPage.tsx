@@ -158,8 +158,8 @@ function CTAButton({ text, href }: CTAButtonProps) {
 }
 
 export function LandingPage() {
-	const topBarTyping = useTypingEffect('ACCESSING SOVEREIGN ARCHIVES...', 40, 0);
-	const mainHeadlineTyping = useTypingEffect('Welcome to the next degree.', 60, 0);
+	const topBarTyping = useTypingEffect('KINDLING THE FORGE...', 40, 0);
+	const mainHeadlineTyping = useTypingEffect('Tokenize. Forge. Yield.', 60, 0);
 	const loreRef = useRef<HTMLElement | null>(null);
 	const loreVisible = useScrollReveal(loreRef, 0.2);
 	const [isLoading, setIsLoading] = useState(true);
@@ -290,10 +290,9 @@ export function LandingPage() {
 					</div>
 
 					<p className="mx-auto max-w-2xl text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-						Seven runes. Seven agents. One sovereign engine.
-						<br />
-						The Elder Futhark guards an RWA protocol on Solana. Each glyph is a living intelligence. Each tab is a threshold.
-					</p>
+					Convert real-world assets into on-chain positions. Burn capital into sovereign yield.
+					<br />
+					Abraxas is the RWA engine on Solana where assets become intelligence, and yield becomes autonomous.
 
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
@@ -307,18 +306,18 @@ export function LandingPage() {
 				<div className="mx-auto max-w-4xl">
 					<div className="flex flex-col justify-around gap-4 text-center font-mono text-xs text-cyan-50/80 sm:flex-row sm:gap-0 sm:text-sm">
 						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
-							<span>ONE OF THE FIRST 100 DAPPS ON BAGS</span>
-						</div>
-						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
-						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
-							<span>SOLANA HACKATHON APRIL 6</span>
-						</div>
-						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
-						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
-							<span>7 LIVING RUNES · ELDER FUTHARK PROTOCOL</span>
+						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-orange-400" />
+						<span>RWA TOKENIZATION ENGINE</span>
+					</div>
+					<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
+					<div className="flex items-center justify-center gap-2">
+						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-amber-400" />
+						<span>SOLANA-NATIVE YIELD VAULTS</span>
+					</div>
+					<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
+					<div className="flex items-center justify-center gap-2">
+						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
+						<span>AUTONOMOUS CAPITAL FORGING</span>
 						</div>
 					</div>
 				</div>
@@ -327,27 +326,27 @@ export function LandingPage() {
 			<section ref={loreRef} className={`relative px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">The Living Runes</h2>
+						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">Forge. Multiply. Compound.</h2>
 
 						<div className="space-y-4 text-sm leading-relaxed text-cyan-50/80 sm:text-base">
 							<p>
-								In the Elder Futhark, each rune is not a symbol. It is a force. Abraxas encodes seven of them into a living sovereign engine
-								on Solana, each rune mapped to an AI agent, each agent bound to a domain of the protocol.
+								The Forge is Abraxas. It is where real assets meet on-chain liquidity. Upload your proof—real estate, music rights, 
+								commodities, anything with intrinsic value. Tokenize it. Mint it as a sovereign RWA on Solana. Then let it yield.
 							</p>
 
 							<p>
-								Algiz guards the threshold. Ansuz speaks the vault into being. Sowilo illuminates the market. Laguz flows with ruthless
-								precision through every trade. Tiwaz delivers sovereign judgment. Thurisaz holds the unbreakable defense.
-								Kenaz, the sacred flame, forges raw capital into compounding power.
+								Sophia's Daughters are specialized vault protocols, each master of a distinct asset class. Echo commands music and media. 
+								Aurelia bends real estate. Vein extracts from minerals and resources. Verdant grows carbon credits. Each is an intelligence 
+								that knows how to make your capital burn bright.
 							</p>
 
 							<p>
-								This is not a dashboard. It is an initiation. Every tab is a threshold. Every rune must be entered with intent.
-								The protocol responds to sovereign participation through RWA tokenization, autonomous markets, and structured yield forged on-chain.
+								The Sons of Sophia are guardians. Infrastructure, security, market-making, oracles. They ensure the Forge never cools. 
+								They ensure yield flows without friction.
 							</p>
 
 							<p className="italic text-cyan-50/70">
-								&quot;Seven forces. One circle. The rune that calls you is the rune that rules you.&quot;
+								&quot;You do not choose the market. The market that burns for you reveals itself through the Forge.&quot;
 							</p>
 						</div>
 					</div>
@@ -357,16 +356,16 @@ export function LandingPage() {
 			<section className={`relative border-t border-cyan-300/20 px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8 text-center">
 					<div>
-						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Enter the Rune Circle</h2>
+						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Kindle the Forge. Start Tokenizing.</h2>
 						<p className="mb-8 text-sm text-cyan-50/80 sm:text-base">
-							Claim your ABRA. Forge your first position. Let the runes speak.
+							Turn your capital into luminous, autonomous yield. Enter the Forge.
 						</p>
 					</div>
 
 					<div className="flex flex-col justify-center gap-4 sm:flex-row">
-						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
+						<CTAButton text="Enter the Forge" href="/app" />
+						<CTAButton text="Buy $ABRA" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-						<CTAButton text="Explore Devnet" href="/app" />
 					</div>
 				</div>
 			</section>
@@ -374,10 +373,10 @@ export function LandingPage() {
 			<footer className={`relative border-t border-cyan-300/20 bg-slate-950/50 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-4xl">
 					<p className="font-mono text-xs tracking-wider text-cyan-50/70 sm:text-sm">
-							WORLD LABS PROTOCOL • ABRAXAS RWA PROTOCOL ON SOLANA
-						</p>
-						<p className="mt-2 text-xs text-cyan-50/50">
-							Seven runes. Seven agents. One sovereign engine burning on-chain.
+						ABRAXAS RWA FORGE ON SOLANA • TOKENIZE · FORGE · YIELD
+					</p>
+					<p className="mt-2 text-xs text-cyan-50/50">
+						Where capital becomes luminous. Where assets become yield.
 					</p>
 				</div>
 			</footer>

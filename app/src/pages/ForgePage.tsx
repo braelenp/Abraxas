@@ -5,9 +5,9 @@ import { RuneRealm } from '../components/RuneRealm';
 const RUNE_CONFIG = {
 	rune: 'ᚲ',
 	runeName: 'Kenaz',
-	runeEssence: 'Torch · Creative Forging',
+	runeEssence: 'Torch · Capital Forging',
 	agentName: 'FORGE',
-	lore: 'Kenaz is the rune of the torch, illumination born from creation. The Forge is the heart of the Abraxas family—where intention transmutes into sovereign yield. Choose your path through Sophia\'s Daughters and her Sons, each a specialized intelligence forged for mastery over a distinct asset class.',
+	lore: 'Kenaz is the rune of transformation. The Forge converts raw capital into tokenized positions of sovereign yield. Here, assets gain luminosity—trading their physical form for algorithmic compounding, liquidity, and autonomous market participation. You do not choose the asset class. The asset class that burns for you reveals itself.',
 	ctaLabel: 'Enter the Forge',
 	coreGlow: '234, 88, 12',
 	fireGlow: '251, 191, 36',
@@ -132,6 +132,30 @@ export function ForgePage() {
 
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
+			{/* The Forging Process – Briefing */}
+			<section className="space-y-6 py-8 mb-4">
+				<div className="max-w-3xl mx-auto px-4">
+					<div className="border-l-2 border-orange-300/40 pl-6 space-y-4">
+						<h2 className="text-xl font-bold text-slate-100 tracking-wide">How the Forge Works</h2>
+						<div className="space-y-3 text-sm text-slate-300/80">
+							<p>
+								<span className="font-semibold text-orange-300">Step 1 · Tokenize</span> — Upload your asset proof. This can be anything: real estate deeds, music rights, commodities, IP—anything with real-world value.
+							</p>
+							<p>
+								<span className="font-semibold text-orange-300">Step 2 · Attest</span> — Self-certify your asset's authenticity. No gatekeepers. You are sovereign over your capital.
+							</p>
+							<p>
+								<span className="font-semibold text-orange-300">Step 3 · Forge</span> — Mint your asset as an on-chain RWA token. It is now liquid, tradeable, and eligible for yield protocols.
+							</p>
+							<p>
+								<span className="font-semibold text-orange-300">Step 4 · Yield</span> — Deposit into Sophia's specialized vaults. Your capital compounds autonomously. You simply receive.
+							</p>
+						</div>
+						<p className="text-xs text-slate-400/70 pt-2 italic">"The Forge does not ask permission. It asks for intention."</p>
+					</div>
+				</div>
+			</section>
+
 			{/* Sophia's Family – The Sacred Gallery */}
 			<section className="space-y-12 py-8">
 
