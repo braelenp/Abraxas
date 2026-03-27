@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight } from 'lucide-react';
+import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 
 const RUNE_CONFIG = {
@@ -7,7 +7,7 @@ const RUNE_CONFIG = {
 	runeName: 'Kenaz',
 	runeEssence: 'Torch · Creative Forging',
 	agentName: 'FORGE',
-	lore: 'Kenaz is the rune of the torch, illumination born from creation. Here the raw capital of intention is transmuted into sovereign yield. Stake ABRA, forge positions, stack multipliers, and compound returns across every lock cycle. Forge your position. Forge your legacy.',
+	lore: 'Kenaz is the rune of the torch, illumination born from creation. The Forge is the heart of the Abraxas family—where intention transmutes into sovereign yield. Choose your path through Sophia\'s Daughters and her Sons, each a specialized intelligence forged for mastery over a distinct asset class.',
 	ctaLabel: 'Enter the Forge',
 	coreGlow: '234, 88, 12',
 	fireGlow: '251, 191, 36',
@@ -21,36 +21,81 @@ const STEPS = [
 	{ n: 4, label: 'Auto-deposit into Sophia vault' },
 ];
 
-const DAUGHTERS = [
-	{
-		name: 'Aurelia',
-		description: 'Real Estate & Development',
-		url: 'https://aurelia-tau.vercel.app/',
-		isComingSoon: false,
-	},
+// Sophia's Daughters organized by Phase
+const DAUGHTERS_PHASE1 = [
 	{
 		name: 'Echo',
 		description: 'Music Rights & Media',
+		rune: '📻',
 		url: 'https://echo-pied-phi.vercel.app/',
+		isComingSoon: false,
+	},
+	{
+		name: 'Legacy',
+		description: 'Athlete Equity & NIL',
+		rune: '🏆',
+		url: '#',
+		isComingSoon: true,
+	},
+];
+
+const DAUGHTERS_PHASE2 = [
+	{
+		name: 'Aurelia',
+		description: 'Real Estate & Development',
+		rune: '🏛️',
+		url: 'https://aurelia-tau.vercel.app/',
 		isComingSoon: false,
 	},
 	{
 		name: 'Vein',
 		description: 'Minerals & Natural Resources',
+		rune: '⛏️',
 		url: 'https://vein-delta.vercel.app/',
 		isComingSoon: false,
 	},
 	{
 		name: 'Verdant',
 		description: 'Carbon & Environmental Assets',
+		rune: '🌿',
 		url: '#',
 		isComingSoon: true,
 	},
+];
+
+// The Sons of Sophia - The Providers
+const SONS = [
 	{
-		name: 'Legacy',
-		description: 'Athlete Equity & NIL',
+		name: 'Valkyr',
+		description: 'The Wise Guardian',
+		rune: '🛡️',
 		url: '#',
 		isComingSoon: true,
+		icon: Shield,
+	},
+	{
+		name: 'Raido',
+		description: 'The Swift Provider',
+		rune: '⚡',
+		url: '#',
+		isComingSoon: true,
+		icon: Zap,
+	},
+	{
+		name: 'Fenrir',
+		description: 'The Fierce Protector',
+		rune: '💨',
+		url: '#',
+		isComingSoon: true,
+		icon: Wind,
+	},
+	{
+		name: 'Mimir',
+		description: 'The Oracle Provider',
+		rune: '👁️',
+		url: '#',
+		isComingSoon: true,
+		icon: Eye,
 	},
 ];
 
@@ -87,7 +132,203 @@ export function ForgePage() {
 
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
-			<section className="space-y-4 pb-8">
+			{/* Sophia's Family – The Sacred Gallery */}
+			<section className="space-y-12 py-8">
+
+				{/* SOPHIA'S FAMILY - DAUGHTERS */}
+				<div className="space-y-8">
+					<div className="border-b border-slate-700/30 pb-6">
+						<h2 className="text-3xl font-bold text-slate-100 tracking-widest mb-2">SOPHIA'S FAMILY</h2>
+						<p className="text-sm text-slate-400">Choose Your Asset Class · Enter the Specialization</p>
+					</div>
+
+					{/* Phase 1 – Digital Content & Experiences */}
+					<div className="space-y-4">
+						<div className="px-1">
+							<h3 className="text-lg font-semibold text-orange-300/90 tracking-wide">Phase 1 · Digital Content & Experiences</h3>
+							<p className="text-xs text-slate-500 mt-1">Most Prominent · First to Master</p>
+						</div>
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+							{DAUGHTERS_PHASE1.map((daughter) => (
+								<a
+									key={daughter.name}
+									href={daughter.isComingSoon ? '#' : daughter.url}
+									target={daughter.isComingSoon ? undefined : '_blank'}
+									rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
+									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+										daughter.isComingSoon
+											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+											: 'border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 hover:border-orange-300/60 hover:from-orange-500/15 hover:shadow-[0_0_20px_rgba(234,88,12,0.2)]'
+									}`}
+								>
+									{!daughter.isComingSoon && (
+										<div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-orange-500/0 opacity-0 group-hover:opacity-100 transition" />
+									)}
+									<div className="relative z-10 flex flex-col h-full p-6">
+										<div className="flex items-center gap-3 mb-3">
+											<span className="text-3xl">{daughter.rune}</span>
+											<h3 className={`text-2xl font-bold tracking-wide ${
+												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-orange-300 transition'
+											}`}>
+												{daughter.name}
+											</h3>
+										</div>
+										<p className={`text-sm leading-relaxed mb-6 flex-grow ${
+											daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+										}`}>
+											{daughter.description}
+										</p>
+										{daughter.isComingSoon ? (
+											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+											</div>
+										) : (
+											<button
+												type="button"
+												className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-gradient-to-r from-orange-500/20 to-amber-500/15 px-4 py-3 text-sm font-bold uppercase tracking-wider text-orange-200 shadow-[0_0_12px_rgba(234,88,12,0.15)] transition group-hover:shadow-[0_0_20px_rgba(234,88,12,0.3)] group-hover:border-orange-300/60"
+											>
+												Enter {daughter.name}
+												<ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+											</button>
+										)}
+									</div>
+								</a>
+							))}
+						</div>
+					</div>
+
+					{/* Phase 2 – Real-World & Advanced Assets */}
+					<div className="space-y-4 mt-8">
+						<div className="px-1">
+							<h3 className="text-lg font-semibold text-amber-300/80 tracking-wide">Phase 2 · Real-World & Advanced Assets</h3>
+							<p className="text-xs text-slate-500 mt-1">Expanding Horizons · Complex Markets</p>
+						</div>
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+							{DAUGHTERS_PHASE2.map((daughter) => (
+								<a
+									key={daughter.name}
+									href={daughter.isComingSoon ? '#' : daughter.url}
+									target={daughter.isComingSoon ? undefined : '_blank'}
+									rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
+									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+										daughter.isComingSoon
+											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+											: 'border-amber-300/25 bg-gradient-to-br from-amber-500/8 via-slate-900/80 to-slate-900/60 hover:border-amber-300/50 hover:from-amber-500/12 hover:shadow-[0_0_20px_rgba(251,191,36,0.2)]'
+									}`}
+								>
+									{!daughter.isComingSoon && (
+										<div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-transparent to-amber-500/0 opacity-0 group-hover:opacity-100 transition" />
+									)}
+									<div className="relative z-10 flex flex-col h-full p-6">
+										<div className="flex items-center gap-3 mb-3">
+											<span className="text-3xl">{daughter.rune}</span>
+											<h3 className={`text-xl font-bold tracking-wide ${
+												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-amber-300 transition'
+											}`}>
+												{daughter.name}
+											</h3>
+										</div>
+										<p className={`text-sm leading-relaxed mb-6 flex-grow ${
+											daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+										}`}>
+											{daughter.description}
+										</p>
+										{daughter.isComingSoon ? (
+											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+											</div>
+										) : (
+											<button
+												type="button"
+												className="inline-flex items-center justify-center gap-2 rounded-lg border border-amber-300/40 bg-gradient-to-r from-amber-500/20 to-yellow-500/15 px-4 py-3 text-sm font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_12px_rgba(251,191,36,0.15)] transition group-hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] group-hover:border-amber-300/60"
+											>
+												Enter {daughter.name}
+												<ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+											</button>
+										)}
+									</div>
+								</a>
+							))}
+						</div>
+					</div>
+				</div>
+
+				{/* THE SONS OF SOPHIA – THE PROVIDERS */}
+				<div className="space-y-6 border-t border-slate-700/30 pt-12">
+					<div className="px-1">
+						<h2 className="text-3xl font-bold text-slate-100 tracking-widest mb-2">THE SONS OF SOPHIA</h2>
+						<p className="text-sm text-slate-400">The Providers · Ancillary Services & Infrastructure</p>
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+						{SONS.map((son) => {
+							const IconComponent = son.icon;
+							return (
+								<a
+									key={son.name}
+									href={son.isComingSoon ? '#' : son.url}
+									target={son.isComingSoon ? undefined : '_blank'}
+									rel={son.isComingSoon ? undefined : 'noopener noreferrer'}
+									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+										son.isComingSoon
+											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+											: 'border-violet-300/25 bg-gradient-to-br from-violet-500/8 via-slate-900/80 to-slate-900/60 hover:border-violet-300/50 hover:from-violet-500/12 hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]'
+									}`}
+								>
+									{!son.isComingSoon && (
+										<div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-100 transition" />
+									)}
+									<div className="relative z-10 flex flex-col h-full p-5">
+										<div className="flex items-center gap-3 mb-3">
+											<div className={`p-2 rounded-lg ${
+												son.isComingSoon 
+													? 'bg-slate-800/30' 
+													: 'bg-gradient-to-br from-violet-500/20 to-purple-500/10 group-hover:from-violet-500/30 group-hover:to-purple-500/20'
+											}`}>
+												<IconComponent size={18} className={son.isComingSoon ? 'text-slate-500' : 'text-violet-300 group-hover:text-violet-200 transition'} />
+											</div>
+										</div>
+										<h3 className={`text-lg font-bold tracking-wide mb-1 ${
+											son.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-violet-300 transition'
+										}`}>
+											{son.name}
+										</h3>
+										<p className={`text-xs leading-relaxed mb-5 flex-grow ${
+											son.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+										}`}>
+											{son.description}
+										</p>
+										{son.isComingSoon ? (
+											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-3 py-2.5 w-full justify-center">
+												<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+											</div>
+										) : (
+											<button
+												type="button"
+												className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-purple-500/15 px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-violet-200 shadow-[0_0_12px_rgba(167,139,250,0.15)] transition group-hover:shadow-[0_0_20px_rgba(167,139,250,0.3)] group-hover:border-violet-300/60"
+											>
+												Enter {son.name}
+												<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+											</button>
+										)}
+									</div>
+								</a>
+							);
+						})}
+					</div>
+				</div>
+
+			</section>
+
+			{/* Optional: Tokenization Form (Collapsible Section) */}
+			<section className="space-y-4 py-12 border-t border-slate-700/30 mt-8">
+				<div className="space-y-2 mb-6">
+					<h2 className="text-2xl font-bold text-slate-100 tracking-wider">
+						Direct Tokenization
+					</h2>
+					<p className="text-sm text-slate-400">
+						Or begin a raw asset tokenization flow
+					</p>
+				</div>
 
 				{/* Begin tokenization CTA */}
 				<article className="glow-panel rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/10 via-slate-900/80 to-slate-900/60 p-5 backdrop-blur">
@@ -239,74 +480,6 @@ export function ForgePage() {
 					</article>
 				)}
 
-			</section>
-
-			{/* Sophia's Daughters — Sacred Gallery Section */}
-			<section className="space-y-6 py-8 border-t border-slate-700/30">
-				{/* Section Header */}
-				<div className="space-y-2">
-					<h2 className="text-2xl font-bold text-slate-100 tracking-wider">
-						Sophia's Daughters
-					</h2>
-					<p className="text-sm text-slate-400">
-						Choose Your Asset Class
-					</p>
-				</div>
-
-				{/* Daughters Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					{DAUGHTERS.map((daughter) => (
-						<a
-							key={daughter.name}
-							href={daughter.isComingSoon ? '#' : daughter.url}
-							target={daughter.isComingSoon ? undefined : '_blank'}
-							rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
-							className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
-								daughter.isComingSoon
-									? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
-									: 'border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 hover:border-orange-300/60 hover:from-orange-500/15 hover:shadow-[0_0_20px_rgba(234,88,12,0.2)]'
-							}`}
-						>
-							{/* Glow effect for active daughters */}
-							{!daughter.isComingSoon && (
-								<div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-orange-500/0 opacity-0 group-hover:opacity-100 transition" />
-							)}
-
-							<div className="relative z-10 flex flex-col h-full p-6">
-								{/* Daughter Name */}
-								<div className="mb-3">
-									<h3 className={`text-xl font-bold tracking-wide ${
-										daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-orange-300 transition'
-									}`}>
-										{daughter.name}
-									</h3>
-								</div>
-
-								{/* Description */}
-								<p className={`text-sm leading-relaxed mb-6 flex-grow ${
-									daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
-								}`}>
-									{daughter.description}
-								</p>
-
-								{/* Enter Button / Coming Soon Badge */}
-								{daughter.isComingSoon ? (
-									<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
-										<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
-									</div>
-								) : (
-									<button
-										type="button"
-										className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-gradient-to-r from-orange-500/20 to-amber-500/15 px-4 py-3 text-sm font-bold uppercase tracking-wider text-orange-200 shadow-[0_0_12px_rgba(234,88,12,0.15)] transition group-hover:shadow-[0_0_20px_rgba(234,88,12,0.3)] group-hover:border-orange-300/60"
-									>
-										Enter {daughter.name}
-										<ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-									</button>
-								)}
-							</div>
-						</a>
-					))}
-				</div>
 			</section>
 		</RuneRealm>
 	);

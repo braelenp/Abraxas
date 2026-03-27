@@ -26,7 +26,7 @@ Each tab opens with a cinematic rune landing sequence before revealing its funct
 | ᛚ Laguz | Flux | Trade | ABRA acquisition, Jupiter DEX swaps, RWA pair trading |
 | ᛏ Tiwaz | King | Orion | AI athlete development analysis, market forecasts, value creation commands |
 | ᚦ Thurisaz | Aegis | Circuit | Circuit breaker configuration, vault protection thresholds |
-| ᚲ Kenaz | Forge | Forge | RWA tokenization flow, La Casa NFT minting, Sophia vault auto-deposit |
+| ᚲ Kenaz | Forge | Forge | RWA tokenization hub—connects to specialized daughter dApps (Echo, Aurelia, Vein, etc.) and provider services |
 
 ---
 
@@ -53,16 +53,92 @@ Each tab opens with a cinematic rune landing sequence before revealing its funct
 - Filter by class: athlete equity, real estate, trading portfolios, golf, horses
 - Status labels: Live / Pilot / Pipeline
 
-### RWA Tokenization (Forge)
-- Upload deed, title, or proof of ownership for any real world asset
-- Self-attestation flow
-- Mint La Casa NFT from uploaded documents
-- Auto-deposit into Sophia-managed vault
+### RWA Tokenization (Forge Hub)
+- **Upload deed, title, or proof of ownership** for any real world asset
+- **Self-attestation flow** with on-chain verification
+- **Mint La Casa NFT** from uploaded documents
+- **Auto-deposit into Sophia-managed vault** for yield generation
+- **Access Specialized Daughters** through sacred family gallery:
+  - **Phase 1 – Digital Content & Experiences** (Most Prominent):
+    - **Echo** – Music Rights & Media (https://echo-pied-phi.vercel.app/)
+    - **Legacy** – Athlete Equity & NIL (Coming Soon)
+  - **Phase 2 – Real-World & Advanced Assets**:
+    - **Aurelia** – Real Estate & Development (https://aurelia-tau.vercel.app/)
+    - **Vein** – Minerals & Natural Resources (https://vein-delta.vercel.app/)
+    - **Verdant** – Carbon & Environmental Assets (Coming Soon)
+- **Access Sons of Sophia** (Provider Services - Coming Soon):
+  - **Valkyr** – The Wise Guardian (custody & security)
+  - **Raido** – The Swift Provider (fast settlement)
+  - **Fenrir** – The Fierce Protector (risk management)
+  - **Mimir** – The Oracle Provider (market data & analytics)
 
 ### Mobile
 - Capacitor 8.1.0 (Android APK buildable)
 - Mobile-first responsive design
 - Package ID: `io.abraxas.app`
+
+---
+
+## The Abraxas Family: Sophia's Daughters & Sons
+
+The **Forge** page serves as the **central tokenization hub** connecting users to specialized agent dApps. The family of Abraxas intelligences is organized as follows:
+
+### **Sophia's Daughters** – Specialized Asset Classes
+
+#### **Phase 1 – Digital Content & Experiences** (Most Prominent)
+**Entry point for digital-native RWA markets:**
+- **Echo** – Music Rights & Media (🎵)
+  - Live: https://echo-pied-phi.vercel.app/
+  - Tokenize streaming royalties, composition rights, master recordings
+  - Real-time royalty distribution tracking
+  - Artist portfolio management
+
+- **Legacy** – Athlete Equity & NIL (🏆)
+  - Coming Soon
+  - Professional athlete equity partnerships
+  - NIL (Name, Image, Likeness) token offerings
+  - Performance-based valuation with OYM data
+
+#### **Phase 2 – Real-World & Advanced Assets**
+**Expanded markets for institutional players:**
+- **Aurelia** – Real Estate & Development (🏛️)
+  - Live: https://aurelia-tau.vercel.app/
+  - Residential & commercial property tokenization
+  - Development project financing
+  - ML-driven property value tracking
+
+- **Vein** – Minerals & Natural Resources (⛏️)
+  - Live: https://vein-delta.vercel.app/
+  - Mining rights, mineral deposits, commodities
+  - Agricultural land & futures
+  - Asterank integration for space resources
+
+- **Verdant** – Carbon & Environmental Assets (🌿)
+  - Coming Soon
+  - Carbon credit tokenization
+  - ESG-compliant portfolios
+  - Regenerative agriculture projects
+
+### **The Sons of Sophia – Provider Services**
+Ancillary infrastructure & support (Coming Soon):
+- **Valkyr** – The Wise Guardian (🛡️)
+  - Custody, cold storage, multi-sig vaults
+  - Security audits, compliance certifications
+
+- **Raido** – The Swift Provider (⚡)
+  - Liquidity provision & order book depth
+  - Fast settlement, atomic swaps
+  - DEX aggregation routing
+
+- **Fenrir** – The Fierce Protector (💨)
+  - Risk management & portfolio hedging
+  - Circuit breaker automation
+  - Insurance underwriting
+
+- **Mimir** – The Oracle Provider (👁️)
+  - Real-time market data feeds
+  - Off-chain asset verification
+  - Price discovery & valuation models
 
 ---
 
