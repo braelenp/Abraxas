@@ -461,7 +461,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       {open ? <div className="pointer-events-none fixed top-0 left-1/2 z-20 h-full w-full max-w-md -translate-x-1/2 bg-slate-950/12 backdrop-blur-[2px]" /> : null}
 
       <div
-        className="pointer-events-none fixed bottom-[calc(4.85rem+env(safe-area-inset-bottom))] left-1/2 z-30 w-full max-w-md -translate-x-1/2 px-5"
+        className="pointer-events-none fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-1/2 z-20 w-full max-w-md -translate-x-1/2 px-5"
       >
         <div className="flex justify-end">
           <button

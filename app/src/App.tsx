@@ -188,26 +188,26 @@ function DappShell() {
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
-      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl">
+      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl relative">
         {navItems.map(({ to, label, rune }) => (
           <NavLink
             key={to}
             to={to}
             end={to === '/app'}
-            className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition"
+            className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition cursor-pointer z-50 relative"
           >
             {({ isActive }) => (
               <>
                 <span
                   className={`text-xl font-black leading-tight transition-all duration-300 ${
-                    isActive ? 'text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)]' : 'text-slate-600'
+                    isActive ? 'text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)]' : 'text-slate-600 hover:text-slate-500'
                   }`}
                 >
                   {rune}
                 </span>
                 <span
                   className={`text-[7.5px] uppercase tracking-[0.14em] transition ${
-                    isActive ? 'text-yellow-200/80' : 'text-slate-600'
+                    isActive ? 'text-yellow-200/80' : 'text-slate-600 hover:text-slate-500'
                   }`}
                 >
                   {label}
