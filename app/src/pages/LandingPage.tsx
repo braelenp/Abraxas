@@ -257,7 +257,7 @@ export function LandingPage() {
 			</header>
 
 			<section className={`relative flex min-h-[100vh] flex-col items-center justify-center px-4 pb-12 pt-20 transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-				<div className="mx-auto max-w-4xl space-y-4 text-center sm:space-y-6">
+				<div className="mx-auto max-w-5xl space-y-6 text-center sm:space-y-8">
 					<div className="mt-20 sm:mt-28 lg:mt-32">
 						<h1 className="text-5xl font-black leading-tight tracking-[0.15em] sm:text-7xl sm:tracking-[0.2em] lg:text-8xl">
 							<span className="inline-block text-white animate-glitch [filter:drop-shadow(0_0_50px_rgba(250,204,21,0.8))]">
@@ -266,20 +266,27 @@ export function LandingPage() {
 						</h1>
 					</div>
 
-					<div className="space-y-2">
-						<h2 className="text-3xl font-black leading-tight tracking-tighter text-cyan-300 sm:text-5xl lg:text-6xl">
-							<span className="inline-block">
-								{mainHeadlineTyping.displayedText}
-								{!mainHeadlineTyping.isComplete ? <span className="ml-1 animate-pulse text-cyan-300">_</span> : null}
-							</span>
-						</h2>
+					<div className="space-y-4">
+						<div className="flex justify-center">
+							<div className="border-l-2 border-r-2 border-cyan-400/60 px-6 py-4 font-mono">
+								<h2 className="text-sm font-bold tracking-[0.3em] text-cyan-400 mb-2">[SYSTEM.PROTOCOL]</h2>
+								<h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-wider text-cyan-200 uppercase">
+									<span className="inline-block">
+										{mainHeadlineTyping.displayedText}
+										{!mainHeadlineTyping.isComplete ? <span className="ml-1 animate-pulse text-cyan-400">█</span> : null}
+									</span>
+								</h2>
+							</div>
+						</div>
 
 						{mainHeadlineTyping.isComplete ? (
-							<div className="space-y-3">
+							<div className="space-y-4">
 								<div className="flex justify-center">
-									<div className="h-1 w-32 animate-pulse bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 opacity-60 blur-lg" />
+									<div className="h-0.5 w-48 bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
 								</div>
-								<p className="text-lg font-semibold text-cyan-200/80 sm:text-xl">Welcome to the next degree.</p>
+								<p className="font-mono text-base sm:text-lg font-semibold text-cyan-300 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+									&gt; Welcome to the next degree
+								</p>
 							</div>
 						) : null}
 					</div>
@@ -292,10 +299,12 @@ export function LandingPage() {
 						/>
 					</div>
 
-					<p className="mx-auto max-w-2xl text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-					Convert real-world assets into on-chain positions. Burn capital into sovereign yield.
-					<br />
-					Abraxas is the RWA engine on Solana where assets become intelligence, and yield becomes autonomous.				</p>
+					<p className="mx-auto max-w-2xl font-mono text-xs sm:text-sm leading-relaxed text-cyan-300/90 tracking-wide">
+					<span className="text-magenta-400">▸</span> INITIALIZE_TOKENIZATION<br />
+					<span className="text-cyan-400">▸</span> CONVERT_ASSETS_ONCHAIN<br />
+					<span className="text-cyan-300">▸</span> ACTIVATE_YIELD_PROTOCOLS<br />
+					<span className="text-magenta-400">▸</span> ABRAXAS_ENGINE → READY
+				</p>
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
@@ -304,22 +313,22 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<section className={`relative border-b border-t border-cyan-300/20 px-4 py-8 transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className={`relative border-b border-t border-cyan-400/30 px-4 py-6 transition-opacity duration-700 sm:px-6 font-mono ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-4xl">
-					<div className="flex flex-col justify-around gap-4 text-center font-mono text-xs text-cyan-50/80 sm:flex-row sm:gap-0 sm:text-sm">
+					<div className="flex flex-col justify-around gap-3 text-center text-xs text-cyan-300/80 sm:flex-row sm:gap-0 sm:text-sm tracking-widest uppercase">
 						<div className="flex items-center justify-center gap-2">
-						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-orange-400" />
-						<span>RWA TOKENIZATION ENGINE</span>
-					</div>
-					<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
-					<div className="flex items-center justify-center gap-2">
-						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-amber-400" />
-						<span>SOLANA-NATIVE YIELD VAULTS</span>
-					</div>
-					<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
-					<div className="flex items-center justify-center gap-2">
-						<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
-						<span>AUTONOMOUS CAPITAL FORGING</span>
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
+							<span>[RWA_TOKENIZATION_ACTIVE]</span>
+						</div>
+						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
+						<div className="flex items-center justify-center gap-2">
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
+							<span>[YIELD_VAULTS_ONLINE]</span>
+						</div>
+						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
+						<div className="flex items-center justify-center gap-2">
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-orange-400" />
+							<span>[FORGE_ENGAGED]</span>
 						</div>
 					</div>
 				</div>
@@ -328,27 +337,26 @@ export function LandingPage() {
 			<section ref={loreRef} className={`relative px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">Forge. Multiply. Compound.</h2>
+						<div className="border-l-4 border-cyan-400/50 pl-6 mb-6">
+							<h2 className="font-mono text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; PROTOCOL_EXECUTION</h2>
+							<h3 className="font-mono text-2xl font-bold text-cyan-200 tracking-wider uppercase mt-2">FORGE. MULTIPLY. COMPOUND.</h3>
+						</div>
 
-						<div className="space-y-4 text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-							<p>
-								The Forge is Abraxas. It is where real assets meet on-chain liquidity. Upload your proof—real estate, music rights, 
-								commodities, anything with intrinsic value. Tokenize it. Mint it as a sovereign RWA on Solana. Then let it yield.
+						<div className="space-y-4 font-mono text-sm leading-relaxed text-cyan-300/80 sm:text-base">
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[01]</span> INITIALIZE_FORGE: Upload asset proof—real estate, music rights, commodities, anything with value. The system scans for authenticity.
 							</p>
 
-							<p>
-								Sophia's Daughters are specialized vault protocols, each master of a distinct asset class. Echo commands music and media. 
-								Aurelia bends real estate. Vein extracts from minerals and resources. Verdant grows carbon credits. Each is an intelligence 
-								that knows how to make your capital burn bright.
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[02]</span> VAULT_SPECIALIZATION: Sophia's Daughters control yield protocols. Echo → media. Aurelia → real estate. Vein → minerals. Verdant → carbon. Each is a master protocol.
 							</p>
 
-							<p>
-								The Sons of Sophia are guardians. Infrastructure, security, market-making, oracles. They ensure the Forge never cools. 
-								They ensure yield flows without friction.
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[03]</span> GUARDIAN_INFRASTRUCTURE: The Sons of Sophia maintain the engine. Security. Oracles. Market-making. No friction. Yield flows autonomous.
 							</p>
 
-							<p className="italic text-cyan-50/70">
-								&quot;You do not choose the market. The market that burns for you reveals itself through the Forge.&quot;
+							<p className="text-magenta-400 italic">
+								&gt; You do not choose the market. The market that burns for you reveals itself through the Forge.
 							</p>
 						</div>
 					</div>
@@ -357,10 +365,11 @@ export function LandingPage() {
 
 			<section className={`relative border-t border-cyan-300/20 px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
 				<div className="mx-auto max-w-3xl space-y-8 text-center">
-					<div>
-						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Kindle the Forge. Start Tokenizing.</h2>
-						<p className="mb-8 text-sm text-cyan-50/80 sm:text-base">
-							Turn your capital into luminous, autonomous yield. Enter the Forge.
+					<div className="font-mono">
+						<h2 className="text-xs font-bold tracking-[0.2em] text-cyan-400 mb-3 uppercase">[INITIALIZATION_SEQUENCE]</h2>
+						<h3 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl uppercase tracking-wider">Kindle the Forge. Initiate Protocol.</h3>
+						<p className="mb-8 text-sm text-cyan-300/80 sm:text-base uppercase tracking-widest">
+							&gt; READY_FOR_TOKENIZATION_
 						</p>
 					</div>
 
@@ -372,15 +381,19 @@ export function LandingPage() {
 				</div>
 			</section>
 
-			<footer className={`relative border-t border-cyan-300/20 bg-slate-950/50 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-				<div className="mx-auto max-w-4xl">
-					<p className="font-mono text-xs tracking-wider text-cyan-50/70 sm:text-sm">
-						ABRAXAS RWA FORGE ON SOLANA • TOKENIZE · FORGE · YIELD
+			<footer className={`relative border-t border-cyan-400/30 bg-slate-950/80 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 font-mono ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+				<div className="mx-auto max-w-4xl space-y-3">
+					<p className="text-xs tracking-widest text-cyan-300/70 uppercase">
+						[ABRAXAS_RWA_FORGE_v1.0] • DEPLOYED_ON_SOLANA
 					</p>
-					<p className="mt-2 text-xs text-cyan-50/50">
-						Welcome to the next degree. Where capital becomes luminous.
+					<p className="text-xs text-cyan-400/70">
+						&gt; Welcome to the next degree. Where capital becomes luminous.
+					</p>
+					<p className="text-[10px] text-cyan-300/50">
+						{ "[SYSTEM_READY] [TOKENIZATION_ONLINE] [YIELD_ACTIVE]" }
 					</p>
 				</div>
+			</footer>
 			</footer>
 
 			<style>{`
@@ -400,6 +413,16 @@ export function LandingPage() {
 					50% { opacity: 0.4; }
 				}
 
+				@keyframes scanlines {
+					0% { transform: translateY(0); }
+					100% { transform: translateY(10px); }
+				}
+
+				@keyframes neon-flicker {
+					0%, 100% { opacity: 1; }
+					50% { opacity: 0.8; }
+				}
+
 				@keyframes glitch {
 					0% { transform: translate(0); text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5); }
 					20% { transform: translate(-2px, 2px); text-shadow: 3px -3px 0px rgba(250, 204, 21, 0.8), -3px 3px 0px rgba(6, 182, 212, 0.5); }
@@ -411,6 +434,29 @@ export function LandingPage() {
 
 				.animate-glitch {
 					animation: glitch 3.5s ease-in-out infinite;
+				}
+
+				.scanline-effect {
+					position: relative;
+					pointer-events: none;
+				}
+
+				.scanline-effect::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					background: repeating-linear-gradient(
+						0deg,
+						rgba(0, 0, 0, 0.15),
+						rgba(0, 0, 0, 0.15) 1px,
+						transparent 1px,
+						transparent 2px
+					);
+					animation: scanlines 8s linear infinite;
+				}
+
+				.neon-text {
+					animation: neon-flicker 3s ease-in-out infinite;
 				}
 			`}</style>
 		</div>
