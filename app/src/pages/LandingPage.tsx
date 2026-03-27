@@ -275,8 +275,11 @@ export function LandingPage() {
 						</h2>
 
 						{mainHeadlineTyping.isComplete ? (
-							<div className="mt-4 flex justify-center">
-								<div className="h-1 w-32 animate-pulse bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 opacity-60 blur-lg" />
+							<div className="space-y-3">
+								<div className="flex justify-center">
+									<div className="h-1 w-32 animate-pulse bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 opacity-60 blur-lg" />
+								</div>
+								<p className="text-lg font-semibold text-cyan-200/80 sm:text-xl">Welcome to the next degree.</p>
 							</div>
 						) : null}
 					</div>
@@ -375,7 +378,7 @@ export function LandingPage() {
 						ABRAXAS RWA FORGE ON SOLANA • TOKENIZE · FORGE · YIELD
 					</p>
 					<p className="mt-2 text-xs text-cyan-50/50">
-						Where capital becomes luminous. Where assets become yield.
+						Welcome to the next degree. Where capital becomes luminous.
 					</p>
 				</div>
 			</footer>
