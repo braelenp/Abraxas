@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Upload, CheckCircle, Flame, Sparkles, FileText } from 'lucide-react';
+import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 
 const RUNE_CONFIG = {
@@ -19,6 +19,39 @@ const STEPS = [
 	{ n: 2, label: 'Self-attestation' },
 	{ n: 3, label: 'Mint La Casa NFT' },
 	{ n: 4, label: 'Auto-deposit into Sophia vault' },
+];
+
+const DAUGHTERS = [
+	{
+		name: 'Aurelia',
+		description: 'Real Estate & Development',
+		url: 'https://aurelia-tau.vercel.app/',
+		isComingSoon: false,
+	},
+	{
+		name: 'Echo',
+		description: 'Music Rights & Media',
+		url: 'https://echo-pied-phi.vercel.app/',
+		isComingSoon: false,
+	},
+	{
+		name: 'Vein',
+		description: 'Minerals & Natural Resources',
+		url: 'https://vein-delta.vercel.app/',
+		isComingSoon: false,
+	},
+	{
+		name: 'Verdant',
+		description: 'Carbon & Environmental Assets',
+		url: '#',
+		isComingSoon: true,
+	},
+	{
+		name: 'Legacy',
+		description: 'Athlete Equity & NIL',
+		url: '#',
+		isComingSoon: true,
+	},
 ];
 
 export function ForgePage() {
@@ -206,6 +239,74 @@ export function ForgePage() {
 					</article>
 				)}
 
+			</section>
+
+			{/* Sophia's Daughters — Sacred Gallery Section */}
+			<section className="space-y-6 py-8 border-t border-slate-700/30">
+				{/* Section Header */}
+				<div className="space-y-2">
+					<h2 className="text-2xl font-bold text-slate-100 tracking-wider">
+						Sophia's Daughters
+					</h2>
+					<p className="text-sm text-slate-400">
+						Choose Your Asset Class
+					</p>
+				</div>
+
+				{/* Daughters Grid */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					{DAUGHTERS.map((daughter) => (
+						<a
+							key={daughter.name}
+							href={daughter.isComingSoon ? '#' : daughter.url}
+							target={daughter.isComingSoon ? undefined : '_blank'}
+							rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
+							className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+								daughter.isComingSoon
+									? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+									: 'border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 hover:border-orange-300/60 hover:from-orange-500/15 hover:shadow-[0_0_20px_rgba(234,88,12,0.2)]'
+							}`}
+						>
+							{/* Glow effect for active daughters */}
+							{!daughter.isComingSoon && (
+								<div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-orange-500/0 opacity-0 group-hover:opacity-100 transition" />
+							)}
+
+							<div className="relative z-10 flex flex-col h-full p-6">
+								{/* Daughter Name */}
+								<div className="mb-3">
+									<h3 className={`text-xl font-bold tracking-wide ${
+										daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-orange-300 transition'
+									}`}>
+										{daughter.name}
+									</h3>
+								</div>
+
+								{/* Description */}
+								<p className={`text-sm leading-relaxed mb-6 flex-grow ${
+									daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+								}`}>
+									{daughter.description}
+								</p>
+
+								{/* Enter Button / Coming Soon Badge */}
+								{daughter.isComingSoon ? (
+									<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+										<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Coming Soon</span>
+									</div>
+								) : (
+									<button
+										type="button"
+										className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-gradient-to-r from-orange-500/20 to-amber-500/15 px-4 py-3 text-sm font-bold uppercase tracking-wider text-orange-200 shadow-[0_0_12px_rgba(234,88,12,0.15)] transition group-hover:shadow-[0_0_20px_rgba(234,88,12,0.3)] group-hover:border-orange-300/60"
+									>
+										Enter {daughter.name}
+										<ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+									</button>
+								)}
+							</div>
+						</a>
+					))}
+				</div>
 			</section>
 		</RuneRealm>
 	);
