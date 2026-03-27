@@ -148,7 +148,7 @@ export function ForgePage() {
 							<h3 className="text-lg font-semibold text-orange-300/90 tracking-wide">Phase 1 · Digital Content & Experiences</h3>
 							<p className="text-xs text-slate-500 mt-1">Most Prominent · First to Master</p>
 						</div>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 							{DAUGHTERS_PHASE1.map((daughter) => (
 								<a
 									key={daughter.name}
@@ -165,9 +165,9 @@ export function ForgePage() {
 										<div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-orange-500/0 opacity-0 group-hover:opacity-100 transition" />
 									)}
 									<div className="relative z-10 flex flex-col h-full p-6">
-										<div className="flex items-center gap-3 mb-3">
-											<span className="text-3xl">{daughter.rune}</span>
-											<h3 className={`text-2xl font-bold tracking-wide ${
+										<div className="flex items-start gap-3 mb-4">
+											<span className="text-4xl leading-none shrink-0">{daughter.rune}</span>
+											<h3 className={`text-xl font-bold tracking-wide leading-tight pt-1 ${
 												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-orange-300 transition'
 											}`}>
 												{daughter.name}
@@ -203,7 +203,7 @@ export function ForgePage() {
 							<h3 className="text-lg font-semibold text-amber-300/80 tracking-wide">Phase 2 · Real-World & Advanced Assets</h3>
 							<p className="text-xs text-slate-500 mt-1">Expanding Horizons · Complex Markets</p>
 						</div>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 							{DAUGHTERS_PHASE2.map((daughter) => (
 								<a
 									key={daughter.name}
@@ -220,9 +220,9 @@ export function ForgePage() {
 										<div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-transparent to-amber-500/0 opacity-0 group-hover:opacity-100 transition" />
 									)}
 									<div className="relative z-10 flex flex-col h-full p-6">
-										<div className="flex items-center gap-3 mb-3">
-											<span className="text-3xl">{daughter.rune}</span>
-											<h3 className={`text-xl font-bold tracking-wide ${
+										<div className="flex items-start gap-3 mb-4">
+											<span className="text-4xl leading-none shrink-0">{daughter.rune}</span>
+											<h3 className={`text-lg font-bold tracking-wide leading-tight pt-1 ${
 												daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-amber-300 transition'
 											}`}>
 												{daughter.name}
@@ -259,7 +259,7 @@ export function ForgePage() {
 						<h2 className="text-3xl font-bold text-slate-100 tracking-widest mb-2">THE SONS OF SOPHIA</h2>
 						<p className="text-sm text-slate-400">The Providers · Ancillary Services & Infrastructure</p>
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 						{SONS.map((son) => {
 							const IconComponent = son.icon;
 							return (
@@ -277,22 +277,22 @@ export function ForgePage() {
 									{!son.isComingSoon && (
 										<div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-100 transition" />
 									)}
-									<div className="relative z-10 flex flex-col h-full p-5">
-										<div className="flex items-center gap-3 mb-3">
-											<div className={`p-2 rounded-lg ${
+									<div className="relative z-10 flex flex-col h-full p-6">
+										<div className="flex items-center justify-center mb-4">
+											<div className={`p-3 rounded-lg ${
 												son.isComingSoon 
 													? 'bg-slate-800/30' 
 													: 'bg-gradient-to-br from-violet-500/20 to-purple-500/10 group-hover:from-violet-500/30 group-hover:to-purple-500/20'
 											}`}>
-												<IconComponent size={18} className={son.isComingSoon ? 'text-slate-500' : 'text-violet-300 group-hover:text-violet-200 transition'} />
+												<IconComponent size={20} className={son.isComingSoon ? 'text-slate-500' : 'text-violet-300 group-hover:text-violet-200 transition'} />
 											</div>
 										</div>
-										<h3 className={`text-lg font-bold tracking-wide mb-1 ${
+										<h3 className={`text-lg font-bold tracking-wide mb-2 text-center ${
 											son.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-violet-300 transition'
 										}`}>
 											{son.name}
 										</h3>
-										<p className={`text-xs leading-relaxed mb-5 flex-grow ${
+										<p className={`text-xs leading-relaxed mb-6 flex-grow text-center ${
 											son.isComingSoon ? 'text-slate-500' : 'text-slate-400'
 										}`}>
 											{son.description}
