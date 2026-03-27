@@ -292,8 +292,7 @@ export function LandingPage() {
 					<p className="mx-auto max-w-2xl text-sm leading-relaxed text-cyan-50/80 sm:text-base">
 					Convert real-world assets into on-chain positions. Burn capital into sovereign yield.
 					<br />
-					Abraxas is the RWA engine on Solana where assets become intelligence, and yield becomes autonomous.
-
+					Abraxas is the RWA engine on Solana where assets become intelligence, and yield becomes autonomous.				</p>
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
