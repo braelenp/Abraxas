@@ -599,8 +599,10 @@ export function MarketPage() {
         </div>
       </article>
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas RWA Prediction Market</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Predict Real-World Outcomes. Win Big. Go Viral.</h2>
+        <div className="font-mono">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [MARKET_PROTOCOL] RWA_PREDICTION</p>
+          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">PREDICT_OUTCOMES | WIN_BIG | GO_VIRAL</h2>
+        </div>
         <button
           onClick={() => setShowMarketInfo(!showMarketInfo)}
           className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"

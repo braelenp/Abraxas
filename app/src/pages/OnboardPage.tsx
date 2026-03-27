@@ -242,11 +242,11 @@ export function OnboardPage() {
   if (showSuccess && successData) {
     return (
       <div className="min-h-screen max-w-3xl mx-auto px-4 py-8 flex items-center justify-center">
-        <div className="glow-panel p-8 space-y-4 text-center max-w-md">
-          <div className="flex justify-center">
-            <CheckCircle size={48} className="text-green-400" />
+        <div className="glow-panel p-8 space-y-4 text-center max-w-md font-mono">
+          <div className="text-center mb-2">
+            <p className="text-sm font-bold text-green-400 tracking-widest uppercase">&gt; [TRANSACTION_SUCCESS]</p>
           </div>
-          <h2 className="text-2xl font-bold text-white">ABRA Acquired & Staked</h2>
+          <h2 className="text-sm font-bold text-green-400 tracking-widest uppercase">ABRA_ACQUIRED_STAKED</h2>
           <div className="space-y-2 text-sm text-white/70">
             <p>
               <span className="font-semibold text-amber-200">{successData.amount} ABRA</span> locked for{' '}
@@ -273,24 +273,24 @@ export function OnboardPage() {
   return (
     <div className="min-h-screen max-w-3xl mx-auto px-4 py-8 space-y-8">
       <div className="glow-panel p-6 space-y-3">
-        <div className="flex items-center gap-2">
-          <Sparkles size={20} className="text-violet-400" />
-          <h1 className="text-lg font-semibold text-white">Early Adoption — Live</h1>
+        <div className="flex items-center gap-2 font-mono">
+          <span className="text-violet-400">&gt;</span>
+          <h1 className="text-sm font-bold text-violet-400 tracking-widest uppercase">[EARLY_ADOPTION] LIVE</h1>
         </div>
-        <p className="text-sm text-white/65 leading-relaxed">
+        <p className="text-[11px] text-white/65 leading-relaxed uppercase tracking-[0.05em]">
           Athlete-specific token listings are not live yet. Early adopters onboard now through
-          <span className="text-yellow-300 font-semibold"> ABRA token acquisition + immediate staking</span>, while core dApp flows remain live in Devnet showcase mode.
+          <span className="text-yellow-300 font-semibold"> ABRA_TOKEN + IMMEDIATE_STAKING</span>, while core dApp flows remain live in Devnet showcase mode.
         </p>
       </div>
 
       {/* Step 1: Buy ABRA or stake if already holding */}
       <div className="grid grid-cols-1 gap-4">
         <div className="glow-panel p-5 space-y-3">
-          <div className="flex items-center gap-2 text-yellow-300">
-            <Coins size={16} />
-            <h2 className="text-sm font-semibold text-white">Step 1: Buy ABRA Now</h2>
+          <div className="flex items-center gap-2 font-mono">
+            <span className="text-orange-400">&gt;</span>
+            <h2 className="text-sm font-bold text-orange-400 tracking-widest uppercase">[STEP_01] BUY_ABRA</h2>
           </div>
-          <p className="text-xs text-white/60 leading-relaxed">
+          <p className="text-[11px] text-white/60 leading-relaxed">
             Acquire ABRA now for immediate liquid stake in the Abraxas RWA Stock Market.
             This is the live onboarding path while individual athlete token issuance remains pending.
           </p>
@@ -322,11 +322,11 @@ export function OnboardPage() {
       {selectedStakeDuration === null ? (
         <div className="space-y-4">
           <div className="glow-panel p-5 space-y-4">
-            <div className="flex items-center gap-2 text-violet-300">
-              <Lock size={16} />
-              <h2 className="text-sm font-semibold text-white">Step 2: Immediate Stake ABRA</h2>
+            <div className="flex items-center gap-2 font-mono">
+              <span className="text-violet-400">&gt;</span>
+              <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase">[STEP_02] STAKE_ABRA</h2>
             </div>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-[11px] text-white/60 leading-relaxed">
               Stake your freshly acquired ABRA tokens for 30, 90, or 180 days to write a live stake position on the Abraxas devnet program. Choose your lock period below.
             </p>
 
@@ -364,9 +364,9 @@ export function OnboardPage() {
       ) : (
         <div className="glow-panel p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-violet-300">
-              <Zap size={16} />
-              <h2 className="text-sm font-semibold text-white">Confirm Your Stake</h2>
+            <div className="flex items-center gap-2 font-mono">
+              <span className="text-violet-400">&gt;</span>
+              <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase">CONFIRM_STAKE</h2>
             </div>
             <button
               onClick={() => {
@@ -515,8 +515,8 @@ export function OnboardPage() {
           {/* Staking Stats */}
           {userStakes.length > 0 && (
             <div className="sticky top-0 z-20 -mx-4 space-y-4 border-b border-cyan-200/15 bg-slate-950/92 px-4 py-3 backdrop-blur-xl">
-              <div className="flex items-center min-w-0 max-w-full overflow-hidden">
-                <h2 className="text-lg font-bold text-white min-w-0 max-w-full overflow-hidden truncate">Your ABRA Stakes</h2>
+              <div className="flex items-center min-w-0 max-w-full overflow-hidden font-mono">
+                <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase min-w-0 max-w-full overflow-hidden truncate">YOUR_ABRA_STAKES</h2>
               </div>
               <div className="grid grid-cols-3 gap-4 min-w-0 max-w-full overflow-hidden">
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">

@@ -674,13 +674,13 @@ export function TradePage() {
     <RuneRealm {...RUNE_CONFIG}>
     <div className="min-h-screen max-w-5xl mx-auto px-4 py-8 space-y-6" style={{ contain: 'layout style' }}>
       {/* Header */}
-      <div className="flex-shrink-0 w-full space-y-2">
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <Zap size={16} className="text-violet-400 shrink-0" />
-          <h1 className="text-lg font-semibold text-white whitespace-nowrap">RWA Trading Center</h1>
+      <div className="flex-shrink-0 w-full space-y-2 font-mono">
+        <div className="flex items-center gap-2 whitespace-nowrap">
+          <span className="text-cyan-400">&gt;</span>
+          <h1 className="text-sm font-bold text-cyan-400 tracking-widest uppercase whitespace-nowrap">[RWA_TRADING] CENTER_ACTIVE</h1>
         </div>
-        <p className="text-xs text-white/65">
-          Trade Real-World Asset pairs on Solana with ~0% fees. Start with ABRA or jump straight to trading.
+        <p className="text-[10px] text-cyan-300/60 uppercase tracking-wider">
+          &gt; Trade Real-World Asset pairs on Solana | Zero fees | ABRA_or_DIRECT_TRADE
         </p>
       </div>
 
@@ -1064,8 +1064,8 @@ export function TradePage() {
           onClick={() => setShowOnboardSection(!showOnboardSection)}
           className="w-full flex items-center justify-between p-4 rounded-lg border border-amber-300/25 hover:border-amber-300/40 bg-amber-500/10 hover:bg-amber-500/15 transition-all"
         >
-          <h2 className="text-base font-semibold text-amber-200 flex items-center gap-2">
-            <span>New to ABRA? Get Started</span>
+          <h2 className="text-sm font-bold text-amber-400 tracking-widest uppercase flex items-center gap-2 font-mono">
+            <span>&gt; [ONBOARD] GET_STARTED</span>
           </h2>
           <ChevronDown size={18} className={`text-amber-300/60 transition-transform ${showOnboardSection ? 'rotate-180' : ''}`} />
         </button>

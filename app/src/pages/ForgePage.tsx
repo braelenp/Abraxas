@@ -135,23 +135,23 @@ export function ForgePage() {
 			{/* The Forging Process – Briefing */}
 			<section className="space-y-6 py-8 mb-4">
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="border-l-2 border-orange-300/40 pl-6 space-y-4">
-						<h2 className="text-xl font-bold text-slate-100 tracking-wide">How the Forge Works</h2>
+					<div className="border-l-4 border-orange-400/50 pl-6 space-y-4 font-mono">
+						<h2 className="text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; SYSTEM_INITIALIZATION</h2>
 						<div className="space-y-3 text-sm text-slate-300/80">
 							<p>
-								<span className="font-semibold text-orange-300">Step 1 · Tokenize</span> — Upload your asset proof. This can be anything: real estate deeds, music rights, commodities, IP—anything with real-world value.
+								<span className="text-orange-400">[01_TOKENIZE]</span> Upload your asset proof. Supported: real estate deeds, music rights, commodities, IP—anything with intrinsic value.
 							</p>
 							<p>
-								<span className="font-semibold text-orange-300">Step 2 · Attest</span> — Self-certify your asset's authenticity. No gatekeepers. You are sovereign over your capital.
+								<span className="text-orange-400">[02_ATTEST]</span> Self-certify asset authenticity. No intermediaries. You maintain sovereign control of your capital.
 							</p>
 							<p>
-								<span className="font-semibold text-orange-300">Step 3 · Forge</span> — Mint your asset as an on-chain RWA token. It is now liquid, tradeable, and eligible for yield protocols.
+								<span className="text-orange-400">[03_FORGE]</span> Mint your asset as an on-chain RWA token. Now eligible for liquidity and yield protocols.
 							</p>
 							<p>
-								<span className="font-semibold text-orange-300">Step 4 · Yield</span> — Deposit into Sophia's specialized vaults. Your capital compounds autonomously. You simply receive.
+								<span className="text-orange-400">[04_YIELD]</span> Deposit into specialized vaults. Capital compounds autonomously. Receive continuously.
 							</p>
 						</div>
-						<p className="text-xs text-slate-400/70 pt-2 italic">"The Forge does not ask permission. It asks for intention."</p>
+						<p className="text-xs text-orange-300/70 pt-2 italic uppercase tracking-widest">&gt; ENTER_FORGE_TO_BEGIN</p>
 					</div>
 				</div>
 			</section>
@@ -161,16 +161,16 @@ export function ForgePage() {
 
 				{/* SOPHIA'S FAMILY - DAUGHTERS */}
 				<div className="space-y-8">
-					<div className="border-b border-slate-700/30 pb-6">
-						<h2 className="text-3xl font-bold text-slate-100 tracking-widest mb-2">SOPHIA'S FAMILY</h2>
-						<p className="text-sm text-slate-400">Choose Your Asset Class · Enter the Specialization</p>
+					<div className="border-b border-orange-400/30 pb-6 font-mono">
+						<h2 className="text-2xl font-bold text-orange-300 tracking-widest mb-2 uppercase">&gt; [SOPHIA_FAMILY_PROTOCOL]</h2>
+						<p className="text-sm text-orange-300/70 uppercase tracking-wider">&gt; Select_Asset_Class || Initialize_Specialization</p>
 					</div>
 
 					{/* Phase 1 – Digital Content & Experiences */}
 					<div className="space-y-4">
-						<div className="px-1">
-						<h3 className="text-base font-semibold text-orange-300/90 tracking-wide">Phase 1 · Digital Content & Experiences</h3>
-						<p className="text-[10px] text-slate-500 mt-1">Most Prominent · First to Master</p>
+					<div className="px-1 font-mono">
+						<h3 className="text-sm font-bold text-orange-400 tracking-widest uppercase">&gt; [PHASE_1] DIGITAL_CONTENT</h3>
+						<p className="text-[10px] text-orange-300/60 mt-1 uppercase tracking-wider">MOST_PROMINENT | INITIATIVE_PRIORITY</p>
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 							{DAUGHTERS_PHASE1.map((daughter) => (
@@ -223,9 +223,9 @@ export function ForgePage() {
 
 					{/* Phase 2 – Real-World & Advanced Assets */}
 					<div className="space-y-4 mt-8">
-						<div className="px-1">
-						<h3 className="text-base font-semibold text-amber-300/80 tracking-wide">Phase 2 · Real-World & Advanced Assets</h3>
-						<p className="text-[10px] text-slate-500 mt-1">Expanding Horizons · Complex Markets</p>
+					<div className="px-1 font-mono">
+						<h3 className="text-sm font-bold text-amber-400 tracking-widest uppercase">&gt; [PHASE_2] REALWORLD_ADVANCED</h3>
+						<p className="text-[10px] text-amber-300/60 mt-1 uppercase tracking-wider">EXPANDING_HORIZONS | COMPLEX_MARKETS</p>
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 							{DAUGHTERS_PHASE2.map((daughter) => (
@@ -279,9 +279,9 @@ export function ForgePage() {
 
 				{/* THE SONS OF SOPHIA – THE PROVIDERS */}
 				<div className="space-y-6 border-t border-slate-700/30 pt-12">
-					<div className="px-1">
-						<h2 className="text-2xl font-bold text-slate-100 tracking-widest mb-2">THE SONS OF SOPHIA</h2>
-						<p className="text-xs text-slate-400">The Providers · Ancillary Services & Infrastructure</p>
+					<div className="px-1 font-mono">
+						<h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase mb-2">&gt; [SONS_PROTOCOL] ANCILLARY_SERVICES</h2>
+						<p className="text-[10px] text-violet-300/60 mt-1 uppercase tracking-wider">INFRASTRUCTURE_PARTNERS | ADVANCED_PROVIDERS</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 						{SONS.map((son) => {

@@ -33,10 +33,10 @@ export function OrionPage() {
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-cyan-200/85">King AI Development Engine</p>
-          <h2 className="mt-2 text-xl font-semibold text-cyan-50">Athlete equity analytics and value creation</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-300/90">
+        <div className="font-mono">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [KING_AI] ATHLETE_ANALYTICS</p>
+          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">VALUE_CREATION | NIL_OPTIMIZATION</h2>
+          <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
             King AI turns athlete development into the first live Abraxas growth loop: training inputs, stat improvements, and NIL outputs feed directly into token value expansion.
           </p>
         </div>

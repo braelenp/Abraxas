@@ -95,13 +95,13 @@ export function StakePage() {
   return (
     <div className="min-h-screen max-w-5xl mx-auto px-4 py-8 space-y-8">
       {/* Header */}
-      <div className="space-y-3">
+      <div className="space-y-3 font-mono">
         <div className="flex items-center gap-2">
-          <Zap size={20} className="text-violet-400" />
-          <h1 className="text-2xl font-bold text-white">ABRA Staking — Lock & Earn</h1>
+          <span className="text-violet-400">&gt;</span>
+          <h1 className="text-sm font-bold text-violet-400 tracking-widest uppercase">[STAKING_PROTOCOL] ABRA_LOCK_EARN</h1>
         </div>
-        <p className="text-sm text-white/65">
-          Stake ABRA for 30, 90, or 180 days to earn multiplied returns. Lock period multipliers: 1.2x → 1.8x → 2.5x
+        <p className="text-[10px] text-violet-300/60 uppercase tracking-wider">
+          &gt; Stake ABRA for 30, 90, or 180 days | Multipliers: 1.2x → 1.8x → 2.5x
         </p>
       </div>
 
@@ -126,9 +126,9 @@ export function StakePage() {
 
       {/* Staking Form */}
       <div className="glow-panel p-6 space-y-5">
-        <div className="flex items-center gap-2">
-          <TrendingUp size={18} className="text-amber-300" />
-          <h2 className="text-lg font-semibold text-white">New Stake</h2>
+        <div className="flex items-center gap-2 font-mono">
+          <span className="text-amber-400">&gt;</span>
+          <h2 className="text-sm font-bold text-amber-400 tracking-widest uppercase">[NEW_STAKE] INITIALIZE</h2>
         </div>
 
         {/* Duration Selection */}
@@ -202,9 +202,9 @@ export function StakePage() {
       {/* Active Stakes */}
       {userStakes.length > 0 && (
         <div className="space-y-3">
-          <div className="flex items-center gap-2 flex-shrink-0 w-full" style={{ contain: 'layout style' }}>
-            <Lock size={18} className="text-cyan-400 flex-shrink-0" />
-            <h2 className="text-lg font-semibold text-white flex-shrink-0">Your Stakes</h2>
+          <div className="flex items-center gap-2 flex-shrink-0 w-full font-mono" style={{ contain: 'layout style' }}>
+            <span className="text-cyan-400 flex-shrink-0">&gt;</span>
+            <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase flex-shrink-0">[YOUR_STAKES] ACTIVE_LOCKS</h2>
           </div>
           <div className="space-y-3">
             {userStakes.map((stake) => {

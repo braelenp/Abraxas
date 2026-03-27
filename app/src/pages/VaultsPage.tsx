@@ -60,8 +60,10 @@ export function VaultsPage() {
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas Vault Market</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Devnet vault showcase with live ABRA onboarding</h2>
+        <div className="font-mono">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [VAULT_MARKET] DEVNET_SHOWCASE</p>
+          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">LIVE_ABRA_ONBOARDING</h2>
+        </div>
         <button
           onClick={() => setShowAboutVaults(!showAboutVaults)}
           className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"
