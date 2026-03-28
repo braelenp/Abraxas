@@ -176,7 +176,7 @@ export function LivePriceTicker() {
           </div>
         </div>
         <p className="text-xs leading-relaxed text-slate-300/75 italic">
-          Track top crypto assets in real time. Your daily market check starts here with live prices, charts, and trending data.
+          Bitcoin market tracker with live prices. Additional assets coming soon. Your daily market check starts here.
         </p>
       </div>
 
@@ -188,40 +188,51 @@ export function LivePriceTicker() {
               <span className="text-[10px] font-mono uppercase tracking-widest text-amber-200/80">[{currentAsset.symbol}]</span>
               <span className="text-xs text-amber-300/60 font-mono">{currentAsset.name}</span>
             </div>
-            <div className={`transition-all duration-300 ${animatingPrice ? 'scale-110 opacity-50' : 'scale-100 opacity-100'}`}>
-              <p className="text-2xl font-bold text-amber-50 font-mono">
-                ${formatPrice(currentAsset.price)}
-              </p>
-            </div>
+            {currentAsset.symbol === 'BTC' ? (
+              <div className={`transition-all duration-300 ${animatingPrice ? 'scale-110 opacity-50' : 'scale-100 opacity-100'}`}>
+                <p className="text-2xl font-bold text-amber-50 font-mono">
+                  ${formatPrice(currentAsset.price)}
+                </p>
+              </div>
+            ) : (
+              <p className="text-2xl font-bold text-amber-300/60 font-mono">Coming Soon</p>
+            )}
           </div>
           
-          <div className="text-right space-y-1">
-            <div className={`flex items-center gap-2 text-lg font-bold font-mono ${priceIsPositive ? 'text-emerald-300' : 'text-rose-300'}`}>
-              {priceIsPositive ? '+' : '-'}{Math.abs(currentAsset.priceChange24h).toFixed(2)}%
-              {priceIsPositive ? (
-                <TrendingUp size={20} className="text-emerald-400" />
-              ) : (
-                <TrendingDown size={20} className="text-rose-400" />
-              )}
+          {currentAsset.symbol === 'BTC' ? (
+            <div className="text-right space-y-1">
+              <div className={`flex items-center gap-2 text-lg font-bold font-mono ${priceIsPositive ? 'text-emerald-300' : 'text-rose-300'}`}>
+                {priceIsPositive ? '+' : '-'}{Math.abs(currentAsset.priceChange24h).toFixed(2)}%
+                {priceIsPositive ? (
+                  <TrendingUp size={20} className="text-emerald-400" />
+                ) : (
+                  <TrendingDown size={20} className="text-rose-400" />
+                )}
+              </div>
+              <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">24h Change</p>
             </div>
-            <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">24h Change</p>
-          </div>
+          ) : (
+            <div className="text-right space-y-1">
+              <p className="text-lg font-bold text-amber-300/50 font-mono">—</p>
+              <p className="text-[10px] text-amber-300/40 font-mono uppercase tracking-wider">Launching Soon</p>
+            </div>
+          )}
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-3 pt-4 border-t border-amber-300/10">
           <div className="space-y-1">
             <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">Market Cap</p>
-            <p className="text-sm font-semibold text-amber-100">${displayMarketCap.toFixed(0)}B</p>
+            <p className="text-sm font-semibold text-amber-100">{currentAsset.symbol === 'BTC' ? `$${displayMarketCap.toFixed(0)}B` : '—'}</p>
           </div>
           <div className="space-y-1">
             <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">24h Volume</p>
-            <p className="text-sm font-semibold text-amber-100">${displayVolume.toFixed(1)}B</p>
+            <p className="text-sm font-semibold text-amber-100">{currentAsset.symbol === 'BTC' ? `$${displayVolume.toFixed(1)}B` : '—'}</p>
           </div>
           <div className="space-y-1">
             <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">24h Range</p>
             <p className="text-xs font-mono text-amber-100">
-              ${formatPrice(currentAsset.low24h)} - ${formatPrice(currentAsset.high24h)}
+              {currentAsset.symbol === 'BTC' ? `${formatPrice(currentAsset.low24h)} - ${formatPrice(currentAsset.high24h)}` : '—'}
             </p>
           </div>
         </div>
@@ -237,11 +248,15 @@ export function LivePriceTicker() {
               onClick={() => setSelectedAssetIndex(idx)}
               className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
                 idx === selectedAssetIndex
-                  ? 'border border-amber-400/60 bg-amber-500/25 text-amber-100 shadow-[0_0_16px_rgba(251,191,36,0.3)]'
-                  : 'border border-amber-300/15 bg-slate-950/40 text-amber-200/70 hover:bg-slate-950/60 hover:border-amber-300/30'
+                  ? asset.symbol === 'BTC'
+                    ? 'border border-amber-400/60 bg-amber-500/25 text-amber-100 shadow-[0_0_16px_rgba(251,191,36,0.3)]'
+                    : 'border border-amber-300/30 bg-amber-500/10 text-amber-300/80 shadow-[0_0_12px_rgba(251,191,36,0.2)]'
+                  : asset.symbol === 'BTC'
+                  ? 'border border-amber-300/15 bg-slate-950/40 text-amber-200/70 hover:bg-slate-950/60 hover:border-amber-300/30'
+                  : 'border border-amber-300/10 bg-slate-950/30 text-amber-200/50 hover:bg-slate-950/50 hover:border-amber-300/20 opacity-70'
               }`}
             >
-              {asset.symbol}
+              {asset.symbol} {asset.symbol !== 'BTC' && <span className="text-[9px]">•</span>}
             </button>
           ))}
         </div>
@@ -271,7 +286,7 @@ export function LivePriceTicker() {
       {/* CTA */}
       <div className="pt-2 flex justify-center">
         <div className="text-[9px] text-amber-300/50 font-mono uppercase tracking-wider">
-          Check back daily for market updates • Horizon Never Sleeps
+          Bitcoin live now • More pairs launching • Horizon Expands
         </div>
       </div>
     </article>
