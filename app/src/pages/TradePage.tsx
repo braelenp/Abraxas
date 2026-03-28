@@ -167,7 +167,7 @@ const RUNE_CONFIG = {
   runeName: 'Laguz',
   runeEssence: 'Water · Swift Flow',
   agentName: 'FLUX',
-  lore: "Laguz flows where force cannot follow. Flux reads the current of every market tide, acquiring ABRA, routing capital through Jupiter DEX, and executing RWA pair swaps with fluid precision. Capital moves when Flux moves.",
+  lore: "Laguz flows where force cannot follow. Flux reads the current of every market tide, acquiring ABRA, routing capital through Bags DEX, and executing RWA pair swaps with fluid precision. Capital moves when Flux moves.",
   ctaLabel: 'Begin the Trade',
   coreGlow: '20, 184, 166',
   fireGlow: '34, 211, 238',
@@ -796,7 +796,7 @@ export function TradePage() {
           <p className="text-[10px] text-emerald-100/70 mb-3 uppercase tracking-wider">
             {quickTradeUsesBagsRoute
               ? 'ABRA routes execute via Bags | Use button to buy or swap ABRA | Live Bags flow'
-              : 'This is the recommended route. Quotes and swaps execute inside the dapp through Jupiter. Bags stays available below if users want the optional 0% fee path.'}
+              : 'RECOMMENDED: All swaps route through Bags DEX (0% fee). This is the optimal path for capital execution.'}
           </p>
           <div className="space-y-3">
             <select
@@ -846,11 +846,11 @@ export function TradePage() {
             <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
               <div className="flex justify-between">
                 <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">ROUTE</p>
-                <p className="text-cyan-300 font-mono">{quickTradeUsesBagsRoute ? 'Bags_Direct' : 'Jupiter_InApp'}</p>
+                <p className="text-cyan-300 font-mono">Bags_Direct</p>
               </div>
               <div className="flex justify-between">
                 <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">FALLBACK</p>
-                <p className="text-cyan-300 font-mono">{quickTradeUsesBagsRoute ? 'External_Bags' : 'Bags_0pct_Fee'}</p>
+                <p className="text-cyan-300 font-mono">Native_Solana_Network</p>
               </div>
               {swapError && !quickTradeUsesBagsRoute ? (
                 <p className="text-amber-400 font-mono text-[11px] uppercase">&gt; {swapError}</p>

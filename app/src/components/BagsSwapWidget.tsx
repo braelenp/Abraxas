@@ -48,7 +48,7 @@ export function BagsSwapWidget({ fromMint, toMint, compact = false, inAppHref = 
       <div className={`${compact ? 'mb-2' : 'mb-3'} rounded-lg border border-emerald-300/20 bg-emerald-500/10 p-3`}>
         <p className="text-[10px] font-semibold uppercase tracking-wide text-emerald-200/80">Default Flow</p>
         <p className={`${compact ? 'text-[10px]' : 'text-xs'} mt-1 text-cyan-300/60 font-mono uppercase tracking-wider`}>
-          Use in-app Jupiter route first | Bags fallback for 0% fee path
+          Bags Direct Execution | 0% Fee Protocol
         </p>
       </div>
       
@@ -82,7 +82,7 @@ export function BagsSwapWidget({ fromMint, toMint, compact = false, inAppHref = 
       </div>
 
       <p className={`${compact ? 'mt-1 text-[10px]' : 'mt-2 text-xs'} text-cyan-200/70`}>
-        Bags stays available as an external fallback. The recommended route is the in-app swap flow below.
+        Use Bags directly for 0% fees on swaps. This is the optimal route for all capital execution.
       </p>
     </div>
   );
