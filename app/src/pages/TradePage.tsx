@@ -661,16 +661,6 @@ export function TradePage() {
   const swapFeePercentage = 0.02;
   const estimatedFee = Number(toAmount) * (swapFeePercentage / 100);
 
-  if (!connected) {
-    return (
-      <div className="min-h-screen max-w-3xl mx-auto px-4 py-8">
-        <div className="glow-panel p-6 text-center space-y-3">
-          <p className="text-[11px] text-white/60 font-mono uppercase tracking-wider">Connect wallet to trade and onboard</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <div className="min-h-screen max-w-5xl mx-auto px-4 py-8 space-y-6" style={{ contain: 'layout style' }}>
@@ -684,6 +674,25 @@ export function TradePage() {
           &gt; Trade Real-World Asset pairs on Solana | Zero fees | ABRA_or_DIRECT_TRADE
         </p>
       </div>
+
+      {/* Wallet Connection Status */}
+      {!connected && (
+        <div className="flex-shrink-0 w-full rounded-lg border border-orange-400/40 bg-orange-500/15 p-4 space-y-3">
+          <div className="flex items-start gap-3 w-full">
+            <Zap size={18} className="mt-0.5 text-orange-400 shrink-0 flex-shrink-0" />
+            <div className="space-y-2 flex-1">
+              <p className="font-bold text-orange-400 font-mono text-sm">&gt; [WALLET_NOT_CONNECTED]</p>
+              <p className="text-[11px] text-orange-300/80 uppercase tracking-wider">Connect your Solana wallet to execute trades and stake ABRA</p>
+              <button
+                onClick={() => connect()}
+                className="mt-2 px-4 py-2 rounded-lg border border-orange-400/45 bg-orange-500/25 text-orange-100 font-semibold text-xs hover:bg-orange-500/35 transition-all uppercase tracking-wider"
+              >
+                Connect Wallet
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* King AI Recommendation */}
       <div className="flex-shrink-0 w-full rounded-lg border border-cyan-400/30 bg-cyan-500/15 p-4 space-y-3" style={{ contain: 'layout style' }}>
@@ -853,11 +862,11 @@ export function TradePage() {
 
             {toAmount && (
               <button
-                onClick={handleQuickTradeSwap}
+                onClick={connected ? handleQuickTradeSwap : () => connect()}
                 disabled={isSwapping || isLoadingQuote}
                 className="w-full rounded-lg bg-emerald-500/90 hover:bg-emerald-600 text-white font-semibold py-2 transition text-sm disabled:opacity-50"
               >
-                {isSwapping ? 'Processing...' : quickTradeActionLabel}
+                {!connected ? 'Connect Wallet to Trade' : (isSwapping ? 'Processing...' : quickTradeActionLabel)}
               </button>
             )}
           </div>
@@ -1235,11 +1244,11 @@ export function TradePage() {
                     Back
                   </button>
                   <button
-                    onClick={handleStake}
-                    disabled={!stakeAmount || Number(stakeAmount) <= 0 || isStaking}
+                    onClick={connected ? handleStake : () => connect()}
+                    disabled={!connected || !stakeAmount || Number(stakeAmount) <= 0 || isStaking}
                     className="flex-1 h-10 rounded-lg border border-green-400/45 bg-green-500/25 text-green-100 font-semibold text-sm hover:bg-green-500/35 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
-                    {isStaking ? 'Submitting...' : 'Stake Live'}
+                    {!connected ? 'Connect Wallet' : (isStaking ? 'Submitting...' : 'Stake Live')}
                   </button>
                 </div>
 
