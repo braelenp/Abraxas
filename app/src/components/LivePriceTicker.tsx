@@ -138,9 +138,12 @@ export function LivePriceTicker() {
   // Format price with thousands separators
   const formatPrice = (price: number) => {
     if (price >= 1) {
-      return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      // Format with commas for thousands
+      const parts = price.toFixed(2).split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return parts.join('.');
     } else {
-      return price.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      return price.toFixed(4);
     }
   };
 
@@ -186,7 +189,7 @@ export function LivePriceTicker() {
               <span className="text-xs text-amber-300/60 font-mono">{currentAsset.name}</span>
             </div>
             <div className={`transition-all duration-300 ${animatingPrice ? 'scale-110 opacity-50' : 'scale-100 opacity-100'}`}>
-              <p className="text-5xl font-bold text-amber-50 font-mono">
+              <p className={`font-bold text-amber-50 font-mono ${currentAsset.price >= 10000 ? 'text-4xl' : 'text-5xl'}`}>
                 ${formatPrice(currentAsset.price)}
               </p>
             </div>
