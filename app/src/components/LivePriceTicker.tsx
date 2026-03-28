@@ -189,7 +189,7 @@ export function LivePriceTicker() {
               <span className="text-xs text-amber-300/60 font-mono">{currentAsset.name}</span>
             </div>
             <div className={`transition-all duration-300 ${animatingPrice ? 'scale-110 opacity-50' : 'scale-100 opacity-100'}`}>
-              <p className="text-4xl font-bold text-amber-50 font-mono">
+              <p className="text-2xl font-bold text-amber-50 font-mono">
                 ${formatPrice(currentAsset.price)}
               </p>
             </div>
