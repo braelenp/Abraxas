@@ -124,6 +124,7 @@ import { useMemo, useState } from 'react';
 import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
+import { LivePriceTicker } from '../components/LivePriceTicker';
 
 type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing' | 'horses' | 'golf';
 
@@ -590,6 +591,9 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
+      {/* --- Live Price Ticker – Market Overview --- */}
+      <LivePriceTicker />
+
       {/* --- Breaking Signals – The Horizon Speaks --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden">
         <div className="space-y-3 mb-4">
