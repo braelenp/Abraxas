@@ -135,6 +135,15 @@ export function LivePriceTicker() {
   const displayMarketCap = currentAsset.marketCap / 1e9;
   const displayVolume = currentAsset.volume24h / 1e9;
 
+  // Format price with thousands separators
+  const formatPrice = (price: number) => {
+    if (price >= 1) {
+      return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } else {
+      return price.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+    }
+  };
+
   useEffect(() => {
     setAnimatingPrice(true);
     const timer = setTimeout(() => setAnimatingPrice(false), 300);
@@ -178,7 +187,7 @@ export function LivePriceTicker() {
             </div>
             <div className={`transition-all duration-300 ${animatingPrice ? 'scale-110 opacity-50' : 'scale-100 opacity-100'}`}>
               <p className="text-5xl font-bold text-amber-50 font-mono">
-                ${currentAsset.price >= 1 ? currentAsset.price.toFixed(2) : currentAsset.price.toFixed(4)}
+                ${formatPrice(currentAsset.price)}
               </p>
             </div>
           </div>
@@ -209,7 +218,7 @@ export function LivePriceTicker() {
           <div className="space-y-1">
             <p className="text-[10px] text-amber-300/60 font-mono uppercase tracking-wider">24h Range</p>
             <p className="text-xs font-mono text-amber-100">
-              ${currentAsset.low24h.toFixed(2)} - ${currentAsset.high24h.toFixed(2)}
+              ${formatPrice(currentAsset.low24h)} - ${formatPrice(currentAsset.high24h)}
             </p>
           </div>
         </div>
