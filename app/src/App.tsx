@@ -142,12 +142,12 @@ function DappShell() {
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
             <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 backdrop-blur-xl">
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
-                <p className="text-base font-semibold text-cyan-100">The Seven Runes Await</p>
-                <p className="mt-2 leading-relaxed text-slate-300">
-                  You have entered the Abraxas sovereign engine. A living RWA protocol on Solana, guarded by seven Elder Futhark runes. Each rune is bound to an AI agent and a domain of power.
+                <p className="text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest">&gt; [INTRO_AWAITS] SOVEREIGN_ENGINE</p>
+                <p className="mt-3 leading-relaxed text-slate-300 text-xs">
+                  You have entered the Abraxas protocol. A living RWA engine on Solana, guarded by seven Elder Futhark runes. Each rune binds to an AI agent and domain of sovereign power.
                 </p>
 
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">The Seven Runes</p>
+                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
                 <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
                   <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
                   <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
@@ -158,8 +158,8 @@ function DappShell() {
                   <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
                 </ul>
 
-                <p className="mt-3 leading-relaxed text-slate-300">
-                  Each rune reveals itself when you enter its tab. Step through the threshold. The protocol responds to sovereign intent.
+                <p className="mt-3 leading-relaxed text-slate-300 text-xs">
+                  Each rune reveals itself when you enter its tab. Step through the threshold. Protocol awaits sovereign intent.
                 </p>
               </div>
 
@@ -168,9 +168,9 @@ function DappShell() {
                   setShowIntroModal(false);
                   setHasSeenIntroModal(true);
                 }}
-                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-200/75 bg-gradient-to-r from-amber-200 via-amber-100 to-orange-100 px-4 text-sm font-semibold text-slate-950 shadow-[0_0_14px_rgba(245,158,11,0.3)] hover:from-amber-100 hover:to-orange-100"
+                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:bg-slate-800/70 hover:border-amber-300/80 transition-all"
               >
-                Enter the Rune Circle
+                &gt; [ENTER] BEGIN_PROTOCOL
               </button>
             </div>
           </div>
