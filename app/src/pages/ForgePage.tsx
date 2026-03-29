@@ -100,6 +100,13 @@ const DAUGHTERS_PHASE1 = [
 		isComingSoon: false,
 	},
 	{
+		name: 'Pulse',
+		description: 'Gaming Clips & Live Streams',
+		rune: '⚡',
+		url: 'https://pulse-eta-three.vercel.app/',
+		isComingSoon: false,
+	},
+	{
 		name: 'Legacy',
 		description: 'Athlete Equity & NIL',
 		rune: '🏆',
