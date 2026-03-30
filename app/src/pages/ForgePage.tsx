@@ -153,8 +153,8 @@ const SONS = [
 		name: 'Valkyr',
 		description: 'The Wise Guardian',
 		rune: '🛡️',
-		url: '#',
-		isComingSoon: true,
+		url: 'https://valkyr-v1.vercel.app/',
+		isComingSoon: false,
 		icon: Shield,
 	},
 	{
