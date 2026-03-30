@@ -274,7 +274,7 @@ export function LandingPage() {
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-						<CTAButton text="Trade on Aurora" href="/app" />
+					<CTAButton text="Trade on Abraxas" href="/app" />
 					</div>
 				</div>
 			</section>
