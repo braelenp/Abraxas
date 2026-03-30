@@ -147,24 +147,34 @@ function DappShell() {
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
                 <p className="text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest">&gt; [INTRO_AWAITS] SOVEREIGN_ENGINE</p>
                 <p className="mt-3 leading-relaxed text-slate-300 text-xs">
-                  You have entered the Abraxas protocol. A living RWA engine on Solana, guarded by seven Elder Futhark runes. Each rune binds to an AI agent and domain of sovereign power.
+                  You have entered the Abraxas Protocol — a living RWA engine on Solana, sealed by seven Elder Futhark runes. Each rune binds an AI agent to a core domain of sovereign power.
                 </p>
 
                 <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
-                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
-                  <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
-                  <li><span className="font-semibold text-amber-300">ᛋ Sowilo · Horizon</span> sees the entire market from above. Browse every listed RWA class, compare assets across athlete equity, real estate, and trading portfolios, and read the full live data book.</li>
-                  <li><span className="font-semibold text-purple-300">✦ Mirror · Cadabra</span> reflects collective intelligence. Alpha discovery, KOL positioning, meme cycles, and community consensus converge at the social mirror. Price action births from coordinated intent.</li>
-                  <li><span className="font-semibold text-teal-300">ᛚ Laguz · Flux</span> moves where force cannot follow. Acquire ABRA, swap RWA pairs through Bags DEX, and route capital into position with fluid execution.</li>
-                  <li><span className="font-semibold text-red-300">ᛏ Tiwaz · King</span> delivers sovereign judgment. He runs athlete development analysis, market forecasts, and pushes value creation actions directly into the protocol.</li>
-                  <li><span className="font-semibold text-emerald-300">ᚦ Thurisaz · Aegis</span> holds the line. Set circuit breaker thresholds to protect your vaults from volatility, liquidity drain, and entropy before they breach.</li>
-                  <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
+                <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
+                  <li><span className="font-semibold text-orange-300">• ᚲ Kenaz — Forge.</span> Stake ABRA to mint positions, stack multipliers, and compound yield every lock cycle.</li>
+                  <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Sophia.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
+                  <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Horizon.</span> Full market oversight. Browse all RWA classes, compare athlete equity, real estate, and portfolios with live data.</li>
+                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Flux.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
+                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King.</span> Delivers sovereign judgment: athlete development analysis, market forecasts, and automated value actions.</li>
+                  <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Aegis.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
+                  <li><span className="font-semibold text-violet-300">• ᛉ Algiz — Warden.</span> Your command center. Live Polymarket odds, portfolio momentum, and real-time market intelligence.</li>
                 </ul>
 
-                <p className="mt-3 leading-relaxed text-slate-300 text-xs">
-                  Each rune reveals itself when you enter its tab. Step through the threshold. Protocol awaits sovereign intent.
+                <p className="mt-4 text-xs leading-relaxed text-slate-300">
+                  Each rune activates in its tab.<br />
+                  Step through. The protocol awaits your intent.
                 </p>
+
+                <div className="mt-6 border-t border-cyan-300/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FORGE]</p>
+                  <p className="text-xs leading-relaxed text-slate-300/90">
+                    Kenaz transforms raw capital into tokenized sovereign yield positions.<br />
+                    Assets surrender physical form for algorithmic compounding, liquidity, and autonomous market force.<br />
+                    <span className="text-orange-300 font-semibold">You do not choose the asset.</span><br />
+                    The one that burns for you reveals itself.
+                  </p>
+                </div>
               </div>
 
               <button
