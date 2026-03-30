@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper } from 'lucide-react';
+import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper, MessageCircle } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
@@ -242,6 +242,39 @@ export function ForgePage() {
 
 			{/* Sophia's Family – The Sacred Gallery */}
 			<section className="space-y-12 py-8">
+
+				{/* CADABRA - THE SOCIAL MIRROR (Prominent Placement) */}
+				<div className="space-y-4">
+					<div className="border-l-4 border-purple-400/50 pl-6 space-y-4 font-mono">
+						<h3 className="text-lg font-bold text-purple-300 tracking-wider uppercase">&gt; CADABRA_THE_SOCIAL_MIRROR</h3>
+						<p className="text-sm text-slate-300/80">
+							The Abraxas protocol is the engine. <span className="text-purple-300 font-semibold">Cadabra is the nervous system.</span> While your assets tokenize and compound, Cadabra captures the most valuable signal: collective human intelligence on markets.
+						</p>
+						<div className="bg-gradient-to-r from-purple-500/10 via-slate-900/50 to-slate-900/50 border border-purple-300/20 rounded-lg p-4 space-y-3">
+							<div className="flex gap-3">
+								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[ALPHA]</span>
+								<p className="text-xs text-slate-300">Real-time price discovery, KOL positioning, meme cycle tracking across every RWA asset class.</p>
+							</div>
+							<div className="flex gap-3">
+								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[CONVICTION]</span>
+								<p className="text-xs text-slate-300">Every forged asset has a discussion channel. Community consensus flows before protocols move.</p>
+							</div>
+							<div className="flex gap-3">
+								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[DESTINY]</span>
+								<p className="text-xs text-slate-300">Price discovery, narrative coalescing, institutional intent manifestation—Market structure begins at the Mirror.</p>
+							</div>
+						</div>
+						<a
+							href="https://cadabra-eight.vercel.app/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-4 py-3 text-xs font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60"
+						>
+							Enter the Mirror → Cadabra
+							<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+						</a>
+					</div>
+				</div>
 
 				{/* SOPHIA'S FAMILY - DAUGHTERS */}
 				<div className="space-y-8">

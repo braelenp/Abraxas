@@ -5,6 +5,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
+import { CadabraPage } from './pages/CadabraPage';
 import { TradePage } from './pages/TradePage';
 import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
@@ -20,6 +21,7 @@ const navItems = [
   { to: '/app',         label: 'Forge',   rune: 'ᚲ' },
   { to: '/app/vaults',  label: 'Sophia',  rune: 'ᚨ' },
   { to: '/app/market',  label: 'Horizon', rune: 'ᛋ' },
+  { to: '/app/cadabra', label: 'Mirror',  rune: '✦' },
   { to: '/app/trade',   label: 'Flux',    rune: 'ᛚ' },
   { to: '/app/orion',   label: 'King',    rune: 'ᛏ' },
   { to: '/app/circuit', label: 'Aegis',   rune: 'ᚦ' },
@@ -116,7 +118,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Sophia · ᛋ Horizon · ᛚ Flux · ᛏ King · ᚦ Aegis · ᛉ Warden</p>
+        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Sophia · ᛋ Horizon · ✦ Mirror · ᛚ Flux · ᛏ King · ᚦ Aegis · ᛉ Warden</p>
       </header>
 
       <main
@@ -127,6 +129,7 @@ function DappShell() {
           <Route index element={<ForgePage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
+          <Route path="cadabra" element={<CadabraPage />} />
           <Route path="onboard" element={<TradePage />} />
           <Route path="trade" element={<TradePage />} />
           <Route path="orion" element={<OrionPage />} />
@@ -152,6 +155,7 @@ function DappShell() {
                   <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
                   <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
                   <li><span className="font-semibold text-amber-300">ᛋ Sowilo · Horizon</span> sees the entire market from above. Browse every listed RWA class, compare assets across athlete equity, real estate, and trading portfolios, and read the full live data book.</li>
+                  <li><span className="font-semibold text-purple-300">✦ Mirror · Cadabra</span> reflects collective intelligence. Alpha discovery, KOL positioning, meme cycles, and community consensus converge at the social mirror. Price action births from coordinated intent.</li>
                   <li><span className="font-semibold text-teal-300">ᛚ Laguz · Flux</span> moves where force cannot follow. Acquire ABRA, swap RWA pairs through Bags DEX, and route capital into position with fluid execution.</li>
                   <li><span className="font-semibold text-red-300">ᛏ Tiwaz · King</span> delivers sovereign judgment. He runs athlete development analysis, market forecasts, and pushes value creation actions directly into the protocol.</li>
                   <li><span className="font-semibold text-emerald-300">ᚦ Thurisaz · Aegis</span> holds the line. Set circuit breaker thresholds to protect your vaults from volatility, liquidity drain, and entropy before they breach.</li>
