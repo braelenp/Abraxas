@@ -142,6 +142,14 @@ const DAUGHTERS_PHASE2 = [
 // The Sons of Sophia - The Providers
 const SONS = [
 	{
+		name: 'Genesis',
+		description: 'The Prime Foundation',
+		rune: '🔥',
+		url: 'https://genesis-seven-self.vercel.app/',
+		isComingSoon: false,
+		icon: Flame,
+	},
+	{
 		name: 'Valkyr',
 		description: 'The Wise Guardian',
 		rune: '🛡️',
