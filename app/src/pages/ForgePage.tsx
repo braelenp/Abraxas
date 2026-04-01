@@ -161,8 +161,8 @@ const SONS = [
 		name: 'Raido',
 		description: 'The Swift Provider',
 		rune: '⚡',
-		url: '#',
-		isComingSoon: true,
+		url: 'https://raido.vercel.app/',
+		isComingSoon: false,
 		icon: Zap,
 	},
 	{
