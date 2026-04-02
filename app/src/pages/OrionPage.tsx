@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
@@ -18,9 +19,17 @@ const RUNE_CONFIG = {
   accentClass: 'text-red-300',
 } as const;
 
-export function OrionPage() {
+export flocation = useLocation();
   const { athleteTokens, executeKingPlan } = useAbraxas();
   const [showOymExample, setShowOymExample] = useState(false);
+  const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
+
+  // Reset state when navigating to the Orion page
+  useEffect(() => {
+    if (location.pathname === '/app/orion') {
+      setShowOymExample(false);
+    }
+  }, [location.pathname])
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
 
   const totals = useMemo(() => {

@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
@@ -25,6 +26,7 @@ const RUNE_CONFIG = {
 } as const;
 
 export function VaultsPage() {
+  const location = useLocation();
   const {
     vaults,
     futureAssetClasses,
@@ -37,7 +39,16 @@ export function VaultsPage() {
   } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
   const [assetType, setAssetType] = useState<VaultAssetType>('athlete_equity');
-  const [selectedAgents, setSelectedAgents] = useState<Record<string, string>>({});
+  const [selectedAgents, setSelectedAgents] = useState<Record<string, string>>();
+
+  // Reset state when navigating to the Vaults page
+  useEffect(() => {
+    if (location.pathname === '/app/vaults') {
+      setVaultName('');
+      setAssetType('athlete_equity');
+      setSelectedAgents({});
+    }
+  }, [location.pathname]);
   const [depositAmount, setDepositAmount] = useState('');
   const [activeVaultId, setActiveVaultId] = useState<string | null>(null);
   const [showAboutVaults, setShowAboutVaults] = useState(false);

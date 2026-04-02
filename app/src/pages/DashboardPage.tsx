@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { TrendingDown, Star, Sparkles, ChevronLeft, ChevronRight, Send, ArrowRightLeft, LogIn, Plus, DollarSign, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useLocation } from 'react-router-dom';
 import { fetchPolymarketBets, type PolymarketBet, POLYMARKET_CATEGORIES, filterByCategory } from '../lib/polymarket';
 import { usePolymarketBets } from '../hooks/usePolymarketBets';
 import { getKingAIProbability } from '../lib/polymarket';
