@@ -5,6 +5,7 @@ import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, Extern
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { LivePriceTicker } from '../components/LivePriceTicker';
+import { FoundationMarket } from '../components/FoundationMarket';
 
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
@@ -610,6 +611,9 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
+      {/* --- Foundation Market — Dapp Equity RWA --- */}
+      <FoundationMarket />
+
       {/* --- Live Price Ticker – Market Overview --- */}
       <LivePriceTicker />
 

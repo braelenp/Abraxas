@@ -152,12 +152,12 @@ function DappShell() {
                 <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
                 <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
                   <li><span className="font-semibold text-orange-300">• ᚲ Kenaz — Forge.</span> Stake ABRA to mint positions, stack multipliers, and compound yield every lock cycle.</li>
-                  <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Sophia.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
-                  <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Horizon.</span> Full market oversight. Browse all RWA classes, compare athlete equity, real estate, and portfolios with live data.</li>
-                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Flux.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
-                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King.</span> Delivers sovereign judgment: athlete development analysis, market forecasts, and automated value actions.</li>
-                  <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Aegis.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
-                  <li><span className="font-semibold text-violet-300">• ᛉ Algiz — Warden.</span> Your command center. Live Polymarket odds, portfolio momentum, and real-time market intelligence.</li>
+                  <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
+                  <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Full market oversight. Browse all RWA classes, Foundation Market (Dapp Equity), and real-time data visualization.</li>
+                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
+                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Delivers sovereign judgment: athlete development analysis, market forecasts, and automated value actions.</li>
+                  <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
+                  <li><span className="font-semibold text-violet-300">• ᛉ Algiz — Dashboard.</span> Your command center. Live Polymarket odds, portfolio momentum, and real-time market intelligence.</li>
                 </ul>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-300">
@@ -165,7 +165,17 @@ function DappShell() {
                   Step through. The protocol awaits your intent.
                 </p>
 
-                <div className="mt-6 border-t border-cyan-300/20 pt-4">
+                <div className="mt-6 border-t border-amber-300/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [FOUNDATION_MARKET]</p>
+                  <p className="text-xs leading-relaxed text-slate-300/90">
+                    Inside the Market tab, witness the Foundation Market.<br />
+                    The top 100 dApps on Bags are the infrastructure itself.<br />
+                    <span className="text-purple-300 font-semibold">Own Dapp Equity RWA.</span><br />
+                    Value scores, live metrics, verified builders. The foundation reveals itself.
+                  </p>
+                </div>
+
+                <div className="mt-4 border-t border-cyan-300/20 pt-4">
                   <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FORGE]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
                     Kenaz transforms raw capital into tokenized sovereign yield positions.<br />
