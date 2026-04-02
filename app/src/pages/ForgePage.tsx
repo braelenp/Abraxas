@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper, MessageCircle } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { OracleEngine } from '../components/OracleEngine';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -237,6 +238,13 @@ export function ForgePage() {
 						</div>
 						<p className="text-xs text-orange-300/70 pt-2 italic uppercase tracking-widest">&gt; ENTER_FORGE_TO_BEGIN</p>
 					</div>
+				</div>
+			</section>
+
+			{/* The Living Oracle – Self-Replicating Growth Engine */}
+			<section className="py-8 border-t border-slate-700/30">
+				<div className="max-w-6xl mx-auto px-4">
+					<OracleEngine />
 				</div>
 			</section>
 

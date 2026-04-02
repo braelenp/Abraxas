@@ -7,6 +7,7 @@ import { usePolymarketBets } from '../hooks/usePolymarketBets';
 import { getKingAIProbability } from '../lib/polymarket';
 import { FeatureBadge } from '../components/FeatureBadge';
 import SpendAbra from '../components/SpendAbra';
+import { OraclePerformanceWidget } from '../components/OraclePerformanceWidget';
 import { useNavigate } from 'react-router-dom';
 import { RuneRealm } from '../components/RuneRealm';
 
@@ -131,6 +132,9 @@ export function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Oracle Performance Widget */}
+      <OraclePerformanceWidget />
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-2">
