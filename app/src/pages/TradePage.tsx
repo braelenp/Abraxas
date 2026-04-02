@@ -2,6 +2,7 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { Activity, AlertTriangle, ArrowRightLeft, BarChart3, Brain, TrendingUp, Zap, ChevronDown, CheckCircle, Lock, Gem, DollarSign } from 'lucide-react';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
 import { BagsSwapWidget } from '../components/BagsSwapWidget';
@@ -178,6 +179,7 @@ export function TradePage() {
   const { connection } = useConnection();
   const { connected, publicKey, sendTransaction, connect } = useWallet();
   const { sophiaAgents, recordSophiaTrade } = useAbraxas();
+  const location = useLocation();
   const [selectedPair, setSelectedPair] = useState<RWAPair>(RWA_PAIRS[0]);
   const [pairView, setPairView] = useState<'carousel' | 'list'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -249,6 +251,21 @@ export function TradePage() {
     }
     void refreshStakeRecord();
   }, [connected, publicKey, refreshStakeRecord]);
+
+  // Reset state when navigating to the Trade page to ensure proper page state
+  useEffect(() => {
+    if (location.pathname === '/app/trade' || location.pathname === '/app/onboard') {
+      // Reset UI state to defaults
+      setPairView('carousel');
+      setShowTradeSuccess(false);
+      setShowOffRampWidget(false);
+      setShowLiveMarket(false);
+      setShowOnboardSection(false);
+      setShowSpendAbra(false);
+      setSwapError(null);
+      setCircuitWarning(false);
+    }
+  }, [location.pathname]);
 
   const handleQuote = useCallback(async () => {
     if (!fromAmount || isNaN(Number(fromAmount))) return;
