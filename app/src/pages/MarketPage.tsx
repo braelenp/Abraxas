@@ -120,7 +120,8 @@ function RwaPredictions() {
   );
 }
 // --- RWA Market Listings ---
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
@@ -539,6 +540,7 @@ const RUNE_CONFIG = {
 } as const;
 
 export function MarketPage() {
+  const location = useLocation();
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
   const [showMarketInfo, setShowMarketInfo] = useState(false);
   const [expandedThesis, setExpandedThesis] = useState<Record<string, boolean>>({});
@@ -553,6 +555,22 @@ export function MarketPage() {
   const [fromAmount, setFromAmount] = useState<string>('');
   const [toAmount, setToAmount] = useState<string>('');
   const [isLoadingQuote, setIsLoadingQuote] = useState(false);
+
+  // Reset state when navigating to the Market page to ensure proper page state
+  useEffect(() => {
+    if (location.pathname === '/app/market') {
+      // Reset UI state to defaults
+      setSelectedClass('all');
+      setShowMarketInfo(false);
+      setExpandedThesis({});
+      setShowAllExamples(false);
+      setShowAllAssets(false);
+      setSelectedPairId('abra-usdc');
+      setFromAmount('');
+      setToAmount('');
+      setIsLoadingQuote(false);
+    }
+  }, [location.pathname]);
 
   const swapPairs = [
     { id: 'abra-usdc', label: 'ABRA → USDC', price: 0.95 },
