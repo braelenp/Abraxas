@@ -27,7 +27,7 @@ const RUNE_CONFIG = {
   accentClass: 'text-violet-300',
 } as const;
 
-export flocation = useLocation();
+export function DashboardPage() {
   const { vaults, athleteTokens } = useAbraxas();
   const { bets: polymarketBets, isLoading: isLoadingBets } = usePolymarketBets(3);
   const { connected } = useWallet();
@@ -43,22 +43,6 @@ export flocation = useLocation();
   const [placingBet, setPlacingBet] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showOffRampWidget, setShowOffRampWidget] = useState(false);
-  const [showSpendAbra, setShowSpendAbra] = useState(false);
-
-  // Reset state when navigating to the Dashboard page
-  useEffect(() => {
-    if (location.pathname === '/app/warden') {
-      setFollowing([]);
-      setPredictionIndex(0);
-      setPerpIndex(0);
-      setFollowingIndex(0);
-      setBetAmounts({});
-      setPlacingBet(null);
-      setSelectedCategory(null);
-      setShowOffRampWidget(false);
-      setShowSpendAbra(false);
-    }
-  }, [location.pathname]te(false);
   const [showSpendAbra, setShowSpendAbra] = useState(false);
 
   // Filter markets by selected category
