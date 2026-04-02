@@ -18,14 +18,13 @@ import { OrionAssistant } from './components/OrionAssistant';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app',         label: 'Forge',   rune: 'ᚲ' },
-  { to: '/app/vaults',  label: 'Sophia',  rune: 'ᚨ' },
-  { to: '/app/market',  label: 'Horizon', rune: 'ᛋ' },
-  { to: '/app/cadabra', label: 'Mirror',  rune: '✦' },
-  { to: '/app/trade',   label: 'Flux',    rune: 'ᛚ' },
-  { to: '/app/orion',   label: 'King',    rune: 'ᛏ' },
-  { to: '/app/circuit', label: 'Aegis',   rune: 'ᚦ' },
-  { to: '/app/warden',  label: 'Warden',  rune: 'ᛉ' },
+  { to: '/app',         label: 'Forge',     rune: 'ᚲ' },
+  { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
+  { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
+  { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
+  { to: '/app/orion',   label: 'King AI',   rune: 'ᛏ' },
+  { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
+  { to: '/app/warden',  label: 'Dashboard', rune: 'ᛉ' },
 ];
 
 function ProtectedDapp() {
@@ -118,7 +117,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Sophia · ᛋ Horizon · ✦ Mirror · ᛚ Flux · ᛏ King · ᚦ Aegis · ᛉ Warden</p>
+        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ᛚ Trade · ᛏ King AI · ᚦ Circuit · ᛉ Dashboard</p>
       </header>
 
       <main
