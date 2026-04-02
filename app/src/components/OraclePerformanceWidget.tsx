@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { Zap, TrendingUp, Sparkles } from 'lucide-react';
 import { initializeOracle, simulateOracleProfit, getOracleMetrics, type OracleState } from '../lib/oracle';
 
+// ABRA token on Solana
+const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_BAGS_MARKET_URL = `https://bags.fm/${ABRA_TOKEN_CA}`;
+
 /**
  * OraclePerformanceWidget
  * 
@@ -90,7 +94,7 @@ export function OraclePerformanceWidget() {
       {/* Quick Links */}
       <div className="flex gap-1.5 pt-1 border-t border-cyan-300/15">
         <a
-          href="https://jupiter.ag"
+          href={ABRA_BAGS_MARKET_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 inline-flex items-center justify-center gap-1 rounded-lg border border-cyan-300/30 bg-cyan-500/10 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-wider text-cyan-200 transition hover:bg-cyan-500/15 hover:border-cyan-300/50"

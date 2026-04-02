@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Zap, TrendingUp, Sparkles } from 'lucide-react';
 import { initializeOracle, simulateOracleProfit, getOracleMetrics, getAllThresholds, type OracleState } from '../lib/oracle';
 
+// ABRA token on Solana
+const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_BAGS_MARKET_URL = `https://bags.fm/${ABRA_TOKEN_CA}`;
+
 /**
  * OracleEngine Component
  * 
@@ -54,7 +58,7 @@ export function OracleEngine() {
       {/* Buy $ABRA CTA - Top */}
       <div className="flex gap-2.5 justify-center flex-wrap">
         <a
-          href="https://jupiter.ag"
+          href={ABRA_BAGS_MARKET_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_20px_rgba(34,211,238,0.2)] transition hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:border-cyan-300/60"
@@ -202,7 +206,7 @@ export function OracleEngine() {
       {/* Buy $ABRA CTA - Bottom */}
       <div className="flex gap-3 justify-center border-t border-slate-700/30 pt-6">
         <a
-          href="https://jupiter.ag"
+          href={ABRA_BAGS_MARKET_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-8 py-3 text-sm font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_20px_rgba(34,211,238,0.3)] transition hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:border-cyan-300/60"
