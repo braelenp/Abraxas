@@ -16,21 +16,16 @@ interface DappListing {
 }
 
 const topDapps: DappListing[] = [
-  { id: 'd1', name: 'Bags DEX', category: 'Trading', valueScore: 98, marketCap: 2450000, verified: true, tvl: 8750000, rank: 1 },
-  { id: 'd2', name: 'Marinade Finance', category: 'Staking', valueScore: 96, marketCap: 2120000, verified: true, tvl: 6200000, rank: 2 },
-  { id: 'd3', name: 'Orca', category: 'DeFi', valueScore: 94, marketCap: 1890000, verified: true, tvl: 5450000, rank: 3 },
-  { id: 'd4', name: 'Magic Eden', category: 'Fee Sharing', valueScore: 92, marketCap: 1740000, verified: true, tvl: 4100000, rank: 4 },
-  { id: 'd5', name: 'Phantom Wallet', category: 'Governance', valueScore: 90, marketCap: 1650000, verified: true, tvl: 3800000, rank: 5 },
-  { id: 'd6', name: 'Jupiter Aggregator', category: 'Trading', valueScore: 88, marketCap: 1520000, verified: true, tvl: 3200000, rank: 6 },
-  { id: 'd7', name: 'Raydium', category: 'DeFi', valueScore: 87, marketCap: 1410000, verified: true, tvl: 2900000, rank: 7 },
-  { id: 'd8', name: 'Drift Protocol', category: 'Trading', valueScore: 85, marketCap: 1280000, verified: true, tvl: 2650000, rank: 8 },
-  { id: 'd9', name: 'Solend', category: 'DeFi', valueScore: 84, marketCap: 1150000, verified: true, tvl: 2400000, rank: 9 },
-  { id: 'd10', name: 'Mango Markets', category: 'DeFi', valueScore: 82, marketCap: 1020000, verified: true, tvl: 2100000, rank: 10 },
-  { id: 'd11', name: 'Meteora', category: 'Yield Farming', valueScore: 81, marketCap: 950000, verified: true, tvl: 1900000, rank: 11 },
-  { id: 'd12', name: 'Sanctum', category: 'Staking', valueScore: 79, marketCap: 850000, verified: true, tvl: 1650000, rank: 12 },
-  { id: 'd13', name: 'Pyth Network', category: 'Governance', valueScore: 78, marketCap: 780000, verified: true, tvl: 1450000, rank: 13 },
-  { id: 'd14', name: 'Kamino', category: 'Yield Farming', valueScore: 76, marketCap: 720000, verified: true, tvl: 1250000, rank: 14 },
-  { id: 'd15', name: 'Oracle AI', category: 'AI Agents', valueScore: 75, marketCap: 680000, verified: true, tvl: 1100000, rank: 15 },
+  { id: 'd1', name: 'Abraxas', category: 'AI Agents', valueScore: 98, marketCap: 3200000, verified: true, tvl: 9500000, rank: 1 },
+  { id: 'd2', name: 'LuckyFee AI', category: 'AI Agents', valueScore: 96, marketCap: 2850000, verified: true, tvl: 8120000, rank: 2 },
+  { id: 'd3', name: 'OCCUPY', category: 'Governance', valueScore: 94, marketCap: 2600000, verified: true, tvl: 7450000, rank: 3 },
+  { id: 'd4', name: 'Orbis API', category: 'AI Agents', valueScore: 92, marketCap: 2350000, verified: true, tvl: 6200000, rank: 4 },
+  { id: 'd5', name: 'JackBuilds', category: 'Social Finance', valueScore: 90, marketCap: 2100000, verified: true, tvl: 5680000, rank: 5 },
+  { id: 'd6', name: 'Trenchy.fun', category: 'Trading', valueScore: 88, marketCap: 1920000, verified: true, tvl: 4850000, rank: 6 },
+  { id: 'd7', name: 'Agent Inc', category: 'AI Agents', valueScore: 87, marketCap: 1750000, verified: true, tvl: 4200000, rank: 7 },
+  { id: 'd8', name: 'Hive', category: 'Social Finance', valueScore: 85, marketCap: 1580000, verified: true, tvl: 3650000, rank: 8 },
+  { id: 'd9', name: 'VaultBags', category: 'Yield Farming', valueScore: 84, marketCap: 1420000, verified: true, tvl: 3100000, rank: 9 },
+  { id: 'd10', name: 'GSD', category: 'DeFi', valueScore: 82, marketCap: 1280000, verified: true, tvl: 2800000, rank: 10 },
 ];
 
 const categoryColors: Record<DappCategory, { bg: string; border: string; text: string }> = {
@@ -76,7 +71,7 @@ export function FoundationMarket() {
   return (
     <>
       {/* Foundation Market Section */}
-      <article className="relative overflow-hidden rounded-2xl border border-purple-400/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.95),rgba(20,10,40,0.90),rgba(88,28,135,0.08),rgba(147,51,234,0.04))] p-6 backdrop-blur-xl">
+      <article className="relative overflow-hidden rounded-2xl border border-purple-400/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.95),rgba(20,10,40,0.90),rgba(88,28,135,0.08),rgba(147,51,234,0.04))] p-4 backdrop-blur-xl">
         {/* Animated background particles */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {/* Glowing core orb - deep purple */}
@@ -101,20 +96,20 @@ export function FoundationMarket() {
           <div className="mb-6 flex items-start justify-between gap-4">
             <div className="flex-1">
               {/* Dramatic typing reveal */}
-              <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-200 to-cyan-300 mb-3 tracking-tight">
+              <h2 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-200 to-cyan-300 mb-2 tracking-tight">
                 {displayText}
                 {!isComplete && <span className="animate-pulse">▌</span>}
               </h2>
 
               {/* Lore title */}
-              <h3 className="text-lg font-bold text-purple-100 mb-3 flex items-center gap-2">
-                <span className="text-2xl">💎</span>
+              <h3 className="text-sm font-bold text-purple-100 mb-2 flex items-center gap-1">
+                <span className="text-lg">💎</span>
                 Foundation Market — Dapp Equity RWA
               </h3>
 
               {/* Lore blurb */}
-              <p className="text-xs leading-relaxed text-slate-300/85 mb-4 max-w-2xl">
-                The top 100 dApps on Bags are the foundation of the biggest token launchpad on Solana. We tokenize their real value as Dapp Equity — not just their tokens. <span className="text-purple-300 font-semibold">Verified builders only.</span> Value scoring per category. Own the infrastructure itself.
+              <p className="text-[11px] leading-snug text-slate-300/80 mb-3 max-w-2xl">
+                Top 100 dApps on Bags tokenized as Dapp Equity. <span className="text-purple-300 font-semibold">Verified builders only.</span> Value scores per category. Own the infrastructure.
               </p>
             </div>
 
@@ -123,7 +118,7 @@ export function FoundationMarket() {
               href={ABRA_BAGS_MARKET_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 h-fit rounded-xl border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-4 py-3 text-sm font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-2"
+              className="flex-shrink-0 h-fit rounded-lg border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-3 py-2 text-xs font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap"
             >
               <Zap size={14} />
               Buy ABRA
@@ -131,29 +126,29 @@ export function FoundationMarket() {
           </div>
 
           {/* Divider */}
-          <div className="mb-5 flex items-center gap-3">
+          <div className="my-3 flex items-center gap-3">
             <div className="flex-1 h-px bg-gradient-to-r from-purple-500/40 via-purple-300/20 to-transparent" />
-            <span className="text-purple-400/60 font-mono text-xs">TOP 100 DAPPS</span>
+            <span className="text-purple-400/60 font-mono text-[9px] px-1">TOP 100 DAPPS</span>
             <div className="flex-1 h-px bg-gradient-to-l from-purple-500/40 via-purple-300/20 to-transparent" />
           </div>
 
           {/* DApp Table / List */}
-          <div className="space-y-2 max-h-96 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(147,51,234,0.3)_rgba(15,23,42,0.5)]">
+          <div className="space-y-1.5 max-h-6464 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(147,51,234,0.3)_rgba(15,23,42,0.5)]">
             {topDapps.map((dapp) => {
               const catColor = categoryColors[dapp.category];
               return (
                 <div
                   key={dapp.id}
-                  className="group rounded-lg border border-purple-400/20 bg-slate-950/50 hover:bg-slate-950/70 p-3 transition-all duration-300 hover:shadow-[0_0_16px_rgba(147,51,234,0.25)] hover:border-purple-400/40"
+                  className="group rounded-lg border border-purple-400/15 bg-slate-950/40 hover:bg-slate-950/60 p-2 transition-all duration-300 hover:shadow-[0_0_12px_rgba(147,51,234,0.2)] hover:border-purple-400/30"
                 >
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center justify-between gap-2">
                     {/* Rank + Name */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-bold text-purple-300/80 bg-purple-400/10 px-2 py-1 rounded border border-purple-400/20">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[9px] font-mono font-bold text-purple-300/70 bg-purple-400/10 px-1.5 py-0.5 rounded border border-purple-400/20 flex-shrink-0">
                           #{dapp.rank}
                         </span>
-                        <span className="font-semibold text-slate-100 truncate">{dapp.name}</span>
+                        <span className="font-semibold text-slate-100 text-xs text-xs truncate">{dapp.name}</span>
                         {dapp.verified && (
                           <div title="On-chain verified">
                             <CheckCircle className="flex-shrink-0 w-4 h-4 text-emerald-400" />
@@ -163,16 +158,16 @@ export function FoundationMarket() {
                     </div>
 
                     {/* Category Badge */}
-                    <div className={`flex-shrink-0 inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${catColor.bg} ${catColor.border} ${catColor.text}`}>
+                    <div className={`flex-shrink-0 inline-block text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${catColor.bg} ${catColor.border} ${catColor.text}`}>
                       {dapp.category}
                     </div>
 
                     {/* Value Score */}
-                    <div className="flex-shrink-0 text-right">
-                      <div className="text-xs font-mono font-bold text-purple-300">
+                    <div className="flex-shrink-0 text-right hidden sm:block">
+                      <div className="text-[10px] font-mono font-bold text-purple-300 leading-tight">
                         {dapp.valueScore}/100
                       </div>
-                      <div className="w-16 h-1.5 bg-slate-800/50 rounded-full overflow-hidden border border-purple-400/20">
+                      <div className="w-12 h-1 bg-slate-800/50 rounded-full overflow-hidden border border-purple-400/20 mt-0.5">
                         <div
                           className="h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full"
                           style={{ width: `${dapp.valueScore}%` }}
@@ -181,23 +176,28 @@ export function FoundationMarket() {
                     </div>
 
                     {/* Market Cap */}
-                    <div className="flex-shrink-0 text-right hidden md:block">
-                      <div className="text-xs text-slate-300/70">Market Cap</div>
-                      <div className="font-mono font-bold text-amber-300">
+                    <div className="flex-shrink-0 text-right hidden lg:block">
+                      <div className="text-[9px] text-slate-300/60 leading-tight">Cap</div>
+                      <div className="font-mono font-bold text-amber-300 text-xs">
                         ${(dapp.marketCap / 1000000).toFixed(1)}M
                       </div>
                     </div>
 
                     {/* View Details Button */}
-                    <button className="flex-shrink-0 rounded-lg border border-purple-400/30 bg-purple-500/10 p-2 hover:bg-purple-500/20 hover:border-purple-400/50 transition text-purple-300 group-hover:text-purple-200">
-                      <ExternalLink size={14} />
-                    </button>
+                    <a
+                      href={ABRA_BAGS_MARKET_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-shrink-0 rounded-lg border border-purple-400/30 bg-purple-500/10 p-1.5 hover:bg-purple-500/20 hover:border-purple-400/50 transition text-purple-300 group-hover:text-purple-200"
+                    >
+                      <ExternalLink size={12} />
+                    </a>
                   </div>
 
-                  {/* Mobile Market Cap Below */}
-                  <div className="md:hidden flex items-center justify-between text-xs mt-2 pt-2 border-t border-purple-400/10">
-                    <span className="text-slate-400">Market Cap: <span className="font-mono font-bold text-amber-300">${(dapp.marketCap / 1000000).toFixed(1)}M</span></span>
-                    <span className="text-slate-400">TVL: <span className="font-mono font-bold text-cyan-300">${(dapp.tvl / 1000000).toFixed(1)}M</span></span>
+                  {/* Mobile metrics below (on small screens) */}
+                  <div className="sm:hidden flex items-center justify-between text-[9px] mt-1 pt-1 border-t border-purple-400/10 gap-2">
+                    <span className="text-slate-400">Cap: <span className="font-mono font-bold text-amber-300">${(dapp.marketCap / 1000000).toFixed(1)}M</span></span>
+                    <span className="text-slate-400">Score: <span className="font-mono font-bold text-purple-300">{dapp.valueScore}</span></span>
                   </div>
                 </div>
               );
@@ -205,33 +205,33 @@ export function FoundationMarket() {
           </div>
 
           {/* Divider before footer */}
-          <div className="my-5 flex items-center gap-3">
+          <div className="my-2.5 flex items-center gap-3">
             <div className="flex-1 h-px bg-gradient-to-r from-purple-500/40 via-purple-300/20 to-transparent" />
-            <span className="text-purple-400/60 font-mono text-xs">EQUITY STAKE NOW AVAILABLE</span>
+            <span className="text-purple-400/60 font-mono text-[8px] px-1">READY TO INVEST</span>
             <div className="flex-1 h-px bg-gradient-to-l from-purple-500/40 via-purple-300/20 to-transparent" />
           </div>
 
           {/* Footer with Bottom Buy Button */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 rounded-lg border border-purple-400/20 bg-purple-500/5 p-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 rounded-lg border border-purple-400/20 bg-purple-500/5 p-3">
             <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-purple-300/80">Ready to own the infrastructure?</p>
-              <p className="text-xs text-slate-400/70 mt-1">Power the next generation of dApps with $ABRA</p>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-purple-300/80 leading-tight">Ready to own infrastructure?</p>
+              <p className="text-[9px] text-slate-400/65 mt-0.5 leading-tight">Power next-gen dApps with $ABRA</p>
             </div>
             <a
               href={ABRA_BAGS_MARKET_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 rounded-xl border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-5 py-2.5 text-sm font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-2"
+              className="flex-shrink-0 rounded-lg border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-3 py-2 text-xs font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-1 whitespace-nowrap"
             >
-              <Zap size={14} />
+              <Zap size={12} />
               Buy ABRA
             </a>
           </div>
 
           {/* Information footer */}
-          <div className="mt-4 pt-3 border-t border-purple-400/10 text-center">
-            <p className="text-[10px] text-slate-400/70 font-mono uppercase tracking-wider">
-              Live data synced from Bags • Value scores updated every 6 hours • Solana verified only
+          <div className="mt-2 pt-2 border-t border-purple-400/10 text-center">
+            <p className="text-[8px] text-slate-400/60 font-mono uppercase tracking-wider leading-tight">
+              Bags synced • Value scores 6h • Solana verified
             </p>
           </div>
         </div>
