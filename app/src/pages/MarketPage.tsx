@@ -1,3 +1,11 @@
+import { useMemo, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
+import { useAbraxas } from '../providers/AbraxasProvider';
+import { RuneRealm } from '../components/RuneRealm';
+import { LivePriceTicker } from '../components/LivePriceTicker';
+
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
   id: string;
@@ -48,9 +56,8 @@ const initialPredictionMarkets: PredictionMarket[] = [
     reward: '10 ABRA',
   },
 ];
+
 // --- RWA Predictions Section ---
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useEffect } from 'react';
 function RwaPredictions() {
   const { publicKey } = useWallet();
   const [markets, setMarkets] = useState<PredictionMarket[]>(initialPredictionMarkets);
@@ -119,14 +126,8 @@ function RwaPredictions() {
     </article>
   );
 }
-// --- RWA Market Listings ---
-import { useMemo, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
-import { useAbraxas } from '../providers/AbraxasProvider';
-import { RuneRealm } from '../components/RuneRealm';
-import { LivePriceTicker } from '../components/LivePriceTicker';
 
+// --- RWA Market Listings ---
 type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing' | 'horses' | 'golf';
 
 type MarketListing = {

@@ -39,7 +39,7 @@ export function VaultsPage() {
   } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
   const [assetType, setAssetType] = useState<VaultAssetType>('athlete_equity');
-  const [selectedAgents, setSelectedAgents] = useState<Record<string, string>>();
+  const [selectedAgents, setSelectedAgents] = useState<Record<string, string> | undefined>();
 
   // Reset state when navigating to the Vaults page
   useEffect(() => {
@@ -55,7 +55,7 @@ export function VaultsPage() {
   const [expandedVaultMetrics, setExpandedVaultMetrics] = useState<Record<string, boolean>>({});
 
   const getSelectedAgent = (vaultId: string, assignedAgent?: string | null) => {
-    return selectedAgents[vaultId] ?? assignedAgent ?? agentOptions[0];
+    return selectedAgents?.[vaultId] ?? assignedAgent ?? agentOptions[0];
   };
 
   const onCreateVault = (event: FormEvent) => {
