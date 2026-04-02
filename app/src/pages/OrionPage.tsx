@@ -19,7 +19,8 @@ const RUNE_CONFIG = {
   accentClass: 'text-red-300',
 } as const;
 
-export flocation = useLocation();
+export function OrionPage() {
+  const location = useLocation();
   const { athleteTokens, executeKingPlan } = useAbraxas();
   const [showOymExample, setShowOymExample] = useState(false);
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
@@ -29,8 +30,7 @@ export flocation = useLocation();
     if (location.pathname === '/app/orion') {
       setShowOymExample(false);
     }
-  }, [location.pathname])
-  const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
+  }, [location.pathname]);
 
   const totals = useMemo(() => {
     const totalNIL = athleteTokens.reduce((sum, token) => sum + token.nilRewards, 0);
