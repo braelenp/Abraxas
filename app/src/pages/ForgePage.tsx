@@ -169,7 +169,7 @@ const SONS = [
 		name: 'Fenrir',
 		description: 'The Fierce Protector',
 		rune: '💨',
-		url: 'https://fenrir.vercel.app/',
+		url: 'https://fenrir-teal.vercel.app/',
 		isComingSoon: false,
 		icon: Wind,
 	},
