@@ -1,0 +1,13 @@
+.git
+.gitignore
+.env.local
+.env.*.local
+node_modules
+dist
+docs
+*.md
+.vscode
+.idea
+.DS_Store
+yarn.lock
+package-lock.json

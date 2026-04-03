@@ -1,0 +1,102 @@
+{
+  "name": "Raido dApp Project",
+  "type": "react-vite-app",
+  "description": "A sovereign liquidity engine and opportunity hunter for Solana",
+  "structure": {
+    "root": {
+      "files": [
+        "package.json",
+        "vite.config.ts",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "tailwind.config.js",
+        "postcss.config.js",
+        "index.html",
+        "README.md",
+        "DEVELOPMENT.md"
+      ],
+      "directories": ["src", "dist", "node_modules"]
+    },
+    "src": {
+      "files": [
+        "App.tsx",
+        "main.tsx",
+        "index.css"
+      ],
+      "directories": ["components", "hooks", "types"]
+    },
+    "src/components": {
+      "files": [
+        "LandingPage.tsx",
+        "LoadingScreen.tsx",
+        "OpportunityScanner.tsx",
+        "FlowSimulator.tsx",
+        "Dashboard.tsx",
+        "RaidhoRune.tsx",
+        "ParticleBackground.tsx",
+        "LightBeam.tsx"
+      ]
+    },
+    "src/hooks": {
+      "files": [
+        "useParticles.ts",
+        "useTypingEffect.ts"
+      ]
+    },
+    "src/types": {
+      "files": [
+        "index.ts"
+      ]
+    }
+  },
+  "pages": {
+    "landing": {
+      "component": "LandingPage",
+      "description": "Hero landing page with Raidho rune, typing reveal, and CTA buttons",
+      "features": ["Cinematic background", "Particle effects", "Light beams", "Typing animation", "Call-to-action buttons"]
+    },
+    "scanner": {
+      "component": "OpportunityScanner",
+      "description": "Liquidity opportunity discovery and search interface",
+      "features": ["Prompt-based search", "Opportunity cards", "Risk filtering", "Quick filters", "Mock data"]
+    },
+    "flows": {
+      "component": "FlowSimulator",
+      "description": "Multi-step capital flow builder and simulator",
+      "features": ["Flow builder", "Path management", "Route visualization", "Efficiency tracking", "Saved flows"]
+    },
+    "dashboard": {
+      "component": "Dashboard",
+      "description": "Real-time liquidity metrics and activity tracking",
+      "features": ["Key metrics", "Hot opportunities", "Recent activity", "Tide pool integration", "Status indicators"]
+    }
+  },
+  "components": {
+    "RaidhoRune": "Animated SVG rune symbol representing motion and wheels",
+    "ParticleBackground": "Canvas-based particle system for atmosphere",
+    "LightBeam": "Animated directional light beam effects",
+    "LoadingScreen": "Cinematic loading sequence with progress tracking"
+  },
+  "hooks": {
+    "useParticles": "Particle system management and animation",
+    "useTypingEffect": "Character-by-character text reveal animation"
+  },
+  "design": {
+    "colors": {
+      "primary": "#d4af37",
+      "primary_light": "#e6c547",
+      "background": "#0d0d1a",
+      "dark_blue_primary": "#0a1f3e",
+      "dark_blue_accent": "#1a3a5c",
+      "dark_blue_lighter": "#2a4a7c",
+      "cyan": "#00ffff",
+      "cyan_subtle": "#00e6e6",
+      "purple": "#9945ff"
+    },
+    "typography": {
+      "display": "Inter",
+      "monospace": "JetBrains Mono"
+    },
+    "theme": "Dark esoteric with gold/blue motion aesthetic"
+  }
+}
