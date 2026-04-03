@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at top, rgba(24, 42, 78, 0.7), rgba(8, 14, 32, 0.94) 42%),
+    linear-gradient(180deg, #0a1223 0%, #08101e 45%, #060d1a 100%);
+  font-family: 'Space Grotesk', sans-serif;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: #0a1223;
+}
+
+body {
+  min-height: 100dvh;
+  margin: 0;
+  overflow-x: hidden;
+  background: transparent;
+  color: #eef2ff;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.28;
+  mask-image: radial-gradient(circle at center, black, transparent 76%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*::selection {
+  background: rgba(153, 69, 255, 0.42);
+  color: #f8fafc;
+}
+
+button,
+input,
+textarea,
+select,
+code,
+pre {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(60, 246, 255, 0.72);
+  outline-offset: 2px;
+}
+
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+.ui-action {
+  transition: transform 160ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease;
+}
+
+.ui-action:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow:
+    0 0 18px rgba(153, 69, 255, 0.18),
+    0 0 26px rgba(255, 138, 36, 0.14),
+    0 0 32px rgba(60, 246, 255, 0.12);
+}
+
+.ui-action:active {
+  transform: scale(0.99);
+}
+
+.vein-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(153, 69, 255, 0.22);
+  background: linear-gradient(180deg, rgba(18, 32, 58, 0.88), rgba(12, 20, 40, 0.84));
+  box-shadow:
+    0 0 0 1px rgba(60, 246, 255, 0.1),
+    0 24px 72px rgba(0, 0, 0, 0.35),
+    0 0 36px rgba(153, 69, 255, 0.12);
+}
+
+.ore-shimmer {
+  text-shadow:
+    0 0 18px rgba(217, 164, 65, 0.22),
+    0 0 28px rgba(60, 246, 255, 0.14),
+    0 0 42px rgba(79, 191, 135, 0.12);
+}
+
+.rune-chip {
+  border: 1px solid rgba(60, 246, 255, 0.16);
+  background: rgba(14, 24, 46, 0.82);
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 36, 0.06);
+}
+
+.wallet-shell {
+  width: 100%;
+}
+
+.wallet-shell .wallet-adapter-trigger,
+.wallet-shell .wallet-adapter-button-trigger,
+.wallet-shell .wallet-adapter-button {
+  width: 100% !important;
+  justify-content: center !important;
+  border: 1px solid rgba(60, 246, 255, 0.34) !important;
+  border-radius: 1rem !important;
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.25), rgba(60, 246, 255, 0.18)) !important;
+  color: #f8fafc !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 0.76rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.24em !important;
+  text-transform: uppercase !important;
+  min-height: 3.25rem !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 138, 36, 0.1),
+    0 0 22px rgba(153, 69, 255, 0.18) !important;
+}
+
+.wallet-shell .wallet-adapter-trigger:hover,
+.wallet-shell .wallet-adapter-button-trigger:hover,
+.wallet-shell .wallet-adapter-button:hover {
+  filter: brightness(1.08);
+}
+
+.status-dot {
+  display: inline-flex;
+  height: 0.55rem;
+  width: 0.55rem;
+  border-radius: 999px;
+  background: #4ade80;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
+}
+
+.wallet-shell-compact {
+  width: auto;
+}
+
+.wallet-shell-compact .wallet-adapter-trigger,
+.wallet-shell-compact .wallet-adapter-button-trigger,
+.wallet-shell-compact .wallet-adapter-button {
+  min-height: 2rem !important;
+  height: 2rem !important;
+  font-size: 0.62rem !important;
+  padding: 0 0.75rem !important;
+  border-radius: 0.75rem !important;
+  width: auto !important;
+  max-width: 9rem !important;
+  overflow: hidden !important;
+}
+
+.wallet-shell-compact .wallet-adapter-button-start-icon {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  body::before {
+    background-size: 72px 72px;
+  }
+}
