@@ -19,10 +19,10 @@ import { OrionAssistant } from './components/OrionAssistant';
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
   { to: '/app',         label: 'Forge',     rune: 'ᚲ' },
-  { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
-  { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
-  { to: '/app/cadabra', label: 'Cadabra',   rune: '✦' },
   { to: '/app/orion',   label: 'King AI',   rune: 'ᛏ' },
+  { to: '/app/cadabra', label: 'Cadabra',   rune: '✦' },
+  { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
+  { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
   { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
   { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
 ];
