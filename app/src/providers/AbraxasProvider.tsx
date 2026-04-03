@@ -456,14 +456,14 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setLastOymSyncAt(snapshot.syncedAt);
       setOymSyncStatus('ready');
       addLog({
-        vaultId: 'vault-oym-prime',
+        vaultId: 'vault-echo-foundation',
         action: 'OYM data sync complete',
         detail: `Imported ${snapshot.athletes.length} athlete snapshots from ${snapshot.source}.`,
       });
     } catch (error) {
       setOymSyncStatus('error');
       addLog({
-        vaultId: 'vault-oym-prime',
+        vaultId: 'vault-echo-foundation',
         action: 'OYM data sync failed',
         detail: error instanceof Error ? error.message : 'Unknown OYM sync error',
       });

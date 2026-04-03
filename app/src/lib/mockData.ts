@@ -9,8 +9,8 @@ import type {
 
 export const starterVaults: VaultSummary[] = [
   {
-    id: 'vault-oym-prime',
-    name: 'OYM Prime Vault',
+    id: 'vault-echo-foundation',
+    name: 'Echo Protocol Vault',
     assetType: 'dapp_equity',
     depositedAmount: 142500,
     vaultValue: 159820,
@@ -49,7 +49,7 @@ export const starterAthleteTokens: AthleteToken[] = [
     statsIndex: 88,
     nilRewards: 6300,
     streak: 11,
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     kingSignal: 'accelerate',
     suggestions: [
       {
@@ -82,7 +82,7 @@ export const starterAthleteTokens: AthleteToken[] = [
     statsIndex: 83,
     nilRewards: 4120,
     streak: 8,
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     kingSignal: 'build',
     suggestions: [
       {
@@ -115,7 +115,7 @@ export const starterAthleteTokens: AthleteToken[] = [
     statsIndex: 90,
     nilRewards: 5085,
     streak: 13,
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     kingSignal: 'protect',
     suggestions: [
       {
@@ -144,7 +144,7 @@ export const starterLaCasaDeposits: LaCasaDepositRecord[] = [
     label: 'La Casa Genesis #014',
     collection: 'La Casa Genesis',
     stablecoinAmount: 12500,
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     athleteTokenId: 'token-cdubb',
     depositedAt: '2026-03-17T14:30:00.000Z',
   },
@@ -153,7 +153,7 @@ export const starterLaCasaDeposits: LaCasaDepositRecord[] = [
     label: 'La Casa Athlete Series #031',
     collection: 'La Casa Athlete Series',
     stablecoinAmount: 8200,
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     athleteTokenId: 'token-hailee',
     depositedAt: '2026-03-18T09:05:00.000Z',
   },
@@ -184,7 +184,7 @@ export const starterLogs: AgentActionLog[] = [
   {
     id: 'log-1',
     timestamp: '2026-03-18T12:00:00.000Z',
-    vaultId: 'vault-oym-prime',
+    vaultId: 'vault-echo-foundation',
     action: 'King AI refreshed dapp equity guidance',
     detail: 'Protocol yield curves and M1 pulldown mechanics were repriced across the Sophia\'s Family basket.',
   },
@@ -218,7 +218,7 @@ export const starterSophiaAgents: SophiaAgent[] = [
     monthlyWinRate: 68.5,
     sharpeRatio: 1.8,
     maxDrawdown: -8.2,
-    assignedToVaults: ['vault-oym-prime'],
+    assignedToVaults: ['vault-echo-foundation'],
     mintedTokenAmount: 500000,
   },
   {

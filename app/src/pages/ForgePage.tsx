@@ -10,7 +10,7 @@ type BreakingSignal = {
   source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol';
   timestamp: string;
   snippet: string;
-  category: 'athlete' | 'rwa' | 'gaming' | 'defi' | 'market';
+  category: 'dapp_equity' | 'rwa' | 'gaming' | 'defi' | 'market';
 };
 
 const breakingSignals: BreakingSignal[] = [
@@ -20,7 +20,7 @@ const breakingSignals: BreakingSignal[] = [
     source: 'Solana',
     timestamp: '2 hours ago',
     snippet: `DApp equity tokenization demonstrates strong institutional adoption as Sophia's Family protocols scale across gaming, music, and real estate layers.`,
-    category: 'athlete',
+    category: 'dapp_equity',
   },
   {
     id: 'signal-2',
@@ -512,7 +512,7 @@ export function ForgePage() {
 									{/* Category badge */}
 									<div className="absolute top-2 right-2">
 										<span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
-											signal.category === 'athlete'
+											signal.category === 'dapp_equity'
 												? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
 												: signal.category === 'rwa'
 												? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'

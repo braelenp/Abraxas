@@ -215,7 +215,7 @@ export function estimateLaCasaRecordsFromSnapshot(snapshot: OymSnapshot): LaCasa
       label: `OYM Import ${athlete.name}`,
       collection: 'OYM Signal Sync',
       stablecoinAmount: roundToTwo(Math.max(athlete.nilRewards / 18, 600)),
-      vaultId: 'vault-oym-prime',
+      vaultId: 'vault-echo-foundation',
       athleteTokenId: tokenId,
       depositedAt: snapshot.syncedAt,
     });

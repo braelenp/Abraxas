@@ -11,7 +11,7 @@ import { FoundationMarket } from '../components/FoundationMarket';
 type PredictionMarket = {
   id: string;
   question: string;
-  category: 'athlete' | 'real_estate' | 'other';
+  category: 'dapp_equity' | 'real_estate' | 'other';
   status: 'open' | 'closed' | 'settled';
   outcomes: string[];
   totalYes: number;
@@ -29,7 +29,7 @@ const initialPredictionMarkets: PredictionMarket[] = [
   {
     id: 'pred-1',
     question: 'Will Echo Protocol TVL exceed $150M this quarter?',
-    category: 'athlete',
+    category: 'dapp_equity',
     status: 'open',
     outcomes: ['Yes', 'No'],
     totalYes: 1200,
@@ -467,7 +467,7 @@ type BreakingSignal = {
   source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol';
   timestamp: string;
   snippet: string;
-  category: 'athlete' | 'rwa' | 'gaming' | 'defi' | 'market';
+  category: 'dapp_equity' | 'rwa' | 'gaming' | 'defi' | 'market';
 };
 
 const breakingSignals: BreakingSignal[] = [
@@ -477,7 +477,7 @@ const breakingSignals: BreakingSignal[] = [
     source: 'Solana',
     timestamp: '2 minutes ago',
     snippet: 'Sophia Music layer reaches institutional scale with 47M daily volume and 150+ liquidity providers. Genesis and Echo yield rates stabilizing at 20.4% APY.',
-    category: 'athlete',
+    category: 'dapp_equity',
   },
   {
     id: 'sig-2',
@@ -664,7 +664,7 @@ export function MarketPage() {
               {/* Category badge */}
               <div className="absolute top-2 right-2">
                 <span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
-                  signal.category === 'athlete'
+                  signal.category === 'dapp_equity'
                     ? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
                     : signal.category === 'rwa'
                     ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
