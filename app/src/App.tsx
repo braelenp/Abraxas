@@ -21,10 +21,10 @@ const navItems = [
   { to: '/app',         label: 'Forge',     rune: 'ᚲ' },
   { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
   { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
-  { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
+  { to: '/app/cadabra', label: 'Cadabra',   rune: '✦' },
   { to: '/app/orion',   label: 'King AI',   rune: 'ᛏ' },
   { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
-  { to: '/app/warden',  label: 'Dashboard', rune: 'ᛉ' },
+  { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
 ];
 
 function ProtectedDapp() {
@@ -117,7 +117,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ᛚ Trade · ᛏ King AI · ᚦ Circuit · ᛉ Dashboard</p>
+        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ✦ Cadabra · ᛏ King AI · ᚦ Circuit · ᛚ Trade</p>
       </header>
 
       <main
@@ -129,7 +129,6 @@ function DappShell() {
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="cadabra" element={<CadabraPage />} />
-          <Route path="onboard" element={<TradePage />} />
           <Route path="trade" element={<TradePage />} />
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
@@ -154,10 +153,10 @@ function DappShell() {
                   <li><span className="font-semibold text-orange-300">• ᚲ Kenaz — Forge.</span> Stake ABRA to mint positions, stack multipliers, and compound yield every lock cycle.</li>
                   <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
                   <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Full market oversight. Browse all RWA classes, Foundation Market (Dapp Equity), and real-time data visualization.</li>
-                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
+                  <li><span className="font-semibold text-purple-300">• ✦ Mirror — Cadabra.</span> The social mirror. Build community, share alpha, tokenize moments. Pulse gaming clips. Apex Legends tournaments.</li>
                   <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Delivers sovereign judgment: athlete development analysis, market forecasts, and automated value actions.</li>
                   <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
-                  <li><span className="font-semibold text-violet-300">• ᛉ Algiz — Dashboard.</span> Your command center. Live Polymarket odds, portfolio momentum, and real-time market intelligence.</li>
+                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
                 </ul>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-300">
@@ -223,7 +222,7 @@ function DappShell() {
           <NavLink
             key={to}
             to={to}
-            end={to === '/app'}
+            end={true}
             className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition cursor-pointer z-50 relative"
           >
             {({ isActive }) => (
@@ -273,7 +272,7 @@ export default function App() {
       <Route path="/app/*" element={<ProtectedDapp />} />
       <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
       <Route path="/market" element={<Navigate to="/app/market" replace />} />
-      <Route path="/onboard" element={<Navigate to="/app/onboard" replace />} />
+      <Route path="/onboard" element={<Navigate to="/app/trade" replace />} />
       <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
       <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
       <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />

@@ -252,11 +252,24 @@ export function TradePage() {
     void refreshStakeRecord();
   }, [connected, publicKey, refreshStakeRecord]);
 
-  // Reset state when navigating to the Trade page to ensure proper page state
+  // Reset state when navigating to/from the Trade page to ensure proper page state
   useEffect(() => {
-    if (location.pathname === '/app/trade' || location.pathname === '/app/onboard') {
-      // Reset UI state to defaults
+    // Always reset all modal/overlay states to prevent them from blocking navigation
+    setShowTradeSuccess(false);
+    setShowOffRampWidget(false);
+    setShowLiveMarket(false);
+    setShowOnboardSection(false);
+    setShowSpendAbra(false);
+    setSwapError(null);
+    setCircuitWarning(false);
+
+    if (location.pathname === '/app/trade') {
+      // Additional reset when entering the Trade page
       setPairView('carousel');
+    }
+
+    // Cleanup when unmounting or navigating away
+    return () => {
       setShowTradeSuccess(false);
       setShowOffRampWidget(false);
       setShowLiveMarket(false);
@@ -264,7 +277,7 @@ export function TradePage() {
       setShowSpendAbra(false);
       setSwapError(null);
       setCircuitWarning(false);
-    }
+    };
   }, [location.pathname]);
 
   const handleQuote = useCallback(async () => {
@@ -1290,7 +1303,7 @@ export function TradePage() {
       </div>
 
       {/* Spend ABRA Modal */}
-      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
+      {showSpendAbra && location.pathname === '/app/trade' && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </div>
     </RuneRealm>
   );
