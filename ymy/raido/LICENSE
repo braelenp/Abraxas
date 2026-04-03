@@ -1,0 +1,77 @@
+ABRAXAS PROPRIETARY SOFTWARE LICENSE  
+Copyright (c) 2026 World Labs Protocol. All Rights Reserved.
+
+1. Ownership
+
+ABRAXAS, including but not limited to its source code, architecture, modules, sub-projects, decentralized applications (dApps), smart contracts, APIs, user interfaces, economic systems, documentation, branding, and all related materials (collectively, the “Software”), is the exclusive intellectual property of World Labs Protocol.
+
+This includes all components, repositories, directories, and sub-projects contained within this repository, including but not limited to /ymy and any nested applications, services, or integrations.
+
+No ownership rights are transferred under this License.
+
+2. License Grant
+
+Subject to strict compliance with these terms, World Labs Protocol grants a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to:
+
+• View and access the Software solely for personal, non-commercial, or internal evaluation purposes  
+• Interact with publicly deployed instances of the Software and its on-chain components  
+
+No other rights are granted, whether express or implied.
+
+3. Restrictions
+
+You may not, directly or indirectly:
+
+• Copy, reproduce, modify, adapt, translate, or create derivative works of the Software  
+• Reverse engineer, decompile, disassemble, or otherwise attempt to derive source code, logic, or structure  
+• Distribute, sublicense, lease, rent, sell, assign, or otherwise transfer the Software  
+• Deploy, publish, or host the Software, whether modified or unmodified  
+• Use the Software or any portion thereof to build, train, enhance, or operate any competing product, service, protocol, or system  
+• Use the Software for any commercial purpose without prior written authorization  
+• Use the Software or its outputs to train machine learning or artificial intelligence models  
+• Extract, scrape, or systematically collect data, logic, or patterns from the Software  
+• Remove, obscure, or alter any proprietary notices, branding, or attribution  
+
+All rights not expressly granted are strictly reserved by World Labs Protocol.
+
+4. Sub-Projects, Modules, and Derivatives
+
+All sub-projects, modules, repositories, and applications contained within or derived from this repository are considered part of the Software and are governed by this License.
+
+No component may be independently used, relicensed, forked, or redistributed, in whole or in part, without explicit prior written permission.
+
+5. Smart Contracts and On-Chain Systems
+
+All smart contracts, token logic, minting systems, royalty structures, economic models, and blockchain integrations associated with the Software are proprietary unless explicitly released under a separate open-source license.
+
+Interaction with deployed smart contracts or blockchain systems does not grant any rights to replicate, fork, or reuse their implementation.
+
+6. Feedback and Contributions
+
+Any feedback, suggestions, or contributions provided to World Labs Protocol may be used without restriction or compensation, and shall not grant any rights to the contributor unless explicitly agreed in writing.
+
+7. No Warranty
+
+THE SOFTWARE IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+8. Limitation of Liability
+
+IN NO EVENT SHALL WORLD LABS PROTOCOL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, OR USE, ARISING OUT OF OR RELATED TO THE SOFTWARE.
+
+9. Termination
+
+This License is effective until terminated. It will automatically terminate if you violate any provision.
+
+Upon termination, you must immediately cease all use of the Software and destroy any copies in your possession or control.
+
+10. Governing Law
+
+This License shall be governed by and construed in accordance with applicable laws in the jurisdiction determined by World Labs Protocol.
+
+11. Enforcement and Remedies
+
+World Labs Protocol reserves the right to enforce this License to the fullest extent permitted by law, including seeking injunctive relief, damages, and any other available remedies.
+
+12. Reservation of Rights
+
+All rights not expressly granted under this License are reserved by World Labs Protocol.
