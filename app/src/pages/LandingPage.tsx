@@ -310,11 +310,11 @@ export function LandingPage() {
 
 						<div className="space-y-4 font-mono text-sm leading-relaxed text-cyan-300/80 sm:text-base">
 							<p className="border-b border-cyan-400/20 pb-4">
-								<span className="text-cyan-400">[01]</span> INITIALIZE_FORGE: Upload asset proof—real estate, music rights, commodities, anything with value. The system scans for authenticity.
+								<span className="text-cyan-400">[01]</span> INITIALIZE_FORGE: Upload asset proof—dapp equity, real estate, music rights, commodities, anything with value. The system scans for authenticity.
 							</p>
 
 							<p className="border-b border-cyan-400/20 pb-4">
-								<span className="text-cyan-400">[02]</span> VAULT_SPECIALIZATION: Sophia's Daughters control yield protocols. Echo → media. Aurelia → real estate. Vein → minerals. Verdant → carbon. Each is a master protocol.
+								<span className="text-cyan-400">[02]</span> VAULT_SPECIALIZATION: Sophia's Daughters control yield protocols. Echo → music rights. Pulse → gaming. Aurelia → real estate. Vein → minerals. Verdant → carbon. Each is a master protocol.
 							</p>
 
 							<p className="border-b border-cyan-400/20 pb-4">

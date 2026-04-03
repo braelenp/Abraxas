@@ -8,9 +8,12 @@ import { RuneRealm } from '../components/RuneRealm';
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
 
 function assetTypeLabel(assetType: VaultAssetType) {
-  if (assetType === 'athlete_equity') return 'DApp Equity';
+  if (assetType === 'dapp_equity') return 'DApp Equity';
   if (assetType === 'real_estate') return 'Real Estate Development';
-  return 'Trading Portfolios';
+  if (assetType === 'trading_portfolio') return 'Trading Portfolios';
+  if (assetType === 'music_rights') return 'Music Rights & Media';
+  if (assetType === 'ip_licensing') return 'IP Licensing';
+  return 'DApp Equity';
 }
 
 const RUNE_CONFIG = {
@@ -38,14 +41,14 @@ export function VaultsPage() {
     refreshOymData,
   } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
-  const [assetType, setAssetType] = useState<VaultAssetType>('athlete_equity');
+  const [assetType, setAssetType] = useState<VaultAssetType>('dapp_equity');
   const [selectedAgents, setSelectedAgents] = useState<Record<string, string> | undefined>();
 
   // Reset state when navigating to the Vaults page
   useEffect(() => {
     if (location.pathname === '/app/vaults') {
       setVaultName('');
-      setAssetType('athlete_equity');
+      setAssetType('dapp_equity');
       setSelectedAgents({});
     }
   }, [location.pathname]);
@@ -138,9 +141,11 @@ export function VaultsPage() {
           onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
           className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
         >
-          <option value="athlete_equity">DApp Equity</option>
+          <option value="dapp_equity">DApp Equity</option>
           <option value="real_estate">Real Estate Development</option>
           <option value="trading_portfolio">Trading Portfolios</option>
+          <option value="music_rights">Music Rights & Media</option>
+          <option value="ip_licensing">IP Licensing</option>
         </select>
         <button
           type="submit"

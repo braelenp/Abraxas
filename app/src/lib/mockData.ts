@@ -11,7 +11,7 @@ export const starterVaults: VaultSummary[] = [
   {
     id: 'vault-oym-prime',
     name: 'OYM Prime Vault',
-    assetType: 'athlete_equity',
+    assetType: 'dapp_equity',
     depositedAmount: 142500,
     vaultValue: 159820,
     policy: 'growth',
