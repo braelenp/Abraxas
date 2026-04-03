@@ -107,13 +107,6 @@ const DAUGHTERS_PHASE1 = [
 		url: 'https://pulse-eta-three.vercel.app/',
 		isComingSoon: false,
 	},
-	{
-		name: 'Legacy',
-		description: 'Athlete Equity & NIL',
-		rune: '🏆',
-		url: '#',
-		isComingSoon: true,
-	},
 ];
 
 const DAUGHTERS_PHASE2 = [
