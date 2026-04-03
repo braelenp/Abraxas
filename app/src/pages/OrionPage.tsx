@@ -1,9 +1,39 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles, Video, Zap, Lock, ArrowRight } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
+
+function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    let idx = 0;
+    const startTime = setTimeout(() => {
+      const interval = setInterval(() => {
+        if (idx < text.length) {
+          setDisplayed(text.slice(0, ++idx));
+        } else {
+          setDone(true);
+          clearInterval(interval);
+        }
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(startTime);
+    };
+  }, [text, delay, speed]);
+
+  return (
+    <span className="font-mono text-2xl font-bold text-red-200 tracking-wide">
+      {displayed}
+      {!done && <span className="animate-pulse ml-1">∷</span>}
+    </span>
+  );
+}
 
 const OYM_APP_DEFAULT_URL = 'https://own-your-moment.vercel.app/app';
 
@@ -23,12 +53,14 @@ export function OrionPage() {
   const location = useLocation();
   const { athleteTokens, executeKingPlan } = useAbraxas();
   const [showOymExample, setShowOymExample] = useState(false);
+  const [showM1Video, setShowM1Video] = useState(false);
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
 
   // Reset state when navigating to the Orion page
   useEffect(() => {
     if (location.pathname === '/app/orion') {
       setShowOymExample(false);
+      setShowM1Video(false);
     }
   }, [location.pathname]);
 
@@ -88,7 +120,137 @@ export function OrionPage() {
         )}
       </article>
 
-      <article className="space-y-3">
+      {/* BUY $ABRA - TOP CTA */}
+      <div className="flex justify-center px-4">
+        <a
+          href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400/60 bg-gradient-to-r from-amber-500/30 to-orange-500/25 px-8 py-4 text-sm font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_16px_rgba(251,146,60,0.25)] transition hover:shadow-[0_0_24px_rgba(251,146,60,0.4)] hover:border-amber-300/80"
+        >
+          <Zap size={18} className="text-orange-400" />
+          Buy $ABRA Token
+          <ArrowRight size={16} />
+        </a>
+      </div>
+
+      {/* ORACLE INSIGHTS SECTION */}
+      <div className="px-4 space-y-6">
+        {/* Oracle Insights Header */}
+        <div className="space-y-4">
+          <TypingReveal text="Welcome to the next degree." delay={200} speed={60} />
+          <h2 className="text-xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — High-Level DeFi Strategies</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance.
+          </p>
+        </div>
+
+        {/* Undercollateralized Lending Card */}
+        <div className="relative overflow-hidden rounded-2xl border border-red-300/30 bg-gradient-to-br from-red-500/8 via-slate-900/80 to-slate-900/60 p-8">
+          <div className="relative z-10 space-y-6">
+            <div>
+              <h3 className="text-lg font-bold text-red-300 tracking-widest uppercase mb-4">🔓 Undercollateralized Lending</h3>
+              <p className="text-sm leading-relaxed text-slate-300">
+                Traditional DeFi demands 150%+ collateral ratios. Undercollateralized lending flips this: King AI analyzes on-chain reputation, trading history, and verified accrual flows to enable capital access at 80-110% ratios. Capital efficiency meets algorithmic trust.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="border-l-2 border-red-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">How It Works</h4>
+                <p className="text-xs text-slate-300">King AI audits borrower wallets: portfolio composition, yield accrual rate, liquidation history, and on-chain credibility score. Low-signal borrowers stay locked out. High-signal borrowers access capital at revolutionary efficiency.</p>
+              </div>
+              <div className="border-l-2 border-red-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">Abraxas Integration</h4>
+                <p className="text-xs text-slate-300">Verified RWA holders and Sophia vault members get priority access to undercollateralized pools. Your vault position IS your reputation signal. Capital efficiency compounds.</p>
+              </div>
+              <div className="border-l-2 border-red-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">Current Opportunities</h4>
+                <p className="text-xs text-slate-300">Solana-native protocols offer 12-18% APY on undercollateralized positions. King AI surfaces verified opportunities weekly. Risk-adjusted returns that beat traditional finance by 5x.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* M1 Pulldown Card */}
+        <div className="relative overflow-hidden rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 p-8">
+          <div className="relative z-10 space-y-6">
+            <div>
+              <h3 className="text-lg font-bold text-orange-300 tracking-widest uppercase mb-4">💰 M1 Pulldown — Institutional Liquidity Release</h3>
+              <p className="text-sm leading-relaxed text-slate-300">
+                M1 Pulldown is the art of releasing institutional liquidity under controlled structures. Family offices, endowments, and sovereign wealth funds hold trillions in legacy positions. M1 mechanisms unlock this capital into DeFi without market disruption, creating next-generation yield for all tiers.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="border-l-2 border-orange-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">The Mechanism</h4>
+                <p className="text-xs text-slate-300">Institutional holders use time-lock structured releases. Instead of dumping $100M at once, they distribute into liquidity pools over 90-180 days with derivative hedges. Capital flows efficiently. Market stays stable. Yield accrues to the entire ecosystem.</p>
+              </div>
+              <div className="border-l-2 border-orange-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Why It Matters</h4>
+                <p className="text-xs text-slate-300">Billions in institutional capital have been locked out of DeFi due to market impact concerns. M1 Pulldown removes that friction. Massively increases total accessible liquidity. Abraxas plugs directly into these flows.</p>
+              </div>
+              <div className="border-l-2 border-orange-400/40 pl-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Abraxas Role</h4>
+                <p className="text-xs text-slate-300">King AI monitors M1 structures, forecasts yield flows, and routes capital into verified RWA positions. Your ABRA staking position captures first-order benefits. Sovereign liquidity becomes YOUR asset.</p>
+              </div>
+            </div>
+
+            {/* M1 Video Section */}
+            <div className="space-y-3 pt-4 border-t border-orange-400/20">
+              <button
+                onClick={() => setShowM1Video(!showM1Video)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
+                  showM1Video
+                    ? 'border-orange-300/70 bg-gradient-to-r from-orange-500/30 to-orange-400/20 shadow-lg shadow-orange-500/20'
+                    : 'border-orange-300/60 hover:border-orange-300/80 bg-gradient-to-r from-orange-500/20 to-orange-400/10 hover:from-orange-500/30 hover:to-orange-400/20 hover:shadow-lg hover:shadow-orange-500/20'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Video size={16} className="text-orange-300 shrink-0" />
+                  <span className="text-sm text-orange-50">Watch M1 Pulldown Explainer</span>
+                </div>
+                <ChevronDown size={18} className={`text-orange-300 transition-transform shrink-0 ${showM1Video ? 'rotate-180' : ''}`} />
+              </button>
+
+              {showM1Video && (
+                <div className="rounded-lg border border-orange-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '400px' }}>
+                  <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="M1 Pulldown - Institutional Liquidity Release"
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* BUY $ABRA - BOTTOM CTA */}
+        <div className="border-t border-red-300/20 pt-8">
+          <div className="text-center space-y-4">
+            <p className="text-xs font-mono text-red-300/80 uppercase tracking-widest">&gt; [SOVEREIGN_CAPITAL] ACTIVATE_KING_AI</p>
+            <a
+              href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400/60 bg-gradient-to-r from-amber-500/30 to-orange-500/25 px-8 py-4 text-sm font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_16px_rgba(251,146,60,0.25)] transition hover:shadow-[0_0_24px_rgba(251,146,60,0.4)] hover:border-amber-300/80 w-full"
+            >
+              <Zap size={18} className="text-orange-400" />
+              Buy $ABRA & Activate Oracle Insights
+              <ArrowRight size={16} />
+            </a>
+            <p className="text-xs text-slate-400/70 italic leading-relaxed">
+              King AI unlocks undercollateralized lending and M1 institutional flows. Sovereign capital efficiency. The next degree awaits.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <article className="space-y-3 mt-6">
         {athleteTokens.map((token) => (
           <div key={token.id} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
             <div className="flex items-start justify-between gap-3">
