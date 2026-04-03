@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background: #040409;
+}
+
+/* ─── Abraxas-style glow panel ──────────────────────────────────────────────── */
+.glow-panel {
+  position: relative;
+  border-color: rgba(34, 231, 242, 0.5) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(34, 231, 242, 0.2),
+    inset 0 0 0 2px rgba(255, 159, 28, 0.07),
+    0 0 0 1px rgba(34, 231, 242, 0.2),
+    0 0 34px rgba(34, 231, 242, 0.18),
+    0 0 22px rgba(255, 159, 28, 0.12);
+}
+
+.glow-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    rgba(34, 231, 242, 0.18),
+    rgba(255, 159, 28, 0.10) 28%,
+    transparent 52%,
+    rgba(153, 69, 255, 0.16)
+  );
+  opacity: 0.65;
+  mix-blend-mode: screen;
+}
+
+/* ─── Abraxas-style interactive element base ────────────────────────────────── */
+.ui-action {
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.ui-action:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 18px rgba(34, 231, 242, 0.24),
+    0 0 12px rgba(255, 159, 28, 0.16);
+}
+
+.ui-action:active {
+  transform: scale(0.98);
+  filter: brightness(1.01);
+}
+
+.ui-action:focus-visible {
+  outline: 2px solid rgba(34, 231, 242, 0.6);
+  outline-offset: 2px;
+}
+
+.ui-action:disabled,
+.ui-action[aria-disabled='true'] {
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}
+
+/* ─── Abraxas tech-distortion wrapper ───────────────────────────────────────── */
+.tech-distortion {
+  position: relative;
+  isolation: isolate;
+}
+
+.tech-distortion::before,
+.tech-distortion::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tech-distortion::before {
+  z-index: 0;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(148, 163, 184, 0.07) 0px,
+      rgba(148, 163, 184, 0.07) 1px,
+      transparent 2px,
+      transparent 5px
+    ),
+    radial-gradient(circle at 54% 14%, rgba(255, 159, 28, 0.10), transparent 42%),
+    radial-gradient(circle at 18% 20%, rgba(34, 231, 242, 0.22), transparent 50%);
+  mix-blend-mode: screen;
+  animation: tech-flicker 7s ease-in-out infinite;
+}
+
+.tech-distortion::after {
+  z-index: 0;
+  opacity: 0.30;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(34, 231, 242, 0.20), transparent 38%),
+    linear-gradient(
+      105deg,
+      transparent 18%,
+      rgba(34, 231, 242, 0.12) 46%,
+      rgba(255, 159, 28, 0.08) 60%,
+      transparent 75%
+    );
+  filter: blur(0.45px);
+  animation: tech-shimmer 8.5s ease-in-out infinite;
+}
+
+/* ─── Echo hero title gold glow (Abraxas abraxas-hero-title pattern) ──────── */
+.echo-hero-title {
+  color: #f7d79a;
+  text-shadow:
+    0 0 10px rgba(255, 159, 28, 0.45),
+    0 0 18px rgba(255, 159, 28, 0.32),
+    0 0 30px rgba(217, 119, 6, 0.22);
+  animation: echo-gold-pulse 2.2s ease-in-out infinite;
+}
+
+.nebula {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(153, 69, 255, 0.24), transparent 42%),
+    radial-gradient(circle at 18% 80%, rgba(34, 231, 242, 0.2), transparent 40%),
+    radial-gradient(circle at 82% 10%, rgba(255, 159, 28, 0.2), transparent 36%),
+    linear-gradient(180deg, #05050b 0%, #090916 50%, #040409 100%);
+}
+
+.beam {
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  transform-origin: top;
+  filter: blur(2px);
+}
+
+.beam-one {
+  background: linear-gradient(145deg, rgba(34, 231, 242, 0.55), transparent 45%);
+  animation: sweep-left 9s ease-in-out infinite;
+}
+
+.beam-two {
+  background: linear-gradient(20deg, rgba(255, 159, 28, 0.4), transparent 42%);
+  animation: sweep-right 11s ease-in-out infinite;
+}
+
+.particle {
+  position: absolute;
+  bottom: -5%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34, 231, 242, 0.9) 0%, rgba(153, 69, 255, 0.2) 65%, transparent 100%);
+  box-shadow: 0 0 22px rgba(34, 231, 242, 0.6);
+  animation-name: rise;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 0.2rem;
+  color: #ff9f1c;
+  animation: blink 1s steps(1, end) infinite;
+}
+
+.sigil-shell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34, 231, 242, 0.18) 10%, rgba(153, 69, 255, 0.1) 42%, rgba(0, 0, 0, 0.25) 70%);
+  border: 1px solid rgba(34, 231, 242, 0.35);
+  box-shadow:
+    0 0 45px rgba(153, 69, 255, 0.35),
+    inset 0 0 26px rgba(34, 231, 242, 0.3);
+}
+
+.sigil-shell::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  border: 1px solid rgba(255, 159, 28, 0.45);
+  border-radius: 999px;
+  animation: spin 18s linear infinite;
+}
+
+.sigil-core {
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.wave-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 231, 242, 0.65);
+  box-shadow: 0 0 20px rgba(34, 231, 242, 0.45);
+}
+
+.ring-1 {
+  width: 100%;
+  height: 100%;
+  animation: pulse 2.8s ease-out infinite;
+}
+
+.ring-2 {
+  width: 73%;
+  height: 73%;
+  border-color: rgba(153, 69, 255, 0.8);
+  animation: pulse 2.8s ease-out infinite 0.45s;
+}
+
+.ring-3 {
+  width: 46%;
+  height: 46%;
+  border-color: rgba(255, 159, 28, 0.75);
+  animation: pulse 2.8s ease-out infinite 0.9s;
+}
+
+.sigil-note {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: #22e7f2;
+  text-shadow:
+    0 0 20px rgba(34, 231, 242, 0.8),
+    0 0 42px rgba(153, 69, 255, 0.6);
+}
+
+.cta-primary,
+.cta-secondary,
+.cta-wallet {
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  min-height: 3rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.cta-primary {
+  background: linear-gradient(120deg, rgba(153, 69, 255, 0.85), rgba(34, 231, 242, 0.5));
+  color: #f8fafc;
+  box-shadow: 0 0 28px rgba(153, 69, 255, 0.5);
+}
+
+.cta-secondary {
+  background: rgba(255, 159, 28, 0.18);
+  color: #ffca7a;
+  border-color: rgba(255, 159, 28, 0.45);
+}
+
+.cta-wallet {
+  background: rgba(34, 231, 242, 0.12);
+  color: #87f6fc;
+  border-color: rgba(34, 231, 242, 0.42);
+}
+
+.cta-primary:hover,
+.cta-secondary:hover,
+.cta-wallet:hover {
+  transform: translateY(-2px);
+}
+
+.cta-primary:hover {
+  box-shadow: 0 0 30px rgba(34, 231, 242, 0.4);
+}
+
+.cta-secondary:hover {
+  background: rgba(255, 159, 28, 0.26);
+}
+
+.cta-wallet:hover {
+  background: rgba(34, 231, 242, 0.2);
+}
+
+.flow-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(153, 69, 255, 0.35);
+  background:
+    linear-gradient(160deg, rgba(153, 69, 255, 0.15), rgba(34, 231, 242, 0.06)),
+    rgba(5, 6, 13, 0.7);
+  padding: 1.05rem;
+  min-height: 13.5rem;
+}
+
+.flow-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 231, 242, 0.6);
+  color: #22e7f2;
+  background: rgba(34, 231, 242, 0.08);
+  font-weight: 700;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-115vh) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.65;
+  }
+  72% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sweep-left {
+  0%,
+  100% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(7deg) scale(1.12);
+  }
+}
+
+@keyframes sweep-right {
+  0%,
+  100% {
+    transform: rotate(4deg) scale(1.02);
+  }
+  50% {
+    transform: rotate(-8deg) scale(1.1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .sigil-shell {
+    width: 8.5rem;
+    height: 8.5rem;
+  }
+
+  .sigil-core {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .flow-card {
+    min-height: 11.8rem;
+  }
+}
+
+/* ─── New keyframes from Abraxas ───────────────────────────────────────────── */
+
+@keyframes echo-gold-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 10px rgba(255, 159, 28, 0.45),
+      0 0 18px rgba(255, 159, 28, 0.32),
+      0 0 30px rgba(217, 119, 6, 0.22);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 14px rgba(255, 159, 28, 0.65),
+      0 0 24px rgba(255, 159, 28, 0.46),
+      0 0 42px rgba(217, 119, 6, 0.30);
+    filter: brightness(1.10);
+  }
+}
+
+@keyframes tech-pulse {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: translate3d(-1.2%, 0, 0);
+  }
+  50% {
+    opacity: 0.34;
+    transform: translate3d(1.2%, 0, 0);
+  }
+}
+
+@keyframes tech-flicker {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    opacity: 0.16;
+    transform: translate3d(0.4px, -0.25px, 0);
+  }
+  66% {
+    opacity: 0.13;
+    transform: translate3d(-0.35px, 0.2px, 0);
+  }
+}
+
+@keyframes tech-shimmer {
+  0%,
+  100% {
+    transform: translate3d(-1.5%, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1.5%, -0.8%, 0) scale(1.02);
+  }
+}
+
+/* Constellation SVG animations */
+@keyframes twinkle {
+  0%,
+  100% { opacity: 0.3; }
+  50%  { opacity: 1; }
+}
+
+@keyframes pulse-line {
+  0%,
+  100% { opacity: 0.15; }
+  50%  { opacity: 0.40; }
+}
+
+/* Loading screen progress bar */
+@keyframes echo-load {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
