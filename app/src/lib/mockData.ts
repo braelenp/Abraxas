@@ -163,7 +163,7 @@ export const starterFutureAssetClasses: FutureAssetClass[] = [
   {
     id: 'future-dapp-equity',
     title: 'DApp Equity Foundation',
-    description: 'Tokenized exposure to top-tier Sophia\'s Family protocols (Echo, Pulse, Aurelia, Vein, Verdant, Genesis, Valkyr, Raido, Fenrir, Mimir) with integrated yield routing and automated rebalancing.',
+    description: 'Tokenized exposure to top-tier Bags ecosystem protocols (Abraxas, LuckyFee AI, OCCUPY, Orbis API, JackBuilds, Cluck Norris, Hive, Trenchy.fun, quAId, Agent Inc.) with integrated yield routing and automated rebalancing.',
     status: 'coming_soon',
   },
   {

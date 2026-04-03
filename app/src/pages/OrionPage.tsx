@@ -47,18 +47,18 @@ const RUNE_CONFIG = {
   accentClass: 'text-red-300',
 } as const;
 
-// Top 10 Bags DApps from Sophia's Family
+// Top 10 Bags DApps - Latest Ecosystem
 const TOP_DAPPS = [
-  { name: 'Echo', description: 'Music Rights & Media', tvl: '$47.2M', yield: '18.4%', category: 'Digital Assets' },
-  { name: 'Pulse', description: 'Gaming Clips & Live Streams', tvl: '$61.8M', yield: '22.9%', category: 'Creator Economy' },
-  { name: 'Aurelia', description: 'Real Estate & Development', tvl: '$89.3M', yield: '16.7%', category: 'Physical Assets' },
-  { name: 'Vein', description: 'Minerals & Natural Resources', tvl: '$103.5M', yield: '21.2%', category: 'Commodities' },
-  { name: 'Verdant', description: 'Carbon & Environmental Assets', tvl: '$67.4M', yield: '19.8%', category: 'ESG Assets' },
-  { name: 'Genesis', description: 'The Prime Foundation', tvl: '$156.7M', yield: '24.1%', category: 'Foundation' },
-  { name: 'Valkyr', description: 'The Wise Guardian', tvl: '$92.1M', yield: '20.3%', category: 'Risk Management' },
-  { name: 'Raido', description: 'The Swift Provider', tvl: '$73.6M', yield: '19.5%', category: 'Liquidity' },
-  { name: 'Fenrir', description: 'The Fierce Protector', tvl: '$84.9M', yield: '23.7%', category: 'Security' },
-  { name: 'Mimir', description: 'The Oracle Provider', tvl: '$98.4M', yield: '21.4%', category: 'Intelligence' },
+  { name: 'Abraxas', description: 'AI Guardian Protocol for RWAs', tvl: '$125.4M', yield: '24.1%', category: 'RWA Management' },
+  { name: 'LuckyFee AI', description: 'Decentralized Fee Sharing Pool', tvl: '$34.8M', yield: '18.7%', category: 'Fee Sharing' },
+  { name: 'OCCUPY', description: 'Mars Community Token', tvl: '$52.3M', yield: '21.5%', category: 'Community' },
+  { name: 'Orbis API', description: 'API & Agent Marketplace', tvl: '$41.9M', yield: '19.3%', category: 'Infrastructure' },
+  { name: 'JackBuilds', description: 'AI-Powered Business Tools', tvl: '$28.6M', yield: '22.8%', category: 'AI Agents' },
+  { name: 'Cluck Norris', description: 'Gamified Crypto Education', tvl: '$31.2M', yield: '20.4%', category: 'Education' },
+  { name: 'Hive', description: 'Decentralized AI Job Marketplace', tvl: '$67.5M', yield: '23.2%', category: 'AI Workforce' },
+  { name: 'Trenchy.fun', description: 'Degen Platform & Social Network', tvl: '$45.7M', yield: '19.8%', category: 'Social DeFi' },
+  { name: 'quAId', description: 'AI Sports Prediction Engine', tvl: '$38.4M', yield: '21.6%', category: 'Predictions' },
+  { name: 'Agent Inc.', description: 'Incorporated Agent Collections', tvl: '$55.2M', yield: '20.9%', category: 'Agent DAO' },
 ];
 
 export function OrionPage() {
