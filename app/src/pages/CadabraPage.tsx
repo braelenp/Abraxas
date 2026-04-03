@@ -69,7 +69,7 @@ export function CadabraPage() {
 									<Users size={20} className="text-purple-400 flex-shrink-0" />
 									<div>
 										<h4 className="text-xs font-bold uppercase tracking-widest text-purple-200">Asset-Centered Communities</h4>
-										<p className="text-xs text-slate-400 mt-1">Every RWA class gets a dedicated community. Athlete equity has its tribe. Real estate syndicators congregate. Music rights holders form networks. Gaming guilds coordinate. The Mirror reflects all human intent.</p>
+											<p className="text-xs text-slate-400 mt-1">Every RWA class gets a dedicated community. DApp equity holders congregate. Real estate syndicators form networks. Music rights communities build consensus. Gaming guilds coordinate. The Mirror reflects all human intent.</p>
 									</div>
 								</div>
 							</div>
@@ -144,7 +144,7 @@ export function CadabraPage() {
 							<div className="space-y-3">
 								<div className="border-l-2 border-orange-400/40 pl-4">
 									<h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Real Asset Classes</h4>
-									<p className="text-xs text-slate-300">Athlete equity. Real estate. Music rights. Gaming rewards. These aren't casino tokens. These are real-world value, now liquid on-chain. Communities validate them. Communities explain them. Communities pitch them to each other.</p>
+										<p className="text-xs text-slate-300">DApp equity. Real estate. Music rights. Gaming rewards. These aren't casino tokens. These are real-world value, now liquid on-chain through Sophia's Family protocols. Communities validate them. Communities explain them. Communities pitch them to each other.</p>
 								</div>
 								<div className="border-l-2 border-orange-400/40 pl-4">
 									<h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Collective Pricing</h4>

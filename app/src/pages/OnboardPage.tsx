@@ -292,7 +292,7 @@ export function OnboardPage() {
           </div>
           <p className="text-[11px] text-white/60 leading-relaxed">
             Acquire ABRA now for immediate liquid stake in the Abraxas RWA Stock Market.
-            This is the live onboarding path while individual athlete token issuance remains pending.
+            This is the live onboarding path while individual dapp equity token issuance remains pending.
           </p>
           <div className="rounded-xl border border-amber-300/25 bg-slate-900/70 p-3 space-y-1">
             <p className="text-[10px] uppercase tracking-[0.16em] text-amber-200/75 font-semibold">ABRA Token</p>
@@ -500,7 +500,7 @@ export function OnboardPage() {
           <div className="space-y-1 text-xs text-cyan-300/80 flex-1 min-w-0">
             <p className="font-bold text-cyan-400 font-mono">&gt; [DEVNET_SHOWCASE] FLOWS</p>
             <p>
-              Vaults, Sophia AI, Circuit, and King AI remain live in devnet mode. Live trading flows with athlete tokens
+              Vaults, Sophia AI, Circuit, and King AI remain live in devnet mode. Live trading flows with dapp equity tokens
               coming soon after launch.
             </p>
           </div>

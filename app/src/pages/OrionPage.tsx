@@ -42,7 +42,7 @@ const RUNE_CONFIG = {
   runeName: 'Tiwaz',
   runeEssence: 'Tyr · Wise Kingship',
   agentName: 'KING',
-  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI renders sovereign judgment on athlete development metrics, market trajectory, and value creation opportunities. The forecast is law.",
+  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI renders sovereign judgment on dapp equity signals, institutional capital flows, and value creation opportunities across Sophia's Family. The forecast is law.",
   ctaLabel: 'Consult King AI',
   coreGlow: '239, 68, 68',
   fireGlow: '234, 88, 12',
@@ -65,7 +65,7 @@ const TOP_DAPPS = [
 
 export function OrionPage() {
   const location = useLocation();
-  const { athleteTokens } = useAbraxas();
+  const { } = useAbraxas();
   const [showOymExample, setShowOymExample] = useState(false);
   const [showM1Video, setShowM1Video] = useState(false);
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;

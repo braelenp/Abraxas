@@ -8,7 +8,7 @@ import { RuneRealm } from '../components/RuneRealm';
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
 
 function assetTypeLabel(assetType: VaultAssetType) {
-  if (assetType === 'athlete_equity') return 'Athlete Equity';
+  if (assetType === 'athlete_equity') return 'DApp Equity';
   if (assetType === 'real_estate') return 'Real Estate Development';
   return 'Trading Portfolios';
 }
@@ -138,7 +138,7 @@ export function VaultsPage() {
           onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
           className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
         >
-          <option value="athlete_equity">Athlete Equity</option>
+          <option value="athlete_equity">DApp Equity</option>
           <option value="real_estate">Real Estate Development</option>
           <option value="trading_portfolio">Trading Portfolios</option>
         </select>
@@ -175,7 +175,7 @@ export function VaultsPage() {
                   {expandedVaultMetrics[vault.id] && (
                     <div className="mt-2 space-y-1 text-xs text-slate-300/80 border-t border-cyan-300/10 pt-2">
                       <p>Circuit: {vault.circuitState} • La Casa deposits: {vault.laCasaDeposits}</p>
-                      <p>Athlete exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
+                      <p>DApp Equity exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
                       <p>Assigned: {vault.assignedAgent ?? 'None'}</p>
                     </div>
                   )}

@@ -154,7 +154,7 @@ function DappShell() {
                   <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
                   <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Full market oversight. Browse all RWA classes, Foundation Market (Dapp Equity), and real-time data visualization.</li>
                   <li><span className="font-semibold text-purple-300">• ✦ Mirror — Cadabra.</span> The social mirror. Build community, share alpha, tokenize moments. Pulse gaming clips. Apex Legends tournaments.</li>
-                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Delivers sovereign judgment: athlete development analysis, market forecasts, and automated value actions.</li>
+                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Delivers sovereign judgment: dapp equity intelligence, institutional capital flows, and automated value actions.</li>
                   <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
                   <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
                 </ul>

@@ -147,7 +147,7 @@ type MarketListing = {
 };
 
 const marketClassLabels: Record<MarketClass, string> = {
-  athlete_equity: 'Athlete Equity',
+  athlete_equity: 'DApp Equity',
   real_estate: 'Real Estate',
   trading_portfolio: 'Trading Portfolio',
   music_rights: 'Music Rights',
@@ -476,7 +476,7 @@ const breakingSignals: BreakingSignal[] = [
     title: 'Caleb Williams Signs Multi-Year La Casa Equity Agreement',
     source: 'Solana',
     timestamp: '2 minutes ago',
-    snippet: 'Elite athlete tokenizes career arc through La Casa vault, incorporating development signals from athletic training and social metrics.',
+    snippet: 'Elite dapp protocol tokenizes ecosystem growth through La Casa vault, incorporating development signals from performance metrics and institutional adoption.',
     category: 'athlete',
   },
   {
@@ -492,7 +492,7 @@ const breakingSignals: BreakingSignal[] = [
     title: 'Bags DEX Hits 24h Volume Peak: 47M in Trades',
     source: 'Bags',
     timestamp: '14 minutes ago',
-    snippet: 'Record settlement velocity across athlete equity, real estate, and composite RWA pairs. Circuit protection systems holding steady.',
+    snippet: 'Record settlement velocity across dapp equity, real estate, and composite RWA pairs. Circuit protection systems holding steady.',
     category: 'market',
   },
   {
@@ -534,7 +534,7 @@ const RUNE_CONFIG = {
   runeName: 'Sowilo',
   runeEssence: 'Sun · Victorious Vision',
   agentName: 'HORIZON',
-  lore: "Sowilo is the sun-wheel, the unstoppable light of sovereign victory. Horizon sees every listed asset class at once, from athlete equity and real estate to trading portfolios and music rights. The trajectory is visible before the market makes its move.",
+  lore: "Sowilo is the sun-wheel, the unstoppable light of sovereign victory. Horizon sees every listed asset class at once, from dapp equity and real estate to trading portfolios and music rights. The trajectory is visible before the market makes its move.",
   ctaLabel: 'Scan the Market',
   coreGlow: '251, 191, 36',
   fireGlow: '234, 88, 12',
@@ -646,7 +646,7 @@ export function MarketPage() {
             </div>
           </div>
           <p className="text-xs leading-relaxed text-slate-300/75 italic">
-            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and athlete equity flows.
+            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and dapp equity flows.
           </p>
         </div>
 
@@ -787,7 +787,7 @@ export function MarketPage() {
         </button>
         {showMarketInfo && (
           <p className="mt-3 text-sm leading-relaxed text-slate-300/90">
-            The world's first viral, gamified RWA prediction market. Bet on athlete stats, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
+            The world's first viral, gamified RWA prediction market. Bet on dapp equity performance, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
           </p>
         )}
       </article>
@@ -907,7 +907,7 @@ export function MarketPage() {
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-200/90">
           <div className="rounded-xl border border-cyan-300/20 bg-slate-950/45 p-3">
             <Dumbbell size={14} className="text-cyan-200" />
-            <p className="mt-2 font-semibold">Athlete Equity</p>
+            <p className="mt-2 font-semibold">DApp Equity</p>
             <p className="mt-1 text-slate-400">Live and compounding through development signals.</p>
           </div>
           <div className="rounded-xl border border-cyan-300/20 bg-slate-950/45 p-3">
