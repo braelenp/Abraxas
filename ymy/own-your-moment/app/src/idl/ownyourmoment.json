@@ -1,0 +1,849 @@
+{
+  "address": "Grf2PBNSRU1nU6WFBf2yYM2fuCGapGCB2qSFextj3pzT",
+  "metadata": {
+    "name": "ownyourmoment",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Own Your Moment Anchor program"
+  },
+  "instructions": [
+    {
+      "name": "claim_skr_rewards",
+      "discriminator": [
+        151,
+        232,
+        45,
+        0,
+        177,
+        18,
+        214,
+        253
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "athlete_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  104,
+                  108,
+                  101,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_profile",
+      "discriminator": [
+        32,
+        145,
+        77,
+        213,
+        58,
+        39,
+        251,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "athlete_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  104,
+                  108,
+                  101,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "display_name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "log_drill_completion",
+      "discriminator": [
+        168,
+        14,
+        38,
+        164,
+        144,
+        46,
+        10,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "athlete_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  104,
+                  108,
+                  101,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "drill_log",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  114,
+                  105,
+                  108,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "athlete_profile"
+              },
+              {
+                "kind": "arg",
+                "path": "entry_index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "entry_index",
+          "type": "u32"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "type": "string"
+        },
+        {
+          "name": "duration_minutes",
+          "type": "u16"
+        },
+        {
+          "name": "intensity",
+          "type": "u8"
+        },
+        {
+          "name": "reward_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "log_king_ai_action",
+      "discriminator": [
+        149,
+        200,
+        127,
+        160,
+        233,
+        36,
+        224,
+        177
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "athlete_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  104,
+                  108,
+                  101,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "king_ai_action_log",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  107,
+                  105,
+                  110,
+                  103,
+                  45,
+                  97,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "athlete_profile"
+              },
+              {
+                "kind": "arg",
+                "path": "action_index"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "action_index",
+          "type": "u32"
+        },
+        {
+          "name": "action_type",
+          "type": "string"
+        },
+        {
+          "name": "summary",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "mint_nil_badge",
+      "discriminator": [
+        192,
+        98,
+        180,
+        41,
+        38,
+        20,
+        1,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "athlete_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  104,
+                  108,
+                  101,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "badge_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  97,
+                  100,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "athlete_profile"
+              },
+              {
+                "kind": "arg",
+                "path": "achievement_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "achievement_key",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "type": "pubkey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AthleteProfile",
+      "discriminator": [
+        197,
+        244,
+        74,
+        34,
+        28,
+        55,
+        104,
+        82
+      ]
+    },
+    {
+      "name": "BadgeRecord",
+      "discriminator": [
+        2,
+        38,
+        88,
+        9,
+        1,
+        122,
+        36,
+        245
+      ]
+    },
+    {
+      "name": "DrillLog",
+      "discriminator": [
+        81,
+        103,
+        196,
+        174,
+        172,
+        125,
+        9,
+        30
+      ]
+    },
+    {
+      "name": "KingAiActionLog",
+      "discriminator": [
+        223,
+        82,
+        169,
+        239,
+        208,
+        25,
+        39,
+        26
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AthleteProfileInitialized",
+      "discriminator": [
+        106,
+        115,
+        5,
+        99,
+        209,
+        75,
+        238,
+        23
+      ]
+    },
+    {
+      "name": "DrillCompleted",
+      "discriminator": [
+        178,
+        134,
+        135,
+        68,
+        64,
+        232,
+        122,
+        139
+      ]
+    },
+    {
+      "name": "KingAiActionLogged",
+      "discriminator": [
+        16,
+        1,
+        215,
+        252,
+        249,
+        133,
+        79,
+        165
+      ]
+    },
+    {
+      "name": "NilBadgeMinted",
+      "discriminator": [
+        20,
+        158,
+        49,
+        204,
+        30,
+        22,
+        192,
+        88
+      ]
+    },
+    {
+      "name": "SkrRewardsClaimed",
+      "discriminator": [
+        231,
+        145,
+        116,
+        226,
+        247,
+        114,
+        143,
+        163
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "The athlete is not authorized to modify this profile."
+    },
+    {
+      "code": 6001,
+      "name": "DisplayNameTooLong",
+      "msg": "The athlete display name exceeds the allowed length."
+    },
+    {
+      "code": 6002,
+      "name": "TitleTooLong",
+      "msg": "The drill title exceeds the allowed length."
+    },
+    {
+      "code": 6003,
+      "name": "CategoryTooLong",
+      "msg": "The drill category exceeds the allowed length."
+    },
+    {
+      "code": 6004,
+      "name": "InvalidDuration",
+      "msg": "The logged drill duration must be greater than zero."
+    },
+    {
+      "code": 6005,
+      "name": "InvalidIntensity",
+      "msg": "Intensity must be between 0 and 10."
+    },
+    {
+      "code": 6006,
+      "name": "InvalidEntryIndex",
+      "msg": "The supplied drill entry index is invalid."
+    },
+    {
+      "code": 6007,
+      "name": "ActionTypeTooLong",
+      "msg": "The action type exceeds the allowed length."
+    },
+    {
+      "code": 6008,
+      "name": "SummaryTooLong",
+      "msg": "The King AI summary exceeds the allowed length."
+    },
+    {
+      "code": 6009,
+      "name": "InvalidRewardAmount",
+      "msg": "Reward amount must be greater than zero."
+    },
+    {
+      "code": 6010,
+      "name": "InsufficientRewards",
+      "msg": "Insufficient pending rewards are available."
+    },
+    {
+      "code": 6011,
+      "name": "MathOverflow",
+      "msg": "A math overflow occurred."
+    }
+  ],
+  "types": [
+    {
+      "name": "AthleteProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "display_name",
+            "type": "string"
+          },
+          {
+            "name": "total_completed_drills",
+            "type": "u32"
+          },
+          {
+            "name": "current_streak",
+            "type": "u16"
+          },
+          {
+            "name": "best_streak",
+            "type": "u16"
+          },
+          {
+            "name": "pending_skr_rewards",
+            "type": "u64"
+          },
+          {
+            "name": "total_skr_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "last_check_in",
+            "type": "i64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AthleteProfileInitialized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BadgeRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "athlete",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "achievement_key",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "minted_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DrillCompleted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "entry_index",
+            "type": "u32"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "reward_amount",
+            "type": "u64"
+          },
+          {
+            "name": "current_streak",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DrillLog",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "athlete",
+            "type": "pubkey"
+          },
+          {
+            "name": "entry_index",
+            "type": "u32"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "duration_minutes",
+            "type": "u16"
+          },
+          {
+            "name": "intensity",
+            "type": "u8"
+          },
+          {
+            "name": "reward_amount",
+            "type": "u64"
+          },
+          {
+            "name": "completed_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "KingAiActionLog",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "athlete",
+            "type": "pubkey"
+          },
+          {
+            "name": "action_index",
+            "type": "u32"
+          },
+          {
+            "name": "action_type",
+            "type": "string"
+          },
+          {
+            "name": "summary",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "KingAiActionLogged",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "action_index",
+            "type": "u32"
+          },
+          {
+            "name": "action_type",
+            "type": "string"
+          },
+          {
+            "name": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NilBadgeMinted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "minted_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SkrRewardsClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_rewards",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}
