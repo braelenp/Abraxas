@@ -4,6 +4,8 @@
 
 Abraxas is a living RWA protocol guarded by the Elder Futhark. Each tab in the dapp is a rune, each rune is an AI agent, each agent governs a distinct domain of the protocol: prediction markets, vault management, market intelligence, trading execution, AI forecasting, circuit defense, and RWA tokenization.
 
+> **🔓 Open Source & Secure** — See [SECURITY_AUDIT.md](SECURITY_AUDIT.md) for full credential management verification. Public repository. Enterprise-grade security standards.
+
 ## Quick Links
 
 | | |
@@ -11,6 +13,20 @@ Abraxas is a living RWA protocol guarded by the Elder Futhark. Each tab in the d
 | **ABRA Token** | `5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS` (Mainnet) |
 | **Buy ABRA** | https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS |
 | **Live dApp** | https://abraxas-ten.vercel.app/ |
+| **GitHub** | https://github.com/braelenp/Abraxas (Open Source) |
+
+---
+
+## Security & Open Source
+
+✅ **Enterprise-grade credential management**
+- All sensitive configuration uses environment variables
+- No private keys or secrets in source code
+- `.gitignore` properly configured for build artifacts
+- Solana wallet integration uses secure browser-wallet pattern
+- Safe to fork, clone, and deploy publicly
+
+See [SECURITY_AUDIT.md](SECURITY_AUDIT.md) for complete audit results and verification commands.
 
 ---
 
