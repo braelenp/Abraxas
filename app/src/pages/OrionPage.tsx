@@ -49,9 +49,23 @@ const RUNE_CONFIG = {
   accentClass: 'text-red-300',
 } as const;
 
+// Top 10 Bags DApps from Sophia's Family
+const TOP_DAPPS = [
+  { name: 'Echo', description: 'Music Rights & Media', tvl: '$47.2M', yield: '18.4%', category: 'Digital Assets' },
+  { name: 'Pulse', description: 'Gaming Clips & Live Streams', tvl: '$61.8M', yield: '22.9%', category: 'Creator Economy' },
+  { name: 'Aurelia', description: 'Real Estate & Development', tvl: '$89.3M', yield: '16.7%', category: 'Physical Assets' },
+  { name: 'Vein', description: 'Minerals & Natural Resources', tvl: '$103.5M', yield: '21.2%', category: 'Commodities' },
+  { name: 'Verdant', description: 'Carbon & Environmental Assets', tvl: '$67.4M', yield: '19.8%', category: 'ESG Assets' },
+  { name: 'Genesis', description: 'The Prime Foundation', tvl: '$156.7M', yield: '24.1%', category: 'Foundation' },
+  { name: 'Valkyr', description: 'The Wise Guardian', tvl: '$92.1M', yield: '20.3%', category: 'Risk Management' },
+  { name: 'Raido', description: 'The Swift Provider', tvl: '$73.6M', yield: '19.5%', category: 'Liquidity' },
+  { name: 'Fenrir', description: 'The Fierce Protector', tvl: '$84.9M', yield: '23.7%', category: 'Security' },
+  { name: 'Mimir', description: 'The Oracle Provider', tvl: '$98.4M', yield: '21.4%', category: 'Intelligence' },
+];
+
 export function OrionPage() {
   const location = useLocation();
-  const { athleteTokens, executeKingPlan } = useAbraxas();
+  const { athleteTokens } = useAbraxas();
   const [showOymExample, setShowOymExample] = useState(false);
   const [showM1Video, setShowM1Video] = useState(false);
   const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
@@ -65,10 +79,10 @@ export function OrionPage() {
   }, [location.pathname]);
 
   const totals = useMemo(() => {
-    const totalNIL = athleteTokens.reduce((sum, token) => sum + token.nilRewards, 0);
-    const averageTraining = athleteTokens.reduce((sum, token) => sum + token.trainingScore, 0) / athleteTokens.length;
-    return { totalNIL, averageTraining };
-  }, [athleteTokens]);
+    const totalTVL = TOP_DAPPS.reduce((sum, dapp) => sum + parseFloat(dapp.tvl.replace(/[$M,]/g, '')), 0);
+    const averageYield = TOP_DAPPS.reduce((sum, dapp) => sum + parseFloat(dapp.yield), 0) / TOP_DAPPS.length;
+    return { totalTVL, averageYield };
+  }, []);
 
   return (
     <RuneRealm {...RUNE_CONFIG}>
@@ -78,7 +92,7 @@ export function OrionPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-red-300">&gt; [KING_AI] INSTITUTIONAL_DeFi_LAYER</p>
           <h2 className="mt-2 text-sm font-bold text-red-200 tracking-widest uppercase">SOVEREIGN_CAPITAL | NEXT_DEGREE_FINANCE</h2>
           <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
-            King AI serves as Abraxas's institutional intelligence layer, unlocking capital efficiency through undercollateralized lending and M1 pulldown mechanisms. Below, explore how billions in institutional flows reshape DeFi. Athletic equity optimization powers the foundation.
+            King AI serves as Abraxas's institutional intelligence layer, unlocking capital efficiency through undercollateralized lending and M1 pulldown mechanisms. Below, explore how billions in institutional flows reshape DeFi. DApp equity across Sophia's Family protocols powers the foundation.
           </p>
         </div>
 
@@ -224,24 +238,24 @@ export function OrionPage() {
         </div>
       </div>
 
-      {/* ATHLETIC EQUITY SECTION */}
+      {/* DAPP EQUITY FOUNDATION SECTION */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-cyan-200 tracking-widest uppercase">Athletic Equity Analytics</h2>
+          <h2 className="text-xl font-bold text-cyan-200 tracking-widest uppercase">DApp Equity Foundation</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI monitors live athlete development metrics, creating the foundation for institutional DeFi flows. Training scores, NIL rewards, and value creation drive Abraxas ecosystem growth.
+            King AI monitors the top 10 Bags DApps across Sophia's Family ecosystem. DApp equity represents all tokenized asset classes—from music rights to real estate to natural resources. Diversified, efficient, and sovereign.
           </p>
         </div>
 
         <div className="rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 space-y-4">
           <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
             <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-              <p className="text-slate-500">Average training score</p>
-              <p className="mt-1 text-lg font-semibold">{totals.averageTraining.toFixed(1)}</p>
+              <p className="text-slate-500">Total TVL across DApps</p>
+              <p className="mt-1 text-lg font-semibold">${totals.totalTVL.toFixed(1)}M</p>
             </div>
             <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-              <p className="text-slate-500">NIL rewards tracked</p>
-              <p className="mt-1 text-lg font-semibold">${totals.totalNIL.toLocaleString()}</p>
+              <p className="text-slate-500">Average yield rate</p>
+              <p className="mt-1 text-lg font-semibold">{totals.averageYield.toFixed(1)}%</p>
             </div>
           </div>
 
@@ -274,55 +288,28 @@ export function OrionPage() {
       </div>
 
       <article className="space-y-3 mt-6">
-        {athleteTokens.map((token) => (
-          <div key={token.id} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        {TOP_DAPPS.map((dapp, idx) => (
+          <div key={idx} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-bold text-cyan-400 font-mono">{token.symbol}</p>
-                <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{token.name}</p>
+                <p className="text-sm font-bold text-cyan-400 font-mono">{dapp.name}</p>
+                <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{dapp.description}</p>
               </div>
               <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
-                {token.kingSignal}
+                {dapp.category}
               </span>
             </div>
 
-            <div className="mt-3 grid grid-cols-4 gap-2 text-[11px] text-slate-300/85">
+            <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-slate-300/85">
               <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">Price</p>
-                <p className="mt-1 font-semibold text-slate-100">${token.price.toFixed(2)}</p>
+                <p className="text-slate-500">TVL</p>
+                <p className="mt-1 font-semibold text-slate-100">{dapp.tvl}</p>
               </div>
               <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">Stats</p>
-                <p className="mt-1 font-semibold text-slate-100">{token.statsIndex}</p>
-              </div>
-              <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">Streak</p>
-                <p className="mt-1 font-semibold text-slate-100">{token.streak} days</p>
-              </div>
-              <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">Growth</p>
-                <p className="mt-1 font-semibold text-slate-100">{token.valueGrowthPct.toFixed(1)}%</p>
+                <p className="text-slate-500">Yield Rate</p>
+                <p className="mt-1 font-semibold text-slate-100">{dapp.yield}</p>
               </div>
             </div>
-
-            <div className="mt-3 space-y-2">
-              {token.suggestions.map((suggestion) => (
-                <div key={suggestion.id} className="rounded-xl border border-cyan-300/20 bg-slate-950/45 px-3 py-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-bold text-cyan-300 font-mono">{suggestion.title}</p>
-                    <span className="text-[11px] font-semibold text-cyan-200">+{suggestion.expectedImpactBps} bps</span>
-                  </div>
-                  <p className="mt-2 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-[0.05em]">{suggestion.rationale}</p>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => executeKingPlan(token.id)}
-              className="ui-action mt-4 w-full rounded-xl border border-amber-200/60 bg-gradient-to-r from-amber-200 via-cyan-200 to-cyan-300 px-3 py-2 text-sm font-semibold text-slate-950"
-            >
-              Execute King Development Plan
-            </button>
           </div>
         ))}
       </article>
