@@ -35,10 +35,6 @@ export function VaultsPage() {
     futureAssetClasses,
     createVault,
     assignAgent,
-    oymSyncStatus,
-    oymSource,
-    lastOymSyncAt,
-    refreshOymData,
   } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
   const [assetType, setAssetType] = useState<VaultAssetType>('dapp_equity');
@@ -88,28 +84,11 @@ export function VaultsPage() {
         {showAboutVaults && (
           <div className="mt-3 space-y-2 text-sm">
             <p className="leading-relaxed text-slate-300/90">
-              ABRA acquisition is live for early adopters, while vault and agent workflows stay available in Devnet to demonstrate full market behavior.
+              Vaults let you create diversified RWA positions across dapp equity, real estate, music rights, and more. Sophia agents automatically manage deposits, yield routing, and protective actions.
             </p>
             <p className="text-amber-100/90">Genesis NFT rewards are planned as a later airdrop to qualifying ABRA holders.</p>
           </div>
         )}
-        <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3 text-xs text-slate-300/85">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p>
-              OYM sync status:
-              <span className="ml-1 font-semibold text-cyan-100">{oymSyncStatus}</span>
-            </p>
-            <button
-              type="button"
-              onClick={() => void refreshOymData()}
-              className="ui-action rounded-xl bg-cyan-300 px-2.5 py-1.5 text-xs font-semibold text-slate-950"
-            >
-              Refresh OYM data
-            </button>
-          </div>
-          {oymSource ? <p className="mt-2 truncate text-[11px] text-slate-400">Source: {oymSource}</p> : null}
-          {lastOymSyncAt ? <p className="mt-1 text-[11px] text-slate-400">Last sync: {new Date(lastOymSyncAt).toLocaleString()}</p> : null}
-        </div>
       </article>
 
       {/* Quick Actions */}
