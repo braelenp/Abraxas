@@ -73,51 +73,25 @@ export function OrionPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
-      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
+      <article className="glow-panel rounded-3xl border border-red-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(78,15,42,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
         <div className="font-mono">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [KING_AI] ATHLETE_ANALYTICS</p>
-          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">VALUE_CREATION | NIL_OPTIMIZATION</h2>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-red-300">&gt; [KING_AI] INSTITUTIONAL_DeFi_LAYER</p>
+          <h2 className="mt-2 text-sm font-bold text-red-200 tracking-widest uppercase">SOVEREIGN_CAPITAL | NEXT_DEGREE_FINANCE</h2>
           <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
-            King AI turns athlete development into the first live Abraxas growth loop: training inputs, stat improvements, and NIL outputs feed directly into token value expansion.
+            King AI serves as Abraxas's institutional intelligence layer, unlocking capital efficiency through undercollateralized lending and M1 pulldown mechanisms. Below, explore how billions in institutional flows reshape DeFi. Athletic equity optimization powers the foundation.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
-          <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">Average training score</p>
-            <p className="mt-1 text-lg font-semibold">{totals.averageTraining.toFixed(1)}</p>
+          <div className="rounded-2xl border border-orange-300/20 bg-slate-950/40 px-3 py-3">
+            <p className="text-slate-500">Capital efficiency gain</p>
+            <p className="mt-1 text-lg font-semibold">80-110%</p>
           </div>
-          <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">NIL rewards tracked</p>
-            <p className="mt-1 text-lg font-semibold">${totals.totalNIL.toLocaleString()}</p>
+          <div className="rounded-2xl border border-orange-300/20 bg-slate-950/40 px-3 py-3">
+            <p className="text-slate-500">M1 liquidity unlock</p>
+            <p className="mt-1 text-lg font-semibold">$Billions</p>
           </div>
         </div>
-
-        <button
-          onClick={() => setShowOymExample(!showOymExample)}
-          className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
-            showOymExample
-              ? 'border-cyan-300/70 bg-gradient-to-r from-cyan-500/30 to-cyan-400/20 shadow-lg shadow-cyan-500/20'
-              : 'border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20'
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <Sparkles size={16} className="text-cyan-300 shrink-0" />
-            <span className="text-sm text-cyan-50">View OYM Value Creation dApp</span>
-          </div>
-          <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 ${showOymExample ? 'rotate-180' : ''}`} />
-        </button>
-
-        {showOymExample && (
-          <div className="rounded-lg border border-cyan-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '600px' }}>
-            <iframe
-              src={oymAppUrl}
-              title="OYM - Own Your Moment dApp"
-              className="w-full h-full border-0"
-              allow="clipboard-read; clipboard-write"
-            />
-          </div>
-        )}
       </article>
 
       {/* BUY $ABRA - TOP CTA */}
@@ -247,6 +221,55 @@ export function OrionPage() {
               King AI unlocks undercollateralized lending and M1 institutional flows. Sovereign capital efficiency. The next degree awaits.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* ATHLETIC EQUITY SECTION */}
+      <div className="px-4 space-y-6 pt-8">
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-cyan-200 tracking-widest uppercase">Athletic Equity Analytics</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            King AI monitors live athlete development metrics, creating the foundation for institutional DeFi flows. Training scores, NIL rewards, and value creation drive Abraxas ecosystem growth.
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 space-y-4">
+          <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
+            <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
+              <p className="text-slate-500">Average training score</p>
+              <p className="mt-1 text-lg font-semibold">{totals.averageTraining.toFixed(1)}</p>
+            </div>
+            <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
+              <p className="text-slate-500">NIL rewards tracked</p>
+              <p className="mt-1 text-lg font-semibold">${totals.totalNIL.toLocaleString()}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setShowOymExample(!showOymExample)}
+            className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
+              showOymExample
+                ? 'border-cyan-300/70 bg-gradient-to-r from-cyan-500/30 to-cyan-400/20 shadow-lg shadow-cyan-500/20'
+                : 'border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Sparkles size={16} className="text-cyan-300 shrink-0" />
+              <span className="text-sm text-cyan-50">View OYM Value Creation dApp</span>
+            </div>
+            <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 ${showOymExample ? 'rotate-180' : ''}`} />
+          </button>
+
+          {showOymExample && (
+            <div className="rounded-lg border border-cyan-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '600px' }}>
+              <iframe
+                src={oymAppUrl}
+                title="OYM - Own Your Moment dApp"
+                className="w-full h-full border-0"
+                allow="clipboard-read; clipboard-write"
+              />
+            </div>
+          )}
         </div>
       </div>
 
