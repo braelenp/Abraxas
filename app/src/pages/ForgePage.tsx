@@ -16,10 +16,10 @@ type BreakingSignal = {
 const breakingSignals: BreakingSignal[] = [
   {
     id: 'signal-1',
-    title: 'Caleb Williams La Casa Equity Agreement Finalized',
+    title: 'Pulse Gaming Protocol Reaches $500M TVL Milestone',
     source: 'Solana',
     timestamp: '2 hours ago',
-    snippet: 'NFL athlete equity tokenization demonstrates strong institutional adoption of on-chain asset representation.',
+    snippet: `DApp equity tokenization demonstrates strong institutional adoption as Sophia's Family protocols scale across gaming, music, and real estate layers.`,
     category: 'athlete',
   },
   {
