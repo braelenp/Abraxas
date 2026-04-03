@@ -204,12 +204,12 @@ export function OrionPage() {
 
               {showM1Video && (
                 <div className="rounded-lg border border-orange-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '400px' }}>
-                  <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  <video
+                    src="/assets/m1-pulldown-explainer.mp4"
                     title="M1 Pulldown - Institutional Liquidity Release"
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                    className="w-full h-full border-0 object-cover"
+                    controls
+                    playsInline
                   />
                 </div>
               )}
