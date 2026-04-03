@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Sparkles, Video, Zap, Lock, ArrowRight } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
@@ -35,8 +35,6 @@ function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: n
   );
 }
 
-const OYM_APP_DEFAULT_URL = 'https://own-your-moment.vercel.app/app';
-
 const RUNE_CONFIG = {
   rune: 'ᛏ',
   runeName: 'Tiwaz',
@@ -65,15 +63,13 @@ const TOP_DAPPS = [
 
 export function OrionPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { } = useAbraxas();
-  const [showOymExample, setShowOymExample] = useState(false);
   const [showM1Video, setShowM1Video] = useState(false);
-  const oymAppUrl = import.meta.env.VITE_OYM_APP_URL?.trim() || OYM_APP_DEFAULT_URL;
 
   // Reset state when navigating to the Orion page
   useEffect(() => {
     if (location.pathname === '/app/orion') {
-      setShowOymExample(false);
       setShowM1Video(false);
     }
   }, [location.pathname]);
@@ -275,30 +271,17 @@ export function OrionPage() {
           </div>
 
           <button
-            onClick={() => setShowOymExample(!showOymExample)}
-            className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
-              showOymExample
-                ? 'border-cyan-300/70 bg-gradient-to-r from-cyan-500/30 to-cyan-400/20 shadow-lg shadow-cyan-500/20'
-                : 'border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20'
-            }`}
+            onClick={() => navigate('/app/market')}
+            className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20`}
           >
             <div className="flex items-center gap-2">
               <Sparkles size={16} className="text-cyan-300 shrink-0" />
-              <span className="text-sm text-cyan-50">View OYM Value Creation dApp</span>
+              <span className="text-sm text-cyan-50">Browse DApp Equity in Market</span>
             </div>
-            <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 ${showOymExample ? 'rotate-180' : ''}`} />
+            <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 rotate-0`} />
           </button>
 
-          {showOymExample && (
-            <div className="rounded-lg border border-cyan-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '600px' }}>
-              <iframe
-                src={oymAppUrl}
-                title="OYM - Own Your Moment dApp"
-                className="w-full h-full border-0"
-                allow="clipboard-read; clipboard-write"
-              />
-            </div>
-          )}
+          {/* Removed OYM iframe - navigate to Market instead */}
         </div>
       </div>
 
