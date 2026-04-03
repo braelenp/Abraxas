@@ -207,9 +207,11 @@ export function OrionPage() {
                   <video
                     src="/assets/m1-pulldown-explainer.mp4"
                     title="M1 Pulldown - Institutional Liquidity Release"
-                    className="w-full h-full border-0 object-cover"
+                    className="w-full h-full border-0 object-contain"
                     controls
+                    controlsList="nodownload"
                     playsInline
+                    preload="metadata"
                   />
                 </div>
               )}
