@@ -161,6 +161,12 @@ export const starterLaCasaDeposits: LaCasaDepositRecord[] = [
 
 export const starterFutureAssetClasses: FutureAssetClass[] = [
   {
+    id: 'future-dapp-equity',
+    title: 'DApp Equity Foundation',
+    description: 'Tokenized exposure to top-tier Sophia\'s Family protocols (Echo, Pulse, Aurelia, Vein, Verdant, Genesis, Valkyr, Raido, Fenrir, Mimir) with integrated yield routing and automated rebalancing.',
+    status: 'coming_soon',
+  },
+  {
     id: 'future-real-estate',
     title: 'Real Estate Development',
     description: 'Renovation upgrades, rent yield, and occupancy quality become the development loop that grows property-backed vault value.',
@@ -179,8 +185,8 @@ export const starterLogs: AgentActionLog[] = [
     id: 'log-1',
     timestamp: '2026-03-18T12:00:00.000Z',
     vaultId: 'vault-oym-prime',
-    action: 'King AI refreshed athlete equity guidance',
-    detail: 'Training cadence and NIL sequencing were repriced across the OYM basket.',
+    action: 'King AI refreshed dapp equity guidance',
+    detail: 'Protocol yield curves and M1 pulldown mechanics were repriced across the Sophia\'s Family basket.',
   },
   {
     id: 'log-2',
@@ -195,9 +201,9 @@ export const starterSophiaAgents: SophiaAgent[] = [
   {
     id: 'sophia-sentinel',
     name: 'Sophia Sentinel',
-    description: 'Defensive athlete equity specialist with emphasis on downside protection.',
+    description: 'Defensive dapp equity specialist with emphasis on downside protection and circuit activation.',
     personality: 'conservative',
-    specialty: 'Athlete Equity Risk Management',
+    specialty: 'DApp Equity Risk Management',
     status: 'active',
     tradingStyle: 'Mean-reversion focused with tight stops',
     riskTolerance: 'low',
@@ -241,9 +247,9 @@ export const starterSophiaAgents: SophiaAgent[] = [
   {
     id: 'sophia-momentum',
     name: 'Sophia Momentum',
-    description: 'Growth-oriented trader capturing athlete equity upside momentum.',
+    description: 'Growth-oriented trader capturing dapp equity upside momentum.',
     personality: 'aggressive',
-    specialty: 'Athlete Equity Momentum Trading',
+    specialty: 'DApp Equity Momentum Trading',
     status: 'active',
     tradingStyle: 'Trend-following with breakout execution',
     riskTolerance: 'high',
