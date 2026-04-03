@@ -77,7 +77,7 @@ const RUNE_CONFIG = {
 	runeName: 'Kenaz',
 	runeEssence: 'Torch · Capital Forging',
 	agentName: 'FORGE',
-	lore: 'Kenaz is the rune of transformation. The Forge converts raw capital into tokenized positions of sovereign yield. Here, assets gain luminosity—trading their physical form for algorithmic compounding, liquidity, and autonomous market participation. You do not choose the asset class. The asset class that burns for you reveals itself.',
+	lore: 'Kenaz is the rune of transformation. The Forge tokenizes World Labs institutional digital asset management, converting raw capital into dapp equity positions with algorithmic compounding, liquidity, and autonomous market participation. Institutional rigor. Retail accessibility. You do not choose the asset class. The one that burns for you reveals itself.',
 	ctaLabel: 'Enter the Forge',
 	coreGlow: '234, 88, 12',
 	fireGlow: '251, 191, 36',
@@ -210,6 +210,18 @@ export function ForgePage() {
 
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
+			{/* Institutional Positioning */}
+			<section className="space-y-4 py-6 mb-2">
+				<div className="max-w-3xl mx-auto px-4">
+					<div className="border-l-4 border-orange-400/40 pl-6 space-y-2 font-mono">
+						<p className="text-xs font-bold text-orange-300/70 uppercase tracking-widest">&gt; WHAT_IS_THE_FORGE</p>
+						<p className="text-sm text-slate-300/90">
+							The Forge tokenizes World Labs Protocol—an institutional-grade digital asset management system. We convert institutional-caliber asset infrastructure into consumer-accessible dapp equity, vaults, and yield protocols.
+						</p>
+					</div>
+				</div>
+			</section>
+
 			{/* The Forging Process – Briefing */}
 			<section className="space-y-6 py-8 mb-4">
 				<div className="max-w-3xl mx-auto px-4">

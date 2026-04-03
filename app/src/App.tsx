@@ -145,7 +145,7 @@ function DappShell() {
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
                 <p className="text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest">&gt; [INTRO_AWAITS] SOVEREIGN_ENGINE</p>
                 <p className="mt-3 leading-relaxed text-slate-300 text-xs">
-                  You have entered the Abraxas Protocol — a living RWA engine on Solana, sealed by seven Elder Futhark runes. Each rune binds an AI agent to a core domain of sovereign power.
+                  You have entered the Abraxas Protocol — a tokenization engine that brings institutional-grade digital asset management to retail users on Solana. Built on World Labs Protocol infrastructure, Abraxas democratizes access to provably secure RWA handling sealed by seven Elder Futhark runes. Each rune binds an AI agent to institutional asset management domains.
                 </p>
 
                 <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
@@ -154,7 +154,7 @@ function DappShell() {
                   <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
                   <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Full market oversight. Browse all RWA classes, Foundation Market (Dapp Equity), and real-time data visualization.</li>
                   <li><span className="font-semibold text-purple-300">• ✦ Mirror — Cadabra.</span> The social mirror. Build community, share alpha, tokenize moments. Pulse gaming clips. Apex Legends tournaments.</li>
-                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Delivers sovereign judgment: dapp equity intelligence, institutional capital flows, and automated value actions.</li>
+                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Monitors World Labs institutional capital flows. Delivers sovereign judgment on dapp equity, M1 pulldown mechanics, and automated yield routing.</li>
                   <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
                   <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
                 </ul>

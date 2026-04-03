@@ -303,6 +303,14 @@ export function LandingPage() {
 			<section ref={loreRef} className="relative px-4 py-16 sm:px-6 sm:py-24">
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+						<div className="border-l-4 border-orange-400/50 pl-6 mb-8">
+							<h2 className="font-mono text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; INSTITUTIONAL_INFRASTRUCTURE</h2>
+							<h3 className="font-mono text-2xl font-bold text-orange-200 tracking-wider uppercase mt-2">POWERED BY WORLD LABS PROTOCOL</h3>
+							<p className="text-sm text-orange-300/80 mt-3 leading-relaxed">
+								Abraxas tokenizes World Labs Protocol—an institutional-grade digital asset management and tokenization system proven with family offices, private equity firms, and endowments. We democratize access to institutional capital infrastructure through Sophia's Family protocols.
+							</p>
+						</div>
+
 						<div className="border-l-4 border-cyan-400/50 pl-6 mb-6">
 							<h2 className="font-mono text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; PROTOCOL_EXECUTION</h2>
 							<h3 className="font-mono text-2xl font-bold text-cyan-200 tracking-wider uppercase mt-2">FORGE. MULTIPLY. COMPOUND.</h3>
