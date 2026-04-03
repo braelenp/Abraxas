@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/ConstellationBackground.tsx","./src/components/EchoCallout.tsx","./src/components/EchoSigil.tsx","./src/components/ForgeTab.tsx","./src/components/LightBeams.tsx","./src/components/LoadingScreen.tsx","./src/hooks/useTypingEffect.ts"],"version":"5.9.3"}

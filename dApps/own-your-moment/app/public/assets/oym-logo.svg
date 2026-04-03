@@ -1,0 +1,21 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Own Your Moment logo mark">
+  <defs>
+    <linearGradient id="goldRing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8d34b"/>
+      <stop offset="100%" stop-color="#d8a80e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="640" fill="#ffffff"/>
+  <circle cx="320" cy="320" r="292" fill="#ffffff" stroke="#111111" stroke-width="4"/>
+  <circle cx="320" cy="320" r="250" fill="none" stroke="url(#goldRing)" stroke-width="26"/>
+  <circle cx="320" cy="320" r="205" fill="#ffffff"/>
+
+  <path d="M320 175L420 175L356 303L284 303L220 175H320Z" fill="#eb1c24"/>
+  <path d="M320 230L425 395V500H368V395L320 320L272 395V500H215V395L320 230Z" fill="#ffffff"/>
+  <path d="M200 238L300 404V534H200V238Z" fill="#050505"/>
+  <path d="M440 238L340 404V534H440V238Z" fill="#050505"/>
+
+  <circle cx="120" cy="320" r="14" fill="#eb1c24"/>
+  <circle cx="520" cy="320" r="14" fill="#eb1c24"/>
+</svg>

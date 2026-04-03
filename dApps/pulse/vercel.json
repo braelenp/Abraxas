@@ -1,0 +1,4 @@
+{
+  "buildCommand": "cd Pulse && npm install && npm run build",
+  "outputDirectory": "Pulse/dist"
+}

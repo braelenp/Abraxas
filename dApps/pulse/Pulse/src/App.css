@@ -1,0 +1,5 @@
+.app-root {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 30, 0.95));
+  position: relative;
+  overflow: hidden;
+}

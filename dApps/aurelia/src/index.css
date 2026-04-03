@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #f59e0b;
+  --gold-light: #fde68a;
+  --purple: #9945ff;
+  --cyan: #22d3ee;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100;
+  margin: 0;
+  height: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+code, pre, input, select, textarea {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+#root {
+  height: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a14; }
+::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.5); }
+
+/* ── ui-action — interactive element base (from Abraxas) ────────────────── */
+.ui-action {
+  transition: transform 140ms ease, box-shadow 180ms ease, filter 180ms ease, background-color 180ms ease;
+}
+.ui-action:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 18px rgba(245, 158, 11, 0.28),
+    0 0 12px rgba(153, 69, 255, 0.2);
+}
+.ui-action:active { transform: scale(0.98); filter: brightness(1.01); }
+.ui-action:focus-visible {
+  outline: 2px solid rgba(245, 158, 11, 0.65);
+  outline-offset: 2px;
+}
+.ui-action:disabled { transform: none; filter: none; box-shadow: none; }
+
+/* ── glow-panel — Abraxas signature card, adapted for gold ─────────────── */
+.glow-panel {
+  position: relative;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(245, 158, 11, 0.18),
+    inset 0 0 0 2px rgba(153, 69, 255, 0.06),
+    0 0 0 1px rgba(245, 158, 11, 0.15),
+    0 0 34px rgba(245, 158, 11, 0.18),
+    0 0 22px rgba(251, 191, 36, 0.10);
+}
+.glow-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    rgba(245, 158, 11, 0.18),
+    rgba(153, 69, 255, 0.10) 28%,
+    transparent 52%,
+    rgba(34, 211, 238, 0.12)
+  );
+  opacity: 0.65;
+  mix-blend-mode: screen;
+}
+
+/* ── glass panels ───────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+.glass-purple {
+  background: rgba(153, 69, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(153, 69, 255, 0.2);
+}
+
+/* ── Moving background (adopted from Abraxas) ───────────────────────────── */
+.dapp-moving-background {
+  opacity: 0.22;
+  filter: saturate(1.4) contrast(1.1) brightness(0.5) hue-rotate(30deg);
+  transform: scale(1.14);
+  animation: dapp-bg-drift 16s ease-in-out infinite alternate;
+}
+.dapp-moving-background-secondary {
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  transform: scale(1.2);
+  animation: dapp-bg-drift-secondary 22s ease-in-out infinite alternate;
+}
+
+/* ── Text glow utilities ─────────────────────────────────────────────────── */
+.glow-gold {
+  text-shadow: 0 0 10px rgba(245,158,11,0.9), 0 0 30px rgba(245,158,11,0.55), 0 0 60px rgba(217,119,6,0.30);
+}
+.glow-purple {
+  text-shadow: 0 0 10px rgba(153,69,255,0.9), 0 0 30px rgba(153,69,255,0.55);
+}
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(34,211,238,0.9), 0 0 30px rgba(34,211,238,0.55);
+}
+
+/* ── gold-accent-text (from Abraxas DappShell brand) ────────────────────── */
+.gold-accent-text {
+  color: #f7d79a;
+  text-shadow:
+    0 0 8px rgba(245, 158, 11, 0.36),
+    0 0 14px rgba(245, 158, 11, 0.26),
+    0 0 22px rgba(217, 119, 6, 0.18);
+  animation: abraxas-gold-pulse 2s ease-in-out infinite;
+}
+
+/* ── tech-distortion (from Abraxas DappShell) ───────────────────────────── */
+.tech-distortion {
+  position: relative;
+  isolation: isolate;
+}
+.tech-distortion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(148, 163, 184, 0.07) 0px,
+      rgba(148, 163, 184, 0.07) 1px,
+      transparent 2px,
+      transparent 5px
+    ),
+    radial-gradient(circle at 54% 14%, rgba(245, 158, 11, 0.10), transparent 42%),
+    radial-gradient(circle at 18% 20%, rgba(34, 211, 238, 0.16), transparent 50%);
+  mix-blend-mode: screen;
+  animation: tech-flicker 7s ease-in-out infinite;
+}
+.tech-distortion::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.28;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(34, 211, 238, 0.16), transparent 38%),
+    linear-gradient(105deg, transparent 18%, rgba(245, 158, 11, 0.12) 50%, transparent 78%);
+  filter: blur(0.45px);
+  animation: tech-shimmer 8.5s ease-in-out infinite;
+}
+
+@keyframes tech-flicker {
+  0%, 100% { opacity: 0.12; transform: translate3d(0, 0, 0); }
+  33% { opacity: 0.18; transform: translate3d(0.4px, -0.25px, 0); }
+  66% { opacity: 0.14; transform: translate3d(-0.35px, 0.2px, 0); }
+}
+@keyframes tech-shimmer {
+  0%, 100% { transform: translate3d(-1.5%, 0, 0) scale(1); }
+  50% { transform: translate3d(1.5%, -0.8%, 0) scale(1.02); }
+}
+
+@keyframes abraxas-gold-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.44), 0 0 18px rgba(245, 158, 11, 0.32), 0 0 30px rgba(217, 119, 6, 0.24);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(245, 158, 11, 0.62), 0 0 24px rgba(245, 158, 11, 0.46), 0 0 40px rgba(217, 119, 6, 0.3);
+    filter: brightness(1.1);
+  }
+}
+
+.aurelia-hero-title {
+  color: #fde68a;
+  text-shadow:
+    0 0 10px rgba(245, 158, 11, 0.55),
+    0 0 22px rgba(245, 158, 11, 0.38),
+    0 0 44px rgba(217, 119, 6, 0.26);
+  animation: aurelia-gold-pulse 2.4s ease-in-out infinite;
+}
+
+/* ── Shimmer text ────────────────────────────────────────────────────────── */
+.shimmer-text {
+  background: linear-gradient(90deg, #f59e0b 0%, #fde68a 40%, #f59e0b 60%, #fbbf24 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Wallet adapter overrides ────────────────────────────────────────────── */
+.wallet-adapter-button {
+  background: linear-gradient(135deg, #9945ff, #7c3aed) !important;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  height: 40px !important;
+  padding: 0 18px !important;
+  transition: all 0.25s ease !important;
+}
+.wallet-adapter-button:hover {
+  background: linear-gradient(135deg, #a855f7, #9945ff) !important;
+  box-shadow: 0 0 24px rgba(153, 69, 255, 0.55) !important;
+  transform: translateY(-1px) !important;
+}
+.wallet-adapter-modal-wrapper {
+  background: rgb(2, 6, 23) !important;
+  border: 1px solid rgba(153, 69, 255, 0.25) !important;
+}
+.wallet-adapter-modal-title {
+  font-family: 'Cinzel', serif !important;
+  color: #f59e0b !important;
+}
+
+/* ── Header wallet sizing (compact, like Abraxas dapp-header-wallet) ─────── */
+.header-wallet .wallet-adapter-button,
+.dapp-header-wallet .wallet-adapter-button {
+  height: 2rem !important;
+  min-width: 0 !important;
+  max-width: 9rem !important;
+  padding: 0 0.6rem !important;
+  border-radius: 0.75rem !important;
+  font-size: 11px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: rgba(153, 69, 255, 0.25) !important;
+  border: 1px solid rgba(153, 69, 255, 0.5) !important;
+}
+
+/* ── Constellation SVG animations ────────────────────────────────────────── */
+.constellation-star {
+  fill: rgba(245, 158, 11, 0.6);
+  animation: twinkle 3s ease-in-out infinite;
+}
+.constellation-line {
+  stroke: rgba(245, 158, 11, 0.18);
+  stroke-width: 1;
+  animation: pulse-line 4s ease-in-out infinite;
+}
+
+/* ── Scanline texture (from Abraxas tech-distortion) ─────────────────────── */
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.45) 0px,
+    rgba(0,0,0,0.45) 1px,
+    transparent 2px,
+    transparent 3px
+  );
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes rr-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes rr-float {
+  0%  { transform: translateY(0) translateX(0); opacity: 0; }
+  8%  { opacity: 0.7; }
+  88% { opacity: 0.18; }
+  100%{ transform: translateY(-65vh) translateX(22px); opacity: 0; }
+}
+@keyframes dapp-bg-drift {
+  0%   { transform: scale(1.14) translate(0, 0); }
+  100% { transform: scale(1.18) translate(-1.5%, 1.5%); }
+}
+@keyframes dapp-bg-drift-secondary {
+  0%   { transform: scale(1.2) translate(0, 0) rotate(0deg); }
+  100% { transform: scale(1.25) translate(2%, -1%) rotate(2deg); }
+}
+@keyframes tech-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.45; }
+}
+@keyframes loader-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+@keyframes aurelia-gold-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(245,158,11,0.55), 0 0 22px rgba(245,158,11,0.38), 0 0 44px rgba(217,119,6,0.26);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(245,158,11,0.8), 0 0 36px rgba(245,158,11,0.55), 0 0 70px rgba(217,119,6,0.38);
+  }
+}
+@keyframes abraxas-purple-pulse {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(168,85,247,0.55), 0 0 18px rgba(168,85,247,0.35), 0 0 36px rgba(126,34,206,0.22);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(168,85,247,0.85), 0 0 30px rgba(168,85,247,0.6), 0 0 58px rgba(126,34,206,0.38);
+  }
+}
+.abraxas-title-glow {
+  color: #d8b4fe;
+  animation: abraxas-purple-pulse 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.45; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+}
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: -3px -3px 0 rgba(245,204,21,0.8), 3px 3px 0 rgba(6,182,212,0.5); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-glow-pulse { animation: rr-breathe 3.5s ease-in-out infinite; }
+.animate-fade-up { animation: fadeUp 0.9s ease-out forwards; }
+.animate-glitch { animation: glitch 3.5s ease-in-out infinite; }

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="10%"  stop-color="#22e7f2" stop-opacity="0.22"/>
+      <stop offset="48%"  stop-color="#9945ff" stop-opacity="0.13"/>
+      <stop offset="75%"  stop-color="#040409" stop-opacity="0.3"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer orbit ring -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#ff9f1c" stroke-width="0.8" stroke-opacity="0.55"/>
+
+  <!-- Shell background -->
+  <circle cx="32" cy="32" r="24" fill="url(#bg)" stroke="#22e7f2" stroke-width="0.9" stroke-opacity="0.45"/>
+
+  <!-- Wave ring 1 — cyan -->
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#22e7f2" stroke-width="1.4" stroke-opacity="0.7" filter="url(#glow)"/>
+  <!-- Wave ring 2 — purple -->
+  <circle cx="32" cy="32" r="13" fill="none" stroke="#9945ff" stroke-width="1.4" stroke-opacity="0.8" filter="url(#glow)"/>
+  <!-- Wave ring 3 — amber -->
+  <circle cx="32" cy="32" r="8"  fill="none" stroke="#ff9f1c" stroke-width="1.4" stroke-opacity="0.8" filter="url(#glow)"/>
+
+  <!-- "E" glyph -->
+  <text
+    x="32" y="37"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="13"
+    font-weight="bold"
+    fill="#22e7f2"
+    filter="url(#glow)"
+    opacity="0.95"
+  >E</text>
+</svg>

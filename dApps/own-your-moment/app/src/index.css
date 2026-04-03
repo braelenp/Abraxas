@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(235, 28, 36, 0.18), transparent 30%),
+    linear-gradient(180deg, #090909 0%, #131313 100%);
+  color: #f5f3ef;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #080808;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.panel {
+  border: 1px solid rgba(242, 194, 48, 0.42);
+  background: linear-gradient(168deg, rgba(24, 12, 12, 0.84), rgba(13, 11, 11, 0.8) 56%, rgba(10, 10, 10, 0.76));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 0 28px rgba(235, 28, 36, 0.18),
+    0 0 0 1px rgba(242, 194, 48, 0.12) inset;
+  backdrop-filter: blur(18px);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(125deg, rgba(242, 194, 48, 0.24), transparent 40%, rgba(235, 28, 36, 0.2));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+.wallet-adapter-button,
+.wallet-adapter-button-trigger {
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #d4af37, #f6d26b) !important;
+  color: #080808 !important;
+  font-weight: 700 !important;
+}
+
+.wallet-adapter-button:hover,
+.wallet-adapter-button-trigger:hover {
+  filter: brightness(1.05);
+}
+
+.metric-ring {
+  position: relative;
+}
+
+.metric-ring::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid rgba(242, 194, 48, 0.45);
+  box-shadow: 0 0 30px rgba(242, 194, 48, 0.18);
+  pointer-events: none;
+}
+
+.landing-bg {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(235, 28, 36, 0.22), transparent 30%),
+    radial-gradient(circle at 82% 14%, rgba(242, 194, 48, 0.24), transparent 26%),
+    linear-gradient(160deg, #070707 0%, #111111 48%, #090909 100%);
+}
+
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.24;
+  mask-image: radial-gradient(circle at center, black 42%, transparent 88%);
+  animation: grid-drift 14s linear infinite;
+}
+
+.landing-glow {
+  background:
+    radial-gradient(circle at 20% 70%, rgba(235, 28, 36, 0.24), transparent 34%),
+    radial-gradient(circle at 80% 58%, rgba(242, 194, 48, 0.2), transparent 34%);
+  filter: blur(26px);
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+.landing-orb {
+  opacity: 0.52;
+  filter: blur(24px);
+  will-change: transform, opacity;
+  animation: orb-float 11s ease-in-out infinite;
+}
+
+.landing-orb-red {
+  background: radial-gradient(circle, rgba(235, 28, 36, 0.34) 0%, rgba(235, 28, 36, 0.08) 48%, transparent 72%);
+}
+
+.landing-orb-gold {
+  background: radial-gradient(circle, rgba(242, 194, 48, 0.3) 0%, rgba(242, 194, 48, 0.08) 46%, transparent 70%);
+  animation-delay: -4s;
+}
+
+.landing-pill {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset, 0 0 28px rgba(235, 28, 36, 0.12);
+  animation: pill-pulse 5.6s ease-in-out infinite;
+}
+
+.landing-title {
+  text-shadow: 0 0 18px rgba(235, 28, 36, 0.18), 0 0 32px rgba(242, 194, 48, 0.08);
+}
+
+.landing-photo-stage {
+  isolation: isolate;
+}
+
+.landing-photo-card {
+  box-shadow: 0 0 64px rgba(235, 28, 36, 0.22), 0 0 20px rgba(242, 194, 48, 0.08);
+}
+
+.landing-photo-card::before {
+  content: "";
+  position: absolute;
+  inset: -20% 18% auto;
+  height: 42%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(242, 194, 48, 0.16), transparent 70%);
+  filter: blur(24px);
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(22px, 22px, 0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) scale(1.08);
+    opacity: 0.68;
+  }
+}
+
+@keyframes pill-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset, 0 0 22px rgba(235, 28, 36, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 34px rgba(235, 28, 36, 0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-grid,
+  .landing-glow,
+  .landing-orb,
+  .landing-pill {
+    animation: none !important;
+  }
+}

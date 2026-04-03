@@ -1,0 +1,41 @@
+# Documentation
+*.md
+
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Build artifacts
+dist
+.next
+build
+
+# Dependencies
+node_modules
+yarn.lock
+package-lock.json
+
+# Testing
+.test
+.coverage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Analysis files
+*_ANALYSIS.md
+SETUP_GUIDE.md
+CODE_REFERENCE.md

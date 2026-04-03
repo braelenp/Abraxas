@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  --green: #10b981;
+  --green-light: #6ee7b7;
+  --purple: #9945ff;
+  --lime: #84cc16;
+
+  --bg-base: #0f1816;
+  --bg-surface: #0a1410;
+  --bg-card: #0d2018;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-base);
+  color: #e2e8f0;
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Wallet Adapter Overrides ───────────────────────────────── */
+.wallet-adapter-button {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background: transparent !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #6ee7b7 !important;
+  border-radius: 6px !important;
+  padding: 0.45rem 1.1rem !important;
+  height: auto !important;
+  transition: all 0.2s ease !important;
+}
+.wallet-adapter-button:hover {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.7) !important;
+  color: #a7f3d0 !important;
+}
+.wallet-adapter-button[data-state="connected"] {
+  border-color: rgba(16, 185, 129, 0.6) !important;
+  color: #6ee7b7 !important;
+}
+.wallet-adapter-modal-wrapper {
+  background: #0a1a12 !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+.wallet-adapter-modal-title {
+  font-family: 'Cinzel', serif !important;
+  color: #6ee7b7 !important;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #020c09; }
+::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.55); }
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes rr-breathe {
+  0%, 100% { transform: scale(0.95); opacity: 0.85; }
+  50%       { transform: scale(1.05); opacity: 1; }
+}
+@keyframes rr-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes rr-pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes rr-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+@keyframes verdant-enter {
+  from { opacity: 0; transform: scale(0.65); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes progress-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ─── Utility Classes ────────────────────────────────────────── */
+.font-cinzel  { font-family: 'Cinzel', serif; }
+.font-grotesk { font-family: 'Space Grotesk', sans-serif; }
+.font-mono    { font-family: 'IBM Plex Mono', monospace; }
+
+.verdant-enter {
+  animation: verdant-enter 1000ms cubic-bezier(0.22,1,0.36,1) 120ms both;
+}
+
+.rr-breathe {
+  animation: rr-breathe 3s ease-in-out infinite;
+}
+
+.tab-glow-active {
+  box-shadow: 0 0 0 1px rgba(16,185,129,0.35), 0 2px 12px rgba(16,185,129,0.18);
+}
+
+.card-verdant {
+  background: rgba(13, 32, 24, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 12px;
+}
+
+.card-verdant:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.glow-text-green {
+  text-shadow:
+    0 0 20px rgba(16, 185, 129, 0.8),
+    0 0 40px rgba(16, 185, 129, 0.5),
+    0 0 80px rgba(16, 185, 129, 0.25);
+}
+
+.progress-bar-green {
+  animation: progress-fill 4.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  background: linear-gradient(90deg, #10b981, #6ee7b7, #84cc16);
+}
