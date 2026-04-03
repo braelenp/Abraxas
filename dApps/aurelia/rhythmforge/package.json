@@ -1,0 +1,44 @@
+{
+  "license": "ISC",
+  "scripts": {
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
+    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+    "dev": "vite",
+    "dev:multiplayer": "node multiplayer/server.js",
+    "dev:stack": "MULTIPLAYER_PORT=8787 node multiplayer/server.js & VITE_MULTIPLAYER_WS_URL=ws://localhost:8787 vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "check:program": "cargo check -p rhythmforge"
+  },
+  "dependencies": {
+    "@anchor-lang/core": "^0.32.1",
+    "@coral-xyz/anchor": "^0.32.1",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@solana/wallet-adapter-base": "^0.9.27",
+    "@solana/wallet-adapter-react": "^0.15.39",
+    "@solana/wallet-adapter-react-ui": "^0.9.39",
+    "@solana/wallet-adapter-wallets": "^0.19.37",
+    "@solana/web3.js": "^1.98.4",
+    "@vitejs/plugin-react": "^5.1.4",
+    "axios": "^1.13.5",
+    "buffer": "^6.0.3",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.575.0",
+    "phaser": "^3.90.0",
+    "process": "^0.11.10",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.0",
+    "vite": "^7.3.1",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-router-dom": "^5.3.3",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "prettier": "^2.6.2",
+    "typescript": "^5.9.3"
+  }
+}
