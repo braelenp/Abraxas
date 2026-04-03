@@ -42,7 +42,7 @@ const RUNE_CONFIG = {
   runeName: 'Tiwaz',
   runeEssence: 'Tyr · Wise Kingship',
   agentName: 'KING',
-  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI renders sovereign judgment on dapp equity signals, institutional capital flows, and value creation opportunities across Sophia's Family. The forecast is law.",
+  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI, powered by World Labs Protocol infrastructure, renders sovereign judgment on dapp equity signals, institutional capital flows, and value creation opportunities across Sophia's Family. The forecast is law.",
   ctaLabel: 'Consult King AI',
   coreGlow: '239, 68, 68',
   fireGlow: '234, 88, 12',
@@ -129,7 +129,7 @@ export function OrionPage() {
           <TypingReveal text="Welcome to the next degree." delay={200} speed={60} />
           <h2 className="text-xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — High-Level DeFi Strategies</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance.
+            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance. Powered by <a href="https://worldlabsprotocol.carrd.co/" target="_blank" rel="noopener noreferrer" className="font-semibold text-orange-300 hover:text-orange-200 transition">World Labs Protocol</a> institutional infrastructure.
           </p>
         </div>
 
@@ -217,6 +217,19 @@ export function OrionPage() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* World Labs Badge */}
+        <div className="text-center">
+          <a
+            href="https://worldlabsprotocol.carrd.co/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-gradient-to-r from-orange-500/10 to-orange-400/5 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-orange-300 hover:border-orange-300/60 hover:from-orange-500/20 hover:to-orange-400/15 transition"
+          >
+            Powered by World Labs Protocol
+            <ArrowRight size={12} />
+          </a>
         </div>
 
         {/* BUY $ABRA - BOTTOM CTA */}
