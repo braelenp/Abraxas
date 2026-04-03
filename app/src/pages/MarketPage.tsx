@@ -1,3 +1,12 @@
+import { useMemo, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
+import { useAbraxas } from '../providers/AbraxasProvider';
+import { RuneRealm } from '../components/RuneRealm';
+import { LivePriceTicker } from '../components/LivePriceTicker';
+import { FoundationMarket } from '../components/FoundationMarket';
+
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
   id: string;
@@ -19,7 +28,7 @@ type PredictionMarket = {
 const initialPredictionMarkets: PredictionMarket[] = [
   {
     id: 'pred-1',
-    question: 'Will Caleb score >25 next game?',
+    question: 'Will Echo Protocol TVL exceed $150M this quarter?',
     category: 'athlete',
     status: 'open',
     outcomes: ['Yes', 'No'],
@@ -30,7 +39,7 @@ const initialPredictionMarkets: PredictionMarket[] = [
     streak: 2,
     multiplier: 1.2,
     challenge: 'Daily Streak: 2+',
-    reward: '25 ABRA + La Casa NFT fragment',
+    reward: '25 ABRA + Echo Genesis NFT',
   },
   {
     id: 'pred-2',
@@ -48,9 +57,8 @@ const initialPredictionMarkets: PredictionMarket[] = [
     reward: '10 ABRA',
   },
 ];
+
 // --- RWA Predictions Section ---
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useEffect } from 'react';
 function RwaPredictions() {
   const { publicKey } = useWallet();
   const [markets, setMarkets] = useState<PredictionMarket[]>(initialPredictionMarkets);
@@ -119,12 +127,8 @@ function RwaPredictions() {
     </article>
   );
 }
-// --- RWA Market Listings ---
-import { useMemo, useState } from 'react';
-import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap } from 'lucide-react';
-import { useAbraxas } from '../providers/AbraxasProvider';
-import { RuneRealm } from '../components/RuneRealm';
 
+// --- RWA Market Listings ---
 type MarketClass = 'athlete_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing' | 'horses' | 'golf';
 
 type MarketListing = {
@@ -143,7 +147,7 @@ type MarketListing = {
 };
 
 const marketClassLabels: Record<MarketClass, string> = {
-  athlete_equity: 'Athlete Equity',
+  athlete_equity: 'DApp Equity',
   real_estate: 'Real Estate',
   trading_portfolio: 'Trading Portfolio',
   music_rights: 'Music Rights',
@@ -154,46 +158,46 @@ const marketClassLabels: Record<MarketClass, string> = {
 
 const listedAssets: MarketListing[] = [
   {
-    id: 'mk-cdubb',
-    symbol: '$CDUBB',
-    name: 'C Dubb Performance Index',
+    id: 'mk-echo',
+    symbol: '$ECHO',
+    name: 'Echo Protocol Equity',
     marketClass: 'athlete_equity',
     status: 'live',
     price: 18.92,
     changePct: 3.8,
-    marketCap: 1240000,
+    marketCap: 5240000,
     floatPct: 34,
-    dailyVolume: 218400,
+    dailyVolume: 428400,
     score: 92,
-    thesis: 'High conversion of training load into game carryover and sponsor engagement.',
+    thesis: 'Ecosystem value accrual through protocol adoption, liquidity depth, and institutional integration across music rights layer.',
   },
   {
-    id: 'mk-ajwill',
-    symbol: '$AJWILL',
-    name: 'AJ Will Development Basket',
+    id: 'mk-pulse',
+    symbol: '$PULSE',
+    name: 'Pulse Gaming Index',
     marketClass: 'athlete_equity',
     status: 'live',
     price: 15.31,
     changePct: 1.9,
-    marketCap: 1025000,
+    marketCap: 4025000,
     floatPct: 41,
-    dailyVolume: 166000,
+    dailyVolume: 366000,
     score: 86,
-    thesis: 'Strong week-over-week stat consistency with room for upside on efficiency bands.',
+    thesis: 'Gaming guild economy expansion driving revenue flows through tokenized in-game asset appreciation and yield distribution.',
   },
   {
-    id: 'mk-hailee',
-    symbol: '$HAILEE',
-    name: 'Hailee Guard Alpha',
+    id: 'mk-aurelia',
+    symbol: '$AURELIA',
+    name: 'Aurelia Real Estate Vault',
     marketClass: 'athlete_equity',
     status: 'live',
     price: 12.56,
     changePct: 5.4,
-    marketCap: 890000,
+    marketCap: 3890000,
     floatPct: 28,
-    dailyVolume: 149200,
+    dailyVolume: 249200,
     score: 94,
-    thesis: 'Assist and decision-speed profile supports compounding value under low volatility.',
+    thesis: 'Real estate tokenization layer enabling property-backed yield with transparent occupancy and renovation checkpoints.',
   },
   {
     id: 'mk-lacasa-reit',
@@ -456,12 +460,81 @@ const hypothesisExamples = [
   },
 ];
 
+// --- Breaking Signals Mock Data ---
+type BreakingSignal = {
+  id: string;
+  title: string;
+  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol';
+  timestamp: string;
+  snippet: string;
+  category: 'athlete' | 'rwa' | 'gaming' | 'defi' | 'market';
+};
+
+const breakingSignals: BreakingSignal[] = [
+  {
+    id: 'sig-1',
+    title: 'Echo Protocol Hits $100M TVL Milestone on Solana',
+    source: 'Solana',
+    timestamp: '2 minutes ago',
+    snippet: 'Sophia Music layer reaches institutional scale with 47M daily volume and 150+ liquidity providers. Genesis and Echo yield rates stabilizing at 20.4% APY.',
+    category: 'athlete',
+  },
+  {
+    id: 'sig-2',
+    title: 'Ethereum RWA Market Gap Analysis: USDT vs Real Estate Yields',
+    source: 'Blockworks',
+    timestamp: '8 minutes ago',
+    snippet: 'Latest research shows RWA adoption accelerating on Solana with 3.2x greater cost efficiency than Layer 2 alternatives.',
+    category: 'rwa',
+  },
+  {
+    id: 'sig-3',
+    title: 'Bags DEX Hits 24h Volume Peak: 47M in Trades',
+    source: 'Bags',
+    timestamp: '14 minutes ago',
+    snippet: 'Record settlement velocity across dapp equity, real estate, and composite RWA pairs. Circuit protection systems holding steady.',
+    category: 'market',
+  },
+  {
+    id: 'sig-4',
+    title: 'Polymarket Prediction: Will Bitcoin Hit New ATH by Q2?',
+    source: 'Polymarket',
+    timestamp: '22 minutes ago',
+    snippet: 'Market consensus: 68% probability. Sentiment shows institutional conviction outpacing retail position sizing.',
+    category: 'market',
+  },
+  {
+    id: 'sig-5',
+    title: 'Music Rights RWA Pilot: 12 Catalog Listings Now Live',
+    source: 'CoinDesk',
+    timestamp: '31 minutes ago',
+    snippet: 'First wave of music IP securitization closing with emerging artist backing and transparent royalty flows to blockchain.',
+    category: 'rwa',
+  },
+  {
+    id: 'sig-6',
+    title: 'CircuitBreaker Threshold Study: New Volatility Model Released',
+    source: 'DeFi Protocol',
+    timestamp: '45 minutes ago',
+    snippet: 'Advanced entropy detection now integrated across all vault types. Aegis protection layer upgraded with quad-redundancy.',
+    category: 'defi',
+  },
+  {
+    id: 'sig-7',
+    title: 'Gaming Token Markets Rally: Guild Economy Signals Strength',
+    source: 'Blockworks',
+    timestamp: '52 minutes ago',
+    snippet: 'On-chain gaming guilds reporting 27% QoQ growth in tokenized asset holdings and yield farming participation.',
+    category: 'gaming',
+  },
+];
+
 const RUNE_CONFIG = {
   rune: 'ᛋ',
   runeName: 'Sowilo',
   runeEssence: 'Sun · Victorious Vision',
   agentName: 'HORIZON',
-  lore: "Sowilo is the sun-wheel, the unstoppable light of sovereign victory. Horizon sees every listed asset class at once, from athlete equity and real estate to trading portfolios and music rights. The trajectory is visible before the market makes its move.",
+  lore: "Sowilo is the sun-wheel, the unstoppable light of sovereign victory. Horizon sees every listed asset class at once, from dapp equity and real estate to trading portfolios and music rights. The trajectory is visible before the market makes its move.",
   ctaLabel: 'Scan the Market',
   coreGlow: '251, 191, 36',
   fireGlow: '234, 88, 12',
@@ -469,6 +542,7 @@ const RUNE_CONFIG = {
 } as const;
 
 export function MarketPage() {
+  const location = useLocation();
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
   const [showMarketInfo, setShowMarketInfo] = useState(false);
   const [expandedThesis, setExpandedThesis] = useState<Record<string, boolean>>({});
@@ -483,6 +557,22 @@ export function MarketPage() {
   const [fromAmount, setFromAmount] = useState<string>('');
   const [toAmount, setToAmount] = useState<string>('');
   const [isLoadingQuote, setIsLoadingQuote] = useState(false);
+
+  // Reset state when navigating to the Market page to ensure proper page state
+  useEffect(() => {
+    if (location.pathname === '/app/market') {
+      // Reset UI state to defaults
+      setSelectedClass('all');
+      setShowMarketInfo(false);
+      setExpandedThesis({});
+      setShowAllExamples(false);
+      setShowAllAssets(false);
+      setSelectedPairId('abra-usdc');
+      setFromAmount('');
+      setToAmount('');
+      setIsLoadingQuote(false);
+    }
+  }, [location.pathname]);
 
   const swapPairs = [
     { id: 'abra-usdc', label: 'ABRA → USDC', price: 0.95 },
@@ -521,7 +611,7 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
-      {/* --- Top-Up Section --- */}
+      {/* --- Available Balance — Top Priority --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
         <p className="text-xs text-slate-300/80">Available Balance</p>
         <p className="mt-2 text-4xl font-bold text-cyan-50">${portfolioValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
@@ -533,6 +623,91 @@ export function MarketPage() {
           <button className="rounded-xl border border-slate-500/40 bg-slate-950/40 px-3 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-950/60 transition">
             Withdraw
           </button>
+        </div>
+      </article>
+
+      {/* --- Foundation Market — Dapp Equity RWA --- */}
+      <FoundationMarket />
+
+      {/* --- Live Price Ticker – Market Overview --- */}
+      <LivePriceTicker />
+
+      {/* --- Breaking Signals – The Horizon Speaks --- */}
+      <article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden">
+        <div className="space-y-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-lg" />
+              <Newspaper className="text-cyan-300 relative z-10 drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]" size={18} />
+            </div>
+            <div>
+              <h2 className="text-sm font-bold text-cyan-200 tracking-widest uppercase">Breaking Signals</h2>
+              <p className="text-[10px] text-cyan-300/60 font-mono">The Horizon Speaks</p>
+            </div>
+          </div>
+          <p className="text-xs leading-relaxed text-slate-300/75 italic">
+            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and dapp equity flows.
+          </p>
+        </div>
+
+        {/* Scrollable News Feed */}
+        <div className="space-y-2 max-h-96 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(34,211,238,0.3)_rgba(15,23,42,0.5)]">
+          {breakingSignals.map((signal, idx) => (
+            <div
+              key={signal.id}
+              className="group relative rounded-lg border border-cyan-300/15 bg-slate-950/40 backdrop-blur-sm p-3 hover:bg-slate-950/60 hover:border-cyan-300/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+              style={{
+                animationDelay: `${idx * 50}ms`,
+                animation: 'fadeInUp 0.6s ease-out forwards',
+              }}
+            >
+              {/* Category badge */}
+              <div className="absolute top-2 right-2">
+                <span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border backdrop-blur-sm ${
+                  signal.category === 'athlete'
+                    ? 'border-orange-400/30 bg-orange-400/10 text-orange-300'
+                    : signal.category === 'rwa'
+                    ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
+                    : signal.category === 'gaming'
+                    ? 'border-violet-400/30 bg-violet-400/10 text-violet-300'
+                    : signal.category === 'defi'
+                    ? 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
+                    : 'border-amber-400/30 bg-amber-400/10 text-amber-300'
+                }`}>
+                  {signal.category}
+                </span>
+              </div>
+
+              {/* Header with source and timestamp */}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono font-bold text-cyan-300/80 uppercase tracking-wider">[{signal.source}]</span>
+                <span className="text-[9px] text-slate-400/70">{signal.timestamp}</span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-sm font-semibold text-slate-100 mb-2 group-hover:text-cyan-200 transition line-clamp-2">
+                {signal.title}
+              </h3>
+
+              {/* Snippet */}
+              <p className="text-xs leading-relaxed text-slate-300/80 line-clamp-2 mb-2">
+                {signal.snippet}
+              </p>
+
+              {/* Rune accent line */}
+              <div className="flex items-center gap-2 text-[10px] text-cyan-400/60">
+                <div className="flex-1 h-px bg-gradient-to-r from-cyan-400/30 to-transparent" />
+                <span>ᛋ</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-4 pt-3 border-t border-cyan-300/10">
+          <p className="text-[9px] text-slate-400/70 text-center font-mono uppercase tracking-wider">
+            Live feed refreshes every 30 seconds • Powered by Horizon oracle network
+          </p>
         </div>
       </article>
 
@@ -599,8 +774,10 @@ export function MarketPage() {
         </div>
       </article>
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas RWA Prediction Market</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Predict Real-World Outcomes. Win Big. Go Viral.</h2>
+        <div className="font-mono">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [MARKET_PROTOCOL] RWA_PREDICTION</p>
+          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">PREDICT_OUTCOMES | WIN_BIG | GO_VIRAL</h2>
+        </div>
         <button
           onClick={() => setShowMarketInfo(!showMarketInfo)}
           className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"
@@ -610,7 +787,7 @@ export function MarketPage() {
         </button>
         {showMarketInfo && (
           <p className="mt-3 text-sm leading-relaxed text-slate-300/90">
-            The world's first viral, gamified RWA prediction market. Bet on athlete stats, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
+            The world's first viral, gamified RWA prediction market. Bet on dapp equity performance, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
           </p>
         )}
       </article>
@@ -730,7 +907,7 @@ export function MarketPage() {
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-200/90">
           <div className="rounded-xl border border-cyan-300/20 bg-slate-950/45 p-3">
             <Dumbbell size={14} className="text-cyan-200" />
-            <p className="mt-2 font-semibold">Athlete Equity</p>
+            <p className="mt-2 font-semibold">DApp Equity</p>
             <p className="mt-1 text-slate-400">Live and compounding through development signals.</p>
           </div>
           <div className="rounded-xl border border-cyan-300/20 bg-slate-950/45 p-3">
@@ -773,6 +950,8 @@ export function MarketPage() {
           </div>
         )}
       </article>
+
+
     </section>
     </RuneRealm>
   );

@@ -81,7 +81,7 @@ export function OnboardPage() {
       console.error('Failed to fetch live stake record', error);
       setUserStakes([]);
     }
-  }, [connection, programId, publicKey]);
+  }, [programId, publicKey]);
 
   useEffect(() => {
     if (!connected || !publicKey) {
@@ -242,18 +242,18 @@ export function OnboardPage() {
   if (showSuccess && successData) {
     return (
       <div className="min-h-screen max-w-3xl mx-auto px-4 py-8 flex items-center justify-center">
-        <div className="glow-panel p-8 space-y-4 text-center max-w-md">
-          <div className="flex justify-center">
-            <CheckCircle size={48} className="text-green-400" />
+        <div className="glow-panel p-8 space-y-4 text-center max-w-md font-mono">
+          <div className="text-center mb-2">
+            <p className="text-sm font-bold text-green-400 tracking-widest uppercase">&gt; [TRANSACTION_SUCCESS]</p>
           </div>
-          <h2 className="text-2xl font-bold text-white">ABRA Acquired & Staked</h2>
+          <h2 className="text-sm font-bold text-green-400 tracking-widest uppercase">ABRA_ACQUIRED_STAKED</h2>
           <div className="space-y-2 text-sm text-white/70">
             <p>
-              <span className="font-semibold text-amber-200">{successData.amount} ABRA</span> locked for{' '}
-              <span className="font-semibold text-violet-300">{successData.duration} days</span>
+              <span className="font-bold text-amber-400 font-mono">{successData.amount} ABRA</span> | Locked
+              <span className="font-bold text-violet-400 font-mono">{successData.duration}d</span>
             </p>
             <p>
-              Multiplier: <span className="font-semibold text-green-300">{successData.multiplier}</span>
+              Multiplier: <span className="font-bold text-green-400 font-mono">{successData.multiplier}</span>
             </p>
           </div>
           <div className="border-t border-white/10 pt-4">
@@ -273,26 +273,26 @@ export function OnboardPage() {
   return (
     <div className="min-h-screen max-w-3xl mx-auto px-4 py-8 space-y-8">
       <div className="glow-panel p-6 space-y-3">
-        <div className="flex items-center gap-2">
-          <Sparkles size={20} className="text-violet-400" />
-          <h1 className="text-lg font-semibold text-white">Early Adoption — Live</h1>
+        <div className="flex items-center gap-2 font-mono">
+          <span className="text-violet-400">&gt;</span>
+          <h1 className="text-sm font-bold text-violet-400 tracking-widest uppercase">[EARLY_ADOPTION] LIVE</h1>
         </div>
-        <p className="text-sm text-white/65 leading-relaxed">
+        <p className="text-[11px] text-white/65 leading-relaxed uppercase tracking-[0.05em]">
           Athlete-specific token listings are not live yet. Early adopters onboard now through
-          <span className="text-yellow-300 font-semibold"> ABRA token acquisition + immediate staking</span>, while core dApp flows remain live in Devnet showcase mode.
+          <span className="text-yellow-300 font-semibold"> ABRA_TOKEN + IMMEDIATE_STAKING</span>, while core dApp flows remain live in Devnet showcase mode.
         </p>
       </div>
 
       {/* Step 1: Buy ABRA or stake if already holding */}
       <div className="grid grid-cols-1 gap-4">
         <div className="glow-panel p-5 space-y-3">
-          <div className="flex items-center gap-2 text-yellow-300">
-            <Coins size={16} />
-            <h2 className="text-sm font-semibold text-white">Step 1: Buy ABRA Now</h2>
+          <div className="flex items-center gap-2 font-mono">
+            <span className="text-orange-400">&gt;</span>
+            <h2 className="text-sm font-bold text-orange-400 tracking-widest uppercase">[STEP_01] BUY_ABRA</h2>
           </div>
-          <p className="text-xs text-white/60 leading-relaxed">
+          <p className="text-[11px] text-white/60 leading-relaxed">
             Acquire ABRA now for immediate liquid stake in the Abraxas RWA Stock Market.
-            This is the live onboarding path while individual athlete token issuance remains pending.
+            This is the live onboarding path while individual dapp equity token issuance remains pending.
           </p>
           <div className="rounded-xl border border-amber-300/25 bg-slate-900/70 p-3 space-y-1">
             <p className="text-[10px] uppercase tracking-[0.16em] text-amber-200/75 font-semibold">ABRA Token</p>
@@ -322,11 +322,11 @@ export function OnboardPage() {
       {selectedStakeDuration === null ? (
         <div className="space-y-4">
           <div className="glow-panel p-5 space-y-4">
-            <div className="flex items-center gap-2 text-violet-300">
-              <Lock size={16} />
-              <h2 className="text-sm font-semibold text-white">Step 2: Immediate Stake ABRA</h2>
+            <div className="flex items-center gap-2 font-mono">
+              <span className="text-violet-400">&gt;</span>
+              <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase">[STEP_02] STAKE_ABRA</h2>
             </div>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-[11px] text-white/60 leading-relaxed">
               Stake your freshly acquired ABRA tokens for 30, 90, or 180 days to write a live stake position on the Abraxas devnet program. Choose your lock period below.
             </p>
 
@@ -344,7 +344,7 @@ export function OnboardPage() {
                 >
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 w-full">
-                      <p className="text-sm font-semibold text-white">{tier.label}</p>
+                      <p className="text-sm font-bold text-cyan-300 font-mono">{tier.label}</p>
                       {tier.highlight && (
                         <span className="ml-auto inline-flex items-center gap-0 text-violet-300 font-semibold shrink-0">
                           <Gem size={14} />
@@ -353,7 +353,7 @@ export function OnboardPage() {
                     </div>
                     <div className="space-y-1">
                       <p className="text-lg font-bold text-green-400">{tier.multiplier}</p>
-                      <p className="text-xs text-white/50">{tier.description}</p>
+                      <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{tier.description}</p>
                     </div>
                   </div>
                 </button>
@@ -364,9 +364,9 @@ export function OnboardPage() {
       ) : (
         <div className="glow-panel p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-violet-300">
-              <Zap size={16} />
-              <h2 className="text-sm font-semibold text-white">Confirm Your Stake</h2>
+            <div className="flex items-center gap-2 font-mono">
+              <span className="text-violet-400">&gt;</span>
+              <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase">CONFIRM_STAKE</h2>
             </div>
             <button
               onClick={() => {
@@ -381,7 +381,7 @@ export function OnboardPage() {
 
           {/* Amount Input */}
           <div className="space-y-2">
-            <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">ABRA Amount to Stake</label>
+            <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRA_AMOUNT_TO_STAKE</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -402,7 +402,7 @@ export function OnboardPage() {
           {/* Projection */}
           {stakeAmount && Number(stakeAmount) > 0 && (
             <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-2">
-              <p className="text-xs text-green-300 font-semibold">Projected Value at Unlock</p>
+              <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">PROJECTED_VALUE_AT_UNLOCK</p>
               <div className="flex items-baseline justify-between">
                 <p className="text-2xl font-bold text-green-300">
                   {(
@@ -462,7 +462,7 @@ export function OnboardPage() {
 
       {/* ABRA Position Guides */}
       <div className="space-y-3" style={{ contain: 'layout style' }}>
-        <p className="text-xs uppercase tracking-[0.14em] text-amber-200/75 font-semibold flex-shrink-0">ABRA Position Guides</p>
+        <p className="text-[10px] uppercase tracking-[0.14em] text-cyan-400 font-bold flex-shrink-0 font-mono">&gt; POSITION_GUIDES</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {TOKEN_TIERS.map((tier) => (
             <div
@@ -478,7 +478,7 @@ export function OnboardPage() {
                 ) : null}
               </div>
               <p className="text-lg font-bold text-amber-200">{tier.amount}</p>
-              <p className="text-xs text-white/55">{tier.note}</p>
+              <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{tier.note}</p>
             </div>
           ))}
         </div>
@@ -498,9 +498,9 @@ export function OnboardPage() {
         <div className="flex items-start gap-2 w-full">
           <TrendingUp size={14} className="mt-0.5 text-cyan-400 shrink-0 flex-shrink-0" />
           <div className="space-y-1 text-xs text-cyan-300/80 flex-1 min-w-0">
-            <p className="font-semibold">Devnet Showcase Flows</p>
+            <p className="font-bold text-cyan-400 font-mono">&gt; [DEVNET_SHOWCASE] FLOWS</p>
             <p>
-              Vaults, Sophia AI, Circuit, and King AI remain live in devnet mode. Live trading flows with athlete tokens
+              Vaults, Sophia AI, Circuit, and King AI remain live in devnet mode. Live trading flows with dapp equity tokens
               coming soon after launch.
             </p>
           </div>
@@ -515,30 +515,30 @@ export function OnboardPage() {
           {/* Staking Stats */}
           {userStakes.length > 0 && (
             <div className="sticky top-0 z-20 -mx-4 space-y-4 border-b border-cyan-200/15 bg-slate-950/92 px-4 py-3 backdrop-blur-xl">
-              <div className="flex items-center min-w-0 max-w-full overflow-hidden">
-                <h2 className="text-lg font-bold text-white min-w-0 max-w-full overflow-hidden truncate">Your ABRA Stakes</h2>
+              <div className="flex items-center min-w-0 max-w-full overflow-hidden font-mono">
+                <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase min-w-0 max-w-full overflow-hidden truncate">YOUR_ABRA_STAKES</h2>
               </div>
               <div className="grid grid-cols-3 gap-4 min-w-0 max-w-full overflow-hidden">
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Total Staked</p>
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-widest font-mono">TOTAL_STAKED</p>
                   <p className="text-2xl font-bold text-amber-200 truncate">
                     {userStakes.reduce((sum, s) => sum + s.abraAmount, 0).toLocaleString()}
                   </p>
-                  <p className="text-xs text-white/40 truncate">ABRA</p>
+                  <p className="text-[10px] text-cyan-300/60 font-mono truncate">ABRA</p>
                 </div>
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Projected Value</p>
+                  <p className="text-[10px] text-violet-400 uppercase tracking-widest font-mono truncate">PROJECTED_VALUE</p>
                   <p className="text-2xl font-bold text-violet-300 truncate">
                     {Math.round(
                       userStakes.reduce((sum, s) => sum + s.abraAmount * (s.multiplierBps / 10_000), 0)
                     ).toLocaleString()}
                   </p>
-                  <p className="text-xs text-white/40 truncate">ABRA</p>
+                  <p className="text-[10px] text-violet-300/60 font-mono truncate">ABRA</p>
                 </div>
                 <div className="glow-panel p-4 space-y-1 min-w-0 max-w-full overflow-hidden">
-                  <p className="text-xs text-white/50 uppercase tracking-wide truncate">Active Stakes</p>
+                  <p className="text-[10px] text-green-400 uppercase tracking-widest font-mono truncate">ACTIVE_STAKES</p>
                   <p className="text-2xl font-bold text-green-400 truncate">{userStakes.filter((s) => s.isActive).length}</p>
-                  <p className="text-xs text-white/40 truncate">Position(s)</p>
+                  <p className="text-[10px] text-green-300/60 font-mono truncate">Position(s)</p>
                 </div>
               </div>
             </div>
@@ -549,7 +549,7 @@ export function OnboardPage() {
             <div className="space-y-3">
               <div className="flex items-center gap-2 flex-shrink-0 w-full" style={{ contain: 'layout style' }}>
                 <Lock size={18} className="text-cyan-400 flex-shrink-0" />
-                <h3 className="text-lg font-semibold text-white flex-shrink-0">Active Stakes</h3>
+                <h3 className="text-sm font-bold text-cyan-400 flex-shrink-0 font-mono tracking-widest uppercase">&gt; ACTIVE_STAKES</h3>
               </div>
               <div className="space-y-3">
                 {userStakes.map((stake) => {
@@ -561,7 +561,7 @@ export function OnboardPage() {
                     <div key={stake.address} className={`glow-panel p-4 space-y-3 ${stake.isActive ? '' : 'opacity-75'}`}>
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
-                          <p className="text-sm font-semibold text-white">{stake.abraAmount.toLocaleString()} ABRA</p>
+                          <p className="text-sm font-bold text-cyan-300 font-mono">{stake.abraAmount.toLocaleString()} ABRA</p>
                           <p className="text-xs text-white/50">
                             Duration: {stake.lockDurationDays} days • Multiplier: {(stake.multiplierBps / 10_000).toFixed(1)}x
                           </p>
@@ -588,7 +588,7 @@ export function OnboardPage() {
 
                       {stake.isActive && (
                         <div className="border-t border-white/10 pt-2">
-                          <p className="text-xs text-white/50">Projected Value at Unlock</p>
+                          <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">VALUE_AT_UNLOCK</p>
                           <p className="text-lg font-bold text-green-300">
                             {(stake.abraAmount * (stake.multiplierBps / 10_000)).toLocaleString()} ABRA
                           </p>

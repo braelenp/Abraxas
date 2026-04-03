@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 
@@ -15,12 +16,26 @@ const RUNE_CONFIG = {
 } as const;
 
 export function CircuitPage() {
+  const location = useLocation();
   const { vaults, runCircuitCheck } = useAbraxas();
   const [vaultId, setVaultId] = useState(vaults[0]?.id ?? '');
   const [priceSpeedBps, setPriceSpeedBps] = useState(450);
   const [liquidityDrainBps, setLiquidityDrainBps] = useState(350);
   const [activitySpikeBps, setActivitySpikeBps] = useState(500);
   const [lastAction, setLastAction] = useState('Not evaluated yet');
+
+  // Reset state when navigating to the Circuit page
+  useEffect(() => {
+    if (location.pathname === '/app/circuit') {
+      setPriceSpeedBps(450);
+      setLiquidityDrainBps(350);
+      setActivitySpikeBps(500);
+      setLastAction('Not evaluated yet');
+      if (vaults.length > 0) {
+        setVaultId(vaults[0].id);
+      }
+    }
+  }, [location.pathname, vaults]);
 
   useEffect(() => {
     if (!vaultId && vaults.length > 0) {

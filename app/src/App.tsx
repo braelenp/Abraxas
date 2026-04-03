@@ -5,24 +5,26 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
+import { CadabraPage } from './pages/CadabraPage';
 import { TradePage } from './pages/TradePage';
 import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
 import { ForgePage } from './pages/ForgePage';
+import { LoadingPage } from './pages/LoadingPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app',         label: 'Forge',   rune: 'ᚲ' },
-  { to: '/app/vaults',  label: 'Sophia',  rune: 'ᚨ' },
-  { to: '/app/market',  label: 'Horizon', rune: 'ᛋ' },
-  { to: '/app/trade',   label: 'Flux',    rune: 'ᛚ' },
-  { to: '/app/orion',   label: 'King',    rune: 'ᛏ' },
-  { to: '/app/circuit', label: 'Aegis',   rune: 'ᚦ' },
-  { to: '/app/warden',  label: 'Warden',  rune: 'ᛉ' },
+  { to: '/app',         label: 'Forge',     rune: 'ᚲ' },
+  { to: '/app/orion',   label: 'King AI',   rune: 'ᛏ' },
+  { to: '/app/cadabra', label: 'Cadabra',   rune: '✦' },
+  { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
+  { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
+  { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
+  { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
 ];
 
 function ProtectedDapp() {
@@ -115,7 +117,7 @@ function DappShell() {
             <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
           </div>
         </div>
-        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Sophia · ᛋ Horizon · ᛚ Flux · ᛏ King · ᚦ Aegis · ᛉ Warden</p>
+        <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ✦ Cadabra · ᛏ King AI · ᚦ Circuit · ᛚ Trade</p>
       </header>
 
       <main
@@ -126,7 +128,7 @@ function DappShell() {
           <Route index element={<ForgePage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
-          <Route path="onboard" element={<TradePage />} />
+          <Route path="cadabra" element={<CadabraPage />} />
           <Route path="trade" element={<TradePage />} />
           <Route path="orion" element={<OrionPage />} />
           <Route path="circuit" element={<CircuitPage />} />
@@ -141,25 +143,46 @@ function DappShell() {
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
             <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 backdrop-blur-xl">
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
-                <p className="text-base font-semibold text-cyan-100">The Seven Runes Await</p>
-                <p className="mt-2 leading-relaxed text-slate-300">
-                  You have entered the Abraxas sovereign engine. A living RWA protocol on Solana, guarded by seven Elder Futhark runes. Each rune is bound to an AI agent and a domain of power.
+                <p className="text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest">&gt; [INTRO_AWAITS] SOVEREIGN_ENGINE</p>
+                <p className="mt-3 leading-relaxed text-slate-300 text-xs">
+                  You have entered the Abraxas Protocol — a tokenization engine that brings institutional-grade digital asset management to retail users on Solana. Built on World Labs Protocol infrastructure, Abraxas democratizes access to provably secure RWA handling sealed by seven Elder Futhark runes. Each rune binds an AI agent to institutional asset management domains.
                 </p>
 
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-cyan-200/90">The Seven Runes</p>
-                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-orange-300">ᚲ Kenaz · Forge</span> keeps the sacred flame burning. Stake ABRA to forge positions, accumulate multipliers, and compound yield across every lock cycle.</li>
-                  <li><span className="font-semibold text-cyan-300">ᚨ Ansuz · Sophia</span> speaks your vaults into being. She governs every RWA deposit, assignment, and yield cycle with autonomous precision.</li>
-                  <li><span className="font-semibold text-amber-300">ᛋ Sowilo · Horizon</span> sees the entire market from above. Browse every listed RWA class, compare assets across athlete equity, real estate, and trading portfolios, and read the full live data book.</li>
-                  <li><span className="font-semibold text-teal-300">ᛚ Laguz · Flux</span> moves where force cannot follow. Acquire ABRA, swap RWA pairs through Jupiter DEX, and route capital into position with fluid execution.</li>
-                  <li><span className="font-semibold text-red-300">ᛏ Tiwaz · King</span> delivers sovereign judgment. He runs athlete development analysis, market forecasts, and pushes value creation actions directly into the protocol.</li>
-                  <li><span className="font-semibold text-emerald-300">ᚦ Thurisaz · Aegis</span> holds the line. Set circuit breaker thresholds to protect your vaults from volatility, liquidity drain, and entropy before they breach.</li>
-                  <li><span className="font-semibold text-violet-300">ᛉ Algiz · Warden</span> stands at your sovereign command center. Live Polymarket prediction markets, portfolio momentum, and real-time market intelligence flow through the Warden's watch.</li>
+                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
+                <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
+                  <li><span className="font-semibold text-orange-300">• ᚲ Kenaz — Forge.</span> Stake ABRA to mint positions, stack multipliers, and compound yield every lock cycle.</li>
+                  <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Autonomous vault engine. Handles every RWA deposit, assignment, and yield cycle with precision.</li>
+                  <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Full market oversight. Browse all RWA classes, Foundation Market (Dapp Equity), and real-time data visualization.</li>
+                  <li><span className="font-semibold text-purple-300">• ✦ Mirror — Cadabra.</span> The social mirror. Build community, share alpha, tokenize moments. Pulse gaming clips. Apex Legends tournaments.</li>
+                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Monitors World Labs institutional capital flows. Delivers sovereign judgment on dapp equity, M1 pulldown mechanics, and automated yield routing.</li>
+                  <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Circuit breaker protection. Set thresholds to shield vaults from volatility, liquidity drain, and entropy.</li>
+                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Acquire ABRA and execute fluid RWA swaps & routing via Bags DEX.</li>
                 </ul>
 
-                <p className="mt-3 leading-relaxed text-slate-300">
-                  Each rune reveals itself when you enter its tab. Step through the threshold. The protocol responds to sovereign intent.
+                <p className="mt-4 text-xs leading-relaxed text-slate-300">
+                  Each rune activates in its tab.<br />
+                  Step through. The protocol awaits your intent.
                 </p>
+
+                <div className="mt-6 border-t border-amber-300/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [FOUNDATION_MARKET]</p>
+                  <p className="text-xs leading-relaxed text-slate-300/90">
+                    Inside the Market tab, witness the Foundation Market.<br />
+                    The top 100 dApps on Bags are the infrastructure itself.<br />
+                    <span className="text-purple-300 font-semibold">Own Dapp Equity RWA.</span><br />
+                    Value scores, live metrics, verified builders. The foundation reveals itself.
+                  </p>
+                </div>
+
+                <div className="mt-4 border-t border-cyan-300/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FORGE]</p>
+                  <p className="text-xs leading-relaxed text-slate-300/90">
+                    Kenaz transforms raw capital into tokenized sovereign yield positions.<br />
+                    Assets surrender physical form for algorithmic compounding, liquidity, and autonomous market force.<br />
+                    <span className="text-orange-300 font-semibold">You do not choose the asset.</span><br />
+                    The one that burns for you reveals itself.
+                  </p>
+                </div>
               </div>
 
               <button
@@ -167,9 +190,9 @@ function DappShell() {
                   setShowIntroModal(false);
                   setHasSeenIntroModal(true);
                 }}
-                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-200/75 bg-gradient-to-r from-amber-200 via-amber-100 to-orange-100 px-4 text-sm font-semibold text-slate-950 shadow-[0_0_14px_rgba(245,158,11,0.3)] hover:from-amber-100 hover:to-orange-100"
+                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:bg-slate-800/70 hover:border-amber-300/80 transition-all"
               >
-                Enter the Rune Circle
+                &gt; [ENTER] BEGIN_PROTOCOL
               </button>
             </div>
           </div>
@@ -187,26 +210,33 @@ function DappShell() {
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}
 
-      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl">
+      {/* Bags Integration Badge */}
+      <div className="z-35 mx-auto flex w-full max-w-md flex-none border-b border-emerald-400/20 bg-emerald-950/40 px-3 py-1.5 backdrop-blur-sm">
+        <div className="text-[9px] font-mono uppercase tracking-wider text-emerald-300/80">
+          ✓ <span className="text-emerald-300 font-semibold">Powered by Bags</span> • Deep Integration • Fee-Share Active
+        </div>
+      </div>
+
+      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-yellow-300/15 bg-slate-950/94 px-1 pb-[calc(0.375rem+env(safe-area-inset-bottom))] pt-1 backdrop-blur-xl relative">
         {navItems.map(({ to, label, rune }) => (
           <NavLink
             key={to}
             to={to}
-            end={to === '/app'}
-            className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition"
+            end={true}
+            className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 transition cursor-pointer z-50 relative"
           >
             {({ isActive }) => (
               <>
                 <span
                   className={`text-xl font-black leading-tight transition-all duration-300 ${
-                    isActive ? 'text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)]' : 'text-slate-600'
+                    isActive ? 'text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)]' : 'text-slate-600 hover:text-slate-500'
                   }`}
                 >
                   {rune}
                 </span>
                 <span
                   className={`text-[7.5px] uppercase tracking-[0.14em] transition ${
-                    isActive ? 'text-yellow-200/80' : 'text-slate-600'
+                    isActive ? 'text-yellow-200/80' : 'text-slate-600 hover:text-slate-500'
                   }`}
                 >
                   {label}
@@ -221,13 +251,28 @@ function DappShell() {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Show loading screen for 3 seconds on app startup
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/app/*" element={<ProtectedDapp />} />
       <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
       <Route path="/market" element={<Navigate to="/app/market" replace />} />
-      <Route path="/onboard" element={<Navigate to="/app/onboard" replace />} />
+      <Route path="/onboard" element={<Navigate to="/app/trade" replace />} />
       <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
       <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
       <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />

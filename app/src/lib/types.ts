@@ -1,4 +1,4 @@
-export type VaultAssetType = 'athlete_equity' | 'real_estate' | 'trading_portfolio';
+export type VaultAssetType = 'dapp_equity' | 'real_estate' | 'trading_portfolio' | 'music_rights' | 'ip_licensing';
 
 export type CircuitState = 'normal' | 'warning' | 'protected';
 

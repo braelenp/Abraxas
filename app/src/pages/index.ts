@@ -8,3 +8,5 @@ export { OrionPage } from './OrionPage';
 export { LandingPage } from './LandingPage';
 export { ForgePage } from './ForgePage';
 export { StakePage } from './StakePage';
+export { LoadingPage } from './LoadingPage';
+export { OnboardPage } from './OnboardPage';

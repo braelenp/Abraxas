@@ -367,7 +367,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       }`}
     >
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold text-cyan-300">King AI Assistant</h2>
+        <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase font-mono">&gt; [KING_AI] ASSISTANT_ACTIVE</h2>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setHistoryOpen((current) => !current)}
@@ -394,7 +394,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
 
       <div className="mb-2 rounded-xl border border-cyan-300/30 bg-slate-900/70 p-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-cyan-200/90">{tabIntro.title}</p>
-        <p className="mt-1 text-xs leading-relaxed text-slate-300">{tabIntro.description}</p>
+        <p className="mt-1 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-wider">{tabIntro.description}</p>
         <p className="mt-2 text-[11px] text-slate-400/90">Live basket: {athleteTicker}</p>
       </div>
 
@@ -421,7 +421,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       ) : null}
 
       <div ref={messagesContainerRef} className="mb-2 max-h-48 space-y-2 overflow-y-auto pr-1 text-sm">
-        <p className="rounded-xl border border-cyan-300/30 bg-slate-900 px-3 py-2 leading-snug text-slate-200">
+        <p className="rounded-xl border border-cyan-400/30 bg-slate-900 px-3 py-2 leading-snug text-[11px] font-mono text-cyan-200 uppercase tracking-wider">
           {chatIntro}
         </p>
         {visibleMessages.slice(-10).map((message) => (
@@ -461,7 +461,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
       {open ? <div className="pointer-events-none fixed top-0 left-1/2 z-20 h-full w-full max-w-md -translate-x-1/2 bg-slate-950/12 backdrop-blur-[2px]" /> : null}
 
       <div
-        className="pointer-events-none fixed bottom-[calc(4.85rem+env(safe-area-inset-bottom))] left-1/2 z-30 w-full max-w-md -translate-x-1/2 px-5"
+        className="pointer-events-none fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-1/2 z-20 w-full max-w-md -translate-x-1/2 px-5"
       >
         <div className="flex justify-end">
           <button

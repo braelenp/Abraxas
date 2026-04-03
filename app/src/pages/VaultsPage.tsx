@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
@@ -7,9 +8,12 @@ import { RuneRealm } from '../components/RuneRealm';
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
 
 function assetTypeLabel(assetType: VaultAssetType) {
-  if (assetType === 'athlete_equity') return 'Athlete Equity';
+  if (assetType === 'dapp_equity') return 'DApp Equity';
   if (assetType === 'real_estate') return 'Real Estate Development';
-  return 'Trading Portfolios';
+  if (assetType === 'trading_portfolio') return 'Trading Portfolios';
+  if (assetType === 'music_rights') return 'Music Rights & Media';
+  if (assetType === 'ip_licensing') return 'IP Licensing';
+  return 'DApp Equity';
 }
 
 const RUNE_CONFIG = {
@@ -25,6 +29,7 @@ const RUNE_CONFIG = {
 } as const;
 
 export function VaultsPage() {
+  const location = useLocation();
   const {
     vaults,
     futureAssetClasses,
@@ -36,15 +41,24 @@ export function VaultsPage() {
     refreshOymData,
   } = useAbraxas();
   const [vaultName, setVaultName] = useState('');
-  const [assetType, setAssetType] = useState<VaultAssetType>('athlete_equity');
-  const [selectedAgents, setSelectedAgents] = useState<Record<string, string>>({});
+  const [assetType, setAssetType] = useState<VaultAssetType>('dapp_equity');
+  const [selectedAgents, setSelectedAgents] = useState<Record<string, string> | undefined>();
+
+  // Reset state when navigating to the Vaults page
+  useEffect(() => {
+    if (location.pathname === '/app/vaults') {
+      setVaultName('');
+      setAssetType('dapp_equity');
+      setSelectedAgents({});
+    }
+  }, [location.pathname]);
   const [depositAmount, setDepositAmount] = useState('');
   const [activeVaultId, setActiveVaultId] = useState<string | null>(null);
   const [showAboutVaults, setShowAboutVaults] = useState(false);
   const [expandedVaultMetrics, setExpandedVaultMetrics] = useState<Record<string, boolean>>({});
 
   const getSelectedAgent = (vaultId: string, assignedAgent?: string | null) => {
-    return selectedAgents[vaultId] ?? assignedAgent ?? agentOptions[0];
+    return selectedAgents?.[vaultId] ?? assignedAgent ?? agentOptions[0];
   };
 
   const onCreateVault = (event: FormEvent) => {
@@ -60,8 +74,10 @@ export function VaultsPage() {
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/85">Abraxas Vault Market</p>
-        <h2 className="mt-2 text-xl font-semibold text-cyan-50">Devnet vault showcase with live ABRA onboarding</h2>
+        <div className="font-mono">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [VAULT_MARKET] DEVNET_SHOWCASE</p>
+          <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">LIVE_ABRA_ONBOARDING</h2>
+        </div>
         <button
           onClick={() => setShowAboutVaults(!showAboutVaults)}
           className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"
@@ -113,7 +129,7 @@ export function VaultsPage() {
       </div>
 
       <form onSubmit={onCreateVault} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-sm font-medium">Create RWA Vault</p>
+        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; CREATE_VAULT</p>
         <input
           value={vaultName}
           onChange={(event) => setVaultName(event.target.value)}
@@ -125,9 +141,11 @@ export function VaultsPage() {
           onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
           className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
         >
-          <option value="athlete_equity">Athlete Equity</option>
+          <option value="dapp_equity">DApp Equity</option>
           <option value="real_estate">Real Estate Development</option>
           <option value="trading_portfolio">Trading Portfolios</option>
+          <option value="music_rights">Music Rights & Media</option>
+          <option value="ip_licensing">IP Licensing</option>
         </select>
         <button
           type="submit"
@@ -140,7 +158,7 @@ export function VaultsPage() {
       <article className="space-y-3">
         {vaults.length === 0 ? (
           <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 p-4 text-center">
-            <p className="text-sm text-slate-300/80">No vaults yet. Create your first vault above to get started.</p>
+            <p className="text-[10px] text-slate-400/70 uppercase tracking-wider font-mono">No vaults yet | Create your first vault above</p>
           </div>
         ) : (
           vaults.map((vault) => (
@@ -149,8 +167,8 @@ export function VaultsPage() {
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium">{vault.name}</p>
-                      <p className="mt-1 text-xs text-slate-300/80">${vault.vaultValue.toLocaleString()} • {assetTypeLabel(vault.assetType)}</p>
+                      <p className="text-sm font-bold text-cyan-300 font-mono">{vault.name}</p>
+                      <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">${vault.vaultValue.toLocaleString()} | {assetTypeLabel(vault.assetType)}</p>
                     </div>
                     <button
                       onClick={() => setExpandedVaultMetrics(prev => ({ ...prev, [vault.id]: !prev[vault.id] }))}
@@ -162,7 +180,7 @@ export function VaultsPage() {
                   {expandedVaultMetrics[vault.id] && (
                     <div className="mt-2 space-y-1 text-xs text-slate-300/80 border-t border-cyan-300/10 pt-2">
                       <p>Circuit: {vault.circuitState} • La Casa deposits: {vault.laCasaDeposits}</p>
-                      <p>Athlete exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
+                      <p>DApp Equity exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
                       <p>Assigned: {vault.assignedAgent ?? 'None'}</p>
                     </div>
                   )}
@@ -172,7 +190,7 @@ export function VaultsPage() {
               {/* Deposit/Action Section */}
               {activeVaultId === vault.id && (
                 <div className="mt-3 rounded-xl border border-cyan-300/20 bg-slate-950/50 p-3">
-                  <p className="text-xs font-medium mb-2">Deposit Amount</p>
+                  <p className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest font-mono">DEPOSIT_AMOUNT</p>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -237,17 +255,17 @@ export function VaultsPage() {
       </article>
 
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-sm font-medium">Future asset class hints</p>
+        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; ASSET_CLASS_HINTS</p>
         <div className="space-y-2">
           {futureAssetClasses.map((assetClass) => (
             <div key={assetClass.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-slate-100">{assetClass.title}</p>
+                <p className="text-sm font-bold text-cyan-300 font-mono">{assetClass.title}</p>
                 <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
                   {assetClass.status === 'coming_soon' ? 'Coming soon' : 'Blueprint'}
                 </span>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300/80">{assetClass.description}</p>
+              <p className="mt-2 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-[0.05em]">{assetClass.description}</p>
             </div>
           ))}
         </div>

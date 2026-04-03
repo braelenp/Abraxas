@@ -2,11 +2,13 @@ import { useMemo, useState, useEffect } from 'react';
 import { TrendingDown, Star, Sparkles, ChevronLeft, ChevronRight, Send, ArrowRightLeft, LogIn, Plus, DollarSign, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useLocation } from 'react-router-dom';
 import { fetchPolymarketBets, type PolymarketBet, POLYMARKET_CATEGORIES, filterByCategory } from '../lib/polymarket';
 import { usePolymarketBets } from '../hooks/usePolymarketBets';
 import { getKingAIProbability } from '../lib/polymarket';
 import { FeatureBadge } from '../components/FeatureBadge';
 import SpendAbra from '../components/SpendAbra';
+import { OraclePerformanceWidget } from '../components/OraclePerformanceWidget';
 import { useNavigate } from 'react-router-dom';
 import { RuneRealm } from '../components/RuneRealm';
 
@@ -42,6 +44,21 @@ export function DashboardPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showOffRampWidget, setShowOffRampWidget] = useState(false);
   const [showSpendAbra, setShowSpendAbra] = useState(false);
+
+  // Reset state when navigating to the Dashboard page
+  useEffect(() => {
+    if (location.pathname === '/app/warden') {
+      setFollowing([]);
+      setPredictionIndex(0);
+      setPerpIndex(0);
+      setFollowingIndex(0);
+      setBetAmounts({});
+      setPlacingBet(null);
+      setSelectedCategory(null);
+      setShowOffRampWidget(false);
+      setShowSpendAbra(false);
+    }
+  }, [location.pathname]);
 
   // Filter markets by selected category
   const filteredBets = useMemo(() => filterByCategory(polymarketBets, selectedCategory), [polymarketBets, selectedCategory]);
@@ -131,6 +148,9 @@ export function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Oracle Performance Widget */}
+      <OraclePerformanceWidget />
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-2">

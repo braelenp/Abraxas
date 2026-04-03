@@ -2,10 +2,12 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { Activity, AlertTriangle, ArrowRightLeft, BarChart3, Brain, TrendingUp, Zap, ChevronDown, CheckCircle, Lock, Gem, DollarSign } from 'lucide-react';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
 import { BagsSwapWidget } from '../components/BagsSwapWidget';
 import { BagsCredibilityBanner } from '../components/BagsCredibilityBanner';
+import { BagsDashboard } from '../components/BagsDashboard';
 import { FiatOffRampWidget } from '../components/FiatOffRampWidget';
 import SpendAbra from '../components/SpendAbra';
 import { FeatureBadge } from '../components/FeatureBadge';
@@ -166,7 +168,7 @@ const RUNE_CONFIG = {
   runeName: 'Laguz',
   runeEssence: 'Water · Swift Flow',
   agentName: 'FLUX',
-  lore: "Laguz flows where force cannot follow. Flux reads the current of every market tide, acquiring ABRA, routing capital through Jupiter DEX, and executing RWA pair swaps with fluid precision. Capital moves when Flux moves.",
+  lore: "Laguz flows where force cannot follow. Flux reads the current of every market tide, acquiring ABRA, routing capital through Bags DEX, and executing RWA pair swaps with fluid precision. Capital moves when Flux moves.",
   ctaLabel: 'Begin the Trade',
   coreGlow: '20, 184, 166',
   fireGlow: '34, 211, 238',
@@ -177,6 +179,7 @@ export function TradePage() {
   const { connection } = useConnection();
   const { connected, publicKey, sendTransaction, connect } = useWallet();
   const { sophiaAgents, recordSophiaTrade } = useAbraxas();
+  const location = useLocation();
   const [selectedPair, setSelectedPair] = useState<RWAPair>(RWA_PAIRS[0]);
   const [pairView, setPairView] = useState<'carousel' | 'list'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -239,7 +242,7 @@ export function TradePage() {
       console.error('Failed to fetch stake record', error);
       setUserStakes([]);
     }
-  }, [connection, programId, publicKey]);
+  }, [programId, publicKey]);
 
   useEffect(() => {
     if (!connected || !publicKey) {
@@ -248,6 +251,34 @@ export function TradePage() {
     }
     void refreshStakeRecord();
   }, [connected, publicKey, refreshStakeRecord]);
+
+  // Reset state when navigating to/from the Trade page to ensure proper page state
+  useEffect(() => {
+    // Always reset all modal/overlay states to prevent them from blocking navigation
+    setShowTradeSuccess(false);
+    setShowOffRampWidget(false);
+    setShowLiveMarket(false);
+    setShowOnboardSection(false);
+    setShowSpendAbra(false);
+    setSwapError(null);
+    setCircuitWarning(false);
+
+    if (location.pathname === '/app/trade') {
+      // Additional reset when entering the Trade page
+      setPairView('carousel');
+    }
+
+    // Cleanup when unmounting or navigating away
+    return () => {
+      setShowTradeSuccess(false);
+      setShowOffRampWidget(false);
+      setShowLiveMarket(false);
+      setShowOnboardSection(false);
+      setShowSpendAbra(false);
+      setSwapError(null);
+      setCircuitWarning(false);
+    };
+  }, [location.pathname]);
 
   const handleQuote = useCallback(async () => {
     if (!fromAmount || isNaN(Number(fromAmount))) return;
@@ -660,40 +691,49 @@ export function TradePage() {
   const swapFeePercentage = 0.02;
   const estimatedFee = Number(toAmount) * (swapFeePercentage / 100);
 
-  if (!connected) {
-    return (
-      <div className="min-h-screen max-w-3xl mx-auto px-4 py-8">
-        <div className="glow-panel p-6 text-center space-y-3">
-          <p className="text-white/65">Connect your wallet to trade and onboard</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <div className="min-h-screen max-w-5xl mx-auto px-4 py-8 space-y-6" style={{ contain: 'layout style' }}>
       {/* Header */}
-      <div className="flex-shrink-0 w-full space-y-2">
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <Zap size={16} className="text-violet-400 shrink-0" />
-          <h1 className="text-lg font-semibold text-white whitespace-nowrap">RWA Trading Center</h1>
+      <div className="flex-shrink-0 w-full space-y-2 font-mono">
+        <div className="flex items-center gap-2 whitespace-nowrap">
+          <span className="text-cyan-400">&gt;</span>
+          <h1 className="text-sm font-bold text-cyan-400 tracking-widest uppercase whitespace-nowrap">[RWA_TRADING] CENTER_ACTIVE</h1>
         </div>
-        <p className="text-xs text-white/65">
-          Trade Real-World Asset pairs on Solana with ~0% fees. Start with ABRA or jump straight to trading.
+        <p className="text-[10px] text-cyan-300/60 uppercase tracking-wider">
+          &gt; Trade Real-World Asset pairs on Solana | Zero fees | ABRA_or_DIRECT_TRADE
         </p>
       </div>
+
+      {/* Wallet Connection Status */}
+      {!connected && (
+        <div className="flex-shrink-0 w-full rounded-lg border border-orange-400/40 bg-orange-500/15 p-4 space-y-3">
+          <div className="flex items-start gap-3 w-full">
+            <Zap size={18} className="mt-0.5 text-orange-400 shrink-0 flex-shrink-0" />
+            <div className="space-y-2 flex-1">
+              <p className="font-bold text-orange-400 font-mono text-sm">&gt; [WALLET_NOT_CONNECTED]</p>
+              <p className="text-[11px] text-orange-300/80 uppercase tracking-wider">Connect your Solana wallet to execute trades and stake ABRA</p>
+              <button
+                onClick={() => connect()}
+                className="mt-2 px-4 py-2 rounded-lg border border-orange-400/45 bg-orange-500/25 text-orange-100 font-semibold text-xs hover:bg-orange-500/35 transition-all uppercase tracking-wider"
+              >
+                Connect Wallet
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* King AI Recommendation */}
       <div className="flex-shrink-0 w-full rounded-lg border border-cyan-400/30 bg-cyan-500/15 p-4 space-y-3" style={{ contain: 'layout style' }}>
         <div className="flex items-start gap-3 w-full">
           <Brain size={18} className="mt-0.5 text-cyan-400 shrink-0 flex-shrink-0" />
           <div className="space-y-1 flex-1">
-            <p className="font-semibold text-white">King AI Recommendation</p>
-            <p className="text-sm text-cyan-300/80">Strong training progress detected. Swap stables into ABRA for equity upside.</p>
+            <p className="font-bold text-cyan-400 font-mono text-sm">&gt; [AI_RECOMMENDATION]</p>
+            <p className="text-[11px] text-cyan-400/70 uppercase tracking-wider">Training progress strong | Swap stables to ABRA | Equity upside</p>
             <div className="flex items-center gap-3 mt-2 text-xs">
-              <span className="text-cyan-200">Confidence: 87%</span>
-              <span className="text-green-300">Expected: +12-15% over 30 days</span>
+              <span className="text-cyan-400 font-mono">Confidence: 87%</span>
+              <span className="text-green-400 font-mono">Projection: +12% | 30d</span>
             </div>
           </div>
         </div>
@@ -707,7 +747,7 @@ export function TradePage() {
               <Brain size={18} className="text-violet-300 shrink-0" />
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-white text-base truncate max-w-[120px]">{selectedSophia.name}</span>
+                  <span className="font-bold text-cyan-300 text-sm truncate max-w-[120px] font-mono">{selectedSophia.name}</span>
                   <select
                     value={selectedSophiaId || ''}
                     onChange={(e) => setSelectedSophiaId(e.target.value || null)}
@@ -720,7 +760,7 @@ export function TradePage() {
                     ))}
                   </select>
                 </div>
-                <div className="text-xs text-violet-200/80 mt-0.5 truncate">{selectedSophia.specialty} · {selectedSophia.personality} style</div>
+                <div className="text-[10px] text-cyan-300/60 mt-0.5 truncate font-mono uppercase tracking-wider">{selectedSophia.specialty} | {selectedSophia.personality}_STYLE</div>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-[11px] text-violet-200 bg-violet-400/10 px-2 py-0.5 rounded font-medium">
                     Score: {selectedSophia.performanceScore}/100
@@ -744,8 +784,8 @@ export function TradePage() {
           <div className="flex items-start gap-2 w-full">
             <AlertTriangle size={16} className="mt-0.5 text-yellow-400 shrink-0 flex-shrink-0" />
             <div className="text-sm text-yellow-300/80">
-              <p className="font-semibold">Circuit Warning</p>
-              <p>Large trade detected. May trigger vault rebalancing rules. Proceed with caution.</p>
+              <p className="font-bold text-orange-400 font-mono">&gt; [CIRCUIT_WARNING]</p>
+              <p className="text-[11px] text-orange-400/70 uppercase tracking-wider">Large trade detected | May trigger vault rebalancing | Proceed with caution</p>
             </div>
           </div>
         </div>
@@ -755,6 +795,9 @@ export function TradePage() {
       <div className="space-y-4 flex-shrink-0 min-w-0">
         {/* BAGS Credibility Banner */}
         <BagsCredibilityBanner />
+
+        {/* Bags Integration Dashboard */}
+        <BagsDashboard />
 
         {/* Off-Ramp Button */}
         <button
@@ -777,13 +820,13 @@ export function TradePage() {
         <article id="in-app-trade" className="glow-panel rounded-2xl border border-emerald-300/30 bg-emerald-500/10 p-4 flex-shrink-0 w-full">
           <div className="flex items-center gap-2 mb-3">
             <Zap className="text-emerald-200" size={16} />
-            <h3 className="text-sm font-semibold text-emerald-100">Trade In Abraxas</h3>
+            <h3 className="text-sm font-bold text-emerald-300 tracking-widest uppercase font-mono">&gt; [TRADE] ABRAXAS_LIVE</h3>
             <FeatureBadge status="live" size="sm" />
           </div>
-          <p className="text-xs text-emerald-100/80 mb-3">
+          <p className="text-[10px] text-emerald-100/70 mb-3 uppercase tracking-wider">
             {quickTradeUsesBagsRoute
-              ? 'ABRA routes currently execute through Bags. Use the button below to buy or swap ABRA with the live Bags flow.'
-              : 'This is the recommended route. Quotes and swaps execute inside the dapp through Jupiter. Bags stays available below if users want the optional 0% fee path.'}
+              ? 'ABRA routes execute via Bags | Use button to buy or swap ABRA | Live Bags flow'
+              : 'RECOMMENDED: All swaps route through Bags DEX (0% fee). This is the optimal path for capital execution.'}
           </p>
           <div className="space-y-3">
             <select
@@ -823,7 +866,7 @@ export function TradePage() {
 
             {toAmount && (
               <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 px-3 py-2">
-                <p className="text-xs text-slate-300 mb-1">Estimated output</p>
+                <p className="text-[10px] text-cyan-300/60 mb-1 font-mono uppercase tracking-wider">ESTIMATED_OUTPUT</p>
                 <p className="text-lg font-bold text-emerald-300">
                   {Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 6 })} {selectedQuickTradePair?.outputSymbol}
                 </p>
@@ -832,28 +875,28 @@ export function TradePage() {
 
             <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
               <div className="flex justify-between">
-                <p className="text-white/50">Route</p>
-                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'Bags direct' : 'Jupiter in-app'}</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">ROUTE</p>
+                <p className="text-cyan-300 font-mono">Bags_Direct</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-white/50">Fallback</p>
-                <p className="text-white/70">{quickTradeUsesBagsRoute ? 'External Bags market' : 'Bags 0% fee option below'}</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">FALLBACK</p>
+                <p className="text-cyan-300 font-mono">Native_Solana_Network</p>
               </div>
               {swapError && !quickTradeUsesBagsRoute ? (
-                <p className="text-amber-200">{swapError}</p>
+                <p className="text-amber-400 font-mono text-[11px] uppercase">&gt; {swapError}</p>
               ) : null}
               {quickTradeUsesBagsRoute ? (
-                <p className="text-amber-200">ABRA liquidity is currently routed through Bags, so this button opens the live Bags execution path instead of showing the temporary Jupiter warning.</p>
+                <p className="text-orange-400 font-mono text-[11px] uppercase tracking-wider">ABRA routed via Bags | Opens live Bags execution</p>
               ) : null}
             </div>
 
             {toAmount && (
               <button
-                onClick={handleQuickTradeSwap}
+                onClick={connected ? handleQuickTradeSwap : () => connect()}
                 disabled={isSwapping || isLoadingQuote}
                 className="w-full rounded-lg bg-emerald-500/90 hover:bg-emerald-600 text-white font-semibold py-2 transition text-sm disabled:opacity-50"
               >
-                {isSwapping ? 'Processing...' : quickTradeActionLabel}
+                {!connected ? 'Connect Wallet to Trade' : (isSwapping ? 'Processing...' : quickTradeActionLabel)}
               </button>
             )}
           </div>
@@ -873,9 +916,7 @@ export function TradePage() {
         {toAmount && (
           <div className="glow-panel p-4 space-y-3 flex-shrink-0 w-full min-w-0">
             <div className="space-y-2">
-              <label className="text-xs text-white/60 uppercase tracking-wide font-semibold block">
-                Estimated Output: {selectedPair.toSymbol}
-              </label>
+              <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ESTIMATED_OUTPUT</p>
               <div className="px-4 py-3 rounded-lg bg-slate-900/50 border border-white/15">
                 <p className="text-2xl font-bold text-green-300">{Number(toAmount).toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
                 {estimatedFee > 0 && (
@@ -887,12 +928,12 @@ export function TradePage() {
             {/* Trade Info */}
             <div className="rounded-lg bg-white/5 p-3 space-y-2 text-xs">
               <div className="flex justify-between">
-                <p className="text-white/50">Price Impact</p>
-                <p className="text-white/70">0.02%</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">PRICE_IMPACT</p>
+                <p className="text-cyan-300 font-mono">0.02%</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-white/50">Route</p>
-                <p className="text-white/70">Bags DEX</p>
+                <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">ROUTE</p>
+                <p className="text-cyan-300 font-mono">Bags_DEX</p>
               </div>
             </div>
           </div>
@@ -902,7 +943,7 @@ export function TradePage() {
         {showOffRampWidget && (
           <div className="flex-shrink-0 w-full">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-white">Cash Out to Fiat</h3>
+              <h3 className="text-sm font-bold text-amber-400 tracking-widest uppercase font-mono">&gt; [OFFRAMP] CASH_CONVERSION</h3>
               <button
                 onClick={() => setShowOffRampWidget(false)}
                 className="text-xs text-white/60 hover:text-white/80 underline"
@@ -921,7 +962,7 @@ export function TradePage() {
         {/* RWA Pairs */}
         <div className="glow-panel p-4 space-y-3 flex-shrink-0 w-full">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-white">RWA Market Pairs</h3>
+            <h3 className="text-sm font-bold text-cyan-400 font-mono tracking-widest uppercase">&gt; [MARKET_PAIRS] RWA_ROUTES</h3>
             <div className="flex gap-2 items-center">
               <button
                 className={`px-2 py-1 rounded text-xs font-semibold ${pairView === 'carousel' ? 'bg-cyan-500/20 text-cyan-200' : 'bg-slate-800/60 text-white/60'}`}
@@ -1047,14 +1088,14 @@ export function TradePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4">
         <div className="glow-panel p-4 space-y-2">
-          <p className="text-xs text-white/50 uppercase tracking-wide font-semibold">24h Volume</p>
+          <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">24h_VOLUME</p>
           <p className="text-2xl font-bold text-cyan-300">${selectedPair.volume24h.toLocaleString()}</p>
-          <p className="text-xs text-white/40">{selectedPair.fromSymbol}/{selectedPair.toSymbol}</p>
+          <p className="text-[10px] text-cyan-300/60 font-mono">{selectedPair.fromSymbol}/{selectedPair.toSymbol}</p>
         </div>
         <div className="glow-panel p-4 space-y-2">
-          <p className="text-xs text-white/50 uppercase tracking-wide font-semibold">Liquidity Source</p>
-          <p className="text-lg font-bold text-amber-200">Bags</p>
-          <p className="text-xs text-white/40">~0% protocol fees</p>
+          <p className="text-[10px] text-cyan-400 uppercase font-mono tracking-wider">LIQUIDITY_SOURCE</p>
+          <p className="text-lg font-bold text-amber-200 font-mono">Bags</p>
+          <p className="text-[10px] text-cyan-300/60 font-mono">~0% protocol fees</p>
         </div>
       </div>
 
@@ -1064,8 +1105,8 @@ export function TradePage() {
           onClick={() => setShowOnboardSection(!showOnboardSection)}
           className="w-full flex items-center justify-between p-4 rounded-lg border border-amber-300/25 hover:border-amber-300/40 bg-amber-500/10 hover:bg-amber-500/15 transition-all"
         >
-          <h2 className="text-base font-semibold text-amber-200 flex items-center gap-2">
-            <span>New to ABRA? Get Started</span>
+          <h2 className="text-sm font-bold text-amber-400 tracking-widest uppercase flex items-center gap-2 font-mono">
+            <span>&gt; [ONBOARD] GET_STARTED</span>
           </h2>
           <ChevronDown size={18} className={`text-amber-300/60 transition-transform ${showOnboardSection ? 'rotate-180' : ''}`} />
         </button>
@@ -1075,7 +1116,7 @@ export function TradePage() {
             {/* User Stakes Display */}
             {userStakes.length > 0 && (
               <div className="glow-panel p-4 space-y-3">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                <h3 className="text-sm font-bold text-emerald-400 flex items-center gap-2 font-mono uppercase tracking-widest">
                   <CheckCircle size={16} className="text-green-400" /> Your ABRA Stakes
                 </h3>
                 <div className="grid grid-cols-3 gap-3 text-xs">
@@ -1105,7 +1146,7 @@ export function TradePage() {
             {/* Buy ABRA now */}
             <div className="glow-panel p-5 space-y-3">
               <div className="flex items-center gap-2 text-amber-300">
-                <span>Step 1: Buy ABRA Now</span>
+                <span className="font-mono font-bold text-orange-400 uppercase tracking-wider">&gt; STEP_01_BUY_ABRA</span>
               </div>
               <p className="text-xs text-white/60">
                 Buy ABRA first, then move directly into staking below if you want the early adopter multiplier route.
@@ -1122,10 +1163,10 @@ export function TradePage() {
               <div className="glow-panel p-5 space-y-4">
                 <div className="flex items-center gap-2 text-violet-300">
                   <Lock size={16} />
-                  <h2 className="text-sm font-semibold text-white">Step 2: Stake Your ABRA</h2>
+                  <h2 className="text-sm font-bold text-violet-400 tracking-widest uppercase font-mono">STEP_02_STAKE_ABRA</h2>
                 </div>
-                <p className="text-xs text-white/60">
-                  Stake freshly acquired ABRA tokens for 30, 90, or 180 days. Higher multipliers for longer lock periods.
+                <p className="text-[10px] text-white/60 uppercase tracking-wider font-mono">
+                  Stakes lock for 30/90/180 days | Higher multipliers = Longer periods
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {STAKE_TIERS.map((tier) => (
@@ -1143,7 +1184,7 @@ export function TradePage() {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 w-full">
-                          <p className="text-sm font-semibold text-white">{tier.label}</p>
+                          <p className="text-sm font-bold text-cyan-300 font-mono">{tier.label}</p>
                           {tier.highlight && (
                             <span className="ml-auto inline-flex items-center gap-0 text-violet-300 font-semibold shrink-0">
                               <Gem size={14} />
@@ -1163,7 +1204,7 @@ export function TradePage() {
               <div className="glow-panel p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-sm font-semibold text-violet-300 flex items-center gap-2">
-                    <span>Confirm Your Stake</span>
+                    <span className="font-mono font-bold text-violet-400 uppercase tracking-wider">CONFIRM_STAKE</span>
                   </h2>
                   <button
                     onClick={() => {
@@ -1177,7 +1218,7 @@ export function TradePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-white/60 uppercase tracking-wide font-semibold">ABRA Amount</label>
+                  <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRA_AMOUNT</label>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -1197,7 +1238,7 @@ export function TradePage() {
 
                 {stakeAmount && Number(stakeAmount) > 0 && (
                   <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-2">
-                    <p className="text-xs text-green-300 font-semibold">Projected Value at Unlock</p>
+                    <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">VALUE_AT_UNLOCK</p>
                     <div className="flex items-baseline justify-between">
                       <p className="text-2xl font-bold text-green-300">
                         {(
@@ -1218,7 +1259,7 @@ export function TradePage() {
                         multiplier
                       </p>
                     </div>
-                    <p className="text-xs text-green-300/60">Lock for {selectedStakeDuration} days, unlock & claim anytime after</p>
+                    <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Lock {selectedStakeDuration}d | Unlock & claim anytime after</p>
                   </div>
                 )}
 
@@ -1233,11 +1274,11 @@ export function TradePage() {
                     Back
                   </button>
                   <button
-                    onClick={handleStake}
-                    disabled={!stakeAmount || Number(stakeAmount) <= 0 || isStaking}
+                    onClick={connected ? handleStake : () => connect()}
+                    disabled={!connected || !stakeAmount || Number(stakeAmount) <= 0 || isStaking}
                     className="flex-1 h-10 rounded-lg border border-green-400/45 bg-green-500/25 text-green-100 font-semibold text-sm hover:bg-green-500/35 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
-                    {isStaking ? 'Submitting...' : 'Stake Live'}
+                    {!connected ? 'Connect Wallet' : (isStaking ? 'Submitting...' : 'Stake Live')}
                   </button>
                 </div>
 
@@ -1262,7 +1303,7 @@ export function TradePage() {
       </div>
 
       {/* Spend ABRA Modal */}
-      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
+      {showSpendAbra && location.pathname === '/app/trade' && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
     </div>
     </RuneRealm>
   );

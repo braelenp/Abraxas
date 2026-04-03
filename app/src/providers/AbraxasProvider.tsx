@@ -98,7 +98,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
         assetType,
         depositedAmount: 0,
         vaultValue: 0,
-        policy: assetType === 'athlete_equity' ? 'growth' : 'balanced',
+        policy: assetType === 'dapp_equity' ? 'growth' : 'balanced',
         circuitState: 'normal',
         laCasaDeposits: 0,
         athleteExposure: 0,
@@ -108,8 +108,8 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       addLog({
         vaultId: newVault.id,
         action: `Vault created (${assetType})`,
-        detail: assetType === 'athlete_equity'
-          ? 'Configured for La Casa auto-deposits and athlete equity token flow.'
+        detail: assetType === 'dapp_equity'
+          ? 'Configured for dapp equity positions and Sophia yield protocols.'
           : 'Blueprint vault created for the next RWA asset class.',
       });
     },

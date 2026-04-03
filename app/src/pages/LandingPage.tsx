@@ -158,35 +158,14 @@ function CTAButton({ text, href }: CTAButtonProps) {
 }
 
 export function LandingPage() {
-	const topBarTyping = useTypingEffect('ACCESSING SOVEREIGN ARCHIVES...', 40, 0);
-	const mainHeadlineTyping = useTypingEffect('Welcome to the next degree.', 60, 0);
+	const mainHeadlineTyping = useTypingEffect('Tokenize. Forge. Yield.', 60, 0);
 	const loreRef = useRef<HTMLElement | null>(null);
 	const loreVisible = useScrollReveal(loreRef, 0.2);
-	const [isLoading, setIsLoading] = useState(true);
-	const [loadingProgress, setLoadingProgress] = useState(0);
 	const [backgroundIndex, setBackgroundIndex] = useState(0);
 
 	const backgroundCandidates = ['/assets/sophia-minted.jpg', '/assets/abraxas-logo-graphic.jpg'];
 
-	useEffect(() => {
-		if (!topBarTyping.isComplete) {
-			return;
-		}
 
-		const loadingInterval = setInterval(() => {
-			setLoadingProgress((previous) => {
-				if (previous >= 100) {
-					clearInterval(loadingInterval);
-					setTimeout(() => setIsLoading(false), 300);
-					return 100;
-				}
-
-				return previous + Math.random() * 30;
-			});
-		}, 200);
-
-		return () => clearInterval(loadingInterval);
-	}, [topBarTyping.isComplete]);
 
 	const onBackgroundError = () => {
 		if (backgroundIndex < backgroundCandidates.length - 1) {
@@ -233,31 +212,18 @@ export function LandingPage() {
 							/>
 						</div>
 
-						{isLoading ? (
-							<div className="hidden flex-1 justify-center sm:flex">
-								<p className="font-mono text-xs tracking-wider text-cyan-200/80 sm:text-sm">
-									{topBarTyping.displayedText}
-									<span className={`${topBarTyping.isComplete ? '' : 'animate-pulse'} ml-1`}>_</span>
-								</p>
-							</div>
-						) : <div className="hidden sm:block" />}
+					<div className="hidden flex-1 justify-center sm:flex">
+						<p className="font-mono text-xs tracking-wider text-cyan-200/80 sm:text-sm">
+						&gt; Welcome to the next degree
+						</p>
+					</div>
 					</div>
 
-					{isLoading ? (
-						<div className="mx-auto mt-4 max-w-md">
-							<div className="h-1.5 overflow-hidden rounded-full bg-slate-800/80">
-								<div
-									className="h-full rounded-full bg-gradient-to-r from-cyan-300 via-cyan-200 to-amber-200 transition-all duration-300"
-									style={{ width: `${Math.min(loadingProgress, 100)}%` }}
-								/>
-							</div>
-						</div>
-					) : null}
 				</div>
 			</header>
 
-			<section className={`relative flex min-h-[100vh] flex-col items-center justify-center px-4 pb-12 pt-20 transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-				<div className="mx-auto max-w-4xl space-y-4 text-center sm:space-y-6">
+			<section className="relative flex min-h-[100vh] flex-col items-center justify-center px-4 pb-12 pt-20 sm:px-6">
+				<div className="mx-auto max-w-5xl space-y-6 text-center sm:space-y-8">
 					<div className="mt-20 sm:mt-28 lg:mt-32">
 						<h1 className="text-5xl font-black leading-tight tracking-[0.15em] sm:text-7xl sm:tracking-[0.2em] lg:text-8xl">
 							<span className="inline-block text-white animate-glitch [filter:drop-shadow(0_0_50px_rgba(250,204,21,0.8))]">
@@ -266,17 +232,27 @@ export function LandingPage() {
 						</h1>
 					</div>
 
-					<div className="space-y-2">
-						<h2 className="text-3xl font-black leading-tight tracking-tighter text-cyan-300 sm:text-5xl lg:text-6xl">
-							<span className="inline-block">
-								{mainHeadlineTyping.displayedText}
-								{!mainHeadlineTyping.isComplete ? <span className="ml-1 animate-pulse text-cyan-300">_</span> : null}
-							</span>
-						</h2>
+					<div className="space-y-4">
+						<div className="flex justify-center">
+							<div className="border-l-2 border-r-2 border-cyan-400/60 px-6 py-4 font-mono">
+								<h2 className="text-sm font-bold tracking-[0.3em] text-cyan-400 mb-2">[SYSTEM.PROTOCOL]</h2>
+								<h2 className="text-lg sm:text-4xl lg:text-5xl font-black leading-tight tracking-wider text-cyan-200 uppercase">
+									<span className="inline-block">
+										{mainHeadlineTyping.displayedText}
+										{!mainHeadlineTyping.isComplete ? <span className="ml-1 animate-pulse text-cyan-400">█</span> : null}
+									</span>
+								</h2>
+							</div>
+						</div>
 
 						{mainHeadlineTyping.isComplete ? (
-							<div className="mt-4 flex justify-center">
-								<div className="h-1 w-32 animate-pulse bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 opacity-60 blur-lg" />
+							<div className="space-y-4">
+								<div className="flex justify-center">
+									<div className="h-0.5 w-48 bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+								</div>
+								<p className="font-mono text-base sm:text-lg font-semibold text-cyan-300 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+									&gt; Welcome to the next degree
+								</p>
 							</div>
 						) : null}
 					</div>
@@ -289,95 +265,106 @@ export function LandingPage() {
 						/>
 					</div>
 
-					<p className="mx-auto max-w-2xl text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-						Seven runes. Seven agents. One sovereign engine.
-						<br />
-						The Elder Futhark guards an RWA protocol on Solana. Each glyph is a living intelligence. Each tab is a threshold.
-					</p>
-
+					<p className="mx-auto max-w-2xl font-mono text-xs sm:text-sm leading-relaxed text-cyan-300/90 tracking-wide">
+					<span className="text-magenta-400">▸</span> INITIALIZE_TOKENIZATION<br />
+					<span className="text-cyan-400">▸</span> CONVERT_ASSETS_ONCHAIN<br />
+					<span className="text-cyan-300">▸</span> ACTIVATE_YIELD_PROTOCOLS<br />
+					<span className="text-magenta-400">▸</span> ABRAXAS_ENGINE → READY
+				</p>
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-						<CTAButton text="Explore Devnet" href="/app" />
+					<CTAButton text="Trade on Abraxas" href="/app" />
 					</div>
 				</div>
 			</section>
 
-			<section className={`relative border-b border-t border-cyan-300/20 px-4 py-8 transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className="relative border-b border-t border-cyan-400/30 px-4 py-6 sm:px-6 font-mono">
 				<div className="mx-auto max-w-4xl">
-					<div className="flex flex-col justify-around gap-4 text-center font-mono text-xs text-cyan-50/80 sm:flex-row sm:gap-0 sm:text-sm">
+					<div className="flex flex-col justify-around gap-3 text-center text-xs text-cyan-300/80 sm:flex-row sm:gap-0 sm:text-sm tracking-widest uppercase">
 						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
-							<span>ONE OF THE FIRST 100 DAPPS ON BAGS</span>
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
+							<span>[RWA_TOKENIZATION_ACTIVE]</span>
 						</div>
 						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
 						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
-							<span>SOLANA HACKATHON APRIL 6</span>
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
+							<span>[YIELD_VAULTS_ONLINE]</span>
 						</div>
 						<div className="hidden items-center justify-center gap-2 sm:flex"><span>•</span></div>
 						<div className="flex items-center justify-center gap-2">
-							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
-							<span>7 LIVING RUNES · ELDER FUTHARK PROTOCOL</span>
+							<span className="inline-block h-2 w-2 animate-pulse rounded-full bg-orange-400" />
+							<span>[FORGE_ENGAGED]</span>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section ref={loreRef} className={`relative px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section ref={loreRef} className="relative px-4 py-16 sm:px-6 sm:py-24">
 				<div className="mx-auto max-w-3xl space-y-8">
 					<div className={`transition-all duration-1000 ${loreVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-						<h2 className="mb-6 text-2xl font-bold text-cyan-200 sm:text-3xl">The Living Runes</h2>
+						<div className="border-l-4 border-orange-400/50 pl-6 mb-8">
+							<h2 className="font-mono text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; INSTITUTIONAL_INFRASTRUCTURE</h2>
+							<h3 className="font-mono text-2xl font-bold text-orange-200 tracking-wider uppercase mt-2">POWERED BY WORLD LABS PROTOCOL</h3>
+							<p className="text-sm text-orange-300/80 mt-3 leading-relaxed">
+								Abraxas tokenizes World Labs Protocol—an institutional-grade digital asset management and tokenization system proven with family offices, private equity firms, and endowments. We democratize access to institutional capital infrastructure through Sophia's Family protocols.
+							</p>
+						</div>
 
-						<div className="space-y-4 text-sm leading-relaxed text-cyan-50/80 sm:text-base">
-							<p>
-								In the Elder Futhark, each rune is not a symbol. It is a force. Abraxas encodes seven of them into a living sovereign engine
-								on Solana, each rune mapped to an AI agent, each agent bound to a domain of the protocol.
+						<div className="border-l-4 border-cyan-400/50 pl-6 mb-6">
+							<h2 className="font-mono text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; PROTOCOL_EXECUTION</h2>
+							<h3 className="font-mono text-2xl font-bold text-cyan-200 tracking-wider uppercase mt-2">FORGE. MULTIPLY. COMPOUND.</h3>
+						</div>
+
+						<div className="space-y-4 font-mono text-sm leading-relaxed text-cyan-300/80 sm:text-base">
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[01]</span> INITIALIZE_FORGE: Upload asset proof—dapp equity, real estate, music rights, commodities, anything with value. The system scans for authenticity.
 							</p>
 
-							<p>
-								Algiz guards the threshold. Ansuz speaks the vault into being. Sowilo illuminates the market. Laguz flows with ruthless
-								precision through every trade. Tiwaz delivers sovereign judgment. Thurisaz holds the unbreakable defense.
-								Kenaz, the sacred flame, forges raw capital into compounding power.
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[02]</span> VAULT_SPECIALIZATION: Sophia's Daughters control yield protocols. Echo → music rights. Pulse → gaming. Aurelia → real estate. Vein → minerals. Verdant → carbon. Each is a master protocol.
 							</p>
 
-							<p>
-								This is not a dashboard. It is an initiation. Every tab is a threshold. Every rune must be entered with intent.
-								The protocol responds to sovereign participation through RWA tokenization, autonomous markets, and structured yield forged on-chain.
+							<p className="border-b border-cyan-400/20 pb-4">
+								<span className="text-cyan-400">[03]</span> GUARDIAN_INFRASTRUCTURE: The Sons of Sophia maintain the engine. Security. Oracles. Market-making. No friction. Yield flows autonomous.
 							</p>
 
-							<p className="italic text-cyan-50/70">
-								&quot;Seven forces. One circle. The rune that calls you is the rune that rules you.&quot;
+							<p className="text-magenta-400 italic">
+								&gt; You do not choose the market. The market that burns for you reveals itself through the Forge.
 							</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section className={`relative border-t border-cyan-300/20 px-4 py-16 transition-opacity duration-700 sm:px-6 sm:py-24 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+			<section className="relative border-t border-cyan-300/20 px-4 py-16 sm:px-6 sm:py-24">
 				<div className="mx-auto max-w-3xl space-y-8 text-center">
-					<div>
-						<h2 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl">Enter the Rune Circle</h2>
-						<p className="mb-8 text-sm text-cyan-50/80 sm:text-base">
-							Claim your ABRA. Forge your first position. Let the runes speak.
+					<div className="font-mono">
+						<h2 className="text-xs font-bold tracking-[0.2em] text-cyan-400 mb-3 uppercase">[INITIALIZATION_SEQUENCE]</h2>
+						<h3 className="mb-4 text-2xl font-bold text-cyan-200 sm:text-3xl uppercase tracking-wider">Kindle the Forge. Initiate Protocol.</h3>
+						<p className="mb-8 text-sm text-cyan-300/80 sm:text-base uppercase tracking-widest">
+							&gt; READY_FOR_TOKENIZATION_
 						</p>
 					</div>
 
 					<div className="flex flex-col justify-center gap-4 sm:flex-row">
-						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
+						<CTAButton text="Enter the Forge" href="/app" />
+						<CTAButton text="Buy $ABRA" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-						<CTAButton text="Explore Devnet" href="/app" />
 					</div>
 				</div>
 			</section>
 
-			<footer className={`relative border-t border-cyan-300/20 bg-slate-950/50 px-4 py-8 text-center transition-opacity duration-700 sm:px-6 ${!isLoading ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-				<div className="mx-auto max-w-4xl">
-					<p className="font-mono text-xs tracking-wider text-cyan-50/70 sm:text-sm">
-							WORLD LABS PROTOCOL • ABRAXAS RWA PROTOCOL ON SOLANA
-						</p>
-						<p className="mt-2 text-xs text-cyan-50/50">
-							Seven runes. Seven agents. One sovereign engine burning on-chain.
+			<footer className="relative border-t border-cyan-400/30 bg-slate-950/80 px-4 py-8 text-center sm:px-6 font-mono">
+				<div className="mx-auto max-w-4xl space-y-3">
+					<p className="text-xs tracking-widest text-cyan-300/70 uppercase">
+						[ABRAXAS_RWA_FORGE_v1.0] • DEPLOYED_ON_SOLANA
+					</p>
+					<p className="text-xs text-cyan-400/70">
+						&gt; Welcome to the next degree. Where capital becomes luminous.
+					</p>
+					<p className="text-[10px] text-cyan-300/50">
+						{ "[SYSTEM_READY] [TOKENIZATION_ONLINE] [YIELD_ACTIVE]" }
 					</p>
 				</div>
 			</footer>
@@ -399,6 +386,16 @@ export function LandingPage() {
 					50% { opacity: 0.4; }
 				}
 
+				@keyframes scanlines {
+					0% { transform: translateY(0); }
+					100% { transform: translateY(10px); }
+				}
+
+				@keyframes neon-flicker {
+					0%, 100% { opacity: 1; }
+					50% { opacity: 0.8; }
+				}
+
 				@keyframes glitch {
 					0% { transform: translate(0); text-shadow: -3px -3px 0px rgba(250, 204, 21, 0.8), 3px 3px 0px rgba(6, 182, 212, 0.5); }
 					20% { transform: translate(-2px, 2px); text-shadow: 3px -3px 0px rgba(250, 204, 21, 0.8), -3px 3px 0px rgba(6, 182, 212, 0.5); }
@@ -410,6 +407,29 @@ export function LandingPage() {
 
 				.animate-glitch {
 					animation: glitch 3.5s ease-in-out infinite;
+				}
+
+				.scanline-effect {
+					position: relative;
+					pointer-events: none;
+				}
+
+				.scanline-effect::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					background: repeating-linear-gradient(
+						0deg,
+						rgba(0, 0, 0, 0.15),
+						rgba(0, 0, 0, 0.15) 1px,
+						transparent 1px,
+						transparent 2px
+					);
+					animation: scanlines 8s linear infinite;
+				}
+
+				.neon-text {
+					animation: neon-flicker 3s ease-in-out infinite;
 				}
 			`}</style>
 		</div>
