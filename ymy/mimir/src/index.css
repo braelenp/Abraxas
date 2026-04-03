@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --purple: #9945ff;
+  --purple-dim: #6622cc;
+  --orange: #ff6a00;
+  --orange-bright: #ff9500;
+  --cyan: #00f5ff;
+  --cyan-dim: #00b8cc;
+  --gold: #ffd700;
+  --black: #050508;
+  --dark: #0a0a12;
+  --panel: #0d0d1a;
+  --border: #1a1a2e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--black);
+  color: #e8e8f0;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: var(--black);
+}
+
+/* ──────────────── SCANLINES OVERLAY ──────────────── */
+.scanlines-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+}
+
+/* ──────────────── GLITCH EFFECT ──────────────── */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+@keyframes glitchBefore {
+  0%, 86%, 100% { opacity: 0; transform: translate(0); }
+  87% { opacity: 0.8; transform: translate(-3px, 1px); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); filter: hue-rotate(90deg); }
+  88% { opacity: 0; }
+  90% { opacity: 0.6; transform: translate(3px, -1px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); filter: hue-rotate(-90deg); }
+  91% { opacity: 0; }
+}
+
+@keyframes glitchAfter {
+  0%, 88%, 100% { opacity: 0; transform: translate(0); }
+  89% { opacity: 0.6; transform: translate(3px, -2px); clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%); filter: hue-rotate(180deg); }
+  90% { opacity: 0; }
+}
+
+.glitch::before {
+  animation: glitchBefore 8s steps(1) infinite;
+  color: var(--cyan);
+}
+
+.glitch::after {
+  animation: glitchAfter 8s steps(1) infinite;
+  color: var(--orange);
+}
+
+/* ──────────────── PURPLE GLOW ──────────────── */
+.glow-purple {
+  text-shadow: 0 0 10px var(--purple), 0 0 20px var(--purple), 0 0 40px var(--purple-dim);
+}
+
+.glow-purple-intense {
+  text-shadow: 0 0 15px var(--purple), 0 0 30px var(--purple), 0 0 60px var(--purple), 0 0 100px var(--purple-dim);
+}
+
+/* ──────────────── CYAN GLOW ──────────────── */
+.glow-cyan {
+  text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 40px var(--cyan-dim);
+}
+
+.glow-cyan-intense {
+  text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan), 0 0 80px var(--cyan-dim);
+}
+
+/* ──────────────── ORANGE GLOW ──────────────── */
+.glow-orange {
+  text-shadow: 0 0 10px var(--orange), 0 0 20px var(--orange-bright);
+}
+
+/* ──────────────── GOLD GLOW ──────────────── */
+.glow-gold {
+  text-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+}
+
+/* ──────────────── BOX GLOWS ──────────────── */
+.box-glow-purple {
+  box-shadow: 0 0 15px rgba(153, 69, 255, 0.3), 0 0 30px rgba(153, 69, 255, 0.15), inset 0 0 15px rgba(153, 69, 255, 0.05);
+}
+
+.box-glow-cyan {
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.3), 0 0 30px rgba(0, 245, 255, 0.15), inset 0 0 15px rgba(0, 245, 255, 0.05);
+}
+
+.box-glow-orange {
+  box-shadow: 0 0 15px rgba(255, 106, 0, 0.3), 0 0 30px rgba(255, 149, 0, 0.15), inset 0 0 15px rgba(255, 106, 0, 0.05);
+}
+
+/* ──────────────── PANEL STYLES ──────────────── */
+.abraxas-panel {
+  background: linear-gradient(135deg, rgba(13, 13, 26, 0.9) 0%, rgba(10, 10, 18, 0.95) 100%);
+  border: 1px solid rgba(153, 69, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.abraxas-panel-cyan {
+  background: linear-gradient(135deg, rgba(0, 30, 40, 0.85) 0%, rgba(10, 10, 18, 0.95) 100%);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+/* ──────────────── ANSUZ RUNE PULSE ──────────────── */
+@keyframes ansuzPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 20px #00f5ff,
+      0 0 40px #00f5ff,
+      0 0 60px #00b8cc,
+      0 0 15px #ffd700;
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+  }
+  25% {
+    text-shadow:
+      0 0 30px #00f5ff,
+      0 0 60px #00f5ff,
+      0 0 90px #00b8cc,
+      0 0 25px #ffd700,
+      0 0 50px #9945ff;
+    transform: scale(1.03) translateY(-3px);
+    filter: brightness(1.2);
+  }
+  50% {
+    text-shadow:
+      0 0 40px #00f5ff,
+      0 0 80px #00f5ff,
+      0 0 120px #00b8cc,
+      0 0 40px #ffd700,
+      0 0 80px #9945ff;
+    transform: scale(1.06) translateY(-5px);
+    filter: brightness(1.4);
+  }
+  75% {
+    text-shadow:
+      0 0 30px #00f5ff,
+      0 0 60px #00f5ff,
+      0 0 90px #00b8cc,
+      0 0 25px #ffd700;
+    transform: scale(1.03) translateY(-3px);
+    filter: brightness(1.2);
+  }
+}
+
+.ansuz-rune {
+  animation: ansuzPulse 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ──────────────── TYPING EFFECT ──────────────── */
+@keyframes typingReveal {
+  from { width: 0; opacity: 1; }
+  to { width: 100%; opacity: 1; }
+}
+
+@keyframes caretBlink {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--cyan); }
+}
+
+.typing-reveal {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--cyan);
+  animation:
+    typingReveal 1.8s steps(28, end) forwards,
+    caretBlink 0.75s step-end 1.8s infinite;
+}
+
+/* ──────────────── FIRE PARTICLES ──────────────── */
+@keyframes fireRise {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-80px) scale(0.3); opacity: 0; }
+}
+
+.fire-particle {
+  animation: fireRise var(--duration, 2s) ease-out var(--delay, 0s) infinite;
+}
+
+/* ──────────────── LIGHT BEAMS ──────────────── */
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.15; transform: scaleY(0.95); }
+  50% { opacity: 0.45; transform: scaleY(1.05); }
+}
+
+.light-beam {
+  animation: beamPulse var(--beam-duration, 3s) ease-in-out var(--beam-delay, 0s) infinite;
+}
+
+/* ──────────────── GRADIENT TEXT ──────────────── */
+.gradient-text-purple {
+  background: linear-gradient(135deg, #9945ff 0%, #cc44ff 50%, #9945ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-fire {
+  background: linear-gradient(135deg, #ff6a00 0%, #ff9500 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #00b8cc 0%, #00f5ff 50%, #00b8cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-oracle {
+  background: linear-gradient(135deg, #00f5ff 0%, #ffd700 50%, #00f5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: oracleShimmer 3s ease-in-out infinite;
+}
+
+@keyframes oracleShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ──────────────── BOTTOM NAV STYLES ──────────────── */
+.bottom-nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bottom-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--purple);
+  box-shadow: 0 0 8px var(--purple);
+  transition: width 0.3s ease;
+}
+
+.bottom-nav-item.active::after {
+  width: 100%;
+}
+
+/* ──────────────── SCROLLBAR ──────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple-dim);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--purple);
+}
+
+/* ──────────────── BUY BUTTON ──────────────── */
+@keyframes buyPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(153, 69, 255, 0.4), 0 0 40px rgba(255, 106, 0, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(153, 69, 255, 0.6), 0 0 60px rgba(255, 106, 0, 0.35), 0 0 80px rgba(153, 69, 255, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+.buy-abra-btn {
+  animation: buyPulse 2.5s ease-in-out infinite;
+}
+
+.buy-abra-btn:hover {
+  animation: none;
+  box-shadow: 0 0 40px rgba(153, 69, 255, 0.8), 0 0 80px rgba(255, 106, 0, 0.5), 0 0 120px rgba(153, 69, 255, 0.3);
+  transform: scale(1.05);
+}
