@@ -460,6 +460,67 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		dappUrl: 'https://your-nautica-dapp-url.com/', // UPDATE THIS WITH YOUR DAPP URL
 		dappLabel: 'Enter Nautica',
 	},
+	eir: {
+		name: 'Eir',
+		subtitle: 'Healer of the Species',
+		headerReveal: 'Welcome to the next degree.',
+		description: 'Healthcare & Biotech Assets',
+		lore: 'Eir tokenizes healthcare assets, medical data sovereignty, wellness protocols, and biotech innovations. Patient-owned records, tokenized treatments, fractional ownership of clinics, and regenerative health become on-chain La Casa NFTs. The species now claims the body, the healing arts, and the future of medicine.',
+		accentColor: 'emerald',
+		icon: '💚',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Medical Assets',
+				desc: 'Submit healthcare contracts, biotech IP, and clinic documentation',
+				icon: '📋',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable medical provenance',
+				icon: '🏥',
+			},
+			{
+				step: 3,
+				label: 'Deploy Wellness Yield',
+				desc: 'Auto-compound treatment revenues, clinic profits, and biotech innovations',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Patient Data Sovereignty',
+				description: 'Own and monetize your medical records on-chain',
+				icon: '📊',
+			},
+			{
+				title: 'Clinic Fractionalisation',
+				description: 'Tokenize ownership of healthcare providers and facilities',
+				icon: '🏥',
+			},
+			{
+				title: 'Biotech Innovation Equity',
+				description: 'Invest in pharmaceutical and wellness protocols',
+				icon: '🧬',
+			},
+			{
+				title: 'Regenerative Health',
+				description: 'Earn yields from wellness and longevity services',
+				icon: '💚',
+			},
+		],
+		assetClasses: [
+			{ name: 'Medical Data', desc: 'Patient records and health identity', icon: '📋' },
+			{ name: 'Clinic Equity', desc: 'Fractional ownership of healthcare facilities', icon: '🏥' },
+			{ name: 'Treatment Protocols', desc: 'Approved medical procedures and therapies', icon: '⚕️' },
+			{ name: 'Biotech IP', desc: 'Pharmaceutical and regenerative health patents', icon: '🧬' },
+			{ name: 'Insurance Pools', desc: 'Decentralized health insurance products', icon: '🛡️' },
+			{ name: 'Wellness Services', desc: 'Preventative care and longevity programs', icon: '🧘' },
+		],
+		dappUrl: 'https://your-eir-dapp-url.com/',
+		dappLabel: 'Enter Eir',
+	},
 };
 
 // Sons of Sophia (Infrastructure Providers) Configurations
@@ -818,6 +879,13 @@ const DAUGHTERS_PHASE3 = [
 		name: 'Nautica',
 		description: 'Yachts & Luxury Maritime',
 		rune: '⛵',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Eir',
+		description: 'Healthcare & Biotech Assets',
+		rune: 'ᛒ',
 		isComingSoon: false,
 		isInternal: true,
 	},
