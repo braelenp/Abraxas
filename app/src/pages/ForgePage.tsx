@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper, MessageCircle } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
+import { DaughterPage, type DaughterConfig } from './DaughterPage';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -91,6 +92,685 @@ const STEPS = [
 	{ n: 4, label: 'Auto-deposit into Sophia vault' },
 ];
 
+// Daughter Configurations
+const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
+	echo: {
+		name: 'Echo',
+		subtitle: 'Sovereign of Sound',
+		headerReveal: 'Welcome to the frequency.',
+		description: 'Music Rights & Media',
+		lore: 'Echo tokenizes music rights, publishing royalties, and media IP. Fractional ownership of streaming revenue, publishing catalogs, and creator equity becomes on-chain La Casa NFTs. Artists, producers, and investors now share the harvest together.',
+		accentColor: 'orange',
+		icon: '📻',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Music Rights',
+				desc: 'Submit publishing agreements, recordings, and royalty contracts',
+				icon: '📋',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable copyright provenance',
+				icon: '♪',
+			},
+			{
+				step: 3,
+				label: 'Distribute Yields',
+				desc: 'Auto-compound streaming revenues, mechanical royalties, sync fees',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Ownership',
+				description: 'Own shares of music catalogs and publishing rights',
+				icon: '🎵',
+			},
+			{
+				title: 'Royalty Streaming',
+				description: 'Real-time distribution of streaming revenue on-chain',
+				icon: '💰',
+			},
+			{
+				title: 'Creator Equity',
+				description: 'Artists tokenize their stake in their work',
+				icon: '🎤',
+			},
+			{
+				title: 'Liquidity & Yield',
+				description: 'Trade music IP in DeFi or earn APY',
+				icon: '📊',
+			},
+		],
+		assetClasses: [
+			{ name: 'Master Recordings', desc: 'Sound recordings and production masters', icon: '🎧' },
+			{ name: 'Publishing Rights', desc: 'Composition and songwriter IP', icon: '📜' },
+			{ name: 'Royalty Streams', desc: 'Mechanical, performance, and sync royalties', icon: '💳' },
+			{ name: 'Artist Catalogs', desc: 'Complete discographies and back catalogs', icon: '🎸' },
+			{ name: 'Producer Credits', desc: 'Production fees and studio equity', icon: '🎚️' },
+			{ name: 'Sync Licensing', desc: 'Film, TV, and advertising rights', icon: '🎬' },
+		],
+		dappUrl: 'https://echo-pied-phi.vercel.app/',
+		dappLabel: 'Enter Echo',
+	},
+	pulse: {
+		name: 'Pulse',
+		subtitle: 'Guardian of Gameplay',
+		headerReveal: 'Welcome to the arena.',
+		description: 'Gaming Clips & Live Streams',
+		lore: 'Pulse tokenizes gaming clips, esports tournaments, and streamer content. Fractional ownership of tournament franchises, content rights, and player equity becomes on-chain La Casa NFTs. Gamers and investors now own the victories.',
+		accentColor: 'cyan',
+		icon: '⚡',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Gaming Assets',
+				desc: 'Submit tournament clips, streams, and player contracts',
+				icon: '🎮',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable esports provenance',
+				icon: '🏅',
+			},
+			{
+				step: 3,
+				label: 'Generate Tournament Yield',
+				desc: 'Auto-compound sponsorship, prize pools, and viewership revenue',
+				icon: '💎',
+			},
+		],
+		features: [
+			{
+				title: 'Esports Franchises',
+				description: 'Own shares of gaming teams and tournaments',
+				icon: '🏆',
+			},
+			{
+				title: 'Streamer Equity',
+				description: 'Creators tokenize their channel ownership',
+				icon: '📹',
+			},
+			{
+				title: 'Content Revenue',
+				description: 'Sponsorships and ad revenue distributed on-chain',
+				icon: '💰',
+			},
+			{
+				title: 'Player Staking',
+				description: 'Athletes stake earnings and build personal brands',
+				icon: '⭐',
+			},
+		],
+		assetClasses: [
+			{ name: 'Tournament Franchises', desc: 'League teams and esports organizations', icon: '🎯' },
+			{ name: 'Content Rights', desc: 'Gaming clips and stream archives', icon: '📺' },
+			{ name: 'Player Contracts', desc: 'Pro players and content creator equity', icon: '🎪' },
+			{ name: 'Sponsorship Deals', desc: 'Brand partnerships and revenue rights', icon: '🤝' },
+			{ name: 'Premium Channels', desc: 'Exclusive streaming licenses', icon: '🔐' },
+			{ name: 'Gaming Guilds', desc: 'Decentralized gaming communities', icon: '⚔️' },
+		],
+		dappUrl: 'https://pulse-eta-three.vercel.app/',
+		dappLabel: 'Enter Pulse',
+	},
+	aurelia: {
+		name: 'Aurelia',
+		subtitle: 'Sovereign of Structures',
+		headerReveal: 'Welcome to the foundation.',
+		description: 'Real Estate & Development',
+		lore: 'Aurelia tokenizes real estate, development rights, and property equity. Fractional ownership of commercial buildings, land development projects, and rental income becomes on-chain La Casa NFTs. Real property now lives in digital sovereignty.',
+		accentColor: 'amber',
+		icon: '🏛️',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Property Docs',
+				desc: 'Submit deeds, appraisals, and development permits',
+				icon: '🏠',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable property records',
+				icon: '🔑',
+			},
+			{
+				step: 3,
+				label: 'Deploy Rental Yield',
+				desc: 'Auto-compound rental income, appreciation, and development upside',
+				icon: '🏢',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Properties',
+				description: 'Own equity shares in commercial and residential real estate',
+				icon: '🏘️',
+			},
+			{
+				title: 'Rental Income Streams',
+				description: 'Automated rent collection and distribution on-chain',
+				icon: '💵',
+			},
+			{
+				title: 'Development Rights',
+				description: 'Tokenize future development and appreciation potential',
+				icon: '🏗️',
+			},
+			{
+				title: 'REITs & Fund Access',
+				description: 'Large property portfolios as liquid tokens',
+				icon: '📊',
+			},
+		],
+		assetClasses: [
+			{ name: 'Commercial Properties', desc: 'Office, retail, and industrial buildings', icon: '🏢' },
+			{ name: 'Residential Units', desc: 'Apartments, condos, and single-family homes', icon: '🏠' },
+			{ name: 'Land Development', desc: 'Vacant land and development rights', icon: '🌍' },
+			{ name: 'REITs', desc: 'Real Estate Investment Trust shares', icon: '📈' },
+			{ name: 'Mortgages', desc: 'Income from mortgage-backed securities', icon: '📋' },
+			{ name: 'Hotel Assets', desc: 'Hospitality properties and booking rights', icon: '🏨' },
+		],
+		dappUrl: 'https://aurelia-tau.vercel.app/',
+		dappLabel: 'Enter Aurelia',
+	},
+	vein: {
+		name: 'Vein',
+		subtitle: 'Sovereign of the Deep',
+		headerReveal: 'Welcome to the mineral reserves.',
+		description: 'Minerals & Natural Resources',
+		lore: 'Vein tokenizes mineral rights, precious metals, and natural resource extraction. Fractional ownership of mining operations, commodity futures, and resource reserves becomes on-chain La Casa NFTs. The earth now yields to algorithmic sovereignty.',
+		accentColor: 'purple',
+		icon: '⛏️',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Mining Permits',
+				desc: 'Submit extraction rights, geological surveys, and reserve reports',
+				icon: '📊',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable mineral provenance',
+				icon: '💎',
+			},
+			{
+				step: 3,
+				label: 'Generate Commodity Yield',
+				desc: 'Auto-compound extraction revenues, commodity prices, and reserve appreciation',
+				icon: '⛓️',
+			},
+		],
+		features: [
+			{
+				title: 'Mineral Rights',
+				description: 'Own extraction equity from mining operations',
+				icon: '⛏️',
+			},
+			{
+				title: 'Commodity Hedging',
+				description: 'Price-indexed yield for precious metals and minerals',
+				icon: '📈',
+			},
+			{
+				title: 'Reserve Appreciation',
+				description: 'Benefit from resource scarcity and long-term value',
+				icon: '💰',
+				},
+			{
+				title: 'Supply Chain Tracking',
+				description: 'Immutable provenance from extraction to market',
+				icon: '🔗',
+			},
+		],
+		assetClasses: [
+			{ name: 'Gold & Precious Metals', desc: 'Bullion and mining operations', icon: '🥇' },
+			{ name: 'Rare Earths', desc: 'Critical minerals for technology', icon: '✨' },
+			{ name: 'Lithium & Cobalt', desc: 'Battery metals and energy storage', icon: '🔋' },
+			{ name: 'Oil & Gas Rights', desc: 'Energy commodity extraction', icon: '🛢️' },
+			{ name: 'Agricultural Land', desc: 'Farmland and commodity production', icon: '🌾' },
+			{ name: 'Commodity Futures', desc: 'Forward contracts and hedging', icon: '📊' },
+		],
+		dappUrl: 'https://vein-delta.vercel.app/',
+		dappLabel: 'Enter Vein',
+	},
+	verdant: {
+		name: 'Verdant',
+		subtitle: 'Sovereign of Sustainability',
+		headerReveal: 'Welcome to the living world.',
+		description: 'Carbon & Environmental Assets',
+		lore: 'Verdant tokenizes carbon credits, renewable energy, and environmental assets. Fractional ownership of wind farms, solar installations, and carbon offsets becomes on-chain La Casa NFTs. The planet now yields yield.',
+		accentColor: 'emerald',
+		icon: '🌿',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Environmental Assets',
+				desc: 'Submit carbon credits, renewable permits, and impact reports',
+				icon: '📜',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable environmental provenance',
+				icon: '🌱',
+			},
+			{
+				step: 3,
+				label: 'Generate Green Yields',
+				desc: 'Auto-compound carbon credits, renewable energy revenue, and impact premiums',
+				icon: '♻️',
+			},
+		],
+		features: [
+			{
+				title: 'Renewable Energy',
+				description: 'Own solar, wind, and hydro power generation',
+				icon: '⚡',
+			},
+			{
+				title: 'Carbon Credits',
+				description: 'Tokenized verified carbon offsets with impact tracking',
+				icon: '🍃',
+			},
+			{
+				title: 'Impact Yield',
+				description: 'Environmental returns + ESG premium valuations',
+				icon: '🌍',
+			},
+			{
+				title: 'Biodiversity Rights',
+				description: 'Ecosystem recovery and conservation equity',
+				icon: '🦋',
+			},
+		],
+		assetClasses: [
+			{ name: 'Solar Farms', desc: 'Photovoltaic installations and generation rights', icon: '☀️' },
+			{ name: 'Wind Turbines', desc: 'Wind energy production and capacity', icon: '💨' },
+			{ name: 'Hydroelectric', desc: 'Water power and dam operations', icon: '💧' },
+			{ name: 'Carbon Credits', desc: 'Verified offsets and permits', icon: '🌫️' },
+			{ name: 'Forest Conservation', desc: 'Reforestation and biodiversity projects', icon: '🌲' },
+			{ name: 'Green Bonds', desc: 'Sustainable project financing', icon: '📈' },
+		],
+		dappUrl: 'https://verdant-puce.vercel.app/',
+		dappLabel: 'Enter Verdant',
+	},
+	nautica: {
+		name: 'Nautica',
+		subtitle: 'Sovereign of the Seas',
+		headerReveal: 'Welcome to the next degree.',
+		description: 'Yachts & Luxury Maritime',
+		lore: 'Nautica tokenizes yachts and luxury maritime assets. Fractional ownership, charter rights, and high-value physical assets become on-chain La Casa NFTs. The species now claims the oceans.',
+		accentColor: 'blue',
+		icon: '⛵',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Yacht Docs',
+				desc: 'Submit vessel registration, titles, and ownership proof',
+				icon: '📋',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable maritime provenance',
+				icon: '🚢',
+			},
+			{
+				step: 3,
+				label: 'Deploy Charter Yield',
+				desc: 'Auto-compound charter revenues, appreciation, and maritime income',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Ownership',
+				description: 'Democratize superyacht access through tokenized shares',
+				icon: '🌊',
+			},
+			{
+				title: 'Charter Revenue Streams',
+				description: 'Automate income distribution from charter bookings on-chain',
+				icon: '💰',
+			},
+			{
+				title: 'Provenance Tracking',
+				description: 'Immutable maritime records certified on-chain',
+				icon: '⚓',
+			},
+			{
+				title: 'Liquidity & Yield',
+				description: 'Trade fractional yacht equity in DeFi or earn APY',
+				icon: '📊',
+			},
+		],
+		assetClasses: [
+			{ name: 'Superyachts', desc: '100+ meters luxury vessels', icon: '🛥️' },
+			{ name: 'Motor Yachts', desc: 'Performance and comfort craft', icon: '⛵' },
+			{ name: 'Sailing Yachts', desc: 'Classic and modern sailcraft', icon: '🎐' },
+			{ name: 'Charter Boats', desc: 'Commercial rental fleets', icon: '🚤' },
+			{ name: 'Cargo Vessels', desc: 'Maritime trade assets', icon: '🚢' },
+			{ name: 'Marina Rights', desc: 'Berthing and docking equity', icon: '⛵' },
+		],
+		dappUrl: 'https://your-nautica-dapp-url.com/', // UPDATE THIS WITH YOUR DAPP URL
+		dappLabel: 'Enter Nautica',
+	},
+};
+
+// Sons of Sophia (Infrastructure Providers) Configurations
+const SON_CONFIGS: Record<string, DaughterConfig> = {
+	genesis: {
+		name: 'Genesis',
+		subtitle: 'The Prime Foundation',
+		headerReveal: 'Welcome to the genesis.',
+		description: 'The Prime Foundation',
+		lore: 'Genesis is the foundational provider—the bedrock upon which Sophia\'s entire infrastructure rests. It manages the capital pools, treasury operations, and institutional-grade liquidity mechanisms that power all tokenization flows. Genesis does not tokenize. Genesis enables everything else.',
+		accentColor: 'orange',
+		icon: '🔥',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Capital Governance',
+				desc: 'Institutional treasury management and resource allocation',
+				icon: '💼',
+			},
+			{
+				step: 2,
+				label: 'Liquidity Provision',
+				desc: 'Prime capital pools backing all RWA tokenization flows',
+				icon: '💧',
+			},
+			{
+				step: 3,
+				label: 'Yield Distribution',
+				desc: 'Autonomous routing of yields across the Sophia network',
+				icon: '⚙️',
+			},
+		],
+		features: [
+			{
+				title: 'Treasury Management',
+				description: 'Institutional-grade capital custody and operations',
+				icon: '🏦',
+			},
+			{
+				title: 'Prime Pools',
+				description: 'Deep liquidity backing every tokenization protocol',
+				icon: '🌊',
+			},
+			{
+				title: 'Yield Routing',
+				description: 'Autonomous capital reallocation based on demand signals',
+				icon: '🔄',
+			},
+			{
+				title: 'Risk Management',
+				description: 'Sophisticated hedging and exposure optimization',
+				icon: '🛡️',
+			},
+		],
+		assetClasses: [
+			{ name: 'Capital Pools', desc: 'Primary liquidity reserves', icon: '💰' },
+			{ name: 'Stablecoin Reserves', desc: 'USDC, USDT, and native stables', icon: '🪙' },
+			{ name: 'Insurance Coverage', desc: 'Smart contract audit & loss insurance', icon: '📋' },
+			{ name: 'Treasury Bonds', desc: 'Institutional debt instruments', icon: '📊' },
+			{ name: 'Yield Strategies', desc: 'Multi-leg arbitrage and yield optimization', icon: '🎯' },
+			{ name: 'Bridge Infrastructure', desc: 'Cross-chain liquidity mechanisms', icon: '🌉' },
+		],
+		dappUrl: 'https://genesis-seven-self.vercel.app/',
+		dappLabel: 'Enter Genesis',
+	},
+	valkyr: {
+		name: 'Valkyr',
+		subtitle: 'The Wise Guardian',
+		headerReveal: 'Welcome to the vigilance.',
+		description: 'The Wise Guardian',
+		lore: 'Valkyr is the guardian of protocol integrity. It manages permissions, access controls, and administrative governance across all Sophia infrastructure. Valkyr ensures only verified participants interact with La Casa NFTs and that institutional standards are maintained at every touchpoint.',
+		accentColor: 'purple',
+		icon: '🛡️',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Permission Framework',
+				desc: 'Role-based access controls and credential systems',
+				icon: '🔐',
+			},
+			{
+				step: 2,
+				label: 'KYC/AML Integration',
+				desc: 'Institutional verification and compliance workflows',
+				icon: '✓',
+			},
+			{
+				step: 3,
+				label: 'Governance Execution',
+				desc: 'Multi-sig treasury operations and protocol decisions',
+				icon: '⚖️',
+			},
+		],
+		features: [
+			{
+				title: 'Access Control',
+				description: 'Fine-grained permission systems for protocol layers',
+				icon: '🔑',
+			},
+			{
+				title: 'Compliance Engine',
+				description: 'Automated KYC, AML, and regulatory checks',
+				icon: '✅',
+			},
+			{
+				title: 'Multi-Sig Governance',
+				description: 'Secure treasury and parameter management',
+				icon: '👥',
+			},
+			{
+				title: 'Audit Trail',
+				description: 'Immutable governance logs and decision records',
+				icon: '📜',
+			},
+		],
+		assetClasses: [
+			{ name: 'Access Tokens', desc: 'Role and permission credentials', icon: '🎫' },
+			{ name: 'Governance Shares', desc: 'Multi-sig holder positions', icon: '🗳️' },
+			{ name: 'Compliance Records', desc: 'KYC/AML verification data', icon: '📋' },
+			{ name: 'Safety Vaults', desc: 'Emergency pause mechanisms', icon: '⏸️' },
+			{ name: 'Permission Levels', desc: 'Institutional access tiers', icon: '🏛️' },
+			{ name: 'Audit Commitments', desc: 'Third-party verification records', icon: '🔍' },
+		],
+		dappUrl: 'https://valkyr-v1.vercel.app/',
+		dappLabel: 'Enter Valkyr',
+	},
+	raido: {
+		name: 'Raido',
+		subtitle: 'The Swift Provider',
+		headerReveal: 'Welcome to velocity.',
+		description: 'The Swift Provider',
+		lore: 'Raido accelerates capital velocity across the Abraxas stack. It optimizes transaction throughput, manages swap routing, and ensures minimal slippage in all token exchanges. Raido is speed in service of capital efficiency.',
+		accentColor: 'cyan',
+		icon: '⚡',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Transaction Routing',
+				desc: 'Optimal path discovery for minimal fees and slippage',
+				icon: '🗺️',
+			},
+			{
+				step: 2,
+				label: 'Execution Engines',
+				desc: 'Sub-millisecond trade settlement with atomic guarantees',
+				icon: '⚙️',
+			},
+			{
+				step: 3,
+				label: 'Settlement Verification',
+				desc: 'Finality confirmation and fund reconciliation',
+				icon: '✓',
+			},
+		],
+		features: [
+			{
+				title: 'Flash Swaps',
+				description: 'Uncollateralized atomic swaps with settlement finality',
+				icon: '⚡',
+			},
+			{
+				title: 'Route Optimization',
+				description: 'AI-powered path discovery across liquidity venues',
+				icon: '🧠',
+			},
+			{
+				title: 'MEV Protection',
+				description: 'Encrypted ordering to prevent sandwich attacks',
+				icon: '🔒',
+			},
+			{
+				title: 'Slippage Guarantees',
+				description: 'Pre-execution price commitments to prevent loss',
+				icon: '💯',
+			},
+		],
+		assetClasses: [
+			{ name: 'Liquidity Pools', desc: 'DEX aggregation reserves', icon: '🌊' },
+			{ name: 'Swap Routes', desc: 'Multi-hop exchange pathways', icon: '🛣️' },
+			{ name: 'Price Feeds', desc: 'Real-time oracle data streams', icon: '📊' },
+			{ name: 'AMM Contracts', desc: 'Constant product and stable swap pools', icon: '📈' },
+			{ name: 'Bridge Liquidity', desc: 'Cross-chain routing capacity', icon: '🌉' },
+			{ name: 'Execution Queue', desc: 'High-speed transaction processing', icon: '⏱️' },
+		],
+		dappUrl: 'https://raido.vercel.app/',
+		dappLabel: 'Enter Raido',
+	},
+	fenrir: {
+		name: 'Fenrir',
+		subtitle: 'The Fierce Protector',
+		headerReveal: 'Welcome to the fortress.',
+		description: 'The Fierce Protector',
+		lore: 'Fenrir is the fortress that guards the Abraxas realm. It manages security protocols, detects threats, prevents exploits, and responds to anomalies across all infrastructure layers. Fenrir does not permit vulnerability.',
+		accentColor: 'red',
+		icon: '💨',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Threat Detection',
+				desc: 'Real-time anomaly scoring and pattern recognition',
+				icon: '🔍',
+			},
+			{
+				step: 2,
+				label: 'Smart Contract Audits',
+				desc: 'Automated static analysis and formal verification',
+				icon: '✓',
+			},
+			{
+				step: 3,
+				label: 'Emergency Response',
+				desc: 'Rapid circuit-breaker activation and recovery protocols',
+				icon: '🚨',
+			},
+		],
+		features: [
+			{
+				title: 'Vulnerability Scanning',
+				description: 'Continuous monitoring for known and novel attack vectors',
+				icon: '🔐',
+			},
+			{
+				title: 'Behavioral Analysis',
+				description: 'Machine learning-driven anomaly detection',
+				icon: '🧠',
+			},
+			{
+				title: 'Circuit Breakers',
+				description: 'Automated protection against liquidation cascades',
+				icon: '⏸️',
+			},
+			{
+				title: 'Incident Response',
+				description: 'Rapid remediation and forensic capabilities',
+				icon: '🚒',
+			},
+		],
+		assetClasses: [
+			{ name: 'Security Audits', desc: 'Third-party contract verification', icon: '✓' },
+			{ name: 'Insurance Pools', desc: 'Smart contract loss protection', icon: '📋' },
+			{ name: 'Threshold Guards', desc: 'Liquidation circuit breakers', icon: '⏸️' },
+			{ name: 'Incident Records', desc: 'Security event logs and analysis', icon: '📊' },
+			{ name: 'Recovery Funds', desc: 'Emergency capital for exploit remediation', icon: '💰' },
+			{ name: 'Monitoring Tools', desc: 'Real-time security dashboards', icon: '📈' },
+		],
+		dappUrl: 'https://fenrir-teal.vercel.app/',
+		dappLabel: 'Enter Fenrir',
+	},
+	mimir: {
+		name: 'Mimir',
+		subtitle: 'The Oracle Provider',
+		headerReveal: 'Welcome to omniscience.',
+		description: 'The Oracle Provider',
+		lore: 'Mimir is the oracle that sees all truths. It aggregates data feeds, validates external information, and pipes verified reality into the blockchain. Mimir does not guess—it knows. Every price, every metric, every truth flows through Mimir.',
+		accentColor: 'blue',
+		icon: '👁️',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Data Aggregation',
+				desc: 'Multi-source collection from exchanges, APIs, and sensors',
+				icon: '📡',
+			},
+			{
+				step: 2,
+				label: 'Validation & Consensus',
+				desc: 'Redundancy checks and Byzantine-fault-tolerant agreement',
+				icon: '✓',
+			},
+			{
+				step: 3,
+				label: 'Feed Publication',
+				desc: 'Tamper-proof pushes to on-chain consumer contracts',
+				icon: '📊',
+			},
+		],
+		features: [
+			{
+				title: 'Price Feeds',
+				description: 'Real-time commodity, stock, and crypto pricing',
+				icon: '💹',
+			},
+			{
+				title: 'Data Redundancy',
+				description: 'Multi-provider consensus to eliminate single points of failure',
+				icon: '🔄',
+			},
+			{
+				title: 'Latency Optimization',
+				description: 'Sub-second feed publication to minimize staleness',
+				icon: '⚡',
+			},
+			{
+				title: 'Heartbeat Monitoring',
+				description: 'Automatic feed health checks and alert systems',
+				icon: '💓',
+			},
+		],
+		assetClasses: [
+			{ name: 'Price Feeds', desc: 'Real-world asset pricing data', icon: '💹' },
+			{ name: 'Weather Data', desc: 'Agricultural and climate information', icon: '🌤️' },
+			{ name: 'Satellite Imagery', desc: 'Geospatial asset verification', icon: '🛰️' },
+			{ name: 'Supply Chain Data', desc: 'Shipment and logistics tracking', icon: '📦' },
+			{ name: 'Sports/Gaming Stats', desc: 'Live performance metrics', icon: '📊' },
+			{ name: 'Market Sentiment', desc: 'Aggregated social and sentiment signals', icon: '💬' },
+		],
+		dappUrl: 'https://mimir-ub62.vercel.app/',
+		dappLabel: 'Enter Mimir',
+	},
+};
+
 // Sophia's Daughters organized by Phase
 const DAUGHTERS_PHASE1 = [
 	{
@@ -130,6 +810,16 @@ const DAUGHTERS_PHASE2 = [
 		rune: '🌿',
 		url: 'https://verdant-puce.vercel.app/',
 		isComingSoon: false,
+	},
+];
+
+const DAUGHTERS_PHASE3 = [
+	{
+		name: 'Nautica',
+		description: 'Yachts & Luxury Maritime',
+		rune: '⛵',
+		isComingSoon: false,
+		isInternal: true,
 	},
 ];
 
@@ -184,6 +874,7 @@ export function ForgePage() {
 	const [attested, setAttested] = useState(false);
 	const [minted, setMinted] = useState(false);
 	const [isMinting, setIsMinting] = useState(false);
+	const [selectedDaughter, setSelectedDaughter] = useState<string | null>(null);
 
 	const handleFiles = (picked: FileList | null) => {
 		if (!picked) return;
@@ -207,6 +898,27 @@ export function ForgePage() {
 
 	const firstFile = files[0];
 	const previewUrl = firstFile && firstFile.type.startsWith('image/') ? URL.createObjectURL(firstFile) : null;
+
+	const handleDaughterBuyAbra = () => {
+		// This would typically navigate to a token purchase page or exchange
+		console.log('Buy $ABRA clicked');
+		// Example: window.open('https://your-exchange-url', '_blank');
+	};
+
+	if (selectedDaughter) {
+		const daughterConfig = DAUGHTER_CONFIGS[selectedDaughter] || SON_CONFIGS[selectedDaughter];
+		if (daughterConfig) {
+			return (
+				<div className="relative">
+					<DaughterPage 
+						config={daughterConfig} 
+						onClose={() => setSelectedDaughter(null)} 
+						onBuyAbra={handleDaughterBuyAbra} 
+					/>
+				</div>
+			);
+		}
+	}
 
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
@@ -304,16 +1016,16 @@ export function ForgePage() {
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 							{DAUGHTERS_PHASE1.map((daughter) => (
-								<a
+								<button
 									key={daughter.name}
-									href={daughter.isComingSoon ? '#' : daughter.url}
-									target={daughter.isComingSoon ? undefined : '_blank'}
-									rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
-									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+									onClick={() => setSelectedDaughter(daughter.name.toLowerCase())}
+									type="button"
+									className={`group relative overflow-hidden rounded-xl border text-left backdrop-blur transition ${
 										daughter.isComingSoon
 											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
 											: 'border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 hover:border-orange-300/60 hover:from-orange-500/15 hover:shadow-[0_0_20px_rgba(234,88,12,0.2)]'
 									}`}
+									disabled={daughter.isComingSoon}
 								>
 									{!daughter.isComingSoon && (
 										<div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-orange-500/0 opacity-0 group-hover:opacity-100 transition" />
@@ -346,7 +1058,7 @@ export function ForgePage() {
 											</button>
 										)}
 									</div>
-								</a>
+								</button>
 							))}
 						</div>
 					</div>
@@ -359,16 +1071,16 @@ export function ForgePage() {
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 							{DAUGHTERS_PHASE2.map((daughter) => (
-								<a
+								<button
 									key={daughter.name}
-									href={daughter.isComingSoon ? '#' : daughter.url}
-									target={daughter.isComingSoon ? undefined : '_blank'}
-									rel={daughter.isComingSoon ? undefined : 'noopener noreferrer'}
-									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
+									onClick={() => setSelectedDaughter(daughter.name.toLowerCase())}
+									type="button"
+									className={`group relative overflow-hidden rounded-xl border text-left backdrop-blur transition ${
 										daughter.isComingSoon
 											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
 											: 'border-amber-300/25 bg-gradient-to-br from-amber-500/8 via-slate-900/80 to-slate-900/60 hover:border-amber-300/50 hover:from-amber-500/12 hover:shadow-[0_0_20px_rgba(251,191,36,0.2)]'
 									}`}
+									disabled={daughter.isComingSoon}
 								>
 									{!daughter.isComingSoon && (
 										<div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-transparent to-amber-500/0 opacity-0 group-hover:opacity-100 transition" />
@@ -401,9 +1113,64 @@ export function ForgePage() {
 											</button>
 										)}
 									</div>
-								</a>
+								</button>
 							))}
 						</div>
+					</div>
+				</div>
+
+				{/* Phase 3 – Yachts & Luxury Maritime */}
+				<div className="space-y-4 mt-12">
+					<div className="px-1 font-mono">
+						<h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase">&gt; [PHASE_3] YACHTS_MARITIME</h3>
+						<p className="text-[10px] text-cyan-300/60 mt-1 uppercase tracking-wider">NEW_FRONTIER | OCEANIC_SOVEREIGNTY</p>
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+						{DAUGHTERS_PHASE3.map((daughter) => (
+							<button
+								key={daughter.name}
+								onClick={() => setSelectedDaughter(daughter.name.toLowerCase())}
+								type="button"
+								className={`group relative overflow-hidden rounded-xl border text-left backdrop-blur transition ${
+									daughter.isComingSoon
+										? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+										: 'border-cyan-300/30 bg-gradient-to-br from-cyan-500/8 via-slate-900/80 to-slate-900/60 hover:border-cyan-300/60 hover:from-cyan-500/15 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]'
+								}`}
+								disabled={daughter.isComingSoon}
+							>
+								{!daughter.isComingSoon && (
+									<div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-transparent to-cyan-500/0 opacity-0 group-hover:opacity-100 transition" />
+								)}
+								<div className="relative z-10 flex flex-col h-full p-6">
+									<div className="flex items-start gap-3 mb-4">
+										<span className="text-3xl leading-none shrink-0">{daughter.rune}</span>
+										<h3 className={`text-sm font-bold tracking-widest leading-tight pt-1 uppercase font-mono ${
+											daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-cyan-300 transition'
+										}`}>
+											{daughter.name}
+										</h3>
+									</div>
+									<p className={`text-[10px] leading-relaxed mb-5 flex-grow font-mono uppercase tracking-[0.05em] ${
+										daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+									}`}>
+										{daughter.description}
+									</p>
+									{daughter.isComingSoon ? (
+										<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+											<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
+										</div>
+									) : (
+										<button
+											type="button"
+											className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-3 py-2 text-xs font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)] transition group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] group-hover:border-cyan-300/60"
+										>
+											Enter {daughter.name}
+											<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+										</button>
+									)}
+								</div>
+							</button>
+						))}
 					</div>
 				</div>
 
@@ -414,60 +1181,57 @@ export function ForgePage() {
 						<p className="text-[10px] text-violet-300/60 mt-1 uppercase tracking-wider">INFRASTRUCTURE_PARTNERS | ADVANCED_PROVIDERS</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-						{SONS.map((son) => {
-							const IconComponent = son.icon;
-							return (
-								<a
-									key={son.name}
-									href={son.isComingSoon ? '#' : son.url}
-									target={son.isComingSoon ? undefined : '_blank'}
-									rel={son.isComingSoon ? undefined : 'noopener noreferrer'}
-									className={`group relative overflow-hidden rounded-xl border backdrop-blur transition ${
-										son.isComingSoon
-											? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
-											: 'border-violet-300/25 bg-gradient-to-br from-violet-500/8 via-slate-900/80 to-slate-900/60 hover:border-violet-300/50 hover:from-violet-500/12 hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]'
-									}`}
-								>
-									{!son.isComingSoon && (
-										<div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-100 transition" />
-									)}
-									<div className="relative z-10 flex flex-col h-full p-6">
-										<div className="flex items-center justify-center mb-4">
-											<div className={`p-3 rounded-lg ${
-												son.isComingSoon 
-													? 'bg-slate-800/30' 
-													: 'bg-gradient-to-br from-violet-500/20 to-purple-500/10 group-hover:from-violet-500/30 group-hover:to-purple-500/20'
-											}`}>
-												<IconComponent size={20} className={son.isComingSoon ? 'text-slate-500' : 'text-violet-300 group-hover:text-violet-200 transition'} />
-											</div>
+						{SONS.map((son) => (
+							<button
+								key={son.name}
+								onClick={() => setSelectedDaughter(son.name.toLowerCase())}
+								type="button"
+								className={`group relative overflow-hidden rounded-xl border text-center backdrop-blur transition ${
+									son.isComingSoon
+										? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+										: 'border-violet-300/25 bg-gradient-to-br from-violet-500/8 via-slate-900/80 to-slate-900/60 hover:border-violet-300/50 hover:from-violet-500/12 hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]'
+								}`}
+								disabled={son.isComingSoon}
+							>
+								{!son.isComingSoon && (
+									<div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-100 transition" />
+								)}
+								<div className="relative z-10 flex flex-col h-full p-6">
+									<div className="flex items-center justify-center mb-4">
+										<div className={`p-3 rounded-lg ${
+											son.isComingSoon 
+												? 'bg-slate-800/30' 
+												: 'bg-gradient-to-br from-violet-500/20 to-purple-500/10 group-hover:from-violet-500/30 group-hover:to-purple-500/20'
+										}`}>
+											<span className="text-5xl">{son.rune}</span>
 										</div>
-											<h3 className={`text-sm font-bold tracking-widest mb-2 text-center uppercase font-mono ${
-											son.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-violet-300 transition'
-										}`}>
-											{son.name}
-										</h3>
-											<p className={`text-[10px] leading-relaxed mb-5 flex-grow text-center font-mono uppercase tracking-[0.05em] ${
-											son.isComingSoon ? 'text-slate-500' : 'text-slate-400'
-										}`}>
-											{son.description}
-										</p>
-										{son.isComingSoon ? (
-											<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-3 py-2.5 w-full justify-center">
-												<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
-											</div>
-										) : (
-											<button
-												type="button"
-												className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-purple-500/15 px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-violet-200 shadow-[0_0_12px_rgba(167,139,250,0.15)] transition group-hover:shadow-[0_0_20px_rgba(167,139,250,0.3)] group-hover:border-violet-300/60"
-											>
-												Enter {son.name}
-												<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-											</button>
-										)}
 									</div>
-								</a>
-							);
-						})}
+										<h3 className={`text-sm font-bold tracking-widest mb-2 text-center uppercase font-mono ${
+										son.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-violet-300 transition'
+									}`}>
+										{son.name}
+									</h3>
+										<p className={`text-[10px] leading-relaxed mb-5 flex-grow text-center font-mono uppercase tracking-[0.05em] ${
+										son.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+									}`}>
+										{son.description}
+									</p>
+									{son.isComingSoon ? (
+										<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-3 py-2.5 w-full justify-center">
+											<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
+										</div>
+									) : (
+										<button
+											type="button"
+											className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-purple-500/15 px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-violet-200 shadow-[0_0_12px_rgba(167,139,250,0.15)] transition group-hover:shadow-[0_0_20px_rgba(167,139,250,0.3)] group-hover:border-violet-300/60"
+										>
+											Enter {son.name}
+											<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+										</button>
+									)}
+								</div>
+							</button>
+						))}
 					</div>
 				</div>
 
