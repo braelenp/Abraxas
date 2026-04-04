@@ -521,71 +521,254 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		dappUrl: 'https://your-eir-dapp-url.com/',
 		dappLabel: 'Enter Eir',
 	},
-};
+		skadi: {
+			name: 'Skaði',
+			subtitle: 'Guardian of Velocity',
+			headerReveal: 'Welcome to the velocity.',
+			description: 'Luxury Mobility & Performance',
+			lore: 'Skaði tokenizes jets, aircraft, and high-performance vehicles. Fractional ownership of supercars, private aviation, and speed-racing assets becomes on-chain La Casa NFTs. The species now claims the skies and conquers velocity.',
+			accentColor: 'amber',
+			icon: '✈️',
+			flowSteps: [
+				{
+					step: 1,
+					label: 'Upload Vehicle Docs',
+					desc: 'Submit aircraft registrations, vehicle titles, and performance certifications',
+					icon: '📋',
+				},
+				{
+					step: 2,
+					label: 'Mint La Casa NFT',
+					desc: 'On-chain tokenization with immutable vehicle provenance',
+					icon: '🏎️',
+				},
+				{
+					step: 3,
+					label: 'Deploy Velocity Yield',
+					desc: 'Auto-compound charter fees, rental income, and appreciation gains',
+					icon: '🏆',
+				},
+			],
+			features: [
+				{
+					title: 'Fractional Aircraft',
+					description: 'Own equity shares in jets and luxury aircraft',
+					icon: '✈️',
+				},
+				{
+					title: 'Supercar Ownership',
+					description: 'Democratize access to high-performance vehicles',
+					icon: '🏎️',
+				},
+				{
+					title: 'Charter Revenue',
+					description: 'Earn from aircraft charters and vehicle rentals on-chain',
+					icon: '💰',
+				},
+				{
+					title: 'Performance Equity',
+					description: 'Stake racing teams, speed records, and velocity assets',
+					icon: '⚡',
+				},
+			],
+			assetClasses: [
+				{ name: 'Jets & Aircraft', desc: 'Private aviation and commercial aircraft', icon: '✈️' },
+				{ name: 'Supercars', desc: 'High-performance luxury vehicles', icon: '🏎️' },
+				{ name: 'Performance Vehicles', desc: 'Racing cars and exotic automobiles', icon: '🚗' },
+				{ name: 'Aviation Charter Rights', desc: 'Flight hours and charter equity', icon: '✈️' },
+				{ name: 'Maintenance Assets', desc: 'Service centers and technical facilities', icon: '🔧' },
+				{ name: 'Racing Teams', desc: 'Motorsport franchises and driver equity', icon: '🏁' },
+			],
+			dappUrl: 'https://your-skadi-dapp-url.com/',
+			dappLabel: 'Enter Skaði',
+		},
+		freyja: {
+			name: 'Freyja',
+			subtitle: 'The Golden Sovereign',
+			headerReveal: 'Welcome to golden grace.',
+			description: 'Luxury Collectibles & Fine Goods',
+			lore: 'Freyja tokenizes watches, wine, fine art, and investment-grade luxury collectibles. Fractional ownership of timepieces, rare spirits, and museum-quality artifacts becomes on-chain La Casa NFTs. The species now claims beauty, rarity, and timeless value.',
+			accentColor: 'amber',
+			icon: '👑',
+			flowSteps: [
+				{
+					step: 1,
+					label: 'Upload Collectible Docs',
+					desc: 'Submit authentication certificates, appraisals, and provenance records',
+					icon: '📋',
+				},
+				{
+					step: 2,
+					label: 'Mint La Casa NFT',
+					desc: 'On-chain tokenization with immutable collectible provenance',
+					icon: '✨',
+				},
+				{
+					step: 3,
+					label: 'Generate Luxury Yield',
+					desc: 'Auto-compound appreciation, auction gains, and exclusive access fees',
+					icon: '🏆',
+				},
+			],
+			features: [
+				{
+					title: 'Timepiece Fractionalisation',
+					description: 'Own shares of rare watches and luxury timepieces',
+					icon: '⌚',
+				},
+				{
+					title: 'Wine & Spirits Trading',
+					description: 'Invest in fine wines, rare spirits, and vintage collections',
+					icon: '🍷',
+				},
+				{
+					title: 'Fine Art & Artifacts',
+					description: 'Fractional ownership of museum-quality art pieces',
+					icon: '🎨',
+				},
+				{
+					title: 'Collectible Appreciation',
+					description: 'Earn from scarcity premium and luxury market growth',
+					icon: '📈',
+				},
+			],
+			assetClasses: [
+				{ name: 'Luxury Watches', desc: 'Rolex, Patek Philippe, Audemars Piguet, etc.', icon: '⌚' },
+				{ name: 'Rare Wines', desc: 'Vintage wines and rare collectible bottles', icon: '🍷' },
+				{ name: 'Spirits & Distillery', desc: 'Premium whiskey, cognac, and aged spirits', icon: '🥃' },
+				{ name: 'Fine Art', desc: 'Paintings, sculptures, and museum pieces', icon: '🎨' },
+				{ name: 'Jewelry & Gems', desc: 'Diamonds, precious metals, and heirloom pieces', icon: '💎' },
+				{ name: 'Rare Memorabilia', desc: 'Collectible artifacts and historical pieces', icon: '🖼️' },
+			],
+			dappUrl: 'https://your-freyja-dapp-url.com/',
+			dappLabel: 'Enter Freyja',
+		},
+		gaia: {
+			name: 'Gaia',
+			subtitle: 'The Botanical Sovereign',
+			headerReveal: 'Welcome to regeneration.',
+			description: 'Botanical & Cannabis Assets',
+			lore: 'Gaia tokenizes cannabis, medicinal plants, and regenerative agricultural assets. Fractional ownership of cultivation licenses, seed genetics, processing facilities, and botanical intellectual property becomes on-chain La Casa NFTs. The species now claims the botanical kingdom and its healing potential.',
+			accentColor: 'emerald',
+			icon: '🌱',
+			flowSteps: [
+				{
+					step: 1,
+					label: 'Upload Botanical Docs',
+					desc: 'Submit cultivation licenses, genetics documentation, and compliance records',
+					icon: '📋',
+				},
+				{
+					step: 2,
+					label: 'Mint La Casa NFT',
+					desc: 'On-chain tokenization with immutable botanical provenance',
+					icon: '🌿',
+				},
+				{
+					step: 3,
+					label: 'Deploy Agricultural Yield',
+					desc: 'Auto-compound harvest revenues, licensing fees, and IP royalties',
+					icon: '🏆',
+				},
+			],
+			features: [
+				{
+					title: 'Cannabis Cultivation',
+					description: 'Own licensed grow operations and processing facilities',
+					icon: '🌿',
+				},
+				{
+					title: 'Seed Genetics IP',
+					description: 'Monetize proprietary seed genetics and strain innovations',
+					icon: '🧬',
+				},
+				{
+					title: 'Medicinal Protocols',
+					description: 'Tokenize medical research and therapeutic applications',
+					icon: '⚕️',
+				},
+				{
+					title: 'Regenerative Agriculture',
+					description: 'Earn from sustainable farming and carbon-neutral operations',
+					icon: '🌍',
+				},
+			],
+			assetClasses: [
+				{ name: 'Cannabis Cultivation', desc: 'Licensed grow operations and farms', icon: '🌿' },
+				{ name: 'Seed Genetics', desc: 'Proprietary strains and genetic IP', icon: '🧬' },
+				{ name: 'Processing Facilities', desc: 'Extraction and product manufacturing', icon: '⚙️' },
+				{ name: 'Medicinal IP', desc: 'Research, licensing, and therapeutic patents', icon: '⚕️' },
+				{ name: 'Distribution Networks', desc: 'Retail partnerships and supply chains', icon: '🚚' },
+				{ name: 'Regenerative Land', desc: 'Carbon-neutral farming and sustainability assets', icon: '🌍' },
+			],
+			dappUrl: 'https://your-gaia-dapp-url.com/',
+			dappLabel: 'Enter Gaia',
+		},
+	};
 
-// Sons of Sophia (Infrastructure Providers) Configurations
-const SON_CONFIGS: Record<string, DaughterConfig> = {
-	genesis: {
-		name: 'Genesis',
-		subtitle: 'The Prime Foundation',
-		headerReveal: 'Welcome to the genesis.',
-		description: 'The Prime Foundation',
-		lore: 'Genesis is the foundational provider—the bedrock upon which Sophia\'s entire infrastructure rests. It manages the capital pools, treasury operations, and institutional-grade liquidity mechanisms that power all tokenization flows. Genesis does not tokenize. Genesis enables everything else.',
-		accentColor: 'orange',
-		icon: '🔥',
-		flowSteps: [
-			{
-				step: 1,
-				label: 'Capital Governance',
-				desc: 'Institutional treasury management and resource allocation',
-				icon: '💼',
-			},
-			{
-				step: 2,
-				label: 'Liquidity Provision',
-				desc: 'Prime capital pools backing all RWA tokenization flows',
-				icon: '💧',
-			},
-			{
-				step: 3,
-				label: 'Yield Distribution',
-				desc: 'Autonomous routing of yields across the Sophia network',
-				icon: '⚙️',
-			},
-		],
-		features: [
-			{
-				title: 'Treasury Management',
-				description: 'Institutional-grade capital custody and operations',
-				icon: '🏦',
-			},
-			{
-				title: 'Prime Pools',
-				description: 'Deep liquidity backing every tokenization protocol',
-				icon: '🌊',
-			},
-			{
-				title: 'Yield Routing',
-				description: 'Autonomous capital reallocation based on demand signals',
-				icon: '🔄',
-			},
-			{
-				title: 'Risk Management',
-				description: 'Sophisticated hedging and exposure optimization',
-				icon: '🛡️',
-			},
-		],
-		assetClasses: [
-			{ name: 'Capital Pools', desc: 'Primary liquidity reserves', icon: '💰' },
-			{ name: 'Stablecoin Reserves', desc: 'USDC, USDT, and native stables', icon: '🪙' },
-			{ name: 'Insurance Coverage', desc: 'Smart contract audit & loss insurance', icon: '📋' },
-			{ name: 'Treasury Bonds', desc: 'Institutional debt instruments', icon: '📊' },
-			{ name: 'Yield Strategies', desc: 'Multi-leg arbitrage and yield optimization', icon: '🎯' },
-			{ name: 'Bridge Infrastructure', desc: 'Cross-chain liquidity mechanisms', icon: '🌉' },
-		],
-		dappUrl: 'https://genesis-seven-self.vercel.app/',
-		dappLabel: 'Enter Genesis',
-	},
+	// Sons of Sophia (Infrastructure Providers) Configurations
+	const SON_CONFIGS: Record<string, DaughterConfig> = {
+		genesis: {
+			name: 'Genesis',
+			subtitle: 'The Prime Foundation',
+			headerReveal: 'Welcome to the genesis.',
+			description: 'The Prime Foundation',
+			lore: 'Genesis is the foundational provider—the bedrock upon which Sophia\'s entire infrastructure rests. It manages the capital pools, treasury operations, and institutional-grade liquidity mechanisms that power all tokenization flows. Genesis does not tokenize. Genesis enables everything else.',
+			accentColor: 'orange',
+			icon: '🔥',
+			flowSteps: [
+				{
+					step: 1,
+					label: 'Seed Capital Pools',
+					desc: 'Deploy institutional liquidity and treasury reserves',
+					icon: '💳',
+				},
+				{
+					step: 2,
+					label: 'Algorithmic Distribution',
+					desc: 'Smart contracts route capital via optimized mechanisms',
+					icon: '⚙️',
+				},
+				{
+					step: 3,
+					label: 'Yield Aggregation',
+					desc: 'Compound and redistribute returns across the ecosystem',
+					icon: '📈',
+				},
+			],
+			features: [
+				{
+					title: 'Capital Pools',
+					description: 'Access to institutional liquidity for all tokenization',
+					icon: '💰',
+				},
+				{
+					title: 'Yield Distribution',
+					description: 'Automated returns routing to all providers',
+					icon: '📊',
+				},
+				{
+					title: 'Treasury Management',
+					description: 'Multi-signature governance over all reserves',
+					icon: '🏛️',
+				},
+				{
+					title: 'Emergency Circuits',
+					description: 'Fail-safes and circuit breakers for crisis events',
+					icon: '🔐',
+				},
+			],
+			assetClasses: [
+				{ name: 'Liquidity Pools', desc: 'DEX and lending protocol reserves', icon: '💧' },
+				{ name: 'Treasury Assets', desc: 'Institutional reserves and holdings', icon: '💎' },
+				{ name: 'Yield Mechanisms', desc: 'Staking, farming, and protocol fees', icon: '📈' },
+				{ name: 'Capital Allocation', desc: 'Strategic deployment across ecosystem', icon: '🎯' },
+				{ name: 'Risk Buffers', desc: 'Emergency reserves and insurance pools', icon: '🛡️' },
+				{ name: 'Governance Treasury', desc: 'DAO-controlled multi-sig wallets', icon: '🔑' },
+			],
+			dappUrl: 'https://genesis-seven-self.vercel.app/',
+			dappLabel: 'Enter Genesis',
+		},
 	valkyr: {
 		name: 'Valkyr',
 		subtitle: 'The Wise Guardian',
@@ -891,6 +1074,30 @@ const DAUGHTERS_PHASE3 = [
 	},
 ];
 
+const DAUGHTERS_PHASE4 = [
+	{
+		name: 'Skaði',
+		description: 'Luxury Mobility & Performance',
+		rune: '✈️',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Freyja',
+		description: 'Luxury Collectibles & Fine Goods',
+		rune: '👑',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Gaia',
+		description: 'Botanical & Cannabis Assets',
+		rune: '🌱',
+		isComingSoon: false,
+		isInternal: true,
+	},
+];
+
 // The Sons of Sophia - The Providers
 const SONS = [
 	{
@@ -1187,11 +1394,11 @@ export function ForgePage() {
 					</div>
 				</div>
 
-				{/* Phase 3 – Yachts & Luxury Maritime */}
+				{/* Phase 3 – Frontier Sovereignty */}
 				<div className="space-y-4 mt-12">
 					<div className="px-1 font-mono">
-						<h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase">&gt; [PHASE_3] YACHTS_MARITIME</h3>
-						<p className="text-[10px] text-cyan-300/60 mt-1 uppercase tracking-wider">NEW_FRONTIER | OCEANIC_SOVEREIGNTY</p>
+						<h3 className="text-sm font-bold text-cyan-400 tracking-widest uppercase">&gt; [PHASE_3] FRONTIER_SOVEREIGNTY</h3>
+						<p className="text-[10px] text-cyan-300/60 mt-1 uppercase tracking-wider">OCEANIC & REGENERATIVE_FUTURES</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 						{DAUGHTERS_PHASE3.map((daughter) => (
@@ -1231,6 +1438,61 @@ export function ForgePage() {
 										<button
 											type="button"
 											className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-3 py-2 text-xs font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)] transition group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] group-hover:border-cyan-300/60"
+										>
+											Enter {daughter.name}
+											<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+										</button>
+									)}
+								</div>
+							</button>
+						))}
+					</div>
+				</div>
+
+				{/* Phase 4 – Luxury Dominion */}
+				<div className="space-y-4 mt-12">
+					<div className="px-1 font-mono">
+						<h3 className="text-sm font-bold text-amber-400 tracking-widest uppercase">&gt; [PHASE_4] LUXURY_DOMINION</h3>
+						<p className="text-[10px] text-amber-300/60 mt-1 uppercase tracking-wider">VELOCITY | TREASURE | REGENERATION</p>
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+						{DAUGHTERS_PHASE4.map((daughter) => (
+							<button
+								key={daughter.name}
+								onClick={() => setSelectedDaughter(daughter.name.toLowerCase())}
+								type="button"
+								className={`group relative overflow-hidden rounded-xl border text-left backdrop-blur transition ${
+									daughter.isComingSoon
+										? 'border-slate-700/30 bg-slate-900/40 cursor-not-allowed opacity-75'
+										: 'border-amber-300/30 bg-gradient-to-br from-amber-500/8 via-slate-900/80 to-slate-900/60 hover:border-amber-300/60 hover:from-amber-500/15 hover:shadow-[0_0_20px_rgba(251,191,36,0.2)]'
+								}`}
+								disabled={daughter.isComingSoon}
+							>
+								{!daughter.isComingSoon && (
+									<div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-transparent to-amber-500/0 opacity-0 group-hover:opacity-100 transition" />
+								)}
+								<div className="relative z-10 flex flex-col h-full p-6">
+									<div className="flex items-start gap-3 mb-4">
+										<span className="text-3xl leading-none shrink-0">{daughter.rune}</span>
+										<h3 className={`text-sm font-bold tracking-widest leading-tight pt-1 uppercase font-mono ${
+											daughter.isComingSoon ? 'text-slate-400' : 'text-slate-100 group-hover:text-amber-300 transition'
+										}`}>
+											{daughter.name}
+										</h3>
+									</div>
+									<p className={`text-[10px] leading-relaxed mb-5 flex-grow font-mono uppercase tracking-[0.05em] ${
+										daughter.isComingSoon ? 'text-slate-500' : 'text-slate-400'
+									}`}>
+										{daughter.description}
+									</p>
+									{daughter.isComingSoon ? (
+										<div className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/40 bg-slate-800/50 px-4 py-3 w-full justify-center">
+											<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono">[COMING_SOON]</span>
+										</div>
+									) : (
+										<button
+											type="button"
+											className="inline-flex items-center justify-center gap-2 rounded-lg border border-amber-300/40 bg-gradient-to-r from-amber-500/20 to-yellow-500/15 px-3 py-2 text-xs font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_12px_rgba(251,191,36,0.15)] transition group-hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] group-hover:border-amber-300/60"
 										>
 											Enter {daughter.name}
 											<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
