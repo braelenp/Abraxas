@@ -10,3 +10,4 @@ export { ForgePage } from './ForgePage';
 export { StakePage } from './StakePage';
 export { LoadingPage } from './LoadingPage';
 export { OnboardPage } from './OnboardPage';
+export { TokenGatedPage } from './TokenGatedPage';

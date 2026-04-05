@@ -13,8 +13,11 @@ import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
 import { ForgePage } from './pages/ForgePage';
 import { LoadingPage } from './pages/LoadingPage';
+import { TokenGatedPage } from './pages/TokenGatedPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
+import { HackathonBanner } from './components/HackathonBanner';
+import { useAbraBalance } from './hooks/useAbraBalance';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
@@ -28,6 +31,19 @@ const navItems = [
 ];
 
 function ProtectedDapp() {
+  const { hasMinimum, isLoading } = useAbraBalance(10);
+  
+  // If still loading, show loading page while checking balance
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  // If balance is below minimum, show gate page
+  if (!hasMinimum) {
+    return <TokenGatedPage />;
+  }
+
+  // Otherwise show full dApp
   return <DappShell />;
 }
 
@@ -119,6 +135,8 @@ function DappShell() {
         </div>
         <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ✦ Cadabra · ᛏ King AI · ᚦ Circuit · ᛚ Trade</p>
       </header>
+
+      <HackathonBanner show={true} />
 
       <main
         ref={contentRef}

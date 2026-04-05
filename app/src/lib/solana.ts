@@ -7,6 +7,14 @@ export const ABRAXAS_PROGRAM_ID_RAW = (import.meta.env.VITE_ABRAXAS_PROGRAM_ID ?
 export const SOLANA_CLUSTER = 'devnet';
 export const SOLANA_RPC_ENDPOINT = clusterApiUrl(SOLANA_CLUSTER);
 
+// ── Token Configuration ──────────────────────────────────────────────────────
+// ABRA token mint address (Solana mainnet)
+// On devnet, you can deploy the same mint or use the mainnet address
+export const ABRA_TOKEN_MINT = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+
+// Minimum $ABRA holdings required to access the dApp during hackathon period
+export const MINIMUM_ABRA_FOR_ACCESS = 10;
+
 export function getProgramIdRaw(): string {
   if (typeof window !== 'undefined') {
     const override = localStorage.getItem(PROGRAM_ID_STORAGE_KEY)?.trim();
