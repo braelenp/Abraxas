@@ -457,7 +457,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			{ name: 'Cargo Vessels', desc: 'Maritime trade assets', icon: '🚢' },
 			{ name: 'Marina Rights', desc: 'Berthing and docking equity', icon: '⛵' },
 		],
-		dappUrl: 'https://your-nautica-dapp-url.com/', // UPDATE THIS WITH YOUR DAPP URL
+		dappUrl: 'https://nautica-five.vercel.app/',
 		dappLabel: 'Enter Nautica',
 	},
 	eir: {
@@ -1062,7 +1062,7 @@ const DAUGHTERS_PHASE3 = [
 		name: 'Nautica',
 		description: 'Yachts & Luxury Maritime',
 		rune: '⛵',
-		isComingSoon: true,
+		isComingSoon: false,
 		isInternal: true,
 	},
 	{
