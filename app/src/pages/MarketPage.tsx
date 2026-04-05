@@ -6,6 +6,7 @@ import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { LivePriceTicker } from '../components/LivePriceTicker';
 import { FoundationMarket } from '../components/FoundationMarket';
+import { WalletPortfolioWidget } from '../components/WalletPortfolioWidget';
 
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
@@ -611,6 +612,9 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
+      {/* --- Wallet Portfolio Widget --- */}
+      <WalletPortfolioWidget />
+
       {/* --- Available Balance — Top Priority --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
         <p className="text-xs text-slate-300/80">Available Balance</p>

@@ -11,6 +11,7 @@ import { BagsDashboard } from '../components/BagsDashboard';
 import { FiatOffRampWidget } from '../components/FiatOffRampWidget';
 import SpendAbra from '../components/SpendAbra';
 import { FeatureBadge } from '../components/FeatureBadge';
+import { WalletPortfolioWidget } from '../components/WalletPortfolioWidget';
 import type { StakeDuration, StakeRecord } from '../lib/types';
 import { PublicKey, Transaction } from '@solana/web3.js';
 import { createStakeInstruction, fetchStakeRecord, getStakePDA } from '../lib/staking';
@@ -704,6 +705,9 @@ export function TradePage() {
           &gt; Trade Real-World Asset pairs on Solana | Zero fees | ABRA_or_DIRECT_TRADE
         </p>
       </div>
+
+      {/* Wallet Portfolio Widget */}
+      <WalletPortfolioWidget />
 
       {/* Wallet Connection Status */}
       {!connected && (
