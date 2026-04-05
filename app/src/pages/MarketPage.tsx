@@ -6,7 +6,7 @@ import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { LivePriceTicker } from '../components/LivePriceTicker';
 import { FoundationMarket } from '../components/FoundationMarket';
-import { WalletPortfolioWidget } from '../components/WalletPortfolioWidget';
+import { useAbraBalance } from '../hooks/useAbraBalance';
 
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
@@ -550,6 +550,7 @@ export function MarketPage() {
   const [showAllExamples, setShowAllExamples] = useState(false);
   const [showAllAssets, setShowAllAssets] = useState(false);
   const { vaults } = useAbraxas();
+  const { balance, balanceFormatted, isLoading } = useAbraBalance(10);
 
   const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
 
@@ -612,14 +613,29 @@ export function MarketPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
-      {/* --- Wallet Portfolio Widget --- */}
-      <WalletPortfolioWidget />
-
       {/* --- Available Balance — Top Priority --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
-        <p className="text-xs text-slate-300/80">Available Balance</p>
-        <p className="mt-2 text-4xl font-bold text-cyan-50">${portfolioValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
-        <p className="mt-1 text-xs text-slate-300/70">From your vaults</p>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex-1">
+            <p className="text-xs text-slate-300/80">Available Balance</p>
+            <p className="mt-2 text-4xl font-bold text-cyan-50">${portfolioValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
+            <p className="mt-1 text-xs text-slate-300/70">From your vaults</p>
+          </div>
+          
+          {/* ABRA Balance */}
+          <div className="text-right border-l border-cyan-300/20 pl-4">
+            <p className="text-xs text-slate-300/80">$ABRA Holding</p>
+            {isLoading ? (
+              <div className="mt-2 flex items-center justify-end gap-2">
+                <div className="w-4 h-4 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full animate-spin" />
+              </div>
+            ) : (
+              <p className="mt-2 text-3xl font-bold text-emerald-400">{balanceFormatted}</p>
+            )}
+            <p className="mt-1 text-xs text-emerald-300/70">Gated Access Level</p>
+          </div>
+        </div>
+
         <div className="mt-4 grid grid-cols-2 gap-2">
           <button className="rounded-xl border border-cyan-300/40 bg-cyan-300/10 px-3 py-2.5 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/15 transition">
             + Add Funds
