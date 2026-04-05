@@ -8,6 +8,7 @@ export function TokenGatedPage() {
   const { balance, balanceFormatted, isLoading, error, hasMinimum } = useAbraBalance(10);
   const { connected } = useWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [useDemoMode, setUseDemoMode] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // ASCII art for the gate
@@ -99,6 +100,27 @@ export function TokenGatedPage() {
               <p className="text-sm text-slate-300 font-mono">Scanning balance...</p>
               <p className="text-[9px] text-slate-400">Retrying if rate limited</p>
             </div>
+          ) : useDemoMode ? (
+            // Demo mode: show gate experience without RPC calls
+            <div className="text-center space-y-4">
+              <div className="space-y-1">
+                <p className="text-[10px] sm:text-xs font-mono text-slate-400 uppercase tracking-widest">Demo Mode</p>
+                <p className="text-2xl sm:text-3xl font-black font-mono drop-shadow-md text-emerald-400">
+                  15.50
+                </p>
+                <p className="text-[10px] sm:text-xs text-emerald-400">
+                  ✓ Sufficient holdings (Demo)
+                </p>
+              </div>
+
+              <div className="text-[10px] sm:text-xs text-slate-400 font-mono">
+                <p>Minimum Required: <span className="text-cyan-300 font-semibold">10.00 $ABRA</span></p>
+              </div>
+
+              <p className="text-[9px] text-slate-500 italic">
+                Demo mode allows you to see the full flow. Set up a real RPC to check actual balances.
+              </p>
+            </div>
           ) : error ? (
             <div className="text-center space-y-3">
               <div className="text-4xl">⚠️</div>
@@ -117,22 +139,24 @@ export function TokenGatedPage() {
                     </ul>
                   </div>
                 </>
-              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') || error.includes('403') || error.includes('401') ? (
+              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') || error.includes('403') ? (
                 <>
-                  <p className="text-xs text-amber-300 font-mono leading-relaxed">
-                    RPC endpoint is rate limited or busy.
+                  <p className="text-xs text-red-300 font-mono leading-relaxed font-bold">
+                    RPC rate limited - Public endpoint overloaded.
                   </p>
-                  <div className="bg-slate-800/50 rounded p-3 text-[10px] text-slate-300 space-y-2">
-                    <p className="font-semibold text-amber-200">What's happening:</p>
-                    <p className="text-[9px]">Retrying automatically with backoff...</p>
-                    <p className="font-semibold text-amber-200 mt-2">If it continues:</p>
-                    <ul className="text-left space-y-1">
-                      <li>• Wait 60+ seconds for cache to refresh</li>
-                      <li>• Or use a free RPC endpoint:</li>
-                      <li className="ml-2">- Helius: helius.dev</li>
-                      <li className="ml-2">- QuickNode: quicknode.com</li>
-                      <li>• Add to .env: VITE_SOLANA_RPC_URL=your_url</li>
+                  <div className="bg-red-900/30 border border-red-700/50 rounded p-3 text-[10px] text-slate-300 space-y-2 mb-3">
+                    <p className="font-semibold text-red-300">⚡ Solution: Use a Free RPC Endpoint</p>
+                    <p className="text-[9px] leading-tight">The public RPC is rate-limited. Get a free premium RPC:</p>
+                    <ul className="text-left space-y-1 mt-2">
+                      <li className="text-amber-300 font-semibold">1. Go to helius.dev</li>
+                      <li className="text-amber-300 font-semibold">2. Sign up (free tier: 10k req/min)</li>
+                      <li className="text-amber-300 font-semibold">3. Copy your API key</li>
+                      <li className="text-amber-300 font-semibold">4. Add to .env:</li>
+                      <li className="font-mono text-[9px] text-cyan-300 ml-2">VITE_SOLANA_RPC_URL=https://</li>
+                      <li className="font-mono text-[9px] text-cyan-300 ml-2">mainnet.helius-rpc.com/?api-key=</li>
+                      <li className="font-mono text-[9px] text-cyan-300 ml-2">YOUR_KEY_HERE</li>
                     </ul>
+                    <p className="text-[9px] text-slate-400 mt-2">Then restart the app.</p>
                   </div>
                 </>
               ) : error.includes('network') || error.includes('connection') ? (
@@ -187,6 +211,26 @@ export function TokenGatedPage() {
 
         {/* Action buttons */}
         <div className="space-y-2 sm:space-y-3 w-full max-w-xs mb-6">
+          {/* Demo mode button - visible when experiencing errors */}
+          {error && !useDemoMode && (
+            <button
+              onClick={() => setUseDemoMode(true)}
+              className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-purple-300/50 bg-purple-300/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-purple-100 shadow-[0_0_16px_rgba(168,85,247,0.2)] transition hover:border-purple-300/60 hover:bg-purple-300/30 hover:shadow-[0_0_24px_rgba(168,85,247,0.4)]"
+            >
+              🎭 Try Demo Mode
+            </button>
+          )}
+
+          {/* Exit demo mode button */}
+          {useDemoMode && (
+            <button
+              onClick={() => setUseDemoMode(false)}
+              className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-400/50 bg-slate-400/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100 shadow-[0_0_16px_rgba(148,163,184,0.2)] transition hover:border-slate-400/60 hover:bg-slate-400/30 hover:shadow-[0_0_24px_rgba(148,163,184,0.4)]"
+            >
+              Exit Demo Mode
+            </button>
+          )}
+
           {/* Refresh button */}
           <button
             onClick={handleRefresh}
@@ -198,7 +242,7 @@ export function TokenGatedPage() {
           </button>
 
           {/* Buy ABRA button - always visible if not holding enough */}
-          {!hasMinimum && (
+          {!hasMinimum && !useDemoMode && (
             <a
               href={buyAbraUrl}
               target="_blank"
@@ -210,8 +254,8 @@ export function TokenGatedPage() {
             </a>
           )}
 
-          {/* Enter button - only visible if has minimum */}
-          {hasMinimum && !isLoading && (
+          {/* Enter button - visible if has minimum or demo mode active */}
+          {(hasMinimum || useDemoMode) && !isLoading && (
             <button
               onClick={() => window.location.reload()}
               className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-400/60 bg-emerald-400/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-100 shadow-[0_0_16px_rgba(34,197,94,0.2)] transition hover:border-emerald-400/80 hover:bg-emerald-400/30 hover:shadow-[0_0_24px_rgba(34,197,94,0.4)]"
