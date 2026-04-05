@@ -12,6 +12,15 @@ interface AbraBalanceState {
   hasMinimum: boolean;
 }
 
+const CACHE_KEY = 'abraBalance';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+interface CachedBalance {
+  balance: number;
+  balanceFormatted: string;
+  timestamp: number;
+}
+
 export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCESS): AbraBalanceState {
   const { publicKey } = useWallet();
   const { connection } = useConnection();
@@ -22,6 +31,38 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
     error: null,
     hasMinimum: false,
   });
+  const [retryCount, setRetryCount] = useState(0);
+  const MAX_RETRIES = 3;
+
+  // Check if cached balance is still valid
+  const getCachedBalance = (): CachedBalance | null => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached) as CachedBalance;
+        if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+          return parsed;
+        }
+      }
+    } catch {
+      // Ignore cache errors
+    }
+    return null;
+  };
+
+  // Cache balance result
+  const setCachedBalance = (balance: number, balanceFormatted: string) => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ balance, balanceFormatted, timestamp: Date.now() }),
+      );
+    } catch {
+      // Ignore cache errors
+    }
+  };
 
   useEffect(() => {
     if (!publicKey || !connection) {
@@ -33,9 +74,22 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
       return;
     }
 
-    const fetchBalance = async () => {
+    const fetchBalance = async (attempt = 0) => {
       try {
         setState((prev) => ({ ...prev, isLoading: true, error: null }));
+
+        // Try to use cached balance first
+        const cached = getCachedBalance();
+        if (cached) {
+          setState({
+            balance: cached.balance,
+            balanceFormatted: cached.balanceFormatted,
+            isLoading: false,
+            error: null,
+            hasMinimum: cached.balance >= minimumThreshold,
+          });
+          return;
+        }
 
         const abraMintPublicKey = new PublicKey(ABRA_TOKEN_MINT);
         
@@ -78,6 +132,9 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           maximumFractionDigits: 2,
         });
 
+        // Cache the result
+        setCachedBalance(balance, balanceFormatted);
+
         setState({
           balance,
           balanceFormatted,
@@ -85,11 +142,27 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           error: null,
           hasMinimum: balance >= minimumThreshold,
         });
+        
+        // Reset retry count on success
+        setRetryCount(0);
       } catch (err) {
         let errorMessage = err instanceof Error ? err.message : 'Failed to fetch balance';
         
         // Improve error messaging for common RPC issues
-        if (errorMessage.includes('402') || errorMessage.includes('Forbidden')) {
+        if (errorMessage.includes('403') || errorMessage.includes('Forbidden')) {
+          errorMessage = 'RPC access forbidden (403). Retrying...';
+          // Retry with exponential backoff
+          if (attempt < MAX_RETRIES) {
+            const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+            setTimeout(() => {
+              setRetryCount(attempt + 1);
+              fetchBalance(attempt + 1);
+            }, delay);
+            return;
+          } else {
+            errorMessage = 'RPC rate limited. Please wait and refresh in 1 minute or use a custom RPC endpoint.';
+          }
+        } else if (errorMessage.includes('402') || errorMessage.includes('Forbidden')) {
           errorMessage = 'RPC rate limited (402). Please try again in 30 seconds or use a paid RPC.';
         } else if (errorMessage.includes('401') || errorMessage.includes('Unauthorized')) {
           errorMessage = 'RPC API key invalid or missing. Using public RPC fallback.';

@@ -22,9 +22,15 @@ export function TokenGatedPage() {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    // Trigger a re-fetch by simulating a small delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsRefreshing(false);
+    // Clear cached balance to force fresh RPC call
+    try {
+      localStorage.removeItem('abraBalance');
+    } catch {
+      // Ignore cache errors
+    }
+    // Reload page to fetch fresh balance
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    window.location.reload();
   };
 
   const buyAbraUrl = 'https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
@@ -91,6 +97,7 @@ export function TokenGatedPage() {
                 <div className="w-8 h-8 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full" />
               </div>
               <p className="text-sm text-slate-300 font-mono">Scanning balance...</p>
+              <p className="text-[9px] text-slate-400">Retrying if rate limited</p>
             </div>
           ) : error ? (
             <div className="text-center space-y-3">
@@ -110,20 +117,21 @@ export function TokenGatedPage() {
                     </ul>
                   </div>
                 </>
-              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') || error.includes('401') ? (
+              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') || error.includes('403') || error.includes('401') ? (
                 <>
                   <p className="text-xs text-amber-300 font-mono leading-relaxed">
-                    RPC endpoint is rate limited.
+                    RPC endpoint is rate limited or busy.
                   </p>
                   <div className="bg-slate-800/50 rounded p-3 text-[10px] text-slate-300 space-y-2">
-                    <p className="font-semibold text-amber-200">Solutions:</p>
+                    <p className="font-semibold text-amber-200">What's happening:</p>
+                    <p className="text-[9px]">Retrying automatically with backoff...</p>
+                    <p className="font-semibold text-amber-200 mt-2">If it continues:</p>
                     <ul className="text-left space-y-1">
-                      <li>• Try refreshing in 30 seconds</li>
-                      <li>• Get private RPC from:</li>
-                      <li className="ml-2">- Helius: helius.dev (free tier)</li>
+                      <li>• Wait 60+ seconds for cache to refresh</li>
+                      <li>• Or use a free RPC endpoint:</li>
+                      <li className="ml-2">- Helius: helius.dev</li>
                       <li className="ml-2">- QuickNode: quicknode.com</li>
-                      <li>• Add to .env/vercel config:</li>
-                      <li className="ml-2 font-mono text-[9px]">VITE_SOLANA_RPC_URL=your_rpc_url</li>
+                      <li>• Add to .env: VITE_SOLANA_RPC_URL=your_url</li>
                     </ul>
                   </div>
                 </>
