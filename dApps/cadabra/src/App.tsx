@@ -8,9 +8,8 @@ import { Sidebar } from './components/Sidebar'
 import { TabHeader } from './components/TabHeader'
 import { TrendingPanel } from './components/TrendingPanel'
 import { MobileNav } from './components/MobileNav'
-import { Pulse } from './components/Pulse'
 
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'pulse' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
 
 type Comment = {
   id: number
@@ -1174,8 +1173,6 @@ function App() {
                   </div>
                 </section>
               )}
-
-              {activeTab === 'pulse' && <Pulse />}
             </div>
           </div>
         </main>
