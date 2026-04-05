@@ -210,27 +210,7 @@ export function TokenGatedPage() {
         )}
 
         {/* Action buttons */}
-        <div className="space-y-2 sm:space-y-3 w-full max-w-xs mb-6">
-          {/* Demo mode button - visible when experiencing errors */}
-          {error && !useDemoMode && (
-            <button
-              onClick={() => setUseDemoMode(true)}
-              className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-purple-300/50 bg-purple-300/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-purple-100 shadow-[0_0_16px_rgba(168,85,247,0.2)] transition hover:border-purple-300/60 hover:bg-purple-300/30 hover:shadow-[0_0_24px_rgba(168,85,247,0.4)]"
-            >
-              🎭 Try Demo Mode
-            </button>
-          )}
-
-          {/* Exit demo mode button */}
-          {useDemoMode && (
-            <button
-              onClick={() => setUseDemoMode(false)}
-              className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-400/50 bg-slate-400/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100 shadow-[0_0_16px_rgba(148,163,184,0.2)] transition hover:border-slate-400/60 hover:bg-slate-400/30 hover:shadow-[0_0_24px_rgba(148,163,184,0.4)]"
-            >
-              Exit Demo Mode
-            </button>
-          )}
-
+        <div className="space-y-2 sm:space-y-3 w-full max-w-xs mb-6 mt-4 sm:mt-6">
           {/* Refresh button */}
           <button
             onClick={handleRefresh}
