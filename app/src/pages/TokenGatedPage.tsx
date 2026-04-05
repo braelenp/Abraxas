@@ -110,7 +110,7 @@ export function TokenGatedPage() {
                     </ul>
                   </div>
                 </>
-              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') ? (
+              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') || error.includes('401') ? (
                 <>
                   <p className="text-xs text-amber-300 font-mono leading-relaxed">
                     RPC endpoint is rate limited.
@@ -119,8 +119,11 @@ export function TokenGatedPage() {
                     <p className="font-semibold text-amber-200">Solutions:</p>
                     <ul className="text-left space-y-1">
                       <li>• Try refreshing in 30 seconds</li>
-                      <li>• Use private RPC: Helius, QuickNode, or Triton</li>
-                      <li>• Set VITE_SOLANA_RPC_URL in .env</li>
+                      <li>• Get private RPC from:</li>
+                      <li className="ml-2">- Helius: helius.dev (free tier)</li>
+                      <li className="ml-2">- QuickNode: quicknode.com</li>
+                      <li>• Add to .env/vercel config:</li>
+                      <li className="ml-2 font-mono text-[9px]">VITE_SOLANA_RPC_URL=your_rpc_url</li>
                     </ul>
                   </div>
                 </>

@@ -88,11 +88,13 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
       } catch (err) {
         let errorMessage = err instanceof Error ? err.message : 'Failed to fetch balance';
         
-        // Improve error messaging for common issues
+        // Improve error messaging for common RPC issues
         if (errorMessage.includes('402') || errorMessage.includes('Forbidden')) {
-          errorMessage = 'RPC rate limited. Please try again in a moment or configure a private RPC.';
+          errorMessage = 'RPC rate limited (402). Please try again in 30 seconds or use a paid RPC.';
+        } else if (errorMessage.includes('401') || errorMessage.includes('Unauthorized')) {
+          errorMessage = 'RPC API key invalid or missing. Using public RPC fallback.';
         } else if (errorMessage.includes('429') || errorMessage.includes('Too many')) {
-          errorMessage = 'RPC endpoint busy. Please refresh and try again.';
+          errorMessage = 'RPC endpoint busy (429). Please refresh and try again.';
         } else if (errorMessage.includes('network') || errorMessage.includes('failed to fetch')) {
           errorMessage = 'Network connection issue. Check your internet connection.';
         }

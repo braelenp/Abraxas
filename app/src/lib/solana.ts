@@ -9,13 +9,9 @@ export const SOLANA_CLUSTER = 'mainnet-beta';
 // ── RPC Endpoint Configuration ───────────────────────────────────────────────
 // Priority order for RPC endpoints
 const RPC_ENDPOINTS = [
-  // 1. User-provided via environment variable
+  // 1. User-provided via environment variable with API key (e.g., Helius, QuickNode)
   import.meta.env.VITE_SOLANA_RPC_URL ? (import.meta.env.VITE_SOLANA_RPC_URL as string).trim() : '',
-  // 2. QuickNode (recommended for production)
-  'https://mainnet.helius-rpc.com/?api-key=',
-  // 3. Triton (Alchemy partner)
-  'https://api.mainnet-rpc.triton.one/rpc',
-  // 4. Fallback to Solana public RPC
+  // 2. Official Solana RPC (public, no API key needed)
   clusterApiUrl(SOLANA_CLUSTER),
 ].filter(Boolean);
 
