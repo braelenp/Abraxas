@@ -14,6 +14,10 @@ import { LandingPage } from './pages/LandingPage';
 import { ForgePage } from './pages/ForgePage';
 import { LoadingPage } from './pages/LoadingPage';
 import { TokenGatedPage } from './pages/TokenGatedPage';
+import { StakePage } from './pages/StakePage';
+import { DepositPage } from './pages/DepositPage';
+import { WithdrawPage } from './pages/WithdrawPage';
+import { CashOutPage } from './pages/CashOutPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
@@ -28,6 +32,10 @@ const navItems = [
   { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
   { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
   { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
+  { to: '/app/stake',   label: 'Stake',     rune: '⬆' },
+  { to: '/app/deposit', label: 'Deposit',   rune: '↓' },
+  { to: '/app/withdraw',label: 'Withdraw',  rune: '↑' },
+  { to: '/app/cashout', label: 'Cash Out',  rune: '$' },
 ];
 
 function ProtectedDapp() {
@@ -152,6 +160,10 @@ function DappShell() {
           <Route path="circuit" element={<CircuitPage />} />
           <Route path="sophia" element={<SophiaMintPage />} />
           <Route path="warden" element={<DashboardPage />} />
+          <Route path="stake" element={<StakePage />} />
+          <Route path="deposit" element={<DepositPage />} />
+          <Route path="withdraw" element={<WithdrawPage />} />
+          <Route path="cashout" element={<CashOutPage />} />
         </Routes>
       </main>
 

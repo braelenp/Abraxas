@@ -615,20 +615,33 @@ export function MarketPage() {
     <section className="space-y-4">
       {/* --- ABRA Balance Dashboard --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
-        <p className="text-xs text-slate-300/80 uppercase tracking-wider font-mono">ABRA Balance</p>
-        {isLoading ? (
-          <div className="mt-4 flex items-center gap-3">
-            <div className="w-6 h-6 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full animate-spin" />
-            <p className="text-sm text-slate-300">Scanning...</p>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex-1">
+            <p className="text-xs text-slate-300/80 uppercase tracking-wider font-mono">ABRA Balance</p>
+            {isLoading ? (
+              <div className="mt-4 flex items-center gap-3">
+                <div className="w-6 h-6 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full animate-spin" />
+                <p className="text-sm text-slate-300">Scanning...</p>
+              </div>
+            ) : (
+              <>
+                <p className="mt-3 text-5xl font-black text-emerald-400 drop-shadow-lg" style={{ textShadow: '0 0 24px rgba(34, 197, 94, 0.5)' }}>
+                  {balanceFormatted}
+                </p>
+                <p className="mt-2 text-xs text-emerald-300/80 font-mono">✓ Gated Access Active</p>
+              </>
+            )}
           </div>
-        ) : (
-          <>
-            <p className="mt-3 text-5xl font-black text-emerald-400 drop-shadow-lg" style={{ textShadow: '0 0 24px rgba(34, 197, 94, 0.5)' }}>
-              {balanceFormatted}
-            </p>
-            <p className="mt-2 text-xs text-emerald-300/80 font-mono">✓ Gated Access Active</p>
-          </>
-        )}
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <a href="/app/deposit" className="rounded-xl border border-cyan-300/40 bg-cyan-300/10 px-3 py-2.5 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/15 transition text-center">
+            + Deposit
+          </a>
+          <a href="/app/withdraw" className="rounded-xl border border-slate-500/40 bg-slate-950/40 px-3 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-950/60 transition text-center">
+            Withdraw
+          </a>
+        </div>
       </article>
 
       {/* --- Foundation Market — Dapp Equity RWA --- */}
