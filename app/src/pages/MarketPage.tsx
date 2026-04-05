@@ -694,13 +694,10 @@ export function MarketPage() {
               </>
             )}
           </div>
-        ) : (
+        </div>
+
+        {!isLoading && (
           <>
-            <p className="mt-3 text-5xl font-black text-emerald-400 drop-shadow-lg" style={{ textShadow: '0 0 24px rgba(34, 197, 94, 0.5)' }}>
-              {balanceFormatted}
-            </p>
-            <p className="mt-2 text-xs text-emerald-300/80 font-mono">✓ Gated Access Active</p>
-            
             {/* Action Buttons */}
             <div className="mt-4 grid grid-cols-3 gap-2">
               <button
