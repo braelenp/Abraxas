@@ -4,7 +4,7 @@ const PROGRAM_ID_PLACEHOLDER = 'GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm';
 const PROGRAM_ID_STORAGE_KEY = 'abraxasProgramId';
 
 export const ABRAXAS_PROGRAM_ID_RAW = (import.meta.env.VITE_ABRAXAS_PROGRAM_ID ?? PROGRAM_ID_PLACEHOLDER).trim();
-export const SOLANA_CLUSTER = 'devnet';
+export const SOLANA_CLUSTER = 'mainnet-beta';
 export const SOLANA_RPC_ENDPOINT = clusterApiUrl(SOLANA_CLUSTER);
 
 // ── Token Configuration ──────────────────────────────────────────────────────
