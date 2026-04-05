@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper } from 'lucide-react';
+import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper, X, ArrowDownToLine, ArrowUpFromLine, DollarSign } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { LivePriceTicker } from '../components/LivePriceTicker';
@@ -544,15 +544,28 @@ const RUNE_CONFIG = {
 
 export function MarketPage() {
   const location = useLocation();
+  const { connected } = useWallet();
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
   const [showMarketInfo, setShowMarketInfo] = useState(false);
   const [expandedThesis, setExpandedThesis] = useState<Record<string, boolean>>({});
   const [showAllExamples, setShowAllExamples] = useState(false);
   const [showAllAssets, setShowAllAssets] = useState(false);
+  
+  // Modal states
+  const [activeModal, setActiveModal] = useState<'deposit' | 'withdraw' | 'cashout' | null>(null);
+  const [depositAmount, setDepositAmount] = useState('');
+  const [depositMethod, setDepositMethod] = useState<'solana' | 'transfer'>('solana');
+  const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [withdrawMethod, setWithdrawMethod] = useState<'solana' | 'fiat'>('solana');
+  const [cashOutAmount, setCashOutAmount] = useState('');
+  const [selectedBank, setSelectedBank] = useState<string>('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  
   const { vaults } = useAbraxas();
   const { balance, balanceFormatted, isLoading } = useAbraBalance(10);
 
   const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
+  const accountBalance = 5240;
 
   // Swap state
   const [selectedPairId, setSelectedPairId] = useState<string>('abra-usdc');
@@ -573,8 +586,57 @@ export function MarketPage() {
       setFromAmount('');
       setToAmount('');
       setIsLoadingQuote(false);
+      setActiveModal(null);
     }
   }, [location.pathname]);
+
+  const handleDeposit = async () => {
+    if (!depositAmount || isNaN(Number(depositAmount))) return;
+    setIsProcessing(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      alert(`Deposited $${depositAmount} via ${depositMethod}`);
+      setDepositAmount('');
+      setActiveModal(null);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleWithdraw = async () => {
+    if (!withdrawAmount || isNaN(Number(withdrawAmount))) return;
+    if (Number(withdrawAmount) > accountBalance) {
+      alert('Insufficient balance');
+      return;
+    }
+    setIsProcessing(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      alert(`Withdrew $${withdrawAmount} via ${withdrawMethod}`);
+      setWithdrawAmount('');
+      setActiveModal(null);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleCashOut = async () => {
+    if (!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount))) return;
+    if (Number(cashOutAmount) > accountBalance) {
+      alert('Insufficient balance');
+      return;
+    }
+    setIsProcessing(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      alert(`Cashing out $${cashOutAmount} to selected bank`);
+      setCashOutAmount('');
+      setSelectedBank('');
+      setActiveModal(null);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   const swapPairs = [
     { id: 'abra-usdc', label: 'ABRA → USDC', price: 0.95 },
@@ -632,16 +694,39 @@ export function MarketPage() {
               </>
             )}
           </div>
-        </div>
-
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <a href="/app/deposit" className="rounded-xl border border-cyan-300/40 bg-cyan-300/10 px-3 py-2.5 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/15 transition text-center">
-            + Deposit
-          </a>
-          <a href="/app/withdraw" className="rounded-xl border border-slate-500/40 bg-slate-950/40 px-3 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-950/60 transition text-center">
-            Withdraw
-          </a>
-        </div>
+        ) : (
+          <>
+            <p className="mt-3 text-5xl font-black text-emerald-400 drop-shadow-lg" style={{ textShadow: '0 0 24px rgba(34, 197, 94, 0.5)' }}>
+              {balanceFormatted}
+            </p>
+            <p className="mt-2 text-xs text-emerald-300/80 font-mono">✓ Gated Access Active</p>
+            
+            {/* Action Buttons */}
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setActiveModal('deposit')}
+                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-blue-600/80 to-cyan-600/80 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-cyan-500/50 active:scale-95 flex items-center justify-center gap-1"
+              >
+                <ArrowDownToLine size={14} />
+                Deposit
+              </button>
+              <button
+                onClick={() => setActiveModal('withdraw')}
+                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-purple-500/50 active:scale-95 flex items-center justify-center gap-1"
+              >
+                <ArrowUpFromLine size={14} />
+                Withdraw
+              </button>
+              <button
+                onClick={() => setActiveModal('cashout')}
+                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-emerald-500/50 active:scale-95 flex items-center justify-center gap-1"
+              >
+                <DollarSign size={14} />
+                CashOut
+              </button>
+            </div>
+          </>
+        )}
       </article>
 
       {/* --- Foundation Market — Dapp Equity RWA --- */}
@@ -969,6 +1054,303 @@ export function MarketPage() {
         )}
       </article>
 
+      {/* ===== DEPOSIT MODAL ===== */}
+      {activeModal === 'deposit' && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <article className="glow-panel rounded-2xl border border-blue-300/30 bg-gradient-to-b from-slate-900 to-slate-950 p-6 backdrop-blur w-full max-w-md max-h-[90vh] overflow-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <ArrowDownToLine className="text-blue-400" size={20} />
+                <h3 className="text-lg font-bold text-blue-300 uppercase tracking-wide">Deposit Funds</h3>
+              </div>
+              <button
+                onClick={() => setActiveModal(null)}
+                className="text-slate-400 hover:text-slate-200 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Method Selection */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Method</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setDepositMethod('solana')}
+                  className={`px-3 py-2 rounded-lg font-mono text-xs transition-all ${
+                    depositMethod === 'solana'
+                      ? 'bg-blue-500/40 border border-blue-400 text-blue-200'
+                      : 'bg-slate-700/30 border border-slate-600 text-slate-400 hover:border-blue-400/50'
+                  }`}
+                >
+                  Solana Transfer
+                </button>
+                <button
+                  onClick={() => setDepositMethod('transfer')}
+                  className={`px-3 py-2 rounded-lg font-mono text-xs transition-all ${
+                    depositMethod === 'transfer'
+                      ? 'bg-blue-500/40 border border-blue-400 text-blue-200'
+                      : 'bg-slate-700/30 border border-slate-600 text-slate-400 hover:border-blue-400/50'
+                  }`}
+                >
+                  Wire/ACH
+                </button>
+              </div>
+            </div>
+
+            {/* Amount Input */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Amount ($)</label>
+              <input
+                type="number"
+                placeholder="Enter amount"
+                value={depositAmount}
+                onChange={(e) => setDepositAmount(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400 font-mono text-sm"
+              />
+            </div>
+
+            {/* Fee Display */}
+            {depositAmount && !isNaN(Number(depositAmount)) && (
+              <div className="mb-4 p-3 rounded-lg bg-blue-500/10 border border-blue-400/20">
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Amount:</span>
+                  <span className="text-slate-200">${depositAmount}</span>
+                </div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Fee (2.5%):</span>
+                  <span className="text-slate-200">${(Number(depositAmount) * 0.025).toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-xs border-t border-blue-400/20 pt-2">
+                  <span className="text-blue-300 font-semibold">You Receive:</span>
+                  <span className="text-blue-300 font-semibold">${(Number(depositAmount) * 0.975).toFixed(2)}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setActiveModal(null)}
+                className="flex-1 px-3 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 text-sm font-semibold transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeposit}
+                disabled={!depositAmount || isNaN(Number(depositAmount)) || isProcessing}
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+              >
+                {isProcessing ? 'Processing...' : 'Confirm Deposit'}
+              </button>
+            </div>
+          </article>
+        </div>
+      )}
+
+      {/* ===== WITHDRAW MODAL ===== */}
+      {activeModal === 'withdraw' && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <article className="glow-panel rounded-2xl border border-purple-300/30 bg-gradient-to-b from-slate-900 to-slate-950 p-6 backdrop-blur w-full max-w-md max-h-[90vh] overflow-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <ArrowUpFromLine className="text-purple-400" size={20} />
+                <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wide">Withdraw Funds</h3>
+              </div>
+              <button
+                onClick={() => setActiveModal(null)}
+                className="text-slate-400 hover:text-slate-200 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Balance Display */}
+            <div className="mb-4 p-3 rounded-lg bg-purple-500/10 border border-purple-400/20">
+              <p className="text-xs text-slate-400 mb-1">Available Balance</p>
+              <p className="text-2xl font-bold text-purple-300">${accountBalance.toLocaleString()}</p>
+            </div>
+
+            {/* Method Selection */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Method</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setWithdrawMethod('solana')}
+                  className={`px-3 py-2 rounded-lg font-mono text-xs transition-all ${
+                    withdrawMethod === 'solana'
+                      ? 'bg-purple-500/40 border border-purple-400 text-purple-200'
+                      : 'bg-slate-700/30 border border-slate-600 text-slate-400 hover:border-purple-400/50'
+                  }`}
+                >
+                  Solana Wallet
+                </button>
+                <button
+                  onClick={() => setWithdrawMethod('fiat')}
+                  className={`px-3 py-2 rounded-lg font-mono text-xs transition-all ${
+                    withdrawMethod === 'fiat'
+                      ? 'bg-purple-500/40 border border-purple-400 text-purple-200'
+                      : 'bg-slate-700/30 border border-slate-600 text-slate-400 hover:border-purple-400/50'
+                  }`}
+                >
+                  Bank Transfer
+                </button>
+              </div>
+            </div>
+
+            {/* Amount Input */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Amount ($)</label>
+              <input
+                type="number"
+                placeholder="Enter amount"
+                value={withdrawAmount}
+                onChange={(e) => setWithdrawAmount(e.target.value)}
+                max={accountBalance}
+                className="w-full px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-400 font-mono text-sm"
+              />
+              {withdrawAmount && Number(withdrawAmount) > accountBalance && (
+                <p className="text-xs text-red-400 mt-1">Exceeds available balance</p>
+              )}
+            </div>
+
+            {/* Fee Display */}
+            {withdrawAmount && !isNaN(Number(withdrawAmount)) && Number(withdrawAmount) <= accountBalance && (
+              <div className="mb-4 p-3 rounded-lg bg-purple-500/10 border border-purple-400/20">
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Withdraw:</span>
+                  <span className="text-slate-200">${withdrawAmount}</span>
+                </div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Fee (1%):</span>
+                  <span className="text-slate-200">-${(Number(withdrawAmount) * 0.01).toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-xs border-t border-purple-400/20 pt-2">
+                  <span className="text-purple-300 font-semibold">You Receive:</span>
+                  <span className="text-purple-300 font-semibold">${(Number(withdrawAmount) * 0.99).toFixed(2)}</span>
+                </div>
+                {withdrawMethod === 'fiat' && (
+                  <p className="text-[10px] text-slate-400 mt-3 italic">Processing time: 1-2 business days</p>
+                )}
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setActiveModal(null)}
+                className="flex-1 px-3 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 text-sm font-semibold transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleWithdraw}
+                disabled={!withdrawAmount || isNaN(Number(withdrawAmount)) || Number(withdrawAmount) > accountBalance || isProcessing}
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+              >
+                {isProcessing ? 'Processing...' : 'Confirm Withdrawal'}
+              </button>
+            </div>
+          </article>
+        </div>
+      )}
+
+      {/* ===== CASHOUT MODAL ===== */}
+      {activeModal === 'cashout' && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <article className="glow-panel rounded-2xl border border-emerald-300/30 bg-gradient-to-b from-slate-900 to-slate-950 p-6 backdrop-blur w-full max-w-md max-h-[90vh] overflow-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <DollarSign className="text-emerald-400" size={20} />
+                <h3 className="text-lg font-bold text-emerald-300 uppercase tracking-wide">Cash Out</h3>
+              </div>
+              <button
+                onClick={() => setActiveModal(null)}
+                className="text-slate-400 hover:text-slate-200 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Balance Display */}
+            <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/20">
+              <p className="text-xs text-slate-400 mb-1">Available Balance</p>
+              <p className="text-2xl font-bold text-emerald-300">${accountBalance.toLocaleString()}</p>
+            </div>
+
+            {/* Bank Selection */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Bank Account</label>
+              <select
+                value={selectedBank}
+                onChange={(e) => setSelectedBank(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-mono text-sm"
+              >
+                <option value="">Select a bank...</option>
+                <option value="chase">Chase Bank (****1234)</option>
+                <option value="bofa">Bank of America (****5678)</option>
+                <option value="wells">Wells Fargo (****9012)</option>
+                <option value="other">Other Bank</option>
+              </select>
+            </div>
+
+            {/* Amount Input */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Amount ($)</label>
+              <input
+                type="number"
+                placeholder="Enter amount"
+                value={cashOutAmount}
+                onChange={(e) => setCashOutAmount(e.target.value)}
+                max={accountBalance}
+                className="w-full px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-600/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-mono text-sm"
+              />
+              {cashOutAmount && Number(cashOutAmount) > accountBalance && (
+                <p className="text-xs text-red-400 mt-1">Exceeds available balance</p>
+              )}
+            </div>
+
+            {/* Fee Display */}
+            {cashOutAmount && !isNaN(Number(cashOutAmount)) && Number(cashOutAmount) <= accountBalance && (
+              <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/20">
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Amount:</span>
+                  <span className="text-slate-200">${cashOutAmount}</span>
+                </div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">ACH Fee:</span>
+                  <span className="text-slate-200">-$2.50</span>
+                </div>
+                <div className="flex justify-between text-xs border-t border-emerald-400/20 pt-2">
+                  <span className="text-emerald-300 font-semibold">You Receive:</span>
+                  <span className="text-emerald-300 font-semibold">${(Number(cashOutAmount) - 2.50).toFixed(2)}</span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-3 italic">Processing time: 1-2 business days via ACH</p>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setActiveModal(null)}
+                className="flex-1 px-3 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 text-sm font-semibold transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCashOut}
+                disabled={!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount)) || Number(cashOutAmount) > accountBalance || isProcessing}
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+              >
+                {isProcessing ? 'Processing...' : 'Confirm CashOut'}
+              </button>
+            </div>
+          </article>
+        </div>
+      )}
 
     </section>
     </RuneRealm>
