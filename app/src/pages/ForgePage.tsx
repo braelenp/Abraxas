@@ -518,7 +518,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			{ name: 'Insurance Pools', desc: 'Decentralized health insurance products', icon: '🛡️' },
 			{ name: 'Wellness Services', desc: 'Preventative care and longevity programs', icon: '🧘' },
 		],
-		dappUrl: 'https://your-eir-dapp-url.com/',
+		dappUrl: 'https://eir-theta.vercel.app/',
 		dappLabel: 'Enter Eir',
 	},
 		skadi: {
@@ -1069,7 +1069,7 @@ const DAUGHTERS_PHASE3 = [
 		name: 'Eir',
 		description: 'Healthcare & Biotech Assets',
 		rune: 'ᛒ',
-		isComingSoon: true,
+		isComingSoon: false,
 		isInternal: true,
 	},
 ];
