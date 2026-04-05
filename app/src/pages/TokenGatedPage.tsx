@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useAbraBalance } from '../hooks/useAbraBalance';
 import { ExternalLink, RefreshCw } from 'lucide-react';
 
 export function TokenGatedPage() {
   const { balance, balanceFormatted, isLoading, error, hasMinimum } = useAbraBalance(10);
+  const { connected } = useWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +57,16 @@ export function TokenGatedPage() {
           {gateAscii}
         </pre>
 
+        {/* Wallet Connection Section */}
+        {!connected && (
+          <div className="mb-8 w-full max-w-xs rounded-lg border border-amber-300/50 bg-amber-950/30 p-4 text-center">
+            <p className="mb-3 text-xs font-mono text-amber-300 uppercase tracking-widest">
+              ✦ Connect Wallet to Continue
+            </p>
+            <WalletMultiButton className="ui-action !w-full !h-10 !rounded-lg !border !border-amber-400/60 !bg-amber-400/20 !text-[12px] !font-semibold !text-amber-100 hover:!bg-amber-400/30 hover:!border-amber-400/80" />
+          </div>
+        )}
+
         {/* Main message */}
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-4xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-400 to-cyan-300 drop-shadow-lg">
@@ -69,7 +82,13 @@ export function TokenGatedPage() {
 
         {/* Status card */}
         <div className="w-full max-w-xs mb-8 rounded-xl border border-cyan-300/40 bg-slate-900/50 p-6 backdrop-blur-sm">
-          {isLoading ? (
+          {!connected && !isLoading ? (
+            <div className="text-center space-y-3">
+              <div className="text-3xl">🔗</div>
+              <p className="text-sm text-cyan-300 font-mono uppercase tracking-wider">Wallet Disconnected</p>
+              <p className="text-xs text-slate-400">Click the button above to connect</p>
+            </div>
+          ) : isLoading ? (
             <div className="text-center space-y-3">
               <div className="inline-block animate-spin">
                 <div className="w-8 h-8 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full" />
