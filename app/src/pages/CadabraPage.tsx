@@ -241,7 +241,7 @@ export function CadabraPage() {
 							</div>
 
 							<a
-								href="https://discord.com/invite/abraxas"
+								href="https://discord.gg/JmuXbx3MW"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60 w-full"
