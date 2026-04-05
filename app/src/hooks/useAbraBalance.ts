@@ -44,8 +44,19 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
         try {
           const mintInfo = await getMint(connection, abraMintPublicKey);
           decimals = mintInfo.decimals;
-        } catch {
-          // Continue with default decimals if mint info fails
+        } catch (mintErr) {
+          // If mint not found, provide helpful error
+          const mintError = mintErr instanceof Error ? mintErr.message : String(mintErr);
+          if (mintError.includes('could not find mint') || mintError.includes('Invalid param')) {
+            setState({
+              balance: 0,
+              balanceFormatted: '0',
+              isLoading: false,
+              error: `ABRA token not deployed on this cluster. Switch to mainnet or use testnet with deployed token.`,
+              hasMinimum: false,
+            });
+            return;
+          }
           console.warn('Could not fetch ABRA mint info, using default decimals');
         }
 

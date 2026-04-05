@@ -98,8 +98,27 @@ export function TokenGatedPage() {
           ) : error ? (
             <div className="text-center space-y-3">
               <div className="text-4xl">⚠️</div>
-              <p className="text-sm text-red-300 font-mono">{error}</p>
-              <p className="text-xs text-slate-400">Check wallet connection</p>
+              <p className="text-xs font-mono text-slate-300 uppercase tracking-widest mb-2">Configuration Error</p>
+              {error.includes('not deployed') || error.includes('could not find') ? (
+                <>
+                  <p className="text-xs text-amber-300 font-mono leading-relaxed">
+                    Token not available on this network.
+                  </p>
+                  <div className="bg-slate-800/50 rounded p-3 text-[10px] text-slate-300 space-y-2">
+                    <p className="font-semibold text-amber-200">Options:</p>
+                    <ul className="text-left space-y-1">
+                      <li>• Switch wallet to <span className="text-cyan-300">Mainnet</span></li>
+                      <li>• Or deploy ABRA token to devnet</li>
+                      <li>• Set VITE_ABRA_TOKEN_MINT_DEVNET in .env</li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-xs text-red-300 font-mono">{error}</p>
+                  <p className="text-xs text-slate-400">Try refreshing or check your connection</p>
+                </>
+              )}
             </div>
           ) : (
             <div className="text-center space-y-4">

@@ -8,9 +8,14 @@ export const SOLANA_CLUSTER = 'devnet';
 export const SOLANA_RPC_ENDPOINT = clusterApiUrl(SOLANA_CLUSTER);
 
 // ── Token Configuration ──────────────────────────────────────────────────────
-// ABRA token mint address (Solana mainnet)
-// On devnet, you can deploy the same mint or use the mainnet address
-export const ABRA_TOKEN_MINT = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+// ABRA token mint addresses per cluster
+// Mainnet: Official production ABRA token
+// Devnet: Deploy ABRA token to devnet or configure via env var VITE_ABRA_TOKEN_MINT_DEVNET
+const ABRA_TOKEN_MINT_MAINNET = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
+const ABRA_TOKEN_MINT_DEVNET = (import.meta.env.VITE_ABRA_TOKEN_MINT_DEVNET ?? '').trim();
+
+// Use mainnet ABRA by default, or devnet override if configured
+export const ABRA_TOKEN_MINT = ABRA_TOKEN_MINT_DEVNET || ABRA_TOKEN_MINT_MAINNET;
 
 // Minimum $ABRA holdings required to access the dApp during hackathon period
 export const MINIMUM_ABRA_FOR_ACCESS = 10;
