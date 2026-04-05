@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { TokenGatedPage } from './pages/TokenGatedPage'
+import { LoadingPage } from './pages/LoadingPage'
+import { useTokenBalance } from './hooks/useTokenBalance'
+import { MINIMUM_TOKENS_FOR_ACCESS } from './lib/token'
 import { Sidebar } from './components/Sidebar'
 import { TabHeader } from './components/TabHeader'
 import { TrendingPanel } from './components/TrendingPanel'
@@ -300,6 +304,9 @@ const coinStats: CoinStat[] = [
 function App() {
   // Solana wallet connection
   const { connected, publicKey, connect, disconnect, select, wallets } = useWallet()
+  
+  // Token gating
+  const { isLoading: isCheckingBalance, hasMinimum } = useTokenBalance(MINIMUM_TOKENS_FOR_ACCESS)
 
   // Refs
   const contentRef = useRef<HTMLDivElement>(null)
@@ -518,6 +525,15 @@ function App() {
       return
     }
     setToast(`Endorsed "${project.project}" - thanks for supporting!`)
+  }
+
+  // Token gating logic
+  if (isCheckingBalance) {
+    return <LoadingPage />
+  }
+
+  if (!hasMinimum) {
+    return <TokenGatedPage />
   }
 
   if (isLoading) {
