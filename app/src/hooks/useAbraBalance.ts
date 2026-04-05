@@ -86,7 +86,17 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           hasMinimum: balance >= minimumThreshold,
         });
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch balance';
+        let errorMessage = err instanceof Error ? err.message : 'Failed to fetch balance';
+        
+        // Improve error messaging for common issues
+        if (errorMessage.includes('402') || errorMessage.includes('Forbidden')) {
+          errorMessage = 'RPC rate limited. Please try again in a moment or configure a private RPC.';
+        } else if (errorMessage.includes('429') || errorMessage.includes('Too many')) {
+          errorMessage = 'RPC endpoint busy. Please refresh and try again.';
+        } else if (errorMessage.includes('network') || errorMessage.includes('failed to fetch')) {
+          errorMessage = 'Network connection issue. Check your internet connection.';
+        }
+        
         console.error('Error fetching ABRA balance:', err);
         setState((prev) => ({
           ...prev,

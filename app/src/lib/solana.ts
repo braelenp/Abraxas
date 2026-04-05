@@ -5,7 +5,21 @@ const PROGRAM_ID_STORAGE_KEY = 'abraxasProgramId';
 
 export const ABRAXAS_PROGRAM_ID_RAW = (import.meta.env.VITE_ABRAXAS_PROGRAM_ID ?? PROGRAM_ID_PLACEHOLDER).trim();
 export const SOLANA_CLUSTER = 'mainnet-beta';
-export const SOLANA_RPC_ENDPOINT = clusterApiUrl(SOLANA_CLUSTER);
+
+// ── RPC Endpoint Configuration ───────────────────────────────────────────────
+// Priority order for RPC endpoints
+const RPC_ENDPOINTS = [
+  // 1. User-provided via environment variable
+  import.meta.env.VITE_SOLANA_RPC_URL ? (import.meta.env.VITE_SOLANA_RPC_URL as string).trim() : '',
+  // 2. QuickNode (recommended for production)
+  'https://mainnet.helius-rpc.com/?api-key=',
+  // 3. Triton (Alchemy partner)
+  'https://api.mainnet-rpc.triton.one/rpc',
+  // 4. Fallback to Solana public RPC
+  clusterApiUrl(SOLANA_CLUSTER),
+].filter(Boolean);
+
+export const SOLANA_RPC_ENDPOINT = RPC_ENDPOINTS[0] || clusterApiUrl(SOLANA_CLUSTER);
 
 // ── Token Configuration ──────────────────────────────────────────────────────
 // ABRA token mint addresses per cluster

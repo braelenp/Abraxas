@@ -78,7 +78,7 @@ export function TokenGatedPage() {
         </div>
 
         {/* Status card */}
-        <div className="w-full max-w-xs mb-4 sm:mb-8 rounded-xl border border-cyan-300/40 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-sm">
+        <div className="w-full max-w-xs mb-4 sm:mb-8 rounded-xl border border-cyan-300/40 bg-slate-900/50 p-4 sm:p-6 backdrop-blur-sm max-h-[45vh] overflow-y-auto">
           {!connected && !isLoading ? (
             <div className="text-center space-y-3">
               <div className="text-3xl">🔗</div>
@@ -109,6 +109,27 @@ export function TokenGatedPage() {
                       <li>• Set VITE_ABRA_TOKEN_MINT_DEVNET in .env</li>
                     </ul>
                   </div>
+                </>
+              ) : error.includes('rate limited') || error.includes('429') || error.includes('402') ? (
+                <>
+                  <p className="text-xs text-amber-300 font-mono leading-relaxed">
+                    RPC endpoint is rate limited.
+                  </p>
+                  <div className="bg-slate-800/50 rounded p-3 text-[10px] text-slate-300 space-y-2">
+                    <p className="font-semibold text-amber-200">Solutions:</p>
+                    <ul className="text-left space-y-1">
+                      <li>• Try refreshing in 30 seconds</li>
+                      <li>• Use private RPC: Helius, QuickNode, or Triton</li>
+                      <li>• Set VITE_SOLANA_RPC_URL in .env</li>
+                    </ul>
+                  </div>
+                </>
+              ) : error.includes('network') || error.includes('connection') ? (
+                <>
+                  <p className="text-xs text-red-300 font-mono leading-relaxed">
+                    Network connection issue.
+                  </p>
+                  <p className="text-xs text-slate-400">Check your internet connection and try refreshing.</p>
                 </>
               ) : (
                 <>
