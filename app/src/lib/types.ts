@@ -142,3 +142,60 @@ export type SophiaTradeRecord = {
   pnl?: number;
   status: 'executed' | 'pending' | 'cancelled';
 };
+
+// ── Airdrop & Profile System ─────────────────────────────────────────────
+export type AirdropPointsBreakdown = {
+  profileCreation: number;
+  cardShares: number;
+  referralSuccess: number;
+  communityEngagement: number;
+  total: number;
+};
+
+export type ReferralRecord = {
+  id: string;
+  referrerId: string;
+  referreeId?: string;
+  timestamp: string;
+  type: 'share' | 'signup' | 'staking';
+  pointsAwarded: number;
+  status: 'pending' | 'claimed' | 'failed';
+  referralLink?: string;
+};
+
+export type UserProfile = {
+  id: string;
+  walletAddress: string;
+  abraxasId: string; // Sequential ID (e.g., "ABRAXAS-001234")
+  rune: string; // Elder Futhark rune character
+  blessing: string; // Personalized blessing message
+  createdAt: string;
+  email?: string;
+  username?: string;
+  profileImageUrl?: string;
+  // Airdrop tracking
+  airdropPoints: AirdropPointsBreakdown;
+  referralCode: string; // Unique referral code for sharing
+  referralsSent: number;
+  successfulReferrals: number;
+  totalAirdropClaimed: number;
+  claimedAirdropAt?: string;
+  // Tracking
+  lastUpdatedAt: string;
+};
+
+export type AirdropLeaderboardEntry = {
+  rank: number;
+  walletAddress: string;
+  abraxasId: string;
+  rune: string;
+  username?: string;
+  totalPoints: number;
+  successfulReferrals: number;
+};
+
+export type ProfileCreationPayload = {
+  walletAddress: string;
+  email?: string;
+  username?: string;
+};

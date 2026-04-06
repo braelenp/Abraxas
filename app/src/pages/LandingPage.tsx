@@ -165,7 +165,41 @@ export function LandingPage() {
 
 	const backgroundCandidates = ['/assets/sophia-minted.jpg', '/assets/abraxas-logo-graphic.jpg'];
 
+	// Scroll to top on page load
+	useEffect(() => {
+		const scrollToTop = () => {
+			window.scrollTo(0, 0);
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+		};
 
+		// Immediate scroll attempt
+		scrollToTop();
+		
+		// Wait for first animation frame
+		const rafId1 = requestAnimationFrame(() => {
+			scrollToTop();
+			
+			// Wait for second animation frame
+			const rafId2 = requestAnimationFrame(() => {
+				scrollToTop();
+			});
+			
+			return () => cancelAnimationFrame(rafId2);
+		});
+
+		// Also use setTimeout as fallback with increasing delays
+		const timeoutIds = [
+			setTimeout(scrollToTop, 50),
+			setTimeout(scrollToTop, 150),
+			setTimeout(scrollToTop, 300),
+		];
+
+		return () => {
+			cancelAnimationFrame(rafId1);
+			timeoutIds.forEach(id => clearTimeout(id));
+		};
+	}, []);
 
 	const onBackgroundError = () => {
 		if (backgroundIndex < backgroundCandidates.length - 1) {
@@ -272,9 +306,9 @@ export function LandingPage() {
 					<span className="text-magenta-400">▸</span> ABRAXAS_ENGINE → READY
 				</p>
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
-						<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
-						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
-					<CTAButton text="Trade on Abraxas" href="/app" />
+					<CTAButton text="✧ Start Initiation" href="/campaign" />
+					<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
+					<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
 					</div>
 				</div>
 			</section>

@@ -11,14 +11,26 @@ import { applyOymSnapshotToTokens, estimateLaCasaRecordsFromSnapshot, fetchOymSn
 import type {
   AgentActionLog,
   AthleteToken,
+  AirdropLeaderboardEntry,
+  AirdropPointsBreakdown,
   CircuitSignal,
   FutureAssetClass,
   LaCasaDepositRecord,
+  ProfileCreationPayload,
+  ReferralRecord,
   SophiaAgent,
   SophiaTradeRecord,
+  UserProfile,
   VaultAssetType,
   VaultSummary,
 } from '../lib/types';
+import {
+  generateAbraxasId,
+  getRandomRune,
+  generateBlessing,
+  generateReferralCode,
+  calculatePointsForAction,
+} from '../lib/profileUtils';
 
 type AbraxasContextValue = {
   vaults: VaultSummary[];
@@ -55,6 +67,16 @@ type AbraxasContextValue = {
   oymSource?: string;
   lastOymSyncAt?: string;
   refreshOymData: () => Promise<void>;
+  // Profile system
+  userProfile: UserProfile | null;
+  referralRecords: ReferralRecord[];
+  airdropLeaderboard: AirdropLeaderboardEntry[];
+  createUserProfile: (payload: ProfileCreationPayload) => Promise<UserProfile>;
+  addAirdropPoints: (walletAddress: string, actionType: string, amount?: number) => void;
+  recordReferralAction: (referrerId: string, type: 'share' | 'signup' | 'staking', pointsAwarded: number) => void;
+  recordSuccessfulReferral: (referralId: string, referreeId: string) => void;
+  refreshLeaderboard: () => void;
+  getProfileByWallet: (walletAddress: string) => UserProfile | null;
 };
 
 const AbraxasContext = createContext<AbraxasContextValue | null>(null);
@@ -78,6 +100,11 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [oymSyncStatus, setOymSyncStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const [oymSource, setOymSource] = useState<string | undefined>(undefined);
   const [lastOymSyncAt, setLastOymSyncAt] = useState<string | undefined>(undefined);
+  
+  // Profile system state
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [referralRecords, setReferralRecords] = useState<ReferralRecord[]>([]);
+  const [airdropLeaderboard, setAirdropLeaderboard] = useState<AirdropLeaderboardEntry[]>([]);
 
   const addLog = useCallback((entry: Omit<AgentActionLog, 'id' | 'timestamp'>) => {
     setLogs((current) => [
@@ -470,6 +497,208 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, [addLog, vaults]);
 
+  // Profile-related callbacks
+  const createUserProfile = useCallback(
+    async (payload: ProfileCreationPayload): Promise<UserProfile> => {
+      const abraxasId = generateAbraxasId();
+      const rune = getRandomRune();
+      const blessing = generateBlessing();
+      const referralCode = generateReferralCode();
+
+      const newProfile: UserProfile = {
+        id: crypto.randomUUID(),
+        walletAddress: payload.walletAddress,
+        abraxasId,
+        rune,
+        blessing,
+        createdAt: nowIso(),
+        email: payload.email,
+        username: payload.username,
+        airdropPoints: {
+          profileCreation: calculatePointsForAction('profile_creation'),
+          cardShares: 0,
+          referralSuccess: 0,
+          communityEngagement: 0,
+          total: calculatePointsForAction('profile_creation'),
+        },
+        referralCode,
+        referralsSent: 0,
+        successfulReferrals: 0,
+        totalAirdropClaimed: 0,
+        lastUpdatedAt: nowIso(),
+      };
+
+      setUserProfile(newProfile);
+
+      // Record initial profile creation points
+      setReferralRecords((current) => [
+        {
+          id: crypto.randomUUID(),
+          referrerId: payload.walletAddress,
+          timestamp: nowIso(),
+          type: 'signup',
+          pointsAwarded: newProfile.airdropPoints.profileCreation,
+          status: 'claimed',
+        },
+        ...current,
+      ]);
+
+      addLog({
+        vaultId: 'profile-system',
+        action: `New profile created: ${abraxasId}`,
+        detail: `Wallet: ${payload.walletAddress.slice(0, 8)}... • Rune: ${rune} • Email: ${payload.email || 'not provided'}`,
+      });
+
+      return newProfile;
+    },
+    [addLog],
+  );
+
+  const addAirdropPoints = useCallback(
+    (walletAddress: string, actionType: string, amount?: number) => {
+      setUserProfile((current) => {
+        if (!current || current.walletAddress !== walletAddress) {
+          return current;
+        }
+
+        const pointsToAdd = amount || calculatePointsForAction(actionType as any);
+
+        const updatedPoints: AirdropPointsBreakdown = {
+          ...current.airdropPoints,
+          total: current.airdropPoints.total + pointsToAdd,
+        };
+
+        // Update specific breakdown category
+        if (actionType === 'card_share') {
+          updatedPoints.cardShares += pointsToAdd;
+        } else if (actionType === 'referral_signup' || actionType === 'referral_staking') {
+          updatedPoints.referralSuccess += pointsToAdd;
+        } else if (actionType === 'engagement') {
+          updatedPoints.communityEngagement += pointsToAdd;
+        }
+
+        return {
+          ...current,
+          airdropPoints: updatedPoints,
+          lastUpdatedAt: nowIso(),
+        };
+      });
+
+      addLog({
+        vaultId: 'profile-system',
+        action: `Airdrop points added: ${walletAddress.slice(0, 8)}...`,
+        detail: `Action: ${actionType} • Points: +${amount || calculatePointsForAction(actionType as any)}`,
+      });
+    },
+    [addLog],
+  );
+
+  const recordReferralAction = useCallback(
+    (referrerId: string, type: 'share' | 'signup' | 'staking', pointsAwarded: number) => {
+      const referralRecord: ReferralRecord = {
+        id: crypto.randomUUID(),
+        referrerId,
+        timestamp: nowIso(),
+        type,
+        pointsAwarded,
+        status: 'pending',
+      };
+
+      setReferralRecords((current) => [referralRecord, ...current]);
+
+      addLog({
+        vaultId: 'profile-system',
+        action: `Referral action recorded: ${type}`,
+        detail: `Referrer: ${referrerId.slice(0, 8)}... • Points: ${pointsAwarded}`,
+      });
+    },
+    [addLog],
+  );
+
+  const recordSuccessfulReferral = useCallback(
+    (referralId: string, referreeId: string) => {
+      setReferralRecords((current) =>
+        current.map((record) =>
+          record.id === referralId
+            ? {
+                ...record,
+                referreeId,
+                status: 'claimed',
+              }
+            : record,
+        ),
+      );
+
+      // Update user profile to increment successful referrals
+      setUserProfile((current) => {
+        if (!current) return current;
+        return {
+          ...current,
+          successfulReferrals: current.successfulReferrals + 1,
+          airdropPoints: {
+            ...current.airdropPoints,
+            total:
+              current.airdropPoints.total +
+              calculatePointsForAction('referral_staking'),
+          },
+          lastUpdatedAt: nowIso(),
+        };
+      });
+    },
+    [],
+  );
+
+  const refreshLeaderboard = useCallback(() => {
+    // Calculate leaderboard from referral records
+    const leaderboardMap = new Map<
+      string,
+      {
+        walletAddress: string;
+        abraxasId: string;
+        rune: string;
+        totalPoints: number;
+        successfulReferrals: number;
+      }
+    >();
+
+    referralRecords.forEach((record) => {
+      if (record.status === 'claimed') {
+        const existing = leaderboardMap.get(record.referrerId) || {
+          walletAddress: record.referrerId,
+          abraxasId: userProfile?.abraxasId || 'ABRAXAS-000000',
+          rune: userProfile?.rune || '✦',
+          totalPoints: 0,
+          successfulReferrals:
+            userProfile?.successfulReferrals || 0,
+        };
+
+        leaderboardMap.set(record.referrerId, {
+          ...existing,
+          totalPoints: existing.totalPoints + record.pointsAwarded,
+        });
+      }
+    });
+
+    const leaderboard = Array.from(leaderboardMap.values())
+      .sort((a, b) => b.totalPoints - a.totalPoints)
+      .map((entry, index) => ({
+        rank: index + 1,
+        ...entry,
+      }));
+
+    setAirdropLeaderboard(leaderboard);
+  }, [referralRecords, userProfile]);
+
+  const getProfileByWallet = useCallback(
+    (walletAddress: string): UserProfile | null => {
+      if (userProfile && userProfile.walletAddress === walletAddress) {
+        return userProfile;
+      }
+      return null;
+    },
+    [userProfile],
+  );
+
   useEffect(() => {
     if (import.meta.env.VITE_OYM_DATA_URL) {
       void refreshOymData();
@@ -499,6 +728,16 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       oymSource,
       lastOymSyncAt,
       refreshOymData,
+      // Profile system
+      userProfile,
+      referralRecords,
+      airdropLeaderboard,
+      createUserProfile,
+      addAirdropPoints,
+      recordReferralAction,
+      recordSuccessfulReferral,
+      refreshLeaderboard,
+      getProfileByWallet,
     }),
     [
       vaults,
@@ -522,6 +761,16 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       oymSource,
       lastOymSyncAt,
       refreshOymData,
+      // Profile system
+      userProfile,
+      referralRecords,
+      airdropLeaderboard,
+      createUserProfile,
+      addAirdropPoints,
+      recordReferralAction,
+      recordSuccessfulReferral,
+      refreshLeaderboard,
+      getProfileByWallet,
     ],
   );
 

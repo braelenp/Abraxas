@@ -11,6 +11,7 @@ import { CircuitPage } from './pages/CircuitPage';
 import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
+import { CampaignLandingPage } from './pages/CampaignLandingPage';
 import { ForgePage } from './pages/ForgePage';
 import { LoadingPage } from './pages/LoadingPage';
 import { TokenGatedPage } from './pages/TokenGatedPage';
@@ -18,20 +19,23 @@ import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
 import { WithdrawPage } from './pages/WithdrawPage';
 import { CashOutPage } from './pages/CashOutPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
+import { ScrollToTop } from './components/ScrollToTop';
 import { useAbraBalance } from './hooks/useAbraBalance';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app',         label: 'Forge',     rune: 'ᚲ' },
-  { to: '/app/orion',   label: 'King AI',   rune: 'ᛏ' },
-  { to: '/app/cadabra', label: 'Cadabra',   rune: '✦' },
-  { to: '/app/market',  label: 'Market',    rune: 'ᛋ' },
-  { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
-  { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
-  { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
+  { to: '/app',          label: 'Forge',     rune: 'ᚲ' },
+  { to: '/app/profile',  label: 'Profile',   rune: '✧' },
+  { to: '/app/orion',    label: 'King AI',   rune: 'ᛏ' },
+  { to: '/app/cadabra',  label: 'Cadabra',   rune: '✦' },
+  { to: '/app/market',   label: 'Market',    rune: 'ᛋ' },
+  { to: '/app/vaults',   label: 'Vaults',    rune: 'ᚨ' },
+  { to: '/app/circuit',  label: 'Circuit',   rune: 'ᚦ' },
+  { to: '/app/trade',    label: 'Trade',     rune: 'ᛚ' },
 ];
 
 function ProtectedDapp() {
@@ -148,6 +152,7 @@ function DappShell() {
       >
         <Routes>
           <Route index element={<ForgePage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="cadabra" element={<CadabraPage />} />
@@ -293,17 +298,21 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/app/*" element={<ProtectedDapp />} />
-      <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
-      <Route path="/market" element={<Navigate to="/app/market" replace />} />
-      <Route path="/onboard" element={<Navigate to="/app/trade" replace />} />
-      <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
-      <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
-      <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
-      <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/campaign" element={<CampaignLandingPage />} />
+        <Route path="/app/*" element={<ProtectedDapp />} />
+        <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
+        <Route path="/market" element={<Navigate to="/app/market" replace />} />
+        <Route path="/onboard" element={<Navigate to="/app/trade" replace />} />
+        <Route path="/trade" element={<Navigate to="/app/trade" replace />} />
+        <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
+        <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
+        <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }

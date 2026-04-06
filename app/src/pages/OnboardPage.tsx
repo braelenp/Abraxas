@@ -2,7 +2,10 @@ import { CheckCircle, Coins, Gem, Lock, Sparkles, TrendingUp, Wallet, Zap } from
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useCallback, useEffect, useState } from 'react';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
-import type { StakeDuration, StakeRecord } from '../lib/types';
+import { ProfileCreationModal } from '../components/ProfileCreationModal';
+import { AbraxasIDCard } from '../components/AbraxasIDCard';
+import { useUserProfile } from '../hooks/useProfile';
+import type { StakeDuration, StakeRecord, UserProfile } from '../lib/types';
 import { PublicKey, Transaction } from '@solana/web3.js';
 import { createStakeInstruction, fetchStakeRecord, getStakePDA } from '../lib/staking';
 import { getProgramId } from '../lib/solana';
@@ -58,6 +61,13 @@ const STAKE_TIERS: StakeTier[] = [
 export function OnboardPage() {
   const { connection } = useConnection();
   const { connected, publicKey, sendTransaction, connect } = useWallet();
+  const { profile } = useUserProfile();
+  
+  // Profile creation state
+  const [showProfileModal, setShowProfileModal] = useState(!profile);
+  const [createdProfile, setCreatedProfile] = useState<UserProfile | null>(null);
+  
+  // Staking state
   const [selectedStakeDuration, setSelectedStakeDuration] = useState<number | null>(null);
   const [stakeAmount, setStakeAmount] = useState<string>('');
   const [showSuccess, setShowSuccess] = useState(false);
@@ -271,6 +281,17 @@ export function OnboardPage() {
   }
 
   return (
+    <>
+      {/* Profile Creation Modal */}
+      <ProfileCreationModal
+        isOpen={showProfileModal && !profile}
+        onClose={() => setShowProfileModal(false)}
+        onProfileCreated={(newProfile) => {
+          setCreatedProfile(newProfile);
+          setShowProfileModal(false);
+        }}
+      />
+
     <div className="min-h-screen max-w-3xl mx-auto px-4 py-8 space-y-8">
       <div className="glow-panel p-6 space-y-3">
         <div className="flex items-center gap-2 font-mono">
@@ -603,5 +624,6 @@ export function OnboardPage() {
         </>
       )}
     </div>
+    </>
   );
 }
