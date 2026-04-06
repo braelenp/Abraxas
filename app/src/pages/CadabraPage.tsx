@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle, ArrowRight, Zap, Users, Trophy, Upload, Play, Radio, Gamepad2 } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { useAbraBalance } from '../hooks/useAbraBalance';
 
 const RUNE_CONFIG = {
 	rune: '✦',
@@ -45,6 +46,17 @@ function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: n
 }
 
 export function CadabraPage() {
+	// Token gating for Mirror/Cadabra access
+	const { hasMinimum } = useAbraBalance(10);
+
+	const handleEnterMirror = () => {
+		if (!hasMinimum) {
+			alert('You need at least 10 $ABRA to access the Mirror. Please acquire $ABRA first.');
+			return;
+		}
+		window.open('https://cadabra-eight.vercel.app/', '_blank');
+	};
+
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
 			<section className="space-y-8 py-8">
@@ -250,6 +262,15 @@ export function CadabraPage() {
 								Enter Apex Legends Realm
 								<ArrowRight size={14} />
 							</a>
+
+							<button
+								onClick={handleEnterMirror}
+								className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60 w-full"
+							>
+								<Zap size={16} />
+								Enter the Mirror
+								<ArrowRight size={14} />
+							</button>
 						</div>
 					</div>
 				</div>

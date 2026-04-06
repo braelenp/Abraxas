@@ -32,10 +32,6 @@ const navItems = [
   { to: '/app/vaults',  label: 'Vaults',    rune: 'ᚨ' },
   { to: '/app/circuit', label: 'Circuit',   rune: 'ᚦ' },
   { to: '/app/trade',   label: 'Trade',     rune: 'ᛚ' },
-  { to: '/app/stake',   label: 'Stake',     rune: '⬆' },
-  { to: '/app/deposit', label: 'Deposit',   rune: '↓' },
-  { to: '/app/withdraw',label: 'Withdraw',  rune: '↑' },
-  { to: '/app/cashout', label: 'Cash Out',  rune: '$' },
 ];
 
 function ProtectedDapp() {

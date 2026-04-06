@@ -3,6 +3,7 @@ import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap
 import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
 import { DaughterPage, type DaughterConfig } from './DaughterPage';
+import { useAbraBalance } from '../hooks/useAbraBalance';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -1151,6 +1152,17 @@ export function ForgePage() {
 	const [isMinting, setIsMinting] = useState(false);
 	const [selectedDaughter, setSelectedDaughter] = useState<string | null>(null);
 
+	// Token gating for Mirror/Cadabra access
+	const { hasMinimum } = useAbraBalance(10);
+
+	const handleEnterMirror = () => {
+		if (!hasMinimum) {
+			alert('You need at least 10 $ABRA to access the Mirror. Please acquire $ABRA first.');
+			return;
+		}
+		window.open('https://cadabra-eight.vercel.app/', '_blank');
+	};
+
 	const handleFiles = (picked: FileList | null) => {
 		if (!picked) return;
 		setFiles(Array.from(picked));
@@ -1264,15 +1276,13 @@ export function ForgePage() {
 								<p className="text-xs text-slate-300">Price discovery, narrative coalescing, institutional intent manifestation—Market structure begins at the Mirror.</p>
 							</div>
 						</div>
-						<a
-							href="https://cadabra-eight.vercel.app/"
-							target="_blank"
-							rel="noopener noreferrer"
+						<button
+							onClick={handleEnterMirror}
 							className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-4 py-3 text-xs font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60"
 						>
 							Enter the Mirror → Cadabra
 							<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-						</a>
+						</button>
 					</div>
 				</div>
 

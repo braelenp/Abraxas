@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Zap, TrendingUp, Sparkles } from 'lucide-react';
+import { ArrowRight, Zap, TrendingUp, Sparkles, X, Lock } from 'lucide-react';
 import { initializeOracle, simulateOracleProfit, getOracleMetrics, getAllThresholds, type OracleState } from '../lib/oracle';
 
 // ABRA token on Solana
@@ -16,6 +16,10 @@ const ABRA_BAGS_MARKET_URL = `https://bags.fm/${ABRA_TOKEN_CA}`;
 export function OracleEngine() {
   const [oracleState, setOracleState] = useState<OracleState>(initializeOracle);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showStakingModal, setShowStakingModal] = useState(false);
+  const [stakeAmount, setStakeAmount] = useState('');
+  const [stakeDuration, setStakeDuration] = useState<30 | 90 | 180>(30);
+  const [isStaking, setIsStaking] = useState(false);
   
   // Simulate oracle profit generation every few seconds
   useEffect(() => {
@@ -29,6 +33,21 @@ export function OracleEngine() {
     
     return () => clearInterval(interval);
   }, []);
+  
+  const handleStake = async () => {
+    if (!stakeAmount || isNaN(Number(stakeAmount)) || Number(stakeAmount) <= 0) return;
+    setIsStaking(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const multipliers: Record<30 | 90 | 180, number> = { 30: 1.2, 90: 1.8, 180: 2.5 };
+      const projectedReward = (Number(stakeAmount) * multipliers[stakeDuration]).toFixed(2);
+      alert(`Staked ${stakeAmount} $ABRA for ${stakeDuration} days\nProjected reward: ${projectedReward} $ABRA (${(multipliers[stakeDuration] * 100).toFixed(0)}% multiplier)`);
+      setStakeAmount('');
+      setShowStakingModal(false);
+    } finally {
+      setIsStaking(false);
+    }
+  };
   
   const metrics = getOracleMetrics(oracleState);
   const thresholds = getAllThresholds();
@@ -68,6 +87,7 @@ export function OracleEngine() {
           <ArrowRight size={10} className="transition-transform group-hover:translate-x-0.5" />
         </a>
         <button
+          onClick={() => setShowStakingModal(true)}
           type="button"
           className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/10 to-blue-500/5 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-cyan-300/70 shadow-[0_0_12px_rgba(34,211,238,0.1)] transition hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-300/50 hover:from-cyan-500/15"
         >
@@ -216,6 +236,98 @@ export function OracleEngine() {
           <ArrowRight size={14} />
         </a>
       </div>
+
+      {/* Staking Modal */}
+      {showStakingModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="rounded-2xl border border-cyan-300/40 bg-gradient-to-b from-slate-900 to-slate-950 p-6 backdrop-blur w-full max-w-md max-h-[90vh] overflow-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <Lock className="text-cyan-400" size={20} />
+                <h3 className="text-lg font-bold text-cyan-300 uppercase tracking-wide">Stake $ABRA</h3>
+              </div>
+              <button
+                onClick={() => setShowStakingModal(false)}
+                className="text-slate-400 hover:text-slate-200 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Amount Input */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Stake Amount</label>
+              <input
+                type="number"
+                placeholder="Enter $ABRA amount"
+                value={stakeAmount}
+                onChange={(e) => setStakeAmount(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-lg bg-slate-800/50 border border-slate-600/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 font-mono text-sm"
+              />
+            </div>
+
+            {/* Duration Selection */}
+            <div className="mb-5">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Lock Duration</label>
+              <div className="grid grid-cols-3 gap-2">
+                {[30, 90, 180].map((duration) => (
+                  <button
+                    key={duration}
+                    onClick={() => setStakeDuration(duration as 30 | 90 | 180)}
+                    className={`px-3 py-2 rounded-lg font-mono text-xs font-semibold transition-all ${
+                      stakeDuration === duration
+                        ? 'bg-cyan-500/40 border border-cyan-400 text-cyan-200'
+                        : 'bg-slate-700/30 border border-slate-600 text-slate-400 hover:border-cyan-400/50'
+                    }`}
+                  >
+                    {duration}d
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Multiplier Display */}
+            {stakeAmount && (
+              <div className="mb-5 p-3 rounded-lg bg-cyan-500/10 border border-cyan-400/20">
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Stake Amount:</span>
+                  <span className="text-cyan-300 font-semibold">${stakeAmount}</span>
+                </div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="text-slate-400">Duration Multiplier:</span>
+                  <span className="text-cyan-300 font-semibold">
+                    {stakeDuration === 30 ? '1.2x' : stakeDuration === 90 ? '1.8x' : '2.5x'}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs border-t border-cyan-400/20 pt-2">
+                  <span className="text-cyan-300 font-semibold">Projected Reward:</span>
+                  <span className="text-cyan-200 font-bold">
+                    {(Number(stakeAmount) * (stakeDuration === 30 ? 1.2 : stakeDuration === 90 ? 1.8 : 2.5)).toFixed(2)} $ABRA
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setShowStakingModal(false)}
+                className="flex-1 px-3 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 text-sm font-semibold transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleStake}
+                disabled={!stakeAmount || isNaN(Number(stakeAmount)) || Number(stakeAmount) <= 0 || isStaking}
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+              >
+                {isStaking ? 'Staking...' : 'Confirm Stake'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
