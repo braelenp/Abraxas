@@ -73,7 +73,7 @@ export function AbraxasIDCard({
 
           <div className="relative p-6 z-10">
             {/* Header */}
-            <div className="text-center mb-6">
+            <div className="text-center mb-4">
               <div className="text-xs tracking-widest text-cyan-400 font-mono uppercase mb-2">
                 Abraxas Protocol
               </div>
@@ -82,18 +82,31 @@ export function AbraxasIDCard({
               </div>
             </div>
 
-            {/* Rune - Central Focus */}
-            <div className="flex justify-center mb-6">
-              <div className="relative">
+            {/* Logo Graphic with Rune */}
+            <div className="flex flex-col items-center mb-6">
+              {/* Abraxas Logo */}
+              <img
+                src="/assets/abraxas-logo-graphic.jpg"
+                alt="Abraxas Protocol"
+                className="w-32 h-32 object-cover rounded-lg mb-4 border border-cyan-500/50"
+              />
+
+              {/* Rune overlay */}
+              <div className="relative -mt-8 mb-4">
                 {/* Glow rings */}
                 <div className="absolute inset-0 blur-xl bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 opacity-50 animate-pulse" />
                 <div className="absolute inset-0 blur-md bg-purple-500/30 animate-pulse animation-delay-300" />
 
                 {/* Rune text */}
-                <div className="relative text-8xl text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 bg-clip-text font-bold drop-shadow-lg">
+                <div className="relative text-6xl text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 bg-clip-text font-bold drop-shadow-lg">
                   {profile.rune}
                 </div>
               </div>
+
+              {/* Blessing message */}
+              <p className="text-xs text-center text-slate-300 italic font-light leading-relaxed max-w-xs">
+                {profile.blessing}
+              </p>
             </div>
 
             {/* ID Information */}
@@ -105,15 +118,6 @@ export function AbraxasIDCard({
                 <span className="text-sm font-mono font-bold text-purple-300">
                   {profile.abraxasId}
                 </span>
-              </div>
-
-              <div>
-                <span className="text-xs text-cyan-400 uppercase tracking-widest font-mono block mb-1">
-                  Blessing
-                </span>
-                <p className="text-xs text-slate-300 italic font-light leading-relaxed">
-                  {profile.blessing}
-                </p>
               </div>
 
               {profile.username && (
@@ -213,6 +217,23 @@ export function AbraxasIDCard({
             <div className="text-xs text-slate-400">v1.0 • Sharathon Campaign</div>
           </div>
 
+          {/* Abraxas Logo with Blessing */}
+          <div className="flex flex-col items-center space-y-4">
+            {/* Logo Graphic */}
+            <img
+              src="/assets/abraxas-logo-graphic.jpg"
+              alt="Abraxas Protocol"
+              className="w-48 h-48 object-cover rounded-lg border-2 border-cyan-500/50 shadow-lg"
+            />
+
+            {/* Blessing message below logo */}
+            <div className="text-center max-w-md">
+              <p className="text-lg text-slate-300 italic font-light leading-relaxed">
+                "{profile.blessing}"
+              </p>
+            </div>
+          </div>
+
           {/* Main Content Grid */}
           <div className="grid grid-cols-3 gap-8">
             {/* Left: Rune */}
@@ -241,15 +262,6 @@ export function AbraxasIDCard({
                 <div className="font-mono text-2xl font-bold text-purple-300">
                   {profile.abraxasId}
                 </div>
-              </div>
-
-              <div className="border-t border-cyan-500/20 px-6 pt-6">
-                <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono mb-2">
-                  Blessing
-                </div>
-                <p className="text-sm text-slate-300 italic font-light leading-relaxed">
-                  "{profile.blessing}"
-                </p>
               </div>
 
               {profile.username && (

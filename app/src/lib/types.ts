@@ -170,8 +170,6 @@ export type UserProfile = {
   rune: string; // Elder Futhark rune character
   blessing: string; // Personalized blessing message
   createdAt: string;
-  xHandle?: string; // X/Twitter handle (verified)
-  xUserId?: string; // X/Twitter user ID
   username?: string;
   profileImageUrl?: string;
   // Airdrop tracking
@@ -197,7 +195,5 @@ export type AirdropLeaderboardEntry = {
 
 export type ProfileCreationPayload = {
   walletAddress: string;
-  xHandle?: string; // X/Twitter handle (verified)
-  xUserId?: string; // X/Twitter user ID
   username?: string;
 };

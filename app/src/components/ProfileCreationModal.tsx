@@ -27,12 +27,8 @@ export function ProfileCreationModal({
   const { publicKey } = useWallet();
   const { profile, createProfile } = useUserProfile();
 
-  const [xHandle, setXHandle] = useState('');
   const [username, setUsername] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [xVerified, setXVerified] = useState(false);
-  const [xUserId, setXUserId] = useState('');
   const [previewProfile, setPreviewProfile] = useState<UserProfile | null>(null);
   const [step, setStep] = useState<'form' | 'preview' | 'confirmation'>('form');
   const [error, setError] = useState('');
@@ -46,20 +42,8 @@ export function ProfileCreationModal({
   const validateForm = (): boolean => {
     setError('');
 
-    if (!xHandle.trim()) {
-      setError('X handle is required');
-      return false;
-    }
-
-    // X handle validation (starts with @, 1-15 characters)
-    const xHandleRegex = /^@?[a-zA-Z0-9_]{1,15}$/;
-    if (!xHandleRegex.test(xHandle)) {
-      setError('Invalid X handle. Must be 1-15 characters (letters, numbers, underscore only)');
-      return false;
-    }
-
     if (!username.trim()) {
-      setError('Discord username is required');
+      setError('Username is required');
       return false;
     }
 
@@ -79,58 +63,7 @@ export function ProfileCreationModal({
       return false;
     }
 
-    if (!xVerified) {
-      setError('Please verify your X account first');
-      return false;
-    }
-
     return true;
-  };
-
-  const verifyXAccount = async () => {
-    if (!xHandle.trim()) {
-      setError('Please enter your X handle');
-      return;
-    }
-
-    setIsVerifying(true);
-    setError('');
-
-    try {
-      // Normalize handle
-      const handle = xHandle.startsWith('@') ? xHandle.substring(1) : xHandle;
-      
-      // Simulate X API verification - in production this would call a backend endpoint
-      // that verifies against X API
-      const response = await fetch(`https://api.twitter.com/2/users/by/username/${handle}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_X_BEARER_TOKEN || ''}`,
-        },
-      }).catch(() => null);
-
-      // Fallback for demo: accept any valid format and generate mock ID
-      const mockUserId = `x_${handle}_${Date.now()}`;
-      
-      setXUserId(mockUserId);
-      setXVerified(true);
-      setXHandle(`@${handle}`);
-      setError('');
-    } catch (err) {
-      // For demo purposes, we'll verify any valid handle format
-      const handle = xHandle.startsWith('@') ? xHandle.substring(1) : xHandle;
-      if (/^[a-zA-Z0-9_]{1,15}$/.test(handle)) {
-        const mockUserId = `x_${handle}_${Date.now()}`;
-        setXUserId(mockUserId);
-        setXVerified(true);
-        setXHandle(`@${handle}`);
-        setError('');
-      } else {
-        setError('Invalid X handle format');
-      }
-    } finally {
-      setIsVerifying(false);
-    }
   };
 
   const handleCreateProfile = async () => {
@@ -143,10 +76,7 @@ export function ProfileCreationModal({
     setError('');
 
     try {
-      const newProfile = await createProfile(username, publicKey.toString(), {
-        xHandle: xHandle.startsWith('@') ? xHandle : `@${xHandle}`,
-        xUserId,
-      });
+      const newProfile = await createProfile(username, publicKey.toString());
       setPreviewProfile(newProfile);
       setStep('preview');
 
@@ -173,10 +103,7 @@ export function ProfileCreationModal({
   };
 
   const handleClose = () => {
-    setXHandle('');
     setUsername('');
-    setXVerified(false);
-    setXUserId('');
     setStep('form');
     setError('');
     setPreviewProfile(null);
@@ -236,33 +163,7 @@ export function ProfileCreationModal({
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-cyan-400 mb-2">
-                    X Account Verification
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={xHandle}
-                      onChange={(e) => setXHandle(e.target.value)}
-                      placeholder="@yourhandle"
-                      className="flex-1 px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:border-cyan-500 focus:outline-none transition"
-                      disabled={isVerifying || xVerified}
-                    />
-                    <button
-                      onClick={verifyXAccount}
-                      disabled={isVerifying || xVerified || !xHandle.trim()}
-                      className="px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 disabled:from-slate-700 disabled:to-slate-700 text-white font-bold rounded-lg transition disabled:cursor-not-allowed whitespace-nowrap"
-                    >
-                      {isVerifying ? 'Verifying...' : xVerified ? '✓ Verified' : 'Verify'}
-                    </button>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {xVerified ? '✓ X account verified' : 'Enter your X handle (@username) and verify your account'}
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-cyan-400 mb-2">
-                    Discord Username
+                    Username
                   </label>
                   <input
                     type="text"
@@ -291,7 +192,7 @@ export function ProfileCreationModal({
 
                 <button
                   onClick={handleCreateProfile}
-                  disabled={isCreating || !xVerified || !username.trim()}
+                  disabled={isCreating || !username.trim()}
                   className="w-full py-3 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 disabled:from-slate-700 disabled:to-slate-700 text-white font-bold rounded-lg transition disabled:cursor-not-allowed"
                 >
                   {isCreating ? 'Creating Profile...' : 'Create Profile & ID Card'}

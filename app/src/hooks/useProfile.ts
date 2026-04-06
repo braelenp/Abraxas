@@ -16,15 +16,13 @@ export function useUserProfile() {
   const { userProfile, createUserProfile, getProfileByWallet } = useAbraxas();
 
   const createProfile = useCallback(
-    async (username?: string, walletAddress?: string, xData?: { xHandle: string; xUserId: string }) => {
+    async (username?: string, walletAddress?: string) => {
       if (!userProfile) {
         // Use provided walletAddress or generate a default one
         const address = walletAddress || crypto.randomUUID();
         return createUserProfile({
           walletAddress: address,
           username,
-          xHandle: xData?.xHandle,
-          xUserId: xData?.xUserId,
         });
       }
       return userProfile;
