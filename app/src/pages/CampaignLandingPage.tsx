@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useNavigate } from 'react-router-dom';
 import { ExternalLink, Copy, Check, Users, ArrowRight } from 'lucide-react';
 import { useUserProfile } from '../hooks/useProfile';
@@ -564,9 +565,16 @@ export function CampaignLandingPage() {
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-3xl px-4 py-8 space-y-6">
         {/* Header */}
-        <div className="text-center pt-2">
-          <div className="text-4xl md:text-5xl font-black tracking-tighter mb-2">✧ ABRAXAS ✧</div>
-          <p className="text-xs text-slate-400 uppercase tracking-widest">The Next Transmutation</p>
+        <div className="flex items-center justify-between mb-8 pt-2">
+          <div className="flex-1">
+            <div className="text-4xl md:text-5xl font-black tracking-tighter mb-1">✧ ABRAXAS ✧</div>
+            <p className="text-xs text-slate-400 uppercase tracking-widest">The Next Transmutation</p>
+          </div>
+          <div className="flex-shrink-0">
+            <div className="[&>button]:!bg-gradient-to-r [&>button]:!from-purple-600 [&>button]:!to-cyan-600 [&>button]:!border-purple-500 [&>button]:!text-sm">
+              <WalletMultiButton />
+            </div>
+          </div>
         </div>
 
         {/* Hero Section */}
