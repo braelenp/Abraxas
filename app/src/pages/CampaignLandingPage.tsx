@@ -470,13 +470,13 @@ function SpeciesShowcase() {
 function DiscordCTA() {
   return (
     <div className="mb-8">
-      <div className="relative overflow-hidden rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-950/60 via-purple-950/60 to-indigo-950/60 p-8 backdrop-blur-sm">
+      <div className="relative rounded-xl border border-indigo-400/40 bg-gradient-to-r from-indigo-950/60 via-purple-950/60 to-indigo-950/60 p-8 backdrop-blur-sm overflow-hidden">
         {/* Glowing background */}
-        <div className="absolute inset-0 -z-10 opacity-20">
+        <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 blur-3xl" />
         </div>
 
-        <div className="text-center space-y-4">
+        <div className="relative text-center space-y-4">
           <div className="text-4xl">💜</div>
           <h3 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
             Early Adopter Status

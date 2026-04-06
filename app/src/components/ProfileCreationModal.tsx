@@ -81,13 +81,16 @@ export function ProfileCreationModal({
   };
 
   const handleCreateProfile = async () => {
-    if (!validateForm() || !publicKey) return;
+    if (!validateForm() || !publicKey) {
+      setError('Please connect your wallet first');
+      return;
+    }
 
     setIsCreating(true);
     setError('');
 
     try {
-      const newProfile = await createProfile(email, username);
+      const newProfile = await createProfile(email, username, publicKey.toString());
       setPreviewProfile(newProfile);
       setStep('preview');
 
@@ -128,7 +131,7 @@ export function ProfileCreationModal({
     <>
       {/* Backdrop with blur */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 transition-opacity duration-300"
+        className="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 transition-opacity duration-300"
         onClick={handleClose}
       />
 
