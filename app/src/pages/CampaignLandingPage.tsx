@@ -6,6 +6,7 @@ import { ExternalLink, Copy, Check, Users, ArrowRight } from 'lucide-react';
 import { useUserProfile } from '../hooks/useProfile';
 import { createReferralLink } from '../lib/profileUtils';
 import { ProfileCreationModal } from '../components/ProfileCreationModal';
+import { WalletLoginModal } from '../components/WalletLoginModal';
 import { AbraxasIDCard } from '../components/AbraxasIDCard';
 import { AirdropPointsWidget } from '../components/AirdropPointsWidget';
 
@@ -151,11 +152,17 @@ function HeroSection() {
 // ── Profile Creation Section ─────────────────────────────────────────────────
 function ProfileCreationSection() {
   const { profile } = useUserProfile();
-  const [showModal, setShowModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [createdProfile, setCreatedProfile] = useState<any>(null);
 
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const handleOpenCreateModal = () => {
+    setShowCreateModal(true);
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+
+  const handleOpenLoginModal = () => {
+    setShowLoginModal(true);
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   };
 
@@ -169,24 +176,46 @@ function ProfileCreationSection() {
       </div>
 
       {!profile && !createdProfile ? (
-        <div className="bg-slate-900/60 border border-cyan-300/30 rounded-xl p-6 backdrop-blur-sm text-center">
+        <div className="bg-slate-900/60 border border-cyan-300/30 rounded-xl p-6 backdrop-blur-sm text-center space-y-4">
           <div className="text-4xl mb-4">✧</div>
-          <p className="text-sm text-slate-200 mb-4">
+          <p className="text-sm text-slate-200">
             No profile yet. Generate your Abraxas ID Card and join the Sharathon.
           </p>
-          <button
-            onClick={handleOpenModal}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-purple-400/60 bg-purple-500/20 text-purple-200 font-semibold text-sm hover:bg-purple-500/30 transition-all shadow-[0_0_16px_rgba(153,69,255,0.2)]"
-          >
-            Create Profile
-            <ArrowRight size={16} />
-          </button>
+          
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={handleOpenLoginModal}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-cyan-400/60 bg-cyan-500/20 text-cyan-200 font-semibold text-sm hover:bg-cyan-500/30 transition-all shadow-[0_0_16px_rgba(34,197,94,0.2)]"
+            >
+              Login
+              <ArrowRight size={16} />
+            </button>
+            <button
+              onClick={handleOpenCreateModal}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-purple-400/60 bg-purple-500/20 text-purple-200 font-semibold text-sm hover:bg-purple-500/30 transition-all shadow-[0_0_16px_rgba(153,69,255,0.2)]"
+            >
+              Create Profile
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <WalletLoginModal
+            isOpen={showLoginModal}
+            onClose={() => setShowLoginModal(false)}
+            onProfileLoaded={(profile) => {
+              setCreatedProfile(profile);
+              setShowLoginModal(false);
+              window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+            }}
+            onCreateProfile={handleOpenCreateModal}
+          />
+
           <ProfileCreationModal
-            isOpen={showModal}
-            onClose={() => setShowModal(false)}
+            isOpen={showCreateModal}
+            onClose={() => setShowCreateModal(false)}
             onProfileCreated={(profile) => {
               setCreatedProfile(profile);
-              setShowModal(false);
+              setShowCreateModal(false);
               window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
             }}
           />

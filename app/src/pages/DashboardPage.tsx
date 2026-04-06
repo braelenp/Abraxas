@@ -11,6 +11,9 @@ import SpendAbra from '../components/SpendAbra';
 import { OraclePerformanceWidget } from '../components/OraclePerformanceWidget';
 import { useNavigate } from 'react-router-dom';
 import { RuneRealm } from '../components/RuneRealm';
+import { useUserProfile } from '../hooks/useProfile';
+import { WalletLoginModal } from '../components/WalletLoginModal';
+import { ProfileCreationModal } from '../components/ProfileCreationModal';
 
 // Token address for transparency & trust with degen crowd
 const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
@@ -31,6 +34,7 @@ export function DashboardPage() {
   const { vaults, athleteTokens } = useAbraxas();
   const { bets: polymarketBets, isLoading: isLoadingBets } = usePolymarketBets(3);
   const { connected } = useWallet();
+  const { profile } = useUserProfile();
   const navigate = useNavigate();
   const [following, setFollowing] = useState<string[]>([]);
   const [predictionIndex, setPredictionIndex] = useState(0);
@@ -44,6 +48,8 @@ export function DashboardPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showOffRampWidget, setShowOffRampWidget] = useState(false);
   const [showSpendAbra, setShowSpendAbra] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
 
   // Reset state when navigating to the Dashboard page
   useEffect(() => {
@@ -130,6 +136,58 @@ export function DashboardPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
+      {/* Abraxas Profile Section */}
+      {!profile ? (
+        <article className="rounded-xl border border-purple-400/30 bg-gradient-to-r from-purple-900/30 to-slate-900/75 p-4 backdrop-blur space-y-3">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-purple-400/80 mb-1">⚡ Abraxas Profile</p>
+              <p className="text-sm text-slate-300">Create or login to your Abraxas profile to track airdrop points.</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-cyan-400/60 bg-cyan-500/20 text-cyan-200 font-semibold text-sm hover:bg-cyan-500/30 transition-all"
+            >
+              <LogIn size={16} />
+              Login
+            </button>
+            <button
+              onClick={() => setShowCreateProfileModal(true)}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-purple-400/60 bg-purple-500/20 text-purple-200 font-semibold text-sm hover:bg-purple-500/30 transition-all"
+            >
+              <Plus size={16} />
+              Create Profile
+            </button>
+          </div>
+
+          <WalletLoginModal
+            isOpen={showLoginModal}
+            onClose={() => setShowLoginModal(false)}
+            onCreateProfile={() => {
+              setShowLoginModal(false);
+              setShowCreateProfileModal(true);
+            }}
+          />
+
+          <ProfileCreationModal
+            isOpen={showCreateProfileModal}
+            onClose={() => setShowCreateProfileModal(false)}
+          />
+        </article>
+      ) : (
+        <article className="rounded-xl border border-purple-400/30 bg-gradient-to-r from-purple-900/30 to-slate-900/75 p-4 backdrop-blur">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-purple-400/80 mb-1">👤 {profile.abraxasId}</p>
+              <p className="text-sm text-slate-300">@{profile.username || 'Initiate'} • {profile.airdropPoints.total} Points</p>
+            </div>
+            <div className="text-2xl">{profile.rune}</div>
+          </div>
+        </article>
+      )}
+
       {/* Main Balance Display */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
         <p className="text-xs text-slate-300/80">Total Balance</p>
