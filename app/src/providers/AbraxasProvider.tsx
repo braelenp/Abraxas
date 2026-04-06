@@ -512,7 +512,8 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
         rune,
         blessing,
         createdAt: nowIso(),
-        email: payload.email,
+        xHandle: payload.xHandle,
+        xUserId: payload.xUserId,
         username: payload.username,
         airdropPoints: {
           profileCreation: calculatePointsForAction('profile_creation'),
@@ -546,7 +547,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       addLog({
         vaultId: 'profile-system',
         action: `New profile created: ${abraxasId}`,
-        detail: `Wallet: ${payload.walletAddress.slice(0, 8)}... • Rune: ${rune} • Email: ${payload.email || 'not provided'}`,
+        detail: `Wallet: ${payload.walletAddress.slice(0, 8)}... • Rune: ${rune} • X: ${payload.xHandle || 'not provided'}`,
       });
 
       return newProfile;
