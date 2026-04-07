@@ -29,7 +29,7 @@ import { useAbraBalance } from './hooks/useAbraBalance';
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
   { to: '/app/profile',  label: 'Profile',   rune: '✧' },
-  { to: '/app',          label: 'Forge',     rune: 'ᚲ' },
+  { to: '/app/forge',    label: 'Forge',     rune: 'ᚲ' },
   { to: '/app/orion',    label: 'King AI',   rune: 'ᛏ' },
   { to: '/app/cadabra',  label: 'Cadabra',   rune: '✦' },
   { to: '/app/market',   label: 'Market',    rune: 'ᛋ' },
@@ -151,7 +151,8 @@ function DappShell() {
         className="flex-1 min-h-0 overflow-y-auto overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
       >
         <Routes>
-          <Route index element={<ForgePage />} />
+          <Route index element={<ProfilePage />} />
+          <Route path="forge" element={<ForgePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
