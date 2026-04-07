@@ -54,9 +54,7 @@ function Bootstrap() {
 
 try {
   createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <Bootstrap />
-    </React.StrictMode>,
+    <Bootstrap />
   );
 } catch (error) {
   renderStartupError(error);
