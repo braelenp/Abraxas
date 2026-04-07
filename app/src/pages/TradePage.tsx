@@ -12,6 +12,7 @@ import { FiatOffRampWidget } from '../components/FiatOffRampWidget';
 import SpendAbra from '../components/SpendAbra';
 import { FeatureBadge } from '../components/FeatureBadge';
 import { WalletPortfolioWidget } from '../components/WalletPortfolioWidget';
+import { RaidoTradingDashboard } from '../components/RaidoTradingDashboard';
 import type { StakeDuration, StakeRecord } from '../lib/types';
 import { PublicKey, Transaction } from '@solana/web3.js';
 import { createStakeInstruction, fetchStakeRecord, getStakePDA } from '../lib/staking';
@@ -207,12 +208,22 @@ export function TradePage() {
   const [isSwapping, setIsSwapping] = useState(false);
   const [swapError, setSwapError] = useState<string | null>(null);
   const [showSpendAbra, setShowSpendAbra] = useState(false);
+  const [showRaidoDashboard, setShowRaidoDashboard] = useState(false);
+  const [userAbraBalance, setUserAbraBalance] = useState<number>(0);
   const programId = getProgramId();
 
   const selectedSophia = useMemo(() => {
     if (!selectedSophiaId) return sophiaAgents[0];
     return sophiaAgents.find((a) => a.id === selectedSophiaId);
   }, [selectedSophiaId, sophiaAgents]);
+
+  // Calculate user staking tier based on ABRA balance
+  const userStakeTier = useMemo(() => {
+    if (userAbraBalance >= 5000) return 'platinum' as const;
+    if (userAbraBalance >= 2000) return 'gold' as const;
+    if (userAbraBalance >= 500) return 'silver' as const;
+    return 'bronze' as const;
+  }, [userAbraBalance]);
 
   // Get unique pair categories for filtering
   const pairCategories = useMemo(() => {
@@ -820,6 +831,38 @@ export function TradePage() {
           <Zap size={16} />
           Spend ABRA Direct
         </button>
+
+        {/* ─────────────────────────────────────────────────────────────────────── */}
+        {/* RAIDO TRADING ENGINE – Live Bot Dashboard */}
+        {/* ─────────────────────────────────────────────────────────────────────── */}
+        <div className="border-t border-indigo-500/30 mt-8 pt-8">
+          <button
+            onClick={() => setShowRaidoDashboard(!showRaidoDashboard)}
+            className="w-full flex items-center justify-between p-4 rounded-lg border border-indigo-400/30 hover:border-indigo-400/50 bg-indigo-500/10 hover:bg-indigo-500/15 transition-all mb-4"
+          >
+            <h2 className="text-sm font-bold text-indigo-300 tracking-widest uppercase flex items-center gap-2 font-mono">
+              <Zap size={18} className="text-cyan-400" />
+              <span>&gt; [RAIDO] TRADING_ENGINE</span>
+            </h2>
+            <ChevronDown size={18} className={`text-indigo-300/60 transition-transform ${showRaidoDashboard ? 'rotate-180' : ''}`} />
+          </button>
+
+          {showRaidoDashboard && (
+            <div className="space-y-4 mb-8">
+              <RaidoTradingDashboard
+                userAbraBalance={userAbraBalance}
+                userStakeTier={userStakeTier}
+                onBuyAbra={() => {
+                  // Scroll to Buy ABRA section or open widget
+                  const buySection = document.querySelector('[data-buy-abra-section]');
+                  buySection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* ─────────────────────────────────────────────────────────────────────── */}
 
         <article id="in-app-trade" className="glow-panel rounded-2xl border border-emerald-300/30 bg-emerald-500/10 p-4 flex-shrink-0 w-full">
           <div className="flex items-center gap-2 mb-3">
