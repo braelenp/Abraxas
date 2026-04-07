@@ -7,7 +7,7 @@
  * - Share functionality
  */
 
-import { Mail, Share2, Copy, ExternalLink, Sparkles } from 'lucide-react';
+import { Share2, Copy, ExternalLink, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useUserProfile, useReferrals, useAirdropPoints } from '../hooks/useProfile';
@@ -306,12 +306,6 @@ Making DeFi Great Again 🚀`;
             This profile is uniquely yours. Your Abraxas ID and rune are permanent tokens of your
             participation in the Sharathon campaign.
           </p>
-          {profile.email && (
-            <p className="flex items-center justify-center gap-2 text-xs">
-              <Mail size={14} />
-              {profile.email}
-            </p>
-          )}
         </div>
       </div>
     </div>
