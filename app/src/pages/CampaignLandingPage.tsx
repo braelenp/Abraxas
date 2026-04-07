@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useNavigate } from 'react-router-dom';
 import { ExternalLink, Copy, Check, Users, ArrowRight } from 'lucide-react';
 import { useUserProfile } from '../hooks/useProfile';
 import { createReferralLink } from '../lib/profileUtils';
@@ -533,6 +534,7 @@ function DiscordCTA() {
 
 // ── Main Campaign Landing Page ───────────────────────────────────────────────
 export function CampaignLandingPage() {
+  const navigate = useNavigate();
   const topRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top on page load
@@ -621,6 +623,23 @@ export function CampaignLandingPage() {
 
         {/* Discord CTA */}
         <DiscordCTA />
+
+        {/* Enter DApp Button */}
+        <div className="border-t border-slate-700/50 pt-8 pb-12 text-center space-y-4">
+          <button
+            onClick={() => navigate('/campaign')}
+            className="inline-flex items-center gap-3 px-12 py-4 rounded-xl border border-purple-400/60 bg-gradient-to-r from-purple-600/40 to-pink-600/40 text-purple-200 font-bold text-lg hover:from-purple-600/50 hover:to-pink-600/50 transition-all shadow-[0_0_32px_rgba(153,69,255,0.3)]"
+          >
+            <span>✧ Start Initiation</span>
+            <ArrowRight size={20} />
+          </button>
+          <p className="text-xs text-slate-400">
+            Proceed to the Abraxas Dapp Protocol
+          </p>
+          <p className="text-xs text-slate-500">
+            You will need to hold minimum $ABRA to access all features
+          </p>
+        </div>
 
         {/* Footer */}
         <div className="border-t border-slate-700/50 pt-6 pb-12 text-center text-xs text-slate-400">
