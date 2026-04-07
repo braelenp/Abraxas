@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { DollarSign, Zap } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { useAbraBalance } from '../hooks/useAbraBalance';
 
 const RUNE_CONFIG = {
   rune: '᚜',
@@ -17,10 +18,14 @@ const RUNE_CONFIG = {
 
 export function CashOutPage() {
   const { connected } = useWallet();
+  const { balance: realAbraBalance, balanceFormatted, isLoading: balanceLoading } = useAbraBalance();
   const [cashOutAmount, setCashOutAmount] = useState('');
   const [selectedBank, setSelectedBank] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const availableBalance = 5240;
+  
+  // Convert ABRA balance to estimated USD (simplified: 1 ABRA ≈ $1 for display)
+  // In production, this would fetch real price from Jupiter or CoinGecko
+  const availableBalance = realAbraBalance;
 
   const banks = [
     { id: 'chase', name: 'Chase Bank', icon: '🏦' },
@@ -65,8 +70,12 @@ export function CashOutPage() {
         {/* Available Balance */}
         <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-emerald-900/20 p-6 backdrop-blur">
           <p className="text-xs text-emerald-300/80 uppercase font-mono">Available for Cash Out</p>
-          <p className="mt-2 text-4xl font-bold text-emerald-300">${availableBalance.toLocaleString()}</p>
-          <p className="mt-1 text-xs text-emerald-300/70">In USD</p>
+          <p className="mt-2 text-4xl font-bold text-emerald-300">
+            {balanceLoading ? '...' : `$${availableBalance.toLocaleString('en-US', { maximumFractionDigits: 2 })}`}
+          </p>
+          <p className="mt-1 text-xs text-emerald-300/70">
+            {balanceLoading ? 'Loading balance...' : `${balanceFormatted} ABRA`}
+          </p>
         </article>
 
         {/* Bank Selection */}
@@ -105,8 +114,13 @@ export function CashOutPage() {
               className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-600 text-white text-lg font-mono focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none"
             />
             <div className="flex justify-between text-xs text-slate-400">
-              <span>Maximum: ${availableBalance.toLocaleString()}</span>
-              <button className="text-cyan-400 hover:text-cyan-300">Max</button>
+              <span>Maximum: ${availableBalance.toLocaleString('en-US', { maximumFractionDigits: 2 })}</span>
+              <button 
+                onClick={() => setCashOutAmount(availableBalance.toString())}
+                className="text-cyan-400 hover:text-cyan-300"
+              >
+                Max
+              </button>
             </div>
           </div>
 
