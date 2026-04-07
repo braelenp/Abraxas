@@ -88,24 +88,31 @@ Making DeFi Great Again 🚀`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Header */}
-      <div className="border-b border-cyan-500/20 bg-gradient-to-r from-slate-900/50 to-slate-900/30 backdrop-blur-sm sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="text-4xl">{profile.rune}</div>
-              <div>
-                <h1 className="text-2xl font-bold text-white">
+      {/* Hero Header */}
+      <div className="border-b border-cyan-500/30 bg-gradient-to-b from-slate-900/80 to-slate-900/40 backdrop-blur-xl sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex items-center justify-between gap-6">
+            {/* User Info */}
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="text-5xl flex-shrink-0">{profile.rune}</div>
+              <div className="min-w-0">
+                <h1 className="text-3xl font-black text-white truncate">
                   {profile.username || 'Abraxas User'}
                 </h1>
-                <p className="text-sm text-slate-400 font-mono">{profile.abraxasId}</p>
+                <p className="text-sm text-cyan-300 font-mono mt-1">{profile.abraxasId}</p>
+                {profile.blessing && (
+                  <p className="text-xs text-slate-400 italic mt-2 line-clamp-1">"{profile.blessing}"</p>
+                )}
               </div>
             </div>
 
-            <div className="text-right">
-              <div className="text-3xl font-bold text-orange-300">{currentPoints}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-widest">
-                Airdrop Points
+            {/* Points Badge */}
+            <div className="text-right flex-shrink-0">
+              <div className="text-4xl font-black bg-gradient-to-r from-orange-300 via-yellow-300 to-orange-400 text-transparent bg-clip-text">
+                {currentPoints}
+              </div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-semibold mt-1">
+                ← Airdrop Points
               </div>
             </div>
           </div>
@@ -113,23 +120,23 @@ Making DeFi Great Again 🚀`;
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-cyan-500/20 bg-slate-900/30 sticky top-16 z-30">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex gap-1">
+      <div className="border-b border-cyan-500/20 bg-slate-900/50 backdrop-blur-sm sticky top-[6.5rem] z-30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex gap-2 overflow-x-auto">
             {['card', 'points', 'referrals', 'leaderboard'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
-                className={`px-4 py-3 text-sm font-bold uppercase tracking-widest transition border-b-2 ${
+                className={`px-6 py-4 text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap border-b-2 ${
                   activeTab === tab
-                    ? 'text-cyan-300 border-cyan-500'
-                    : 'text-slate-400 border-transparent hover:text-slate-300'
+                    ? 'text-cyan-300 border-cyan-500 bg-cyan-500/10'
+                    : 'text-slate-400 border-transparent hover:text-slate-300 hover:border-slate-600'
                 }`}
               >
-                {tab === 'card' && 'ID Card'}
-                {tab === 'points' && 'Points'}
-                {tab === 'referrals' && 'Referrals'}
-                {tab === 'leaderboard' && 'Leaderboard'}
+                {tab === 'card' && '✧ ID Card'}
+                {tab === 'points' && '⚡ Points'}
+                {tab === 'referrals' && '🔗 Referrals'}
+                {tab === 'leaderboard' && '👑 Leaderboard'}
               </button>
             ))}
           </div>
@@ -137,55 +144,61 @@ Making DeFi Great Again 🚀`;
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* ID Card Tab */}
         {activeTab === 'card' && (
           <div className="space-y-8">
-            <AbraxasIDCard profile={profile} showReferralLink={true} />
+            {/* Large ID Card Section */}
+            <div className="bg-gradient-to-br from-purple-900/30 via-slate-900/50 to-cyan-900/30 rounded-2xl border border-cyan-500/30 p-8 backdrop-blur-sm">
+              <AbraxasIDCard profile={profile} showReferralLink={true} />
+            </div>
 
             {/* Share Options */}
-            <div className="bg-gradient-to-br from-purple-500/10 to-cyan-500/10 rounded-xl border border-cyan-500/20 p-6 space-y-4">
-              <h3 className="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <Share2 size={20} />
-                Share Your Profile
-              </h3>
+            <div className="bg-gradient-to-br from-purple-500/15 to-cyan-500/15 rounded-2xl border border-cyan-500/30 p-8 space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-cyan-300 flex items-center gap-3 mb-2">
+                  <Share2 size={24} />
+                  Share Your Profile
+                </h3>
+                <p className="text-sm text-slate-400">Grow your network and earn bonus points</p>
+              </div>
 
               {shareMessage && (
-                <div className="p-3 bg-green-500/10 border border-green-500/30 rounded text-green-300 text-sm">
-                  ✓ {shareMessage}
+                <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-sm font-semibold flex items-center gap-2">
+                  <span>✓</span> {shareMessage}
                 </div>
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <button
                   onClick={shareOnTwitter}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition"
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Twitter size={18} />
+                  <Twitter size={20} />
                   Share on Twitter
                 </button>
 
                 <button
                   onClick={shareOnDiscord}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition"
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Discord size={18} />
+                  <Discord size={20} />
                   Share on Discord
                 </button>
 
                 <button
                   onClick={shareOnLinkedIn}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition"
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Linkedin size={18} />
+                  <Linkedin size={20} />
                   Share on LinkedIn
                 </button>
 
                 <button
                   onClick={copyReferralLink}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition"
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-700 to-cyan-700 hover:from-purple-600 hover:to-cyan-600 rounded-xl text-white font-bold transition border border-purple-500/50"
                 >
-                  <Copy size={18} />
+                  <Copy size={20} />
                   {copied ? 'Link Copied!' : 'Copy Link'}
                 </button>
               </div>
@@ -195,7 +208,7 @@ Making DeFi Great Again 🚀`;
 
         {/* Points Tab */}
         {activeTab === 'points' && (
-          <div>
+          <div className="bg-gradient-to-br from-purple-900/30 via-slate-900/50 to-cyan-900/30 rounded-2xl border border-cyan-500/30 p-8">
             <AirdropPointsWidget showClaim={true} onClaimClick={() => {
               window.open('https://world-labs.xyz/claim', '_blank');
             }} />
@@ -204,84 +217,90 @@ Making DeFi Great Again 🚀`;
 
         {/* Referrals Tab */}
         {activeTab === 'referrals' && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* Referral Link Section */}
-            <div className="bg-gradient-to-br from-purple-500/10 to-cyan-500/10 rounded-xl border border-cyan-500/20 p-6 space-y-4">
-              <h3 className="text-lg font-bold text-cyan-300">Your Referral Link</h3>
+            <div className="bg-gradient-to-br from-purple-900/30 via-slate-900/50 to-cyan-900/30 rounded-2xl border border-cyan-500/30 p-8 space-y-6">
+              <div>
+                <h3 className="text-2xl font-black text-cyan-300 mb-2">Your Referral Link</h3>
+                <p className="text-sm text-slate-400">Share this link to bring friends into Abraxas</p>
+              </div>
 
-              <div className="bg-slate-950 rounded border border-slate-700 p-4 font-mono text-xs text-slate-300 break-all">
+              <div className="bg-slate-950/60 rounded-xl border border-slate-700/50 p-4 font-mono text-xs text-slate-300 break-all backdrop-blur-sm">
                 {referralLink}
               </div>
 
               <button
                 onClick={copyReferralLink}
-                className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 rounded-lg text-white font-bold transition"
+                className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 rounded-xl text-white font-bold transition border border-purple-400/50 text-lg"
               >
-                {copied ? '✓ Copied' : 'Copy Referral Link'}
+                {copied ? '✓ Copied to Clipboard' : 'Copy Referral Link'}
               </button>
             </div>
 
             {/* Referral Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-900/50 rounded-lg border border-slate-700 p-4">
-                <div className="text-3xl font-bold text-purple-300 mb-1">
-                  {profile.referralsSent}
+            <div>
+              <h3 className="text-xl font-bold text-cyan-300 mb-4">Your Referral Stats</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-br from-purple-900/40 to-purple-900/10 rounded-xl border border-purple-500/30 p-6 backdrop-blur-sm">
+                  <div className="text-sm text-slate-400 uppercase tracking-wider mb-2">Invitations Sent</div>
+                  <div className="text-4xl font-black text-purple-300">{profile.referralsSent}</div>
+                  <div className="text-xs text-slate-500 mt-3">People invited</div>
                 </div>
-                <div className="text-sm text-slate-400">Invitations Sent</div>
-              </div>
 
-              <div className="bg-slate-900/50 rounded-lg border border-slate-700 p-4">
-                <div className="text-3xl font-bold text-cyan-300 mb-1">
-                  {profile.successfulReferrals}
+                <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-900/10 rounded-xl border border-cyan-500/30 p-6 backdrop-blur-sm">
+                  <div className="text-sm text-slate-400 uppercase tracking-wider mb-2">Successful Referrals</div>
+                  <div className="text-4xl font-black text-cyan-300">{profile.successfulReferrals}</div>
+                  <div className="text-xs text-slate-500 mt-3">Signed up</div>
                 </div>
-                <div className="text-sm text-slate-400">Successful Referrals</div>
-              </div>
 
-              <div className="bg-slate-900/50 rounded-lg border border-slate-700 p-4">
-                <div className="text-3xl font-bold text-orange-300 mb-1">
-                  {profile.airdropPoints.referralSuccess}
+                <div className="bg-gradient-to-br from-orange-900/40 to-orange-900/10 rounded-xl border border-orange-500/30 p-6 backdrop-blur-sm">
+                  <div className="text-sm text-slate-400 uppercase tracking-wider mb-2">Referral Points</div>
+                  <div className="text-4xl font-black text-orange-300">{profile.airdropPoints.referralSuccess}</div>
+                  <div className="text-xs text-slate-500 mt-3">Points earned</div>
                 </div>
-                <div className="text-sm text-slate-400">Points from Referrals</div>
               </div>
             </div>
 
             {/* How It Works */}
-            <div className="bg-slate-950/50 rounded-lg border border-cyan-500/20 p-6 space-y-4">
-              <h3 className="text-lg font-bold text-cyan-300">How Referrals Work</h3>
+            <div className="bg-gradient-to-br from-slate-900/60 to-slate-900/20 rounded-2xl border border-slate-700/50 p-8 space-y-6">
+              <div>
+                <h3 className="text-2xl font-black text-slate-100 mb-2">How Referrals Work</h3>
+                <p className="text-sm text-slate-400">Maximize your earnings with every successful referral</p>
+              </div>
 
-              <div className="space-y-3 text-sm text-slate-300">
-                <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-purple-600/30 rounded-full flex items-center justify-center font-bold text-purple-300">
+              <div className="space-y-4">
+                <div className="flex gap-4 p-4 bg-slate-950/50 rounded-lg border border-slate-700/30">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center font-bold text-white text-lg">
                     1
                   </div>
                   <div>
-                    <p className="font-bold mb-1">Share Your Link</p>
-                    <p className="text-slate-400">
-                      Send your referral link to friends and community members.+10 points per share.
+                    <p className="font-bold text-white mb-1">Share Your Link</p>
+                    <p className="text-sm text-slate-400">
+                      Send your referral link to friends and community members. <span className="text-purple-300 font-semibold">+10 points per share</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-cyan-600/30 rounded-full flex items-center justify-center font-bold text-cyan-300">
+                <div className="flex gap-4 p-4 bg-slate-950/50 rounded-lg border border-slate-700/30">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-full flex items-center justify-center font-bold text-white text-lg">
                     2
                   </div>
                   <div>
-                    <p className="font-bold mb-1">They Sign Up</p>
-                    <p className="text-slate-400">
-                      Your referees create profiles using your link. +50 points per signup.
+                    <p className="font-bold text-white mb-1">They Sign Up</p>
+                    <p className="text-sm text-slate-400">
+                      Your referees create profiles using your link. <span className="text-cyan-300 font-semibold">+50 points per signup</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-orange-600/30 rounded-full flex items-center justify-center font-bold text-orange-300">
+                <div className="flex gap-4 p-4 bg-slate-950/50 rounded-lg border border-slate-700/30">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center font-bold text-white text-lg">
                     3
                   </div>
                   <div>
-                    <p className="font-bold mb-1">They Stake $ABRA</p>
-                    <p className="text-slate-400">
-                      Bonus +150 points when referees successfully stake. Maximum rewards!
+                    <p className="font-bold text-white mb-1">They Stake $ABRA</p>
+                    <p className="text-sm text-slate-400">
+                      Bonus <span className="text-orange-300 font-semibold">+150 points</span> when referees successfully stake. Maximum rewards!
                     </p>
                   </div>
                 </div>
@@ -292,19 +311,22 @@ Making DeFi Great Again 🚀`;
 
         {/* Leaderboard Tab */}
         {activeTab === 'leaderboard' && (
-          <div>
+          <div className="bg-gradient-to-br from-slate-900/40 to-slate-900/20 rounded-2xl border border-slate-700/50 p-8">
             <ReferralLeaderboard showPersonalRank={true} />
           </div>
         )}
       </div>
 
       {/* Footer */}
-      <div className="border-t border-cyan-500/20 bg-slate-900/30 py-6 mt-12">
-        <div className="max-w-6xl mx-auto px-4 text-center space-y-3 text-sm text-slate-400">
-          <p>💎 Making DeFi Great Again ✨</p>
-          <p>
-            This profile is uniquely yours. Your Abraxas ID and rune are permanent tokens of your
-            participation in the Sharathon campaign.
+      <div className="border-t border-cyan-500/30 bg-gradient-to-r from-slate-950/50 to-slate-900/30 backdrop-blur-sm py-8 mt-16">
+        <div className="max-w-7xl mx-auto px-4 text-center space-y-4">
+          <div className="inline-block px-4 py-2 bg-purple-900/30 border border-purple-500/30 rounded-lg mb-2">
+            <p className="text-sm font-mono text-purple-300">✧ ABRAXAS_PROFILE ✧</p>
+          </div>
+          <p className="text-sm text-slate-300 font-semibold">💎 Making DeFi Great Again ✨</p>
+          <p className="text-xs text-slate-500 leading-relaxed max-w-2xl mx-auto">
+            Your Abraxas ID and rune are permanent cryptographic tokens of your participation in the Sharathon campaign. 
+            They exist forever on-chain. Your identity is sovereign.
           </p>
         </div>
       </div>

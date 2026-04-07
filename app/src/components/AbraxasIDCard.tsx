@@ -47,7 +47,7 @@ export function AbraxasIDCard({
 
   if (compact) {
     return (
-      <div className="relative w-full max-w-sm mx-auto perspective">
+      <div className="relative w-full max-w-md mx-auto">
         {/* Outer glow effect */}
         <div className="absolute inset-0 blur-xl bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-orange-500/30 rounded-xl -z-10" />
 
@@ -71,106 +71,89 @@ export function AbraxasIDCard({
             }}
           />
 
-          <div className="relative p-6 z-10">
+          <div className="relative p-6 z-10 space-y-6">
             {/* Header */}
-            <div className="text-center mb-4">
-              <div className="text-xs tracking-widest text-cyan-400 font-mono uppercase mb-2">
-                Abraxas Protocol
-              </div>
-              <div className="font-mono text-sm font-bold text-purple-300">
-                ID CARD • v1.0
-              </div>
+            <div className="text-center space-y-2 pb-4 border-b border-cyan-500/30">
+              <div className="text-xs tracking-widest text-cyan-400 font-mono uppercase">Abraxas Protocol</div>
+              <div className="font-mono text-lg font-bold text-purple-300">ID CARD</div>
             </div>
 
-            {/* Logo Graphic with Rune */}
-            <div className="flex flex-col items-center mb-6">
-              {/* Abraxas Logo */}
-              <img
-                src="/assets/abraxas-logo-graphic.jpg"
-                alt="Abraxas Protocol"
-                className="w-32 h-32 object-cover rounded-lg mb-4 border border-cyan-500/50"
-              />
-
-              {/* Rune overlay */}
-              <div className="relative -mt-8 mb-4">
-                {/* Glow rings */}
-                <div className="absolute inset-0 blur-xl bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 opacity-50 animate-pulse" />
-                <div className="absolute inset-0 blur-md bg-purple-500/30 animate-pulse animation-delay-300" />
-
-                {/* Rune text */}
-                <div className="relative text-6xl text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 bg-clip-text font-bold drop-shadow-lg">
+            {/* Rune Section */}
+            <div className="flex justify-center py-4">
+              <div className="relative">
+                <div className="absolute inset-0 blur-2xl bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 opacity-50 animate-pulse" />
+                <div className="absolute inset-0 blur-md bg-purple-500/30 animate-pulse" style={{ animationDelay: '0.3s' }} />
+                <div className="relative text-7xl text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 bg-clip-text font-bold drop-shadow-lg">
                   {profile.rune}
                 </div>
               </div>
-
-              {/* Blessing message */}
-              <p className="text-xs text-center text-slate-300 italic font-light leading-relaxed max-w-xs">
-                {profile.blessing}
-              </p>
             </div>
+            <div className="text-center text-xs text-slate-400 font-mono">Elder Futhark</div>
 
             {/* ID Information */}
-            <div className="space-y-3 mb-6 border-t border-b border-cyan-500/30 py-4">
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-cyan-400 uppercase tracking-widest font-mono">
-                  ID
-                </span>
-                <span className="text-sm font-mono font-bold text-purple-300">
-                  {profile.abraxasId}
-                </span>
+            <div className="space-y-4 pb-4 border-b border-cyan-500/30">
+              <div className="bg-slate-950/60 rounded p-3">
+                <div className="text-xs text-cyan-400 uppercase tracking-wider font-mono mb-1">ID</div>
+                <div className="font-mono text-sm font-bold text-purple-300 truncate">{profile.abraxasId}</div>
               </div>
-
               {profile.username && (
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-cyan-400 uppercase tracking-widest font-mono">
-                    Username
-                  </span>
-                  <span className="text-sm text-purple-200">{profile.username}</span>
+                <div className="bg-slate-950/60 rounded p-3">
+                  <div className="text-xs text-cyan-400 uppercase tracking-wider font-mono mb-1">Username</div>
+                  <div className="text-sm font-mono text-purple-200 truncate">@{profile.username}</div>
                 </div>
               )}
             </div>
 
-            {/* Airdrop Points */}
-            <div className="bg-gradient-to-r from-purple-500/10 to-cyan-500/10 rounded border border-purple-500/30 p-3 mb-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-purple-300 uppercase tracking-widest font-mono">
-                  Airdrop Points
-                </span>
-                <span className="text-lg font-bold text-orange-300">
-                  {profile.airdropPoints.total}
-                </span>
-              </div>
+            {/* Blessing */}
+            <div className="bg-gradient-to-br from-purple-900/30 to-slate-900/30 rounded p-3 border border-purple-500/25 text-center py-4">
+              <p className="text-xs text-slate-300 italic leading-relaxed">"{profile.blessing}"</p>
+            </div>
 
-              {/* Points breakdown */}
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="text-slate-400">
-                  <span className="text-cyan-400">Profile:</span> {profile.airdropPoints.profileCreation}
+            {/* Points */}
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-900/10 rounded p-3 border border-orange-500/40">
+              <div className="text-xs text-orange-300 uppercase tracking-wider font-mono mb-2">Total Airdrop Points</div>
+              <div className="text-4xl font-black text-orange-300">{profile.airdropPoints.total}</div>
+            </div>
+
+            {/* Referrals */}
+            <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-900/10 rounded p-3 border border-cyan-500/40">
+              <div className="text-xs text-cyan-300 uppercase tracking-wider font-mono mb-2">Successful Referrals</div>
+              <div className="text-4xl font-black text-cyan-300">{profile.successfulReferrals}</div>
+            </div>
+
+            {/* Member Date */}
+            <div className="text-xs text-slate-500 text-center py-3 border-t border-cyan-500/30">
+              Member Since: {new Date(profile.createdAt).toLocaleDateString()}
+            </div>
+
+            {/* Points Breakdown */}
+            <div className="bg-slate-950/60 rounded p-4 border border-slate-700/50 space-y-3">
+              <div className="text-cyan-300 uppercase tracking-wider font-mono text-xs">Points Breakdown</div>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between text-slate-400">
+                  <span>Profile Creation:</span>
+                  <span className="text-cyan-300 font-semibold">{profile.airdropPoints.profileCreation}</span>
                 </div>
-                <div className="text-slate-400">
-                  <span className="text-cyan-400">Shares:</span> {profile.airdropPoints.cardShares}
+                <div className="flex justify-between text-slate-400">
+                  <span>Card Shares:</span>
+                  <span className="text-cyan-300 font-semibold">{profile.airdropPoints.cardShares}</span>
                 </div>
-                <div className="text-slate-400">
-                  <span className="text-cyan-400">Referrals:</span>{' '}
-                  {profile.airdropPoints.referralSuccess}
+                <div className="flex justify-between text-slate-400">
+                  <span>Referral Success:</span>
+                  <span className="text-cyan-300 font-semibold">{profile.airdropPoints.referralSuccess}</span>
                 </div>
-                <div className="text-slate-400">
-                  <span className="text-cyan-400">Engagement:</span>{' '}
-                  {profile.airdropPoints.communityEngagement}
+                <div className="flex justify-between text-slate-400">
+                  <span>Community Engagement:</span>
+                  <span className="text-cyan-300 font-semibold">{profile.airdropPoints.communityEngagement}</span>
                 </div>
               </div>
             </div>
 
-            {/* Referral Info */}
-            {profile.successfulReferrals > 0 && (
-              <div className="text-center text-xs text-slate-400 mb-4">
-                <span className="text-green-400 font-bold">{profile.successfulReferrals}</span>{' '}
-                successful referral{profile.successfulReferrals !== 1 ? 's' : ''}
+            {/* Footer */}
+            <div className="border-t border-cyan-500/30 pt-4 text-center">
+              <div className="text-xs font-bold text-transparent bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text">
+                Making DeFi Great Again ✨
               </div>
-            )}
-
-            {/* Footer message */}
-            <div className="text-center text-xs text-slate-500 italic">
-              Making DeFi Great Again ✨
             </div>
           </div>
         </div>
@@ -180,12 +163,12 @@ export function AbraxasIDCard({
 
   // Full-size card
   return (
-    <div className="relative w-full max-w-2xl mx-auto perspective">
+    <div className="relative w-full max-w-2xl mx-auto">
       {/* Outer glow effect */}
-      <div className="absolute inset-0 blur-2xl bg-gradient-to-r from-purple-500/40 via-cyan-500/40 to-orange-500/40 rounded-2xl -z-10" />
+      <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-purple-500/50 via-cyan-500/50 to-orange-500/40 rounded-2xl -z-10" />
 
       {/* Main Card */}
-      <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-2xl border-2 border-cyan-500/50 overflow-hidden shadow-2xl">
+      <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-2xl border-2 border-cyan-500/60 overflow-hidden shadow-2xl">
         {/* Scanline effect overlay */}
         <div
           className="absolute inset-0 pointer-events-none opacity-5 bg-repeat"
@@ -205,158 +188,108 @@ export function AbraxasIDCard({
           }}
         />
 
-        <div className="relative p-12 z-10 space-y-8">
-          {/* Header */}
-          <div className="text-center space-y-2">
-            <div className="text-sm tracking-widest text-cyan-400 font-mono uppercase">
-              Abraxas Protocol Genesis
-            </div>
-            <div className="font-mono text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-300 via-purple-300 to-orange-300 bg-clip-text">
-              IDENTIFICATION CARD
-            </div>
-            <div className="text-xs text-slate-400">v1.0 • Sharathon Campaign</div>
-          </div>
-
-          {/* Abraxas Logo with Blessing */}
-          <div className="flex flex-col items-center space-y-4">
-            {/* Logo Graphic */}
-            <img
-              src="/assets/abraxas-logo-graphic.jpg"
-              alt="Abraxas Protocol"
-              className="w-48 h-48 object-cover rounded-lg border-2 border-cyan-500/50 shadow-lg"
-            />
-
-            {/* Blessing message below logo */}
-            <div className="text-center max-w-md">
-              <p className="text-lg text-slate-300 italic font-light leading-relaxed">
-                "{profile.blessing}"
-              </p>
+        <div className="relative z-10 space-y-4 p-6">
+          {/* Header Section */}
+          <div className="text-center space-y-2 pb-3 border-b border-cyan-500/30">
+            <div className="text-xs tracking-widest text-purple-400 font-mono uppercase">Abraxas Protocol</div>
+            <div className="font-mono text-2xl font-black text-transparent bg-gradient-to-r from-cyan-300 via-purple-300 to-orange-300 bg-clip-text">
+              ID CARD v1.0
             </div>
           </div>
 
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-3 gap-8">
-            {/* Left: Rune */}
-            <div className="col-span-1 flex flex-col items-center justify-center">
-              <div className="relative mb-4">
-                {/* Multiple glow layers */}
-                <div className="absolute inset-0 blur-2xl bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600 opacity-60 animate-pulse" />
-                <div className="absolute inset-0 blur-xl bg-purple-500/40 animate-pulse" style={{ animationDelay: '0.3s' }} />
-                <div className="absolute inset-0 blur-md bg-cyan-500/30 animate-pulse" style={{ animationDelay: '0.6s' }} />
-
-                <div className="relative text-9xl font-bold text-transparent bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 bg-clip-text drop-shadow-2xl">
-                  {profile.rune}
-                </div>
-              </div>
-              <div className="text-xs text-slate-400 font-mono uppercase tracking-wider">
-                Elder Futhark
+          {/* Rune Section */}
+          <div className="flex justify-center py-3">
+            <div className="relative">
+              <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600 opacity-70 animate-pulse" />
+              <div className="absolute inset-0 blur-2xl bg-purple-500/50 animate-pulse" style={{ animationDelay: '0.2s' }} />
+              <div className="relative text-7xl font-black text-transparent bg-gradient-to-b from-cyan-300 via-purple-400 to-orange-300 bg-clip-text">
+                {profile.rune}
               </div>
             </div>
+          </div>
+          <div className="text-center text-xs text-slate-400 font-mono -mt-2">Elder Futhark Rune</div>
 
-            {/* Center: ID Information */}
-            <div className="col-span-1 space-y-6 border-l border-r border-cyan-500/20">
-              <div className="px-6">
-                <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono mb-2">
-                  Abraxas ID
-                </div>
-                <div className="font-mono text-2xl font-bold text-purple-300">
-                  {profile.abraxasId}
-                </div>
+          {/* ID Information */}
+          <div className="space-y-2 py-3 border-t border-b border-cyan-500/30">
+            <div className="bg-slate-950/60 rounded p-2">
+              <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono">Abraxas ID</div>
+              <div className="font-mono text-lg font-bold text-purple-300 truncate">{profile.abraxasId}</div>
+            </div>
+            {profile.username && (
+              <div className="bg-slate-950/60 rounded p-2">
+                <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono">Username</div>
+                <div className="text-sm font-mono text-purple-200 truncate">@{profile.username}</div>
               </div>
+            )}
+          </div>
 
-              {profile.username && (
-                <div className="border-t border-cyan-500/20 px-6 pt-6">
-                  <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono mb-1">
-                    Username
-                  </div>
-                  <div className="text-sm font-mono text-purple-200">
-                    @{profile.username}
-                  </div>
-                </div>
-              )}
+          {/* Blessing */}
+          <div className="bg-gradient-to-br from-purple-900/40 to-slate-900/40 rounded p-3 border border-purple-500/30 text-center">
+            <p className="text-sm text-slate-200 italic leading-relaxed">"{profile.blessing}"</p>
+          </div>
+
+          {/* Points & Stats Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-900/10 rounded p-3 border border-orange-500/40">
+              <div className="text-xs text-orange-300 uppercase tracking-wider font-mono">Airdrop</div>
+              <div className="text-3xl font-black text-orange-300">{profile.airdropPoints.total}</div>
+              <div className="text-xs text-slate-500">of 500</div>
             </div>
 
-            {/* Right: Points & Dates */}
-            <div className="col-span-1 space-y-4">
-              <div className="bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded border border-purple-500/40 p-4">
-                <div className="text-xs text-purple-300 uppercase tracking-widest font-mono mb-3">
-                  Airdrop Points
-                </div>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <div className="text-4xl font-bold text-orange-300">
-                    {profile.airdropPoints.total}
-                  </div>
-                  <div className="text-xs text-slate-400">/ 500</div>
-                </div>
+            <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-900/10 rounded p-3 border border-cyan-500/40">
+              <div className="text-xs text-cyan-300 uppercase tracking-wider font-mono">Referrals</div>
+              <div className="text-3xl font-black text-cyan-300">{profile.successfulReferrals}</div>
+              <div className="text-xs text-slate-500">successful</div>
+            </div>
+          </div>
 
-                {/* Progress bar */}
-                <div className="w-full bg-slate-700 rounded h-2 overflow-hidden mb-4">
-                  <div
-                    className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 transition-all duration-300"
-                    style={{
-                      width: `${Math.min((profile.airdropPoints.total / 500) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
+          {/* Member Info */}
+          <div className="text-xs text-slate-500 text-center space-y-1 py-2 border-t border-cyan-500/30">
+            <div>Member Since: {new Date(profile.createdAt).toLocaleDateString()}</div>
+            <div>Sharathon Participant</div>
+          </div>
 
-                {/* Breakdown */}
-                <div className="space-y-2 text-xs text-slate-400">
-                  <div className="flex justify-between">
-                    <span>Profile:</span>
-                    <span className="text-cyan-300">{profile.airdropPoints.profileCreation}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Shares:</span>
-                    <span className="text-cyan-300">{profile.airdropPoints.cardShares}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Referrals:</span>
-                    <span className="text-cyan-300">{profile.airdropPoints.referralSuccess}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Engagement:</span>
-                    <span className="text-cyan-300">
-                      {profile.airdropPoints.communityEngagement}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dates */}
-              <div className="text-xs text-slate-500 space-y-1">
-                <div>
-                  <span className="text-slate-600">Created:</span>{' '}
-                  {new Date(profile.createdAt).toLocaleDateString()}
-                </div>
-                <div>
-                  <span className="text-slate-600">Referrals:</span> {profile.successfulReferrals}
-                </div>
-              </div>
+          {/* Points Breakdown - Compact */}
+          <div className="bg-slate-950/60 rounded p-3 border border-slate-700/50 text-xs space-y-1">
+            <div className="text-cyan-300 uppercase tracking-wider font-mono mb-2">Points</div>
+            <div className="flex justify-between text-slate-400">
+              <span>Profile:</span>
+              <span className="text-cyan-300">{profile.airdropPoints.profileCreation}</span>
+            </div>
+            <div className="flex justify-between text-slate-400">
+              <span>Shares:</span>
+              <span className="text-cyan-300">{profile.airdropPoints.cardShares}</span>
+            </div>
+            <div className="flex justify-between text-slate-400">
+              <span>Referrals:</span>
+              <span className="text-cyan-300">{profile.airdropPoints.referralSuccess}</span>
+            </div>
+            <div className="flex justify-between text-slate-400">
+              <span>Engagement:</span>
+              <span className="text-cyan-300">{profile.airdropPoints.communityEngagement}</span>
             </div>
           </div>
 
           {/* Referral Section */}
           {showReferralLink && (
-            <div className="border-t border-cyan-500/20 pt-6">
-              <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono mb-3">
-                Your Referral Link
-              </div>
-              <div className="bg-slate-950 rounded border border-slate-700 p-3 font-mono text-xs text-slate-300 break-all mb-3">
+            <div className="border-t border-cyan-500/30 pt-3 space-y-2">
+              <div className="text-xs text-cyan-400 uppercase tracking-widest font-mono">Referral Link</div>
+              <div className="bg-slate-950/80 rounded border border-slate-700 p-2 font-mono text-xs text-slate-300 break-all max-h-16 overflow-y-auto">
                 {referralLink}
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-2 pt-2">
                 <button
                   onClick={copyReferralLink}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-purple-600/50 hover:bg-purple-600 border border-purple-500/50 rounded text-xs text-purple-200 transition"
+                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-gradient-to-r from-purple-600/70 to-purple-700/70 hover:from-purple-600 hover:to-purple-700 border border-purple-500/60 rounded text-xs text-purple-200 font-semibold transition"
                 >
                   <Copy size={14} />
-                  {copied ? 'Copied!' : 'Copy Link'}
+                  {copied ? 'Copied' : 'Copy'}
                 </button>
                 {onShare && (
                   <button
                     onClick={onShare}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-cyan-600/50 hover:bg-cyan-600 border border-cyan-500/50 rounded text-xs text-cyan-200 transition"
+                    className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-gradient-to-r from-cyan-600/70 to-cyan-700/70 hover:from-cyan-600 hover:to-cyan-700 border border-cyan-500/60 rounded text-xs text-cyan-200 font-semibold transition"
                   >
                     <Share2 size={14} />
                     Share
@@ -364,7 +297,7 @@ export function AbraxasIDCard({
                 )}
                 <button
                   onClick={downloadCard}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-orange-600/50 hover:bg-orange-600 border border-orange-500/50 rounded text-xs text-orange-200 transition"
+                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-gradient-to-r from-orange-600/70 to-orange-700/70 hover:from-orange-600 hover:to-orange-700 border border-orange-500/60 rounded text-xs text-orange-200 font-semibold transition"
                 >
                   <Download size={14} />
                   Download
@@ -374,12 +307,12 @@ export function AbraxasIDCard({
           )}
 
           {/* Footer */}
-          <div className="border-t border-cyan-500/20 pt-6 text-center space-y-2">
-            <div className="text-sm text-slate-400">
-              Making DeFi Great Again 🔮✨
+          <div className="border-t border-cyan-500/30 pt-3 text-center space-y-1">
+            <div className="text-xs font-bold text-transparent bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text">
+              Making DeFi Great Again 🔮
             </div>
-            <div className="text-xs text-slate-600 font-mono">
-              This card is your proof of participation in the Abraxas Sharathon Campaign
+            <div className="text-xs text-slate-600 font-mono leading-tight">
+              Cryptographic proof of Sharathon participation
             </div>
           </div>
         </div>

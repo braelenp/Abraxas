@@ -308,7 +308,7 @@ export function LandingPage() {
 					<div className="mx-auto flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:pt-8">
 					<CTAButton text="✧ Start Initiation" href="/campaign" />
 					<CTAButton text="Buy $ABRA Now" href="https://bags.fm" />
-					<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
+						<CTAButton text="Join Discord" href="https://discord.gg/JmuXbx3MW" />
 					</div>
 				</div>
 			</section>
@@ -382,9 +382,9 @@ export function LandingPage() {
 					</div>
 
 					<div className="flex flex-col justify-center gap-4 sm:flex-row">
-					<CTAButton text="✧ Start Initiation" href="/app" />
+				<CTAButton text="✧ Start Initiation" href="/campaign" />
 						<CTAButton text="Buy $ABRA" href="https://bags.fm" />
-						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
+						<CTAButton text="Join Discord" href="https://discord.gg/JmuXbx3MW" />
 					</div>
 				</div>
 			</section>

@@ -122,15 +122,15 @@ export function generateReferralCode(): string {
 
 /**
  * Create a referral link with all necessary info
- * Format: app.abraxas.xyz/join?ref=CODE&rune=ᚠ&id=ABRAXAS-001234
+ * Format: app.abraxas.xyz/campaign?ref=CODE&rune=ᚠ&id=ABRAXAS-001234
  */
 export function createReferralLink(
   abraxasId: string,
   rune: string,
   referralCode: string,
   baseUrl: string = typeof window !== 'undefined'
-    ? `${window.location.origin}/app`
-    : 'https://abraxas.app'
+    ? `${window.location.origin}/campaign`
+    : 'https://abraxas.app/campaign'
 ): string {
   const params = new URLSearchParams({
     ref: referralCode,

@@ -13,7 +13,7 @@ import type { UserProfile, AirdropLeaderboardEntry } from '../lib/types';
  * Hook to manage user profile
  */
 export function useUserProfile() {
-  const { userProfile, createUserProfile, getProfileByWallet } = useAbraxas();
+  const { userProfile, createUserProfile, getProfileByWallet, loadProfileByWallet } = useAbraxas();
 
   const createProfile = useCallback(
     async (username?: string, walletAddress?: string) => {
@@ -34,6 +34,7 @@ export function useUserProfile() {
     profile: userProfile,
     createProfile,
     getProfileByWallet,
+    loadProfileByWallet,
   };
 }
 

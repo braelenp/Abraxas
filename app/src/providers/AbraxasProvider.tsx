@@ -77,6 +77,7 @@ type AbraxasContextValue = {
   recordSuccessfulReferral: (referralId: string, referreeId: string) => void;
   refreshLeaderboard: () => void;
   getProfileByWallet: (walletAddress: string) => UserProfile | null;
+  loadProfileByWallet: (walletAddress: string) => UserProfile | null;
 };
 
 const AbraxasContext = createContext<AbraxasContextValue | null>(null);
@@ -101,8 +102,24 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [oymSource, setOymSource] = useState<string | undefined>(undefined);
   const [lastOymSyncAt, setLastOymSyncAt] = useState<string | undefined>(undefined);
   
-  // Profile system state
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  // Profile system state - initialize from localStorage
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(() => {
+    try {
+      const stored = localStorage.getItem('abraxas_user_profile');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [profiles, setProfiles] = useState<Map<string, UserProfile>>(() => {
+    try {
+      const stored = localStorage.getItem('abraxas_profiles');
+      const data = stored ? JSON.parse(stored) : {};
+      return new Map(Object.entries(data));
+    } catch {
+      return new Map();
+    }
+  });
   const [referralRecords, setReferralRecords] = useState<ReferralRecord[]>([]);
   const [airdropLeaderboard, setAirdropLeaderboard] = useState<AirdropLeaderboardEntry[]>([]);
 
@@ -529,6 +546,18 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
       setUserProfile(newProfile);
 
+      // Persist profile to localStorage
+      localStorage.setItem('abraxas_user_profile', JSON.stringify(newProfile));
+      
+      // Add to profiles map for lookup
+      setProfiles((current) => {
+        const updated = new Map(current);
+        updated.set(payload.walletAddress, newProfile);
+        // Persist profiles map to localStorage
+        localStorage.setItem('abraxas_profiles', JSON.stringify(Object.fromEntries(updated)));
+        return updated;
+      });
+
       // Record initial profile creation points
       setReferralRecords((current) => [
         {
@@ -576,11 +605,16 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
           updatedPoints.communityEngagement += pointsToAdd;
         }
 
-        return {
+        const updated = {
           ...current,
           airdropPoints: updatedPoints,
           lastUpdatedAt: nowIso(),
         };
+
+        // Persist changes to localStorage
+        localStorage.setItem('abraxas_user_profile', JSON.stringify(updated));
+
+        return updated;
       });
 
       addLog({
@@ -631,7 +665,8 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       // Update user profile to increment successful referrals
       setUserProfile((current) => {
         if (!current) return current;
-        return {
+        
+        const updated = {
           ...current,
           successfulReferrals: current.successfulReferrals + 1,
           airdropPoints: {
@@ -642,6 +677,11 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
           },
           lastUpdatedAt: nowIso(),
         };
+
+        // Persist changes to localStorage
+        localStorage.setItem('abraxas_user_profile', JSON.stringify(updated));
+
+        return updated;
       });
     },
     [],
@@ -690,12 +730,27 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const getProfileByWallet = useCallback(
     (walletAddress: string): UserProfile | null => {
+      // First check if it's the current user's profile
       if (userProfile && userProfile.walletAddress === walletAddress) {
         return userProfile;
       }
-      return null;
+      // Otherwise check the profiles map (persistent storage)
+      return profiles.get(walletAddress) || null;
     },
-    [userProfile],
+    [userProfile, profiles],
+  );
+
+  // Load and set a profile as the active user profile
+  const loadProfileByWallet = useCallback(
+    (walletAddress: string): UserProfile | null => {
+      const foundProfile = getProfileByWallet(walletAddress);
+      if (foundProfile) {
+        setUserProfile(foundProfile);
+        localStorage.setItem('abraxas_user_profile', JSON.stringify(foundProfile));
+      }
+      return foundProfile;
+    },
+    [getProfileByWallet],
   );
 
   useEffect(() => {
@@ -737,6 +792,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       recordSuccessfulReferral,
       refreshLeaderboard,
       getProfileByWallet,
+      loadProfileByWallet,
     }),
     [
       vaults,
@@ -770,6 +826,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
       recordSuccessfulReferral,
       refreshLeaderboard,
       getProfileByWallet,
+      loadProfileByWallet,
     ],
   );
 

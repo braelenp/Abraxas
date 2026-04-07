@@ -26,7 +26,7 @@ export function WalletLoginModal({
   onCreateProfile,
 }: WalletLoginModalProps) {
   const { publicKey } = useWallet();
-  const { getProfileByWallet } = useUserProfile();
+  const { getProfileByWallet, loadProfileByWallet } = useUserProfile();
 
   const [isVerifying, setIsVerifying] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -46,7 +46,8 @@ export function WalletLoginModal({
       // Simulate a small delay for verification
       await new Promise(resolve => setTimeout(resolve, 800));
       
-      const foundProfile = getProfileByWallet(publicKey.toString());
+      // Load profile and set it as active user profile
+      const foundProfile = loadProfileByWallet(publicKey.toString());
       
       if (foundProfile) {
         setProfile(foundProfile);

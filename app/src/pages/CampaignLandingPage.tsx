@@ -515,7 +515,7 @@ function DiscordCTA() {
             Join our Discord community and claim <span className="text-indigo-300 font-semibold">Early Adopter role</span>
           </p>
           <a
-            href="https://discord.gg/abraxas"
+            href="https://discord.gg/JmuXbx3MW"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border border-indigo-400/60 bg-indigo-600/30 text-indigo-200 font-bold text-base hover:bg-indigo-600/40 transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)]"
@@ -627,7 +627,7 @@ export function CampaignLandingPage() {
         {/* Enter DApp Button */}
         <div className="border-t border-slate-700/50 pt-8 pb-12 text-center space-y-4">
           <button
-            onClick={() => navigate('/app')}
+            onClick={() => navigate('/campaign')}
             className="inline-flex items-center gap-3 px-12 py-4 rounded-xl border border-purple-400/60 bg-gradient-to-r from-purple-600/40 to-pink-600/40 text-purple-200 font-bold text-lg hover:from-purple-600/50 hover:to-pink-600/50 transition-all shadow-[0_0_32px_rgba(153,69,255,0.3)]"
           >
             <span>✧ Start Initiation</span>
