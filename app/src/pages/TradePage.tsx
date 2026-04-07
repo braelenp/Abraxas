@@ -956,7 +956,6 @@ export function TradePage() {
               </button>
             </div>
             <FiatOffRampWidget
-              abraAmount={recentSwapAmount > 0 ? recentSwapAmount : 0}
               onSuccess={() => setShowOffRampWidget(false)}
               compact={false}
             />

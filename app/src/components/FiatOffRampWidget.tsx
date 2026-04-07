@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ChevronRight, CheckCircle, AlertCircle, ExternalLink, Copy } from 'lucide-react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { getJupiterQuote, calculateOutputAmount } from '../lib/jupiter';
+import { useAbraBalance } from '../hooks/useAbraBalance';
 import {
   estimateFiatAmount,
   openPhantomOffRamp,
@@ -16,7 +18,7 @@ const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 const USDC_TOKEN_CA = 'EPjFWaLb3dScJwNmtppq5g5Lg6ieifqiGFC1t4UM5z1';
 
 interface FiatOffRampWidgetProps {
-  abraAmount: number;
+  abraAmount?: number;
   onSuccess?: () => void;
   compact?: boolean;
 }
@@ -33,13 +35,16 @@ interface ConversionStep {
 }
 
 export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
-  abraAmount,
+  abraAmount: initialAmount,
   onSuccess,
   compact = false,
 }) => {
+  const { publicKey, connected } = useWallet();
+  const { balance: realAbraBalance, balanceFormatted, isLoading: balanceLoading } = useAbraBalance();
+
   const [step, setStep] = useState<ConversionStep>({
     phase: 'input',
-    abraAmount: Math.floor(abraAmount * 100) / 100,
+    abraAmount: 0,
     usdcAmount: 0,
     fiatAmount: 0,
     paymentMethod: 'cash-app',
@@ -47,6 +52,21 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Initialize with real balance or passed amount
+  useEffect(() => {
+    if (realAbraBalance > 0) {
+      setStep((prev) => ({
+        ...prev,
+        abraAmount: realAbraBalance,
+      }));
+    } else if (initialAmount && initialAmount > 0) {
+      setStep((prev) => ({
+        ...prev,
+        abraAmount: initialAmount,
+      }));
+    }
+  }, [realAbraBalance, initialAmount]);
 
   /**
    * Get real Jupiter quote for ABRA → USDC
@@ -157,11 +177,68 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
           <p className="text-[11px] text-cyan-300/60 uppercase tracking-wide">Convert ABRA → Cash</p>
         </div>
 
-        {/* Amount Display */}
+        {/* Amount Input */}
         <div className="bg-slate-800/50 rounded-lg p-4 mb-4 border border-cyan-400/20">
-          <label className="text-cyan-400/70 text-xs font-semibold uppercase tracking-wider">ABRA Amount</label>
-          <div className="text-3xl font-bold text-white mt-2">{step.abraAmount.toFixed(2)}</div>
-          <div className="text-cyan-400/40 text-xs mt-1">Ready for conversion</div>
+          <div className="flex justify-between items-center mb-2">
+            <label className="text-cyan-400/70 text-xs font-semibold uppercase tracking-wider">Your ABRA Balance</label>
+            {balanceLoading ? (
+              <span className="text-cyan-400/50 text-xs">Loading...</span>
+            ) : (
+              <span className="text-cyan-300 text-xs font-mono">{balanceFormatted}</span>
+            )}
+          </div>
+          <input
+            type="number"
+            value={step.abraAmount > 0 ? step.abraAmount : ''}
+            onChange={(e) => {
+              const amount = Number(e.target.value);
+              if (amount <= realAbraBalance) {
+                setStep((prev) => ({
+                  ...prev,
+                  abraAmount: amount,
+                }));
+              }
+            }}
+            placeholder="Enter amount to convert"
+            className="w-full bg-slate-900 border border-cyan-400/40 rounded-lg px-3 py-2 text-white placeholder-cyan-400/30 focus:outline-none focus:border-cyan-400/70 mb-3"
+          />
+          
+          {/* Quick select buttons */}
+          {realAbraBalance > 0 && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setStep((prev) => ({ ...prev, abraAmount: realAbraBalance * 0.25 }))}
+                className="flex-1 py-1.5 text-xs bg-slate-700/50 hover:bg-slate-700 text-cyan-300 rounded border border-cyan-400/20 transition"
+              >
+                25%
+              </button>
+              <button
+                onClick={() => setStep((prev) => ({ ...prev, abraAmount: realAbraBalance * 0.5 }))}
+                className="flex-1 py-1.5 text-xs bg-slate-700/50 hover:bg-slate-700 text-cyan-300 rounded border border-cyan-400/20 transition"
+              >
+                50%
+              </button>
+              <button
+                onClick={() => setStep((prev) => ({ ...prev, abraAmount: realAbraBalance * 0.75 }))}
+                className="flex-1 py-1.5 text-xs bg-slate-700/50 hover:bg-slate-700 text-cyan-300 rounded border border-cyan-400/20 transition"
+              >
+                75%
+              </button>
+              <button
+                onClick={() => setStep((prev) => ({ ...prev, abraAmount: realAbraBalance }))}
+                className="flex-1 py-1.5 text-xs bg-slate-700/50 hover:bg-slate-700 text-cyan-300 rounded border border-cyan-400/20 transition font-semibold"
+              >
+                MAX
+              </button>
+            </div>
+          )}
+          
+          {balanceLoading && (
+            <div className="text-cyan-400/50 text-xs mt-2">Fetching your ABRA balance...</div>
+          )}
+          {!connected && (
+            <div className="text-orange-400/70 text-xs mt-2">💡 Connect your wallet to see your ABRA balance</div>
+          )}
         </div>
 
         {/* Payment Method Selector */}
@@ -192,22 +269,38 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
         </div>
 
         {/* CTA Button */}
-        <button
-          onClick={handleGetQuote}
-          disabled={!step.abraAmount || step.abraAmount <= 0 || isLoading}
-          className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg flex items-center justify-center gap-2 transition"
-        >
-          {isLoading ? (
-            <>
-              <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Fetching Quote...
-            </>
-          ) : (
-            <>
-              Get Conversion Quote <ChevronRight className="w-5 h-5" />
-            </>
-          )}
-        </button>
+        {!connected ? (
+          <button
+            disabled
+            className="w-full py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-semibold rounded-lg flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+          >
+            Connect Wallet First
+          </button>
+        ) : realAbraBalance === 0 ? (
+          <button
+            disabled
+            className="w-full py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-semibold rounded-lg flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+          >
+            No ABRA Balance
+          </button>
+        ) : (
+          <button
+            onClick={handleGetQuote}
+            disabled={!step.abraAmount || step.abraAmount <= 0 || isLoading || balanceLoading}
+            className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg flex items-center justify-center gap-2 transition"
+          >
+            {isLoading ? (
+              <>
+                <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Fetching Quote...
+              </>
+            ) : (
+              <>
+                Get Conversion Quote <ChevronRight className="w-5 h-5" />
+              </>
+            )}
+          </button>
+        )}
 
         <p className="text-cyan-400/40 text-xs text-center mt-4">
           ✓ Uses Phantom wallet's built-in off-ramp • 1-2 business days
