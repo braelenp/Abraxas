@@ -28,8 +28,8 @@ import { useAbraBalance } from './hooks/useAbraBalance';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
 const navItems = [
-  { to: '/app',          label: 'Forge',     rune: 'ᚲ' },
   { to: '/app/profile',  label: 'Profile',   rune: '✧' },
+  { to: '/app',          label: 'Forge',     rune: 'ᚲ' },
   { to: '/app/orion',    label: 'King AI',   rune: 'ᛏ' },
   { to: '/app/cadabra',  label: 'Cadabra',   rune: '✦' },
   { to: '/app/market',   label: 'Market',    rune: 'ᛋ' },
