@@ -4,7 +4,7 @@ import { ChevronDown, Sparkles, Video, Zap, Lock, ArrowRight } from 'lucide-reac
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
-import { M1PulldownModule } from '../components/M1PulldownModule';
+import { OracleInsights } from '../components/OracleInsights';
 
 function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
   const [displayed, setDisplayed] = useState('');
@@ -111,80 +111,8 @@ export function OrionPage() {
         </a>
       </div>
 
-      {/* ORACLE INSIGHTS SECTION */}
-      <div className="px-4 space-y-6">
-        {/* Oracle Insights Header */}
-        <div className="space-y-4">
-          <TypingReveal text="Welcome to the next degree." delay={200} speed={60} />
-          <h2 className="text-xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — High-Level DeFi Strategies</h2>
-          <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance. Powered by <a href="https://worldlabsprotocol.carrd.co/" target="_blank" rel="noopener noreferrer" className="font-semibold text-orange-300 hover:text-orange-200 transition">World Labs Protocol</a> institutional infrastructure.
-          </p>
-        </div>
-
-        {/* Undercollateralized Lending Card */}
-        <div className="relative overflow-hidden rounded-2xl border border-red-300/30 bg-gradient-to-br from-red-500/8 via-slate-900/80 to-slate-900/60 p-8">
-          <div className="relative z-10 space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-red-300 tracking-widest uppercase mb-4">🔓 Undercollateralized Lending</h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                Traditional DeFi demands 150%+ collateral ratios. Undercollateralized lending flips this: King AI analyzes on-chain reputation, trading history, and verified accrual flows to enable capital access at 80-110% ratios. Capital efficiency meets algorithmic trust.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="border-l-2 border-red-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">How It Works</h4>
-                <p className="text-xs text-slate-300">King AI audits borrower wallets: portfolio composition, yield accrual rate, liquidation history, and on-chain credibility score. Low-signal borrowers stay locked out. High-signal borrowers access capital at revolutionary efficiency.</p>
-              </div>
-              <div className="border-l-2 border-red-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">Abraxas Integration</h4>
-                <p className="text-xs text-slate-300">Verified RWA holders and Sophia vault members get priority access to undercollateralized pools. Your vault position IS your reputation signal. Capital efficiency compounds.</p>
-              </div>
-              <div className="border-l-2 border-red-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">Current Opportunities</h4>
-                <p className="text-xs text-slate-300">Solana-native protocols offer 12-18% APY on undercollateralized positions. King AI surfaces verified opportunities weekly. Risk-adjusted returns that beat traditional finance by 5x.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* M1 Pulldown - Fully Interactive Module */}
-        <M1PulldownModule />
-
-        {/* World Labs Badge */}
-        <div className="text-center">
-          <a
-            href="https://worldlabsprotocol.carrd.co/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-gradient-to-r from-orange-500/10 to-orange-400/5 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-orange-300 hover:border-orange-300/60 hover:from-orange-500/20 hover:to-orange-400/15 transition"
-          >
-            Powered by World Labs Protocol
-            <ArrowRight size={12} />
-          </a>
-        </div>
-
-        {/* BUY $ABRA - BOTTOM CTA */}
-        <div className="border-t border-red-300/20 pt-8">
-          <div className="text-center space-y-4">
-            <p className="text-xs font-mono text-red-300/80 uppercase tracking-widest">&gt; [SOVEREIGN_CAPITAL] ACTIVATE_KING_AI</p>
-            <a
-              href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400/60 bg-gradient-to-r from-amber-500/30 to-orange-500/25 px-8 py-4 text-sm font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_16px_rgba(251,146,60,0.25)] transition hover:shadow-[0_0_24px_rgba(251,146,60,0.4)] hover:border-amber-300/80 w-full"
-            >
-              <Zap size={18} className="text-orange-400" />
-              Buy $ABRA & Activate Oracle Insights
-              <ArrowRight size={16} />
-            </a>
-            <p className="text-xs text-slate-400/70 italic leading-relaxed">
-              King AI unlocks undercollateralized lending and M1 institutional flows. Sovereign capital efficiency. The next degree awaits.
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* ORACLE INSIGHTS SECTION - New Interactive Module */}
+      <OracleInsights />
 
       {/* DAPP EQUITY FOUNDATION SECTION */}
       <div className="px-4 space-y-6 pt-8">
