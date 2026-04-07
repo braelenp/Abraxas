@@ -80,13 +80,13 @@ function OpportunityCard({ opp }: { opp: Opportunity }) {
     <div className="rounded-lg border border-purple-300/25 bg-gradient-to-br from-purple-500/10 to-slate-900/40 p-4 hover:from-purple-500/15 hover:to-slate-900/50 transition-all">
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
-          <p className="text-sm font-bold text-purple-300">{opp.name}</p>
-          <p className="text-xs text-purple-300/60 mt-1">ROI-optimized</p>
+          <p className="text-base sm:text-lg font-bold text-purple-300">{opp.name}</p>
+          <p className="text-xs sm:text-sm text-purple-300/60 mt-1">ROI-optimized</p>
         </div>
         {opp.verified && <CheckCircle size={18} className="text-emerald-400 shrink-0" />}
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mb-3 text-xs">
+      <div className="grid grid-cols-2 gap-2 mb-3 text-sm sm:text-base">
         <div className="rounded-lg bg-slate-950/60 p-2 border border-purple-300/15">
           <p className="text-purple-300/70">APY</p>
           <p className="font-bold text-purple-200 mt-1">{opp.apy}%</p>
@@ -97,12 +97,12 @@ function OpportunityCard({ opp }: { opp: Opportunity }) {
         </div>
       </div>
 
-      <div className="text-xs space-y-1">
+      <div className="text-sm sm:text-base space-y-1">
         <p className="text-purple-300/70">Collateral: <span className="text-purple-200 font-semibold">{opp.collateral}</span></p>
         <p className="text-purple-300/70">Capacity: <span className="text-purple-200 font-semibold">{opp.capacity}</span></p>
       </div>
 
-      <button className="w-full mt-4 px-3 py-2 rounded-lg bg-purple-500/20 border border-purple-400/40 text-xs font-semibold text-purple-200 hover:bg-purple-500/30 transition">
+      <button className="w-full mt-4 px-3 py-2 rounded-lg bg-purple-500/20 border border-purple-400/40 text-sm sm:text-base font-semibold text-purple-200 hover:bg-purple-500/30 transition">
         Apply Now
       </button>
     </div>
@@ -120,18 +120,18 @@ function TradingHistoryAnalysis() {
 
   return (
     <div className="rounded-lg border border-purple-300/20 bg-purple-500/8 p-4 space-y-3">
-      <p className="text-xs font-bold uppercase tracking-widest text-purple-300">Trading History Analysis</p>
+      <p className="text-sm sm:text-base font-bold uppercase tracking-widest text-purple-300">Trading History Analysis</p>
       
       <div className="grid grid-cols-2 gap-2">
         {analysisPoints.map((point, idx) => (
           <div key={idx} className="rounded-lg bg-slate-950/40 p-2.5 border border-purple-300/15">
-            <p className="text-[10px] text-purple-300/60">{point.label}</p>
-            <p className={`text-base font-bold mt-1 ${point.color}`}>{point.value}</p>
+            <p className="text-xs sm:text-sm text-purple-300/60">{point.label}</p>
+            <p className={`text-lg sm:text-xl font-bold mt-1 ${point.color}`}>{point.value}</p>
           </div>
         ))}
       </div>
 
-      <p className="text-xs text-purple-300/80">Consistent profitability and liquid asset rotation signal reliable borrower standing. Accessible for undercollateralized lending at 90% ratio.</p>
+      <p className="text-sm sm:text-base text-purple-300/80">Consistent profitability and liquid asset rotation signal reliable borrower standing. Accessible for undercollateralized lending at 90% ratio.</p>
     </div>
   );
 }
@@ -236,12 +236,12 @@ export function UndercollateralizedLendingModule() {
         {/* Dramatic Header with Typing Reveal */}
         <div className="space-y-3 sm:space-y-4 border-b border-purple-300/20 pb-4 sm:pb-6">
           <div className="space-y-2">
-            <p className="text-[9px] sm:text-xs font-mono uppercase tracking-widest text-purple-300/60">&gt; [ALGORITHMIC_TRUST] CAPITAL_EFFICIENCY</p>
+            <p className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-purple-300/60">&gt; [ALGORITHMIC_TRUST] CAPITAL_EFFICIENCY</p>
             <div className="text-2xl sm:text-3xl">
               <TypingReveal text="Undercollateralized Lending — Capital Access Unlocked" delay={100} speed={40} />
             </div>
           </div>
-          <p className="text-xs sm:text-sm leading-relaxed text-slate-300/90">
+          <p className="text-sm sm:text-base leading-relaxed text-slate-300/90">
             King AI audits on-chain reputation, trading patterns, and yield accrual flows to unlock capital at 80-110% collateral ratios. Revolutionary capital efficiency powered by algorithmic trust. No centralized intermediary. Pure sovereign lending.
           </p>
         </div>
@@ -269,7 +269,7 @@ export function UndercollateralizedLendingModule() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap ${
+                className={`px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap ${
                   activeTab === tab
                     ? 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15'
                     : 'text-purple-300/60 hover:text-purple-300/80 border border-purple-300/10 hover:border-purple-300/20'
@@ -315,15 +315,15 @@ export function UndercollateralizedLendingModule() {
               <div className="rounded-lg border-l-4 border-l-purple-400/60 border border-purple-300/20 bg-gradient-to-r from-purple-500/12 to-slate-900/40 p-4 space-y-2">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                  <p className="text-xs font-bold uppercase tracking-widest text-purple-300">Abraxas Priority Access</p>
+                  <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-purple-300">Abraxas Priority Access</p>
                 </div>
-                <p className="text-xs leading-relaxed text-slate-300/90">
+                <p className="text-sm sm:text-base leading-relaxed text-slate-300/90">
                   RWA vault holders and Sophia vault members get priority tier placement. Your vault position becomes your reputation signal. Capital efficiency multiplies.
                 </p>
               </div>
 
               <div className="text-center space-y-3">
-                <p className="text-xs text-purple-300/70">See how your $ABRA staking position qualifies</p>
+                <p className="text-sm sm:text-base text-purple-300/70">See how your $ABRA staking position qualifies</p>
                 <button
                   onClick={() => setShowQualifyToggle(!showQualifyToggle)}
                   className="w-full px-4 py-3 rounded-lg border border-purple-300/40 bg-purple-500/15 text-sm font-semibold text-purple-200 hover:bg-purple-500/25 transition"
@@ -334,7 +334,7 @@ export function UndercollateralizedLendingModule() {
 
                 {showQualifyToggle && (
                   <div className="rounded-lg border border-purple-300/20 bg-purple-500/12 p-4 space-y-2 animate-in fade-in duration-300">
-                    <p className="text-xs text-purple-300/80">
+                    <p className="text-sm sm:text-base text-purple-300/80">
                       <span className="font-semibold text-purple-200">Your Position:</span> If you hold $ABRA, your vault share immediately qualifies you for undercollateralized lending pools. Your on-chain reputation score is actively monitored and updated. Borrow and earn simultaneously.
                     </p>
                   </div>
@@ -347,8 +347,8 @@ export function UndercollateralizedLendingModule() {
           {activeTab === 'opportunities' && (
             <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
               <div className="space-y-2">
-                <p className="text-xs font-bold uppercase tracking-widest text-purple-300">Current Verified Opportunities</p>
-                <p className="text-xs text-purple-300/70">APY 12-18% on undercollateralized positions. King AI surfaces new verified opportunities weekly.</p>
+                <p className="text-sm sm:text-base font-bold uppercase tracking-widest text-purple-300">Current Verified Opportunities</p>
+                <p className="text-xs sm:text-sm text-purple-300/70">APY 12-18% on undercollateralized positions. King AI surfaces new verified opportunities weekly.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -389,7 +389,7 @@ export function UndercollateralizedLendingModule() {
 
         {/* BUY $ABRA - BOTTOM CTA */}
         <div className="border-t border-purple-300/20 pt-5 sm:pt-6 text-center space-y-3 sm:space-y-4">
-          <p className="text-[9px] sm:text-xs font-mono text-purple-300/80 uppercase tracking-widest">&gt; [CAPITAL_EFFICIENCY] UNLOCK_YOUR_POSITION</p>
+          <p className="text-[10px] sm:text-xs font-mono text-purple-300/80 uppercase tracking-widest">&gt; [CAPITAL_EFFICIENCY] UNLOCK_YOUR_POSITION</p>
           <a
             href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
             target="_blank"
