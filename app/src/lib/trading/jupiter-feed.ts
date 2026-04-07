@@ -121,7 +121,7 @@ export async function fetchOHLCVData(
   try {
     // In production, use Jupiter API or actual price data provider
     // This is a demonstration structure
-    const basePrice = getMockBasePrice(symbol);
+    let basePrice = getMockBasePrice(symbol);
     const candles: OHLCV[] = [];
 
     const timeframeMs = getTimeframeMs(timeframe);
