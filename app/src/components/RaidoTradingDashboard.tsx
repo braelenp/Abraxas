@@ -51,13 +51,13 @@ export function RaidoTradingDashboard({
 
   const allocatedBalance = Math.min(allocationBySakeTier[userStakeTier], userAbraBalance * 0.1);
 
-  // Initialize bot on mount
+  // Initialize bot on mount (but don't auto-start polling to avoid page scrolling)
   useEffect(() => {
     if (botRef.current) return;
 
     const serverConfig = {
       port: 3001,
-      pollIntervalMs: 60000, // Poll every minute
+      pollIntervalMs: 60000, // Poll every minute (when started manually)
       maxConcurrentTrades: 5,
       enableAutoCompounding: true,
       abraVaultAddress: 'GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm',
@@ -81,14 +81,14 @@ export function RaidoTradingDashboard({
     botRef.current = newBot;
     setBot(newBot);
 
-    // Start price feed streaming
-    startPriceFeedStreaming(newBot, RAIDO_SYMBOLS).then((cleanup) => {
-      cleanupRef.current = cleanup;
-    });
+    // Do NOT auto-start price feed streaming to prevent continuous re-renders
+    // User must manually start the bot via handleStartBot() button
 
     return () => {
       cleanupRef.current?.();
-      newBot.stopPolling();
+      if (botRef.current) {
+        botRef.current.stopPolling();
+      }
     };
   }, [allocatedBalance]);
 
