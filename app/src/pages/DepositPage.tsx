@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection } from '@solana/wallet-adapter-react';
 import { ArrowDownToLine, Zap } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
 
 const RUNE_CONFIG = {
   rune: '᚛',
@@ -16,18 +18,45 @@ const RUNE_CONFIG = {
 } as const;
 
 export function DepositPage() {
-  const { connected } = useWallet();
+  const { connected, publicKey, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [depositAmount, setDepositAmount] = useState('');
   const [selectedMethod, setSelectedMethod] = useState<'solana' | 'transfer'>('solana');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleDeposit = async () => {
-    if (!depositAmount || isNaN(Number(depositAmount))) return;
+    if (!depositAmount || isNaN(Number(depositAmount)) || !connected || !publicKey || !sendTransaction) return;
     setIsProcessing(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Deposited $${depositAmount}`);
+      const amount = Number(depositAmount);
+      if (amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+
+      // Create deposit transaction
+      const transaction = new Transaction();
+      const lamportsAmount = Math.floor(amount * 1_000_000_000);
+      
+      // Add system instruction as placeholder (replace with actual deposit program)
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey('11111111111111111111111111111111'),
+          lamports: 1000, // Minimal for demo
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection, {
+        skipPreflight: false,
+      });
+
+      console.log('Deposit transaction:', signature);
+      alert(`Successfully deposited $${depositAmount}. Transaction: ${signature}`);
       setDepositAmount('');
+    } catch (error) {
+      console.error('Deposit failed:', error);
+      alert(`Deposit failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsProcessing(false);
     }

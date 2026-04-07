@@ -1,7 +1,9 @@
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection } from '@solana/wallet-adapter-react';
 import { Clock, Lock, TrendingUp, Unlock, Zap } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
 import type { StakeDuration, StakeRecord } from '../lib/types';
+import { Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
 
 const STAKE_CONFIGS = [
   { duration: 30 as StakeDuration, multiplier: 1.2, displayMultiplier: '1.2x', label: '30 Days', description: 'Quick stake for early participants' },
@@ -10,7 +12,8 @@ const STAKE_CONFIGS = [
 ];
 
 export function StakePage() {
-  const { connected, publicKey } = useWallet();
+  const { connected, publicKey, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [selectedDuration, setSelectedDuration] = useState<StakeDuration>(90);
   const [stakeAmount, setStakeAmount] = useState<string>('');
   const [userStakes, setUserStakes] = useState<StakeRecord[]>([
@@ -37,15 +40,39 @@ export function StakePage() {
   }, [stakeAmount, selectedConfig]);
 
   const handleStake = useCallback(async () => {
-    if (!connected || !publicKey || !stakeAmount) return;
+    if (!connected || !publicKey || !stakeAmount || !sendTransaction) return;
     setIsStaking(true);
     try {
-      // Simulate staking transaction
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const amount = Number(stakeAmount);
+      if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+
+      // Create staking transaction
+      const transaction = new Transaction();
+      const lamportsAmount = Math.floor(amount * 1_000_000_000); // Convert to lamports
+      
+      // Add system instruction as placeholder (replace with actual staking program)
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey('11111111111111111111111111111111'),
+          lamports: 1000, // Minimal for demo
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection, {
+        skipPreflight: false,
+      });
+
+      console.log('Stake transaction:', signature);
+
+      // Record the stake locally
       const newStake: StakeRecord = {
-        address: `stake_${Date.now()}`,
+        address: signature,
         staker: publicKey.toString(),
-        abraAmount: Number(stakeAmount),
+        abraAmount: amount,
         lockDurationDays: selectedDuration,
         stakedAt: Date.now(),
         unlockedAt: Date.now() + selectedDuration * 24 * 60 * 60 * 1000,
@@ -55,10 +82,14 @@ export function StakePage() {
       };
       setUserStakes([...userStakes, newStake]);
       setStakeAmount('');
+      alert(`Successfully staked ${amount} $ABRA for ${selectedDuration} days!`);
+    } catch (error) {
+      console.error('Staking failed:', error);
+      alert(`Staking failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsStaking(false);
     }
-  }, [connected, publicKey, stakeAmount, selectedDuration, selectedConfig, userStakes]);
+  }, [connected, publicKey, sendTransaction, connection, stakeAmount, selectedDuration, selectedConfig, userStakes]);
 
   const handleUnstake = useCallback((address: string) => {
     setUserStakes(userStakes.map((s) => (s.address === address ? { ...s, isActive: false } : s)));

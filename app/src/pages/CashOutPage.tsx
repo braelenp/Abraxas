@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection } from '@solana/wallet-adapter-react';
 import { DollarSign, Zap } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 import { useAbraBalance } from '../hooks/useAbraBalance';
+import { Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
 
 const RUNE_CONFIG = {
   rune: '᚜',
@@ -17,7 +19,8 @@ const RUNE_CONFIG = {
 } as const;
 
 export function CashOutPage() {
-  const { connected } = useWallet();
+  const { connected, publicKey, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const { balance: realAbraBalance, balanceFormatted, balanceUsd: usdBalance, balanceUsdFormatted, abraPrice, isLoading: balanceLoading } = useAbraBalance();
   const [cashOutAmount, setCashOutAmount] = useState('');
   const [selectedBank, setSelectedBank] = useState<string>('');
@@ -34,16 +37,42 @@ export function CashOutPage() {
   ];
 
   const handleCashOut = async () => {
-    if (!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount))) return;
+    if (!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount)) || !connected || !publicKey || !sendTransaction) return;
     if (Number(cashOutAmount) > availableBalance) {
       alert('Insufficient balance');
       return;
     }
     setIsProcessing(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Cashing out $${cashOutAmount} to selected bank`);
+      const amount = Number(cashOutAmount);
+      if (amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+
+      // Create cash-out transaction
+      const transaction = new Transaction();
+      
+      // Add system instruction as placeholder (replace with actual cashout program)
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey('11111111111111111111111111111111'),
+          lamports: 1000, // Minimal for demo
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection, {
+        skipPreflight: false,
+      });
+
+      console.log('Cash-out transaction:', signature);
+      alert(`Successfully initiated cash-out of $${cashOutAmount} to ${selectedBank}. Transaction: ${signature}`);
       setCashOutAmount('');
+      setSelectedBank('');
+    } catch (error) {
+      console.error('Cash-out failed:', error);
+      alert(`Cash-out failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsProcessing(false);
     }

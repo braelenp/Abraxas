@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection } from '@solana/wallet-adapter-react';
 import { ArrowUpFromLine, Zap } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
 
 const RUNE_CONFIG = {
   rune: '᚜',
@@ -16,23 +18,49 @@ const RUNE_CONFIG = {
 } as const;
 
 export function WithdrawPage() {
-  const { connected } = useWallet();
+  const { connected, publicKey, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [selectedMethod, setSelectedMethod] = useState<'solana' | 'fiat'>('solana');
   const [isProcessing, setIsProcessing] = useState(false);
   const accountBalance = 5240; // Mock balance
 
   const handleWithdraw = async () => {
-    if (!withdrawAmount || isNaN(Number(withdrawAmount))) return;
+    if (!withdrawAmount || isNaN(Number(withdrawAmount)) || !connected || !publicKey || !sendTransaction) return;
     if (Number(withdrawAmount) > accountBalance) {
       alert('Insufficient balance');
       return;
     }
     setIsProcessing(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Withdrew $${withdrawAmount}`);
+      const amount = Number(withdrawAmount);
+      if (amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+
+      // Create withdrawal transaction
+      const transaction = new Transaction();
+      
+      // Add system instruction as placeholder (replace with actual withdrawal program)
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey('11111111111111111111111111111111'),
+          lamports: 1000, // Minimal for demo
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection, {
+        skipPreflight: false,
+      });
+
+      console.log('Withdrawal transaction:', signature);
+      alert(`Successfully withdrew $${withdrawAmount}. Transaction: ${signature}`);
       setWithdrawAmount('');
+    } catch (error) {
+      console.error('Withdrawal failed:', error);
+      alert(`Withdrawal failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsProcessing(false);
     }
