@@ -218,7 +218,9 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           ...prev,
           isLoading: false,
           error: errorMessage,
-          hasMinimum: prev.hasMinimum,
+          // Only preserve hasMinimum if not first load (prev.isLoading was false)
+          // On initial load errors, reset to false but show error message
+          hasMinimum: prev.isLoading ? false : prev.hasMinimum,
         }));
       }
     };
