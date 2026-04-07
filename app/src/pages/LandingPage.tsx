@@ -382,7 +382,7 @@ export function LandingPage() {
 					</div>
 
 					<div className="flex flex-col justify-center gap-4 sm:flex-row">
-						<CTAButton text="Enter the Forge" href="/app" />
+					<CTAButton text="✧ Start Initiation" href="/app" />
 						<CTAButton text="Buy $ABRA" href="https://bags.fm" />
 						<CTAButton text="Join Discord" href="https://discord.gg/tdyukTeSS" />
 					</div>
