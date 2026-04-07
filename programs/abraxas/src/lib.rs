@@ -13,6 +13,12 @@ const THIRTY_DAY_SECONDS: u64 = 30 * SECONDS_PER_DAY;
 const NINETY_DAY_SECONDS: u64 = 90 * SECONDS_PER_DAY;
 const ONE_EIGHTY_DAY_SECONDS: u64 = 180 * SECONDS_PER_DAY;
 
+// Profile & Airdrop Constants
+const MAX_USERNAME_LEN: usize = 32;
+const MAX_BLESSING_LEN: usize = 256;
+const MAX_REFERRAL_CODE_LEN: usize = 16;
+const MAX_ABRAXAS_ID_LEN: usize = 16;
+
 #[program]
 pub mod abraxas {
     use super::*;
@@ -424,6 +430,141 @@ pub mod abraxas {
 
         Ok(())
     }
+
+    // ──── Profile & Airdrop Instructions ────
+
+    pub fn create_user_profile(
+        ctx: Context<CreateUserProfile>,
+        abraxas_id: String,
+        rune: String,
+        blessing: String,
+        username: Option<String>,
+    ) -> Result<()> {
+        require!(abraxas_id.len() <= MAX_ABRAXAS_ID_LEN, AbraxasError::IdTooLong);
+        require!(blessing.len() <= MAX_BLESSING_LEN, AbraxasError::BlessingTooLong);
+        if let Some(ref un) = username {
+            require!(un.len() <= MAX_USERNAME_LEN, AbraxasError::UsernameTooLong);
+        }
+
+        let profile = &mut ctx.accounts.profile;
+        profile.wallet_address = ctx.accounts.owner.key();
+        profile.abraxas_id = abraxas_id.clone();
+        profile.rune = rune.clone();
+        profile.blessing = blessing.clone();
+        profile.username = username.clone();
+        profile.created_at = Clock::get()?.unix_timestamp as u64;
+        profile.last_updated_at = profile.created_at;
+        profile.airdrop_points = 100; // Initial points for profile creation
+        profile.referrals_sent = 0;
+        profile.successful_referrals = 0;
+        profile.referral_code = format!("REF-{}", abraxas_id.clone());
+
+        emit!(UserProfileCreated {
+            wallet: ctx.accounts.owner.key(),
+            abraxas_id: abraxas_id.clone(),
+            rune: rune.clone(),
+            username: username.clone(),
+        });
+
+        Ok(())
+    }
+
+    pub fn record_airdrop_action(
+        ctx: Context<RecordAirdropAction>,
+        action_type: String,
+        points_awarded: u32,
+    ) -> Result<()> {
+        let profile = &mut ctx.accounts.profile;
+        require!(profile.wallet_address == ctx.accounts.owner.key(), AbraxasError::Unauthorized);
+
+        profile.airdrop_points = profile
+            .airdrop_points
+            .checked_add(u64::from(points_awarded))
+            .ok_or(AbraxasError::MathOverflow)?;
+        profile.last_updated_at = Clock::get()?.unix_timestamp as u64;
+
+        emit!(AirdropActionRecorded {
+            wallet: ctx.accounts.owner.key(),
+            action: action_type.clone(),
+            points_awarded,
+            total_points: profile.airdrop_points,
+        });
+
+        Ok(())
+    }
+
+    pub fn record_referral(
+        ctx: Context<RecordReferral>,
+        referral_type: String,
+        points_awarded: u32,
+    ) -> Result<()> {
+        let profile = &mut ctx.accounts.profile;
+        require!(profile.wallet_address == ctx.accounts.owner.key(), AbraxasError::Unauthorized);
+
+        profile.referrals_sent = profile
+            .referrals_sent
+            .checked_add(1)
+            .ok_or(AbraxasError::MathOverflow)?;
+
+        profile.airdrop_points = profile
+            .airdrop_points
+            .checked_add(u64::from(points_awarded))
+            .ok_or(AbraxasError::MathOverflow)?;
+
+        profile.last_updated_at = Clock::get()?.unix_timestamp as u64;
+
+        let referral_record = &mut ctx.accounts.referral_record;
+        referral_record.referrer = ctx.accounts.owner.key();
+        referral_record.referral_type = referral_type.clone();
+        referral_record.points_awarded = u64::from(points_awarded);
+        referral_record.created_at = Clock::get()?.unix_timestamp as u64;
+        referral_record.status = ReferralStatus::Pending;
+
+        emit!(ReferralRecorded {
+            referrer: ctx.accounts.owner.key(),
+            referral_type: referral_type.clone(),
+            points_awarded,
+        });
+
+        Ok(())
+    }
+
+    pub fn record_off_ramp(
+        ctx: Context<RecordOffRamp>,
+        abra_amount: u64,
+        usdc_amount: u64,
+        fiat_amount: u64,
+        payment_method: String,
+    ) -> Result<()> {
+        let profile = &mut ctx.accounts.profile;
+        require!(profile.wallet_address == ctx.accounts.owner.key(), AbraxasError::Unauthorized);
+
+        let off_ramp_record = &mut ctx.accounts.off_ramp_record;
+        off_ramp_record.wallet = ctx.accounts.owner.key();
+        off_ramp_record.abra_amount = abra_amount;
+        off_ramp_record.usdc_amount = usdc_amount;
+        off_ramp_record.fiat_amount = fiat_amount;
+        off_ramp_record.payment_method = payment_method.clone();
+        off_ramp_record.created_at = Clock::get()?.unix_timestamp as u64;
+        off_ramp_record.status = OffRampStatus::Completed;
+
+        // Award points for off-ramp (10 engagement points)
+        profile.airdrop_points = profile
+            .airdrop_points
+            .checked_add(10)
+            .ok_or(AbraxasError::MathOverflow)?;
+        profile.last_updated_at = Clock::get()?.unix_timestamp as u64;
+
+        emit!(OffRampRecorded {
+            wallet: ctx.accounts.owner.key(),
+            abra_amount,
+            usdc_amount,
+            fiat_amount,
+            payment_method: payment_method.clone(),
+        });
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -515,6 +656,64 @@ pub struct ClaimStakes<'info> {
     pub stake: Account<'info, StakeAccount>,
 }
 
+// ──── Profile & Airdrop Account Structs ────
+
+#[derive(Accounts)]
+pub struct CreateUserProfile<'info> {
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    #[account(
+        init,
+        payer = owner,
+        space = 8 + UserProfileAccount::INIT_SPACE,
+        seeds = [b"profile", owner.key().as_ref()],
+        bump
+    )]
+    pub profile: Account<'info, UserProfileAccount>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct RecordAirdropAction<'info> {
+    pub owner: Signer<'info>,
+    #[account(mut, seeds = [b"profile", owner.key().as_ref()], bump)]
+    pub profile: Account<'info, UserProfileAccount>,
+}
+
+#[derive(Accounts)]
+pub struct RecordReferral<'info> {
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    #[account(mut, seeds = [b"profile", owner.key().as_ref()], bump)]
+    pub profile: Account<'info, UserProfileAccount>,
+    #[account(
+        init,
+        payer = owner,
+        space = 8 + ReferralRecordAccount::INIT_SPACE,
+        seeds = [b"referral", owner.key().as_ref(), owner.key().as_ref()],
+        bump
+    )]
+    pub referral_record: Account<'info, ReferralRecordAccount>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct RecordOffRamp<'info> {
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    #[account(mut, seeds = [b"profile", owner.key().as_ref()], bump)]
+    pub profile: Account<'info, UserProfileAccount>,
+    #[account(
+        init,
+        payer = owner,
+        space = 8 + OffRampRecordAccount::INIT_SPACE,
+        seeds = [b"offramp", owner.key().as_ref(), &Clock::get()?.unix_timestamp.to_le_bytes()],
+        bump
+    )]
+    pub off_ramp_record: Account<'info, OffRampRecordAccount>,
+    pub system_program: Program<'info, System>,
+}
+
 #[account]
 #[derive(InitSpace)]
 pub struct VaultAccount {
@@ -566,6 +765,66 @@ pub struct StakeAccount {
     pub multiplier_bps: u64,
     pub is_active: bool,
     pub claimed_rewards: u64,
+}
+
+// ──── Profile & Airdrop Account Structs ────
+
+#[account]
+#[derive(InitSpace)]
+pub struct UserProfileAccount {
+    pub wallet_address: Pubkey,
+    #[max_len(MAX_ABRAXAS_ID_LEN)]
+    pub abraxas_id: String,
+    pub rune: String, // Single character rune
+    #[max_len(MAX_BLESSING_LEN)]
+    pub blessing: String,
+    #[max_len(MAX_USERNAME_LEN)]
+    pub username: Option<String>,
+    pub created_at: u64,
+    pub last_updated_at: u64,
+    pub airdrop_points: u64,
+    pub referrals_sent: u32,
+    pub successful_referrals: u32,
+    #[max_len(MAX_REFERRAL_CODE_LEN)]
+    pub referral_code: String,
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct ReferralRecordAccount {
+    pub referrer: Pubkey,
+    #[max_len(32)]
+    pub referral_type: String, // "share", "signup", "staking"
+    pub points_awarded: u64,
+    pub created_at: u64,
+    pub status: ReferralStatus,
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct OffRampRecordAccount {
+    pub wallet: Pubkey,
+    pub abra_amount: u64,
+    pub usdc_amount: u64,
+    pub fiat_amount: u64,
+    #[max_len(32)]
+    pub payment_method: String, // "apple_pay", "cash_app"
+    pub created_at: u64,
+    pub status: OffRampStatus,
+}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug, InitSpace, PartialEq, Eq)]
+pub enum ReferralStatus {
+    Pending,
+    Claimed,
+    Failed,
+}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug, InitSpace, PartialEq, Eq)]
+pub enum OffRampStatus {
+    Pending,
+    Completed,
+    Failed,
 }
 
 #[event]
@@ -640,6 +899,40 @@ pub struct AbrasRewardsClaimed {
     pub total_value: u64,
 }
 
+// ──── Profile & Airdrop Events ────
+
+#[event]
+pub struct UserProfileCreated {
+    pub wallet: Pubkey,
+    pub abraxas_id: String,
+    pub rune: String,
+    pub username: Option<String>,
+}
+
+#[event]
+pub struct AirdropActionRecorded {
+    pub wallet: Pubkey,
+    pub action: String,
+    pub points_awarded: u32,
+    pub total_points: u64,
+}
+
+#[event]
+pub struct ReferralRecorded {
+    pub referrer: Pubkey,
+    pub referral_type: String,
+    pub points_awarded: u32,
+}
+
+#[event]
+pub struct OffRampRecorded {
+    pub wallet: Pubkey,
+    pub abra_amount: u64,
+    pub usdc_amount: u64,
+    pub fiat_amount: u64,
+    pub payment_method: String,
+}
+
 #[error_code]
 pub enum AbraxasError {
     #[msg("Unauthorized request")]
@@ -668,4 +961,10 @@ pub enum AbraxasError {
     StakeLocked,
     #[msg("Stake has not been unstaked yet")]
     StakeNotUnstaked,
+    #[msg("Abraxas ID exceeds max length")]
+    IdTooLong,
+    #[msg("Blessing exceeds max length")]
+    BlessingTooLong,
+    #[msg("Username exceeds max length")]
+    UsernameTooLong,
 }

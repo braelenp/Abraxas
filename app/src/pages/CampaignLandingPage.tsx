@@ -328,11 +328,18 @@ function MonolithTransmutationGate() {
   const { publicKey } = useWallet();
   const { profile } = useUserProfile();
   const [hasMonolith, setHasMonolith] = useState(false);
+  const [showMintComponent, setShowMintComponent] = useState(false);
 
   // Placeholder: would check on-chain for Monolith NFT
   const checkMonolithOwnership = async () => {
     // TODO: Implement actual on-chain checking via world-labs or Metaplex
     console.log('Checking Monolith ownership for:', publicKey?.toString());
+  };
+
+  const handleMintSuccess = (mintAddress: string) => {
+    setHasMonolith(true);
+    setShowMintComponent(false);
+    console.log('Monolith minted:', mintAddress);
   };
 
   useEffect(() => {
@@ -342,6 +349,33 @@ function MonolithTransmutationGate() {
   }, [publicKey]);
 
   if (!profile) return null;
+
+  // Show mint component if user clicks "Mint Monolith"
+  if (showMintComponent) {
+    const { PhantomNFTMintComponent } = require('../components/PhantomNFTMintComponent');
+    return (
+      <div className="mb-12">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
+            ∴ Monolith Transmutation ∴
+          </h2>
+          <p className="text-xs text-slate-300 mt-2">Genesis NFT Minting</p>
+        </div>
+
+        <PhantomNFTMintComponent 
+          nftType="monolith"
+          onSuccess={handleMintSuccess}
+        />
+
+        <button
+          onClick={() => setShowMintComponent(false)}
+          className="w-full mt-4 px-6 py-2 rounded-lg border border-slate-400/40 bg-slate-800/30 text-slate-400 font-semibold text-sm hover:bg-slate-800/50 transition"
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-12">
@@ -372,12 +406,15 @@ function MonolithTransmutationGate() {
               <p className="text-sm text-slate-300">
                 Hold minimum <span className="text-orange-300 font-semibold">$ABRA</span> to mint your Monolith NFT
               </p>
-              <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-purple-500/60 bg-purple-600/20 text-purple-300 font-semibold text-sm hover:bg-purple-600/30 transition-all shadow-[0_0_16px_rgba(153,69,255,0.2)]">
+              <button 
+                onClick={() => setShowMintComponent(true)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-purple-500/60 bg-purple-600/20 text-purple-300 font-semibold text-sm hover:bg-purple-600/30 transition-all shadow-[0_0_16px_rgba(153,69,255,0.2)]"
+              >
                 Mint Monolith
                 <ArrowRight size={16} />
               </button>
               <p className="text-xs text-slate-400 text-center">
-                Coming Soon • Full $ABRA holdings verification required
+                Live now • Mint with Phantom wallet
               </p>
             </>
           )}

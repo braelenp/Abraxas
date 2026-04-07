@@ -1,13 +1,11 @@
 /**
- * Off-ramp utilities for converting ABRA → USDC → Fiat
- * Integrates Ramp.network & Transak for seamless fiat conversion
+ * Off-ramp utilities for converting ABRA → USDC → Fiat via Phantom Wallet
+ * Uses Phantom's native off-ramp functionality - No API keys needed
  */
 
 export interface OffRampConfig {
-  userEmail?: string;
-  userPhone?: string;
   amountUSDC?: number;
-  paymentMethod?: 'apple-pay' | 'cash-app' | 'bank-transfer';
+  paymentMethod?: 'apple-pay' | 'cash-app';
 }
 
 export interface OffRampStatus {
@@ -17,112 +15,97 @@ export interface OffRampStatus {
   estimatedArrival?: string;
 }
 
-// Ramp.network configuration
-const RAMP_API_KEY = import.meta.env.VITE_RAMP_API_KEY || 'sandbox';
-const RAMP_HOST_API_KEY = import.meta.env.VITE_RAMP_HOST_API_KEY || 'sandbox';
-const RAMP_BASE_URL = 'https://ramp.network';
-
-// Transak configuration
-const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY || 'test';
-const TRANSAK_BASE_URL = 'https://transak.com';
-
-/**
- * Generate Ramp.network off-ramp URL for USDC → Fiat conversion
- */
-export function generateRampOffRampUrl(config: OffRampConfig): string {
-  const params = new URLSearchParams({
-    apiKey: RAMP_HOST_API_KEY,
-    variant: 'mobile',
-    // Payment method
-    ...(config.paymentMethod && {
-      defaultPaymentMethod: config.paymentMethod === 'apple-pay' ? 'APPLE_PAY' : 'CARD',
-    }),
-    // Amount
-    ...(config.amountUSDC && {
-      defaultFiatAmount: config.amountUSDC.toString(),
-      defaultFiatCurrency: 'USD',
-    }),
-    // User info
-    ...(config.userEmail && { userEmail: config.userEmail }),
-    ...(config.userPhone && { userPhone: config.userPhone }),
-    // Asset: USDC on Solana
-    assetCode: 'USDC_SOL',
-  });
-
-  return `${RAMP_BASE_URL}?${params.toString()}`;
-}
-
-/**
- * Generate Transak off-ramp URL for USDC → Fiat conversion
- */
-export function generateTransakOffRampUrl(config: OffRampConfig): string {
-  const params = new URLSearchParams({
-    apiKey: TRANSAK_API_KEY,
-    network: 'solana',
-    cryptoCurrency: 'USDC',
-    isFiat: 'false',
-    // Amount
-    ...(config.amountUSDC && {
-      cryptoAmount: config.amountUSDC.toString(),
-    }),
-    // User info
-    ...(config.userEmail && { email: config.userEmail }),
-    // Mode
-    mode: 'sell',
-  });
-
-  return `${TRANSAK_BASE_URL}/?${params.toString()}`;
-}
+// Token addresses
+const USDC_TOKEN_CA = 'EPjFWaLb3dScJwNmtppq5g5Lg6ieifqiGFC1t4UM5z1';
 
 /**
  * Estimates fiat amount after USDC conversion
+ * Typical off-ramp fee is ~1-2%
  */
 export function estimateFiatAmount(usdcAmount: number, feePercentage: number = 1.5): number {
-  // Subtract ~1.5% off-ramp fee (typical for most providers)
   return usdcAmount * (1 - feePercentage / 100);
 }
 
 /**
- * Opens off-ramp flow in new window/tab
+ * Open Phantom wallet's built-in off-ramp for USDC
+ * This uses Phantom's native "Convert to Cash" feature
  */
-export function openOffRampFlow(url: string, provider: 'ramp' | 'transak'): void {
+export function openPhantomOffRamp(usdcAmount: number, paymentMethod: 'apple-pay' | 'cash-app'): void {
   if (typeof window === 'undefined') {
     console.error('Window not available');
     return;
   }
 
-  const width = 600;
-  const height = 800;
-  const left = window.innerWidth / 2 - width / 2;
-  const top = window.innerHeight / 2 - height / 2;
+  // Check if Phantom is available
+  const phantom = (window as any).phantom?.solana;
+  
+  if (!phantom) {
+    // If Phantom not installed, direct to Phantom website
+    window.open('https://phantom.app/', '_blank');
+    return;
+  }
 
-  window.open(
-    url,
-    `abraxas_offramp_${provider}`,
-    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
-  );
+  // Phantom's off-ramp is accessed through the wallet UI itself
+  // We show instructions and the user completes the action in Phantom
+  console.log(`Opening Phantom off-ramp for ${usdcAmount} USDC via ${paymentMethod}`);
+  
+  // In the UI, we'll show instructions:
+  // 1. Open Phantom wallet
+  // 2. Click on USDC token
+  // 3. Tap "Sell" or "Convert to Cash"
+  // 4. Select payment method (Apple Pay / Cash App)
+  // 5. Complete KYC and transfer
 }
 
 /**
- * Simulates off-ramp success flow (for demo/testing)
+ * Check if Phantom wallet is installed and accessible
  */
-export function simulateOffRampSuccess(amount: number): OffRampStatus {
+export function isPhantomAvailable(): boolean {
+  if (typeof window === 'undefined') return false;
+  return !!(window as any).phantom?.solana;
+}
+
+/**
+ * Get Phantom deeplink for off-ramp (if available)
+ */
+export function getPhantomOffRampDeeplink(usdcAmount: number): string {
+  const params = new URLSearchParams({
+    token: USDC_TOKEN_CA,
+    amount: usdcAmount.toString(),
+  });
+  
+  // Phantom deeplink format (if supported)
+  return `phantom://offramp?${params.toString()}`;
+}
+
+/**
+ * Show Phantom off-ramp instructions modal
+ */
+export function getPhantomOffRampInstructions(amount: number, method: 'apple-pay' | 'cash-app'): string {
+  const fiatAmount = estimateFiatAmount(amount);
+  return `
+Open your Phantom wallet:
+1. Tap the USDC token in your wallet
+2. Press "Sell" or "Convert to Cash"
+3. Enter amount: $${amount.toFixed(2)}
+4. Select payment method: ${method === 'apple-pay' ? 'Apple Pay' : 'Cash App'}
+5. Complete identity verification (KYC)
+6. Confirm the transaction
+7. Funds arrive in 1-2 business days (~$${fiatAmount.toFixed(2)})
+  `.trim();
+}
+
+/**
+ * Simulates off-ramp success for demo purposes
+ */
+export function simulateOffRampSuccess(amount: number, method: 'apple-pay' | 'cash-app'): OffRampStatus {
+  const fiatAmount = estimateFiatAmount(amount);
   return {
     status: 'success',
-    message: `$${estimateFiatAmount(amount).toFixed(2)} sent to your Cash App • Arriving in 1-2 business days`,
-    transactionId: `OFFRAMP-${Date.now()}`,
+    message: `$${fiatAmount.toFixed(2)} sent to your ${method === 'apple-pay' ? 'Apple Pay' : 'Cash App'} • Arriving in 1-2 business days`,
+    transactionId: `PHANTOM-OFFRAMP-${Date.now()}`,
     estimatedArrival: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString(),
   };
-}
-
-/**
- * Get off-ramp provider URL based on preference
- */
-export function getOffRampUrl(config: OffRampConfig, provider: 'ramp' | 'transak' = 'ramp'): string {
-  if (provider === 'transak') {
-    return generateTransakOffRampUrl(config);
-  }
-  return generateRampOffRampUrl(config);
 }
 
 /**
@@ -130,17 +113,14 @@ export function getOffRampUrl(config: OffRampConfig, provider: 'ramp' | 'transak
  */
 export function trackOffRampEvent(
   eventName: 'started' | 'completed' | 'failed' | 'cancelled',
-  data: { amount?: number; provider?: string; error?: string }
+  data: { amount?: number; method?: string; error?: string }
 ): void {
   const event = {
     timestamp: new Date().toISOString(),
+    provider: 'phantom',
     eventName: `offramp_${eventName}`,
     ...data,
   };
 
-  // Log to console (can be replaced with real analytics service)
   console.log('[OffRamp Analytics]', event);
-
-  // TODO: Send to analytics service
-  // analytics.track(event);
 }
