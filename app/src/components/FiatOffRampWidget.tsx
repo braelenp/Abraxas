@@ -40,7 +40,7 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
   compact = false,
 }) => {
   const { publicKey, connected } = useWallet();
-  const { balance: realAbraBalance, balanceFormatted, isLoading: balanceLoading } = useAbraBalance();
+  const { balance: realAbraBalance, balanceFormatted, balanceUsd, balanceUsdFormatted, abraPrice, isLoading: balanceLoading } = useAbraBalance();
 
   const [step, setStep] = useState<ConversionStep>({
     phase: 'input',
@@ -184,7 +184,10 @@ export const FiatOffRampWidget: React.FC<FiatOffRampWidgetProps> = ({
             {balanceLoading ? (
               <span className="text-cyan-400/50 text-xs">Loading...</span>
             ) : (
-              <span className="text-cyan-300 text-xs font-mono">{balanceFormatted}</span>
+              <div className="text-right">
+                <span className="text-cyan-300 text-xs font-mono block">{balanceUsdFormatted}</span>
+                <span className="text-cyan-400/50 text-[10px] font-mono">{balanceFormatted} ABRA @ ${abraPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
             )}
           </div>
           <input

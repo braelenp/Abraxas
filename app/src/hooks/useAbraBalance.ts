@@ -3,10 +3,14 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID, getAccount, getMint } from '@solana/spl-token';
 import { ABRA_TOKEN_MINT, MINIMUM_ABRA_FOR_ACCESS } from '../lib/solana';
+import { fetchAbraPrice } from '../lib/abraPrice';
 
 interface AbraBalanceState {
   balance: number;
   balanceFormatted: string;
+  balanceUsd: number;
+  balanceUsdFormatted: string;
+  abraPrice: number;
   isLoading: boolean;
   error: string | null;
   hasMinimum: boolean;
@@ -27,6 +31,9 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
   const [state, setState] = useState<AbraBalanceState>({
     balance: 0,
     balanceFormatted: '0',
+    balanceUsd: 0,
+    balanceUsdFormatted: '$0.00',
+    abraPrice: 1,
     isLoading: true,
     error: null,
     hasMinimum: false,
@@ -80,10 +87,30 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
 
         // Try to use cached balance first
         const cached = getCachedBalance();
+        
+        // Fetch ABRA price
+        let abraPrice = 1;
+        try {
+          abraPrice = await fetchAbraPrice();
+        } catch (priceErr) {
+          console.warn('Could not fetch ABRA price, using default $1:', priceErr);
+        }
+
         if (cached) {
+          const balanceUsd = cached.balance * abraPrice;
+          const balanceUsdFormatted = balanceUsd.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+
           setState({
             balance: cached.balance,
             balanceFormatted: cached.balanceFormatted,
+            balanceUsd,
+            balanceUsdFormatted,
+            abraPrice,
             isLoading: false,
             error: null,
             hasMinimum: cached.balance >= minimumThreshold,
@@ -105,6 +132,9 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
             setState({
               balance: 0,
               balanceFormatted: '0',
+              balanceUsd: 0,
+              balanceUsdFormatted: '$0.00',
+              abraPrice: 1,
               isLoading: false,
               error: `ABRA token not deployed on this cluster. Switch to mainnet or use testnet with deployed token.`,
               hasMinimum: false,
@@ -132,12 +162,23 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           maximumFractionDigits: 2,
         });
 
+        const balanceUsd = balance * abraPrice;
+        const balanceUsdFormatted = balanceUsd.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
         // Cache the result
         setCachedBalance(balance, balanceFormatted);
 
         setState({
           balance,
           balanceFormatted,
+          balanceUsd,
+          balanceUsdFormatted,
+          abraPrice,
           isLoading: false,
           error: null,
           hasMinimum: balance >= minimumThreshold,

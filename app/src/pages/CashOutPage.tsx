@@ -18,14 +18,13 @@ const RUNE_CONFIG = {
 
 export function CashOutPage() {
   const { connected } = useWallet();
-  const { balance: realAbraBalance, balanceFormatted, isLoading: balanceLoading } = useAbraBalance();
+  const { balance: realAbraBalance, balanceFormatted, balanceUsd: usdBalance, balanceUsdFormatted, abraPrice, isLoading: balanceLoading } = useAbraBalance();
   const [cashOutAmount, setCashOutAmount] = useState('');
   const [selectedBank, setSelectedBank] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   
-  // Convert ABRA balance to estimated USD (simplified: 1 ABRA ≈ $1 for display)
-  // In production, this would fetch real price from Jupiter or CoinGecko
-  const availableBalance = realAbraBalance;
+  // Use USD balance for available amount
+  const availableBalance = usdBalance;
 
   const banks = [
     { id: 'chase', name: 'Chase Bank', icon: '🏦' },
@@ -71,10 +70,10 @@ export function CashOutPage() {
         <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-emerald-900/20 p-6 backdrop-blur">
           <p className="text-xs text-emerald-300/80 uppercase font-mono">Available for Cash Out</p>
           <p className="mt-2 text-4xl font-bold text-emerald-300">
-            {balanceLoading ? '...' : `$${availableBalance.toLocaleString('en-US', { maximumFractionDigits: 2 })}`}
+            {balanceLoading ? '...' : balanceUsdFormatted}
           </p>
           <p className="mt-1 text-xs text-emerald-300/70">
-            {balanceLoading ? 'Loading balance...' : `${balanceFormatted} ABRA`}
+            {balanceLoading ? 'Loading balance...' : `${balanceFormatted} ABRA @ $${abraPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/ABRA`}
           </p>
         </article>
 

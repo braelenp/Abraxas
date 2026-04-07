@@ -89,7 +89,7 @@ export function OracleEngine() {
         <button
           onClick={() => setShowStakingModal(true)}
           type="button"
-          className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/10 to-blue-500/5 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-cyan-300/70 shadow-[0_0_12px_rgba(34,211,238,0.1)] transition hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-300/50 hover:from-cyan-500/15"
+          className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/60 bg-gradient-to-r from-cyan-500/25 to-blue-500/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_16px_rgba(34,211,238,0.3)] transition hover:shadow-[0_0_24px_rgba(34,211,238,0.5)] hover:border-cyan-300/80 hover:from-cyan-500/35 hover:bg-cyan-500/30 active:scale-95"
         >
           <Sparkles size={12} />
           Stake $ABRA
