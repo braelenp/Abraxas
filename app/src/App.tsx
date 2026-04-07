@@ -114,11 +114,6 @@ function DappShell() {
     audio.currentTime = 0;
   }, [connected, showIntroModal]);
 
-  useEffect(() => {
-    contentRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [location.pathname]);
-
   return (
     <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
       <div className="pointer-events-none absolute inset-0 -z-30 bg-slate-950" />
