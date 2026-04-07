@@ -565,7 +565,7 @@ export function MarketPage() {
   const { balance, balanceFormatted, isLoading } = useAbraBalance(10);
 
   const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
-  const accountBalance = 5240;
+  const accountBalance = Math.floor(balance);
 
   // Swap state
   const [selectedPairId, setSelectedPairId] = useState<string>('abra-usdc');
