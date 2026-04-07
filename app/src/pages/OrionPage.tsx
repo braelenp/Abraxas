@@ -4,6 +4,7 @@ import { ChevronDown, Sparkles, Video, Zap, Lock, ArrowRight } from 'lucide-reac
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
+import { M1PulldownModule } from '../components/M1PulldownModule';
 
 function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
   const [displayed, setDisplayed] = useState('');
@@ -65,14 +66,6 @@ export function OrionPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { } = useAbraxas();
-  const [showM1Video, setShowM1Video] = useState(false);
-
-  // Reset state when navigating to the Orion page
-  useEffect(() => {
-    if (location.pathname === '/app/orion') {
-      setShowM1Video(false);
-    }
-  }, [location.pathname]);
 
   const totals = useMemo(() => {
     const totalTVL = TOP_DAPPS.reduce((sum, dapp) => sum + parseFloat(dapp.tvl.replace(/[$M,]/g, '')), 0);
@@ -156,64 +149,8 @@ export function OrionPage() {
           </div>
         </div>
 
-        {/* M1 Pulldown Card */}
-        <div className="relative overflow-hidden rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 p-8">
-          <div className="relative z-10 space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-orange-300 tracking-widest uppercase mb-4">💰 M1 Pulldown — Institutional Liquidity Release</h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                M1 Pulldown is the art of releasing institutional liquidity under controlled structures. Family offices, endowments, and sovereign wealth funds hold trillions in legacy positions. M1 mechanisms unlock this capital into DeFi without market disruption, creating next-generation yield for all tiers.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="border-l-2 border-orange-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">The Mechanism</h4>
-                <p className="text-xs text-slate-300">Institutional holders use time-lock structured releases. Instead of dumping $100M at once, they distribute into liquidity pools over 90-180 days with derivative hedges. Capital flows efficiently. Market stays stable. Yield accrues to the entire ecosystem.</p>
-              </div>
-              <div className="border-l-2 border-orange-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Why It Matters</h4>
-                <p className="text-xs text-slate-300">Billions in institutional capital have been locked out of DeFi due to market impact concerns. M1 Pulldown removes that friction. Massively increases total accessible liquidity. Abraxas plugs directly into these flows.</p>
-              </div>
-              <div className="border-l-2 border-orange-400/40 pl-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-orange-300 mb-1">Abraxas Role</h4>
-                <p className="text-xs text-slate-300">King AI monitors M1 structures, forecasts yield flows, and routes capital into verified RWA positions. Your ABRA staking position captures first-order benefits. Sovereign liquidity becomes YOUR asset.</p>
-              </div>
-            </div>
-
-            {/* M1 Video Section */}
-            <div className="space-y-3 pt-4 border-t border-orange-400/20">
-              <button
-                onClick={() => setShowM1Video(!showM1Video)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold ${
-                  showM1Video
-                    ? 'border-orange-300/70 bg-gradient-to-r from-orange-500/30 to-orange-400/20 shadow-lg shadow-orange-500/20'
-                    : 'border-orange-300/60 hover:border-orange-300/80 bg-gradient-to-r from-orange-500/20 to-orange-400/10 hover:from-orange-500/30 hover:to-orange-400/20 hover:shadow-lg hover:shadow-orange-500/20'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Video size={16} className="text-orange-300 shrink-0" />
-                  <span className="text-sm text-orange-50">Watch M1 Pulldown Explainer</span>
-                </div>
-                <ChevronDown size={18} className={`text-orange-300 transition-transform shrink-0 ${showM1Video ? 'rotate-180' : ''}`} />
-              </button>
-
-              {showM1Video && (
-                <div className="rounded-lg border border-orange-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '400px' }}>
-                  <video
-                    src="/assets/m1-pulldown-explainer.mp4"
-                    title="M1 Pulldown - Institutional Liquidity Release"
-                    className="w-full h-full border-0 object-contain"
-                    controls
-                    controlsList="nodownload"
-                    playsInline
-                    preload="metadata"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        {/* M1 Pulldown - Fully Interactive Module */}
+        <M1PulldownModule />
 
         {/* World Labs Badge */}
         <div className="text-center">
