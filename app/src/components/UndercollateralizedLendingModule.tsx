@@ -237,7 +237,7 @@ export function UndercollateralizedLendingModule() {
         <div className="space-y-3 sm:space-y-4 border-b border-purple-300/20 pb-4 sm:pb-6">
           <div className="space-y-2">
             <p className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-purple-300/60">&gt; [ALGORITHMIC_TRUST] CAPITAL_EFFICIENCY</p>
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-lg sm:text-2xl md:text-3xl">
               <TypingReveal text="Undercollateralized Lending — Capital Access Unlocked" delay={100} speed={40} />
             </div>
           </div>

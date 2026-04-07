@@ -262,7 +262,7 @@ export function M1PulldownModule() {
         <div className="space-y-3 sm:space-y-4 border-b border-orange-300/20 pb-4 sm:pb-6">
           <div className="space-y-2">
             <p className="text-[9px] sm:text-xs font-mono uppercase tracking-widest text-orange-300/60">&gt; [INSTITUTIONAL_LIQUIDITY] RELEASE_PROTOCOL</p>
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-lg sm:text-2xl md:text-3xl">
               <TypingReveal text="M1 Pulldown — Institutional Liquidity Release" delay={100} speed={40} />
             </div>
           </div>
