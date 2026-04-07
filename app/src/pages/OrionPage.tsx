@@ -49,16 +49,16 @@ const RUNE_CONFIG = {
 
 // Top 10 Bags DApps - Latest Ecosystem
 const TOP_DAPPS = [
-  { name: 'Abraxas', description: 'AI Guardian Protocol for RWAs', tvl: '$125.4M', yield: '24.1%', category: 'RWA Management' },
-  { name: 'LuckyFee AI', description: 'Decentralized Fee Sharing Pool', tvl: '$34.8M', yield: '18.7%', category: 'Fee Sharing' },
-  { name: 'OCCUPY', description: 'Mars Community Token', tvl: '$52.3M', yield: '21.5%', category: 'Community' },
-  { name: 'Orbis API', description: 'API & Agent Marketplace', tvl: '$41.9M', yield: '19.3%', category: 'Infrastructure' },
-  { name: 'JackBuilds', description: 'AI-Powered Business Tools', tvl: '$28.6M', yield: '22.8%', category: 'AI Agents' },
-  { name: 'Cluck Norris', description: 'Gamified Crypto Education', tvl: '$31.2M', yield: '20.4%', category: 'Education' },
-  { name: 'Hive', description: 'Decentralized AI Job Marketplace', tvl: '$67.5M', yield: '23.2%', category: 'AI Workforce' },
-  { name: 'Trenchy.fun', description: 'Degen Platform & Social Network', tvl: '$45.7M', yield: '19.8%', category: 'Social DeFi' },
-  { name: 'quAId', description: 'AI Sports Prediction Engine', tvl: '$38.4M', yield: '21.6%', category: 'Predictions' },
-  { name: 'Agent Inc.', description: 'Incorporated Agent Collections', tvl: '$55.2M', yield: '20.9%', category: 'Agent DAO' },
+  { name: 'Abraxas', description: 'AI Guardian Protocol for RWAs', tvl: '$125.4M', yield: '24.1%', category: 'AI Agents' },
+  { name: 'Orbis API', description: 'API & Agent Marketplace', tvl: '$22.3K', yield: '19.8%', category: 'Infrastructure' },
+  { name: 'quAId', description: 'AI Sports Prediction Engine', tvl: '$2.85K', yield: '21.6%', category: 'Predictions' },
+  { name: 'OCCUPY', description: 'Mars Community Token', tvl: '$2.38K', yield: '21.5%', category: 'Community' },
+  { name: 'Cluck Norris', description: 'Gamified Crypto Education', tvl: '$32.13K', yield: '20.4%', category: 'Education' },
+  { name: 'JackBuilds', description: 'AI-Powered Business Tools', tvl: '$22.62K', yield: '22.8%', category: 'AI Agents' },
+  { name: 'LuckyFee AI', description: 'Decentralized Fee Sharing Pool', tvl: '$5.37K', yield: '18.7%', category: 'Fee Sharing' },
+  { name: 'Rando', description: 'Randomized Rewards Distribution', tvl: '$6.36K', yield: '19.2%', category: 'Fee Sharing' },
+  { name: 'Hive', description: 'Decentralized AI Job Marketplace', tvl: '$22.92K', yield: '23.2%', category: 'AI Workforce' },
+  { name: 'Trenchy.fun', description: 'Community Solana Command Center', tvl: '$18.45K', yield: '19.8%', category: 'Social DeFi' },
 ];
 
 export function OrionPage() {

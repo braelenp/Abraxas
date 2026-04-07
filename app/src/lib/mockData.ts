@@ -163,7 +163,7 @@ export const starterFutureAssetClasses: FutureAssetClass[] = [
   {
     id: 'future-dapp-equity',
     title: 'DApp Equity Foundation',
-    description: 'Tokenized exposure to top-tier Bags ecosystem protocols (Abraxas, LuckyFee AI, OCCUPY, Orbis API, JackBuilds, Cluck Norris, Hive, Trenchy.fun, quAId, Agent Inc.) with integrated yield routing and automated rebalancing.',
+    description: 'Tokenized exposure to top-tier Bags ecosystem protocols (Abraxas, Orbis API, quAId, OCCUPY, Cluck Norris, JackBuilds, LuckyFee AI, Rando, Hive, Trenchy.fun) with integrated yield routing and automated rebalancing.',
     status: 'coming_soon',
   },
   {

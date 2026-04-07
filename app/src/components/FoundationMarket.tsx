@@ -17,15 +17,15 @@ interface DappListing {
 
 const topDapps: DappListing[] = [
   { id: 'd1', name: 'Abraxas', category: 'AI Agents', valueScore: 98, marketCap: 3200000, verified: true, tvl: 9500000, rank: 1 },
-  { id: 'd2', name: 'LuckyFee AI', category: 'AI Agents', valueScore: 96, marketCap: 2850000, verified: true, tvl: 8120000, rank: 2 },
-  { id: 'd3', name: 'OCCUPY', category: 'Governance', valueScore: 94, marketCap: 2600000, verified: true, tvl: 7450000, rank: 3 },
-  { id: 'd4', name: 'Orbis API', category: 'AI Agents', valueScore: 92, marketCap: 2350000, verified: true, tvl: 6200000, rank: 4 },
-  { id: 'd5', name: 'JackBuilds', category: 'Social Finance', valueScore: 90, marketCap: 2100000, verified: true, tvl: 5680000, rank: 5 },
-  { id: 'd6', name: 'Trenchy.fun', category: 'Trading', valueScore: 88, marketCap: 1920000, verified: true, tvl: 4850000, rank: 6 },
-  { id: 'd7', name: 'Agent Inc', category: 'AI Agents', valueScore: 87, marketCap: 1750000, verified: true, tvl: 4200000, rank: 7 },
-  { id: 'd8', name: 'Hive', category: 'Social Finance', valueScore: 85, marketCap: 1580000, verified: true, tvl: 3650000, rank: 8 },
-  { id: 'd9', name: 'VaultBags', category: 'Yield Farming', valueScore: 84, marketCap: 1420000, verified: true, tvl: 3100000, rank: 9 },
-  { id: 'd10', name: 'GSD', category: 'DeFi', valueScore: 82, marketCap: 1280000, verified: true, tvl: 2800000, rank: 10 },
+  { id: 'd2', name: 'Orbis API', category: 'AI Agents', valueScore: 96, marketCap: 2850000, verified: true, tvl: 8120000, rank: 2 },
+  { id: 'd3', name: 'quAId', category: 'Prediction Markets', valueScore: 94, marketCap: 2600000, verified: true, tvl: 7450000, rank: 3 },
+  { id: 'd4', name: 'OCCUPY', category: 'Governance', valueScore: 92, marketCap: 2350000, verified: true, tvl: 6200000, rank: 4 },
+  { id: 'd5', name: 'Cluck Norris', category: 'Governance', valueScore: 90, marketCap: 2100000, verified: true, tvl: 5680000, rank: 5 },
+  { id: 'd6', name: 'JackBuilds', category: 'AI Agents', valueScore: 88, marketCap: 1920000, verified: true, tvl: 4850000, rank: 6 },
+  { id: 'd7', name: 'LuckyFee AI', category: 'Fee Sharing', valueScore: 87, marketCap: 1750000, verified: true, tvl: 4200000, rank: 7 },
+  { id: 'd8', name: 'Rando', category: 'Fee Sharing', valueScore: 85, marketCap: 1580000, verified: true, tvl: 3650000, rank: 8 },
+  { id: 'd9', name: 'Hive', category: 'AI Agents', valueScore: 84, marketCap: 1420000, verified: true, tvl: 3100000, rank: 9 },
+  { id: 'd10', name: 'Trenchy.fun', category: 'Social Finance', valueScore: 82, marketCap: 1280000, verified: true, tvl: 2800000, rank: 10 },
 ];
 
 const categoryColors: Record<DappCategory, { bg: string; border: string; text: string }> = {
