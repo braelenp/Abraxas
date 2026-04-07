@@ -69,7 +69,15 @@ function DappShell() {
   );
   const [backgroundIndex, setBackgroundIndex] = useState(0);
   const [showIntroModal, setShowIntroModal] = useState(false);
-  const [hasSeenIntroModal, setHasSeenIntroModal] = useState(false);
+  const [hasSeenIntroModal, setHasSeenIntroModal] = useState(() => {
+    // Load intro modal dismissal from localStorage on mount
+    if (typeof window === 'undefined') return false;
+    try {
+      return localStorage.getItem('hasSeenIntroModal') === 'true';
+    } catch {
+      return false;
+    }
+  });
 
   const onBackgroundError = () => {
     if (backgroundIndex < dappBackgroundCandidates.length - 1) {
@@ -221,6 +229,12 @@ function DappShell() {
                 onClick={() => {
                   setShowIntroModal(false);
                   setHasSeenIntroModal(true);
+                  // Persist intro modal dismissal to localStorage
+                  try {
+                    localStorage.setItem('hasSeenIntroModal', 'true');
+                  } catch (e) {
+                    console.warn('Could not save intro modal state:', e);
+                  }
                 }}
                 className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:bg-slate-800/70 hover:border-amber-300/80 transition-all"
               >

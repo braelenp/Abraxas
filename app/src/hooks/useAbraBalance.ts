@@ -218,7 +218,7 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
           ...prev,
           isLoading: false,
           error: errorMessage,
-          hasMinimum: false,
+          hasMinimum: prev.hasMinimum,
         }));
       }
     };
