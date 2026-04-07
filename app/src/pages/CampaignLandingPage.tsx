@@ -627,7 +627,7 @@ export function CampaignLandingPage() {
         {/* Enter DApp Button */}
         <div className="border-t border-slate-700/50 pt-8 pb-12 text-center space-y-4">
           <button
-            onClick={() => navigate('/campaign')}
+            onClick={() => navigate('/app')}
             className="inline-flex items-center gap-3 px-12 py-4 rounded-xl border border-purple-400/60 bg-gradient-to-r from-purple-600/40 to-pink-600/40 text-purple-200 font-bold text-lg hover:from-purple-600/50 hover:to-pink-600/50 transition-all shadow-[0_0_32px_rgba(153,69,255,0.3)]"
           >
             <span>✧ Start Initiation</span>
