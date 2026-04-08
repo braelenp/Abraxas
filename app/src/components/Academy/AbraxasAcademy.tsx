@@ -148,7 +148,7 @@ export function AbraxasAcademy() {
     setProgress(prev => {
       const updated = { ...prev };
       const key = moduleKey as keyof Omit<AcademyProgressState, 'totalAirdropPoints'>;
-      if (key in updated && key !== 'totalAirdropPoints') {
+      if (key in updated) {
         const module = updated[key] as any;
         module.completed = true;
         module.airdropPoints = points;
