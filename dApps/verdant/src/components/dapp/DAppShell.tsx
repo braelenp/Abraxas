@@ -28,16 +28,13 @@ const DAppShell: React.FC<DAppShellProps> = ({ onBack }) => {
   // Scroll to top on tab change
   useEffect(() => {
     if (mainRef.current) {
-      mainRef.current.scrollTo(0, 0)
+      mainRef.current.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [activeTab])
 
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo(0, 0)
-    if (mainRef.current) {
-      mainRef.current.scrollTo(0, 0)
-    }
+    mainRef.current?.scrollTo({ top: 0, behavior: 'instant' })
   }, [])
 
   const renderTab = () => {
