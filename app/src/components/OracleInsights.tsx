@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { M1PulldownModule } from './M1PulldownModule';
 import { UndercollateralizedLendingModule } from './UndercollateralizedLendingModule';
+import { RaidoDayTradingModule } from './RaidoDayTradingModule';
+import { AbraxasAcademy } from './Academy/AbraxasAcademy';
 
 export function OracleInsights() {
-  const [activeModule, setActiveModule] = useState<'lending' | 'm1'>('lending');
+  const [activeModule, setActiveModule] = useState<'lending' | 'm1' | 'raido' | 'academy'>('lending');
 
   return (
     <div className="space-y-8 px-4">
@@ -42,6 +44,30 @@ export function OracleInsights() {
             <span className="text-lg">💰</span>
             <span>M1 Pulldown</span>
           </button>
+
+          <button
+            onClick={() => setActiveModule('raido')}
+            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
+              activeModule === 'raido'
+                ? 'bg-gradient-to-r from-teal-500/30 to-teal-400/20 border border-teal-300/40 text-teal-100 shadow-lg shadow-teal-500/15'
+                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
+            }`}
+          >
+            <span className="text-lg">⚒</span>
+            <span>Day Trading & Raido Bot</span>
+          </button>
+
+          <button
+            onClick={() => setActiveModule('academy')}
+            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
+              activeModule === 'academy'
+                ? 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15'
+                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
+            }`}
+          >
+            <span className="text-lg">📚</span>
+            <span>Abraxas Academy</span>
+          </button>
         </div>
       </div>
 
@@ -55,6 +81,18 @@ export function OracleInsights() {
       {activeModule === 'm1' && (
         <div className="animate-in fade-in duration-300">
           <M1PulldownModule />
+        </div>
+      )}
+
+      {activeModule === 'raido' && (
+        <div className="animate-in fade-in duration-300">
+          <RaidoDayTradingModule />
+        </div>
+      )}
+
+      {activeModule === 'academy' && (
+        <div className="animate-in fade-in duration-300">
+          <AbraxasAcademy />
         </div>
       )}
     </div>
