@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useConnection } from '@solana/wallet-adapter-react';
 import { ArrowUpFromLine, Zap } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
-import { Transaction, SystemProgram, PublicKey } from '@solana/web3.js';
+import { Transaction, SystemProgram, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 const RUNE_CONFIG = {
   rune: '᚜',
@@ -23,7 +23,35 @@ export function WithdrawPage() {
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [selectedMethod, setSelectedMethod] = useState<'solana' | 'fiat'>('solana');
   const [isProcessing, setIsProcessing] = useState(false);
-  const accountBalance = 5240; // Mock balance
+  const [accountBalance, setAccountBalance] = useState<number>(0);
+  const [isLoadingBalance, setIsLoadingBalance] = useState(false);
+
+  // Fetch real SOL balance from wallet
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (!publicKey || !connection) {
+        setAccountBalance(0);
+        return;
+      }
+
+      try {
+        setIsLoadingBalance(true);
+        const balance = await connection.getBalance(publicKey, 'confirmed');
+        setAccountBalance(balance / LAMPORTS_PER_SOL);
+      } catch (error) {
+        console.error('Failed to fetch balance:', error);
+        setAccountBalance(0);
+      } finally {
+        setIsLoadingBalance(false);
+      }
+    };
+
+    fetchBalance();
+    
+    // Refresh balance every 10 seconds
+    const interval = setInterval(fetchBalance, 10000);
+    return () => clearInterval(interval);
+  }, [publicKey, connection]);
 
   const handleWithdraw = async () => {
     if (!withdrawAmount || isNaN(Number(withdrawAmount)) || !connected || !publicKey || !sendTransaction) return;
@@ -86,8 +114,19 @@ export function WithdrawPage() {
         {/* Account Balance */}
         <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-emerald-900/20 p-6 backdrop-blur">
           <p className="text-xs text-emerald-300/80 uppercase font-mono">Available Balance</p>
-          <p className="mt-2 text-4xl font-bold text-emerald-300">${accountBalance.toLocaleString()}</p>
-          <p className="mt-1 text-xs text-emerald-300/70">Ready to withdraw</p>
+          {isLoadingBalance ? (
+            <div className="mt-2 flex items-center gap-2">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-400/30 border-t-emerald-400" />
+              <p className="text-emerald-300/60">Loading balance...</p>
+            </div>
+          ) : !connected ? (
+            <p className="mt-2 text-xl text-slate-400 font-bold">Connect wallet to view balance</p>
+          ) : (
+            <>
+              <p className="mt-2 text-4xl font-bold text-emerald-300">${accountBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              <p className="mt-1 text-xs text-emerald-300/70">Ready to withdraw</p>
+            </>
+          )}
         </article>
 
         {/* Withdrawal Methods */}

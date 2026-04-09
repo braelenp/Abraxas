@@ -9,7 +9,6 @@ import {
   isPhantomAvailable,
   getPhantomOffRampInstructions,
   trackOffRampEvent,
-  simulateOffRampSuccess,
 } from '../lib/offramp';
 
 
