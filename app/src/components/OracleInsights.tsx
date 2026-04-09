@@ -7,104 +7,121 @@ import { AbraxasAcademy } from './Academy/AbraxasAcademy';
 import { AcademyWhitelistModal } from './AcademyWhitelistModal';
 
 export function OracleInsights() {
-  const [activeModule, setActiveModule] = useState<'lending' | 'm1' | 'raido' | 'academy'>('lending');
+  const [expandedModules, setExpandedModules] = useState<Set<'lending' | 'm1' | 'raido' | 'academy' | 'whitelist'>>(new Set(['lending']));
   const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+
+  const toggleModule = (module: 'lending' | 'm1' | 'raido' | 'academy' | 'whitelist') => {
+    const newExpanded = new Set(expandedModules);
+    if (newExpanded.has(module)) {
+      newExpanded.delete(module);
+    } else {
+      newExpanded.add(module);
+    }
+    setExpandedModules(newExpanded);
+    
+    // Prevent scroll jump on collapse/expand
+    window.scrollY;
+  };
+
+  const modules = [
+    {
+      id: 'lending' as const,
+      icon: '🔓',
+      label: 'Undercollateralized Lending',
+      color: 'purple',
+      component: UndercollateralizedLendingModule,
+    },
+    {
+      id: 'm1' as const,
+      icon: '💰',
+      label: 'M1 Pulldown',
+      color: 'orange',
+      component: M1PulldownModule,
+    },
+    {
+      id: 'raido' as const,
+      icon: '⚒',
+      label: 'Trading Intelligence',
+      color: 'teal',
+      component: RaidoDayTradingModule,
+    },
+    {
+      id: 'academy' as const,
+      icon: '📚',
+      label: 'Abraxas Academy',
+      color: 'purple',
+      component: AbraxasAcademy,
+    },
+    {
+      id: 'whitelist' as const,
+      icon: '✨',
+      label: 'Whitelist',
+      color: 'purple',
+      component: null,
+    },
+  ];
+
+  const getColorClasses = (color: string, isExpanded: boolean) => {
+    const baseClasses = `px-4 py-3 sm:py-4 rounded-lg transition-all w-full text-left flex items-center justify-between gap-2 border`;
+    
+    if (!isExpanded) {
+      return `${baseClasses} text-red-300/60 hover:text-red-300/80 border-red-300/10 hover:border-red-300/20`;
+    }
+
+    const colorMap: Record<string, string> = {
+      purple: 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15',
+      orange: 'bg-gradient-to-r from-orange-500/30 to-orange-400/20 border-orange-300/40 text-orange-100 shadow-lg shadow-orange-500/15',
+      teal: 'bg-gradient-to-r from-teal-500/30 to-teal-400/20 border-teal-300/40 text-teal-100 shadow-lg shadow-teal-500/15',
+    };
+
+    return `${baseClasses} ${colorMap[color] || colorMap.purple}`;
+  };
 
   return (
     <div className="space-y-8 px-4">
       {/* Shared Header */}
       <div className="space-y-4">
         <div className="space-y-2">
-          <h2 className="text-xl sm:text-2xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — High-Level DeFi Strategies</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — King AI Categories</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
             King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance. Powered by <a href="https://worldlabsprotocol.carrd.co/" target="_blank" rel="noopener noreferrer" className="font-semibold text-orange-300 hover:text-orange-200 transition">World Labs Protocol</a> institutional infrastructure.
           </p>
         </div>
 
-        {/* Module Selector */}
-        <div className="flex gap-2 border-b border-red-300/20 pb-4 overflow-x-auto">
-          <button
-            onClick={() => setActiveModule('lending')}
-            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
-              activeModule === 'lending'
-                ? 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15'
-                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
-            }`}
-          >
-            <span className="text-lg">🔓</span>
-            <span>Undercollateralized Lending</span>
-          </button>
+        {/* Nested Categories */}
+        <div className="space-y-3">
+          {modules.map((module) => (
+            <div key={module.id} className="border border-red-300/10 rounded-lg overflow-hidden">
+              {/* Category Header */}
+              <button
+                onClick={() => module.id === 'whitelist' ? setShowWhitelistModal(true) : toggleModule(module.id)}
+                className={getColorClasses(module.color, expandedModules.has(module.id))}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{module.icon}</span>
+                  <span className="font-bold uppercase tracking-wider text-sm">{module.label}</span>
+                </div>
+                {module.id !== 'whitelist' && (
+                  <ChevronDown
+                    size={20}
+                    className={`transition-transform shrink-0 ${expandedModules.has(module.id) ? 'rotate-180' : ''}`}
+                  />
+                )}
+              </button>
 
-          <button
-            onClick={() => setActiveModule('m1')}
-            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
-              activeModule === 'm1'
-                ? 'bg-gradient-to-r from-orange-500/30 to-orange-400/20 border border-orange-300/40 text-orange-100 shadow-lg shadow-orange-500/15'
-                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
-            }`}
-          >
-            <span className="text-lg">💰</span>
-            <span>M1 Pulldown</span>
-          </button>
-
-          <button
-            onClick={() => setActiveModule('raido')}
-            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
-              activeModule === 'raido'
-                ? 'bg-gradient-to-r from-teal-500/30 to-teal-400/20 border border-teal-300/40 text-teal-100 shadow-lg shadow-teal-500/15'
-                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
-            }`}
-          >
-            <span className="text-lg">⚒</span>
-            <span>Day Trading & Raido Bot</span>
-          </button>
-
-          <button
-            onClick={() => setActiveModule('academy')}
-            className={`px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 ${
-              activeModule === 'academy'
-                ? 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15'
-                : 'text-red-300/60 hover:text-red-300/80 border border-red-300/10 hover:border-red-300/20'
-            }`}
-          >
-            <span className="text-lg">📚</span>
-            <span>Abraxas Academy</span>
-          </button>
-
-          <button
-            onClick={() => setShowWhitelistModal(true)}
-            className="px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 bg-gradient-to-r from-purple-600/30 to-purple-500/20 border border-purple-300/50 text-purple-100 shadow-lg shadow-purple-500/25 hover:shadow-lg hover:shadow-purple-500/40 hover:border-purple-300/70"
-          >
-            <Sparkles size={16} />
-            <span>Join Whitelist</span>
-          </button>
+              {/* Category Content (Nested) */}
+              {module.id !== 'whitelist' && expandedModules.has(module.id) && module.component && (
+                <div className="bg-slate-950/30 border-t border-red-300/10 p-4 sm:p-6">
+                  {module.component === UndercollateralizedLendingModule && <UndercollateralizedLendingModule />}
+                  {module.component === M1PulldownModule && <M1PulldownModule />}
+                  {module.component === RaidoDayTradingModule && <RaidoDayTradingModule />}
+                  {module.component === AbraxasAcademy && <AbraxasAcademy />}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Active Module Content */}
-      {activeModule === 'lending' && (
-        <div className="animate-in fade-in duration-300">
-          <UndercollateralizedLendingModule />
-        </div>
-      )}
-
-      {activeModule === 'm1' && (
-        <div className="animate-in fade-in duration-300">
-          <M1PulldownModule />
-        </div>
-      )}
-
-      {activeModule === 'raido' && (
-        <div className="animate-in fade-in duration-300">
-          <RaidoDayTradingModule />
-        </div>
-      )}
-
-      {activeModule === 'academy' && (
-        <div className="animate-in fade-in duration-300">
-          <AbraxasAcademy />
-        </div>
-      )}
 
       {/* Academy Whitelist Modal */}
       <AcademyWhitelistModal
