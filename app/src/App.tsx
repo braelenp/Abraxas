@@ -168,7 +168,7 @@ function DappShell() {
 
       <main
         ref={contentRef}
-        className="flex-1 min-h-0 overflow-y-auto overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
+        className="flex-1 min-h-0 overflow-y-scroll overscroll-y-none px-4 py-4 pb-4 [touch-action:pan-y]"
       >
         <Routes>
           <Route index element={<ProfilePage />} />
