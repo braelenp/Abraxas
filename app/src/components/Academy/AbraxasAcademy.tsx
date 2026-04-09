@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { ChevronRight, Lock, CheckCircle2, Sparkles, Zap, ArrowRight } from 'lucide-react';
+import { ChevronRight, Lock, CheckCircle2, Sparkles, Zap, ArrowRight, BarChart3, X } from 'lucide-react';
 import { AcademyModule1 } from './modules/Module1-RWATokenization';
 import { AcademyModule2 } from './modules/Module2-UtilaCV5';
 import { AcademyModule3 } from './modules/Module3-HighLevelDeFi';
 import { AcademyModule4 } from './modules/Module4-ArtificialHumanMonolith';
 import { AcademyModule5 } from './modules/Module5-LivingSpecies';
 import { AcademyModule6 } from './modules/Module6-PracticalTools';
+import { DayTradingJournal } from '../DayTradingJournal';
 
 interface AcademyProgressState {
   module1: { completed: boolean; airdropPoints: number };
@@ -88,6 +89,7 @@ const MODULE_INFO = [
 
 export function AbraxasAcademy() {
   const [activeModule, setActiveModule] = useState<string | null>(null);
+  const [showJournal, setShowJournal] = useState(false);
   const [progress, setProgress] = useState<AcademyProgressState>({
     module1: { completed: false, airdropPoints: 0 },
     module2: { completed: false, airdropPoints: 0 },
@@ -118,7 +120,7 @@ export function AbraxasAcademy() {
 
   // Lock/unlock body scroll when module is open/closed
   useEffect(() => {
-    if (activeModule) {
+    if (activeModule || showJournal) {
       // Save current scroll position and lock body scroll
       const scrollPos = window.scrollY || document.documentElement.scrollTop;
       setSavedScrollPos(scrollPos);
@@ -142,7 +144,7 @@ export function AbraxasAcademy() {
       document.body.style.width = '';
       document.body.style.top = '';
     };
-  }, [activeModule, savedScrollPos]);
+  }, [activeModule, showJournal, savedScrollPos]);
 
   const handleModuleComplete = (moduleKey: string, points: number) => {
     setProgress(prev => {
@@ -163,6 +165,27 @@ export function AbraxasAcademy() {
   const getModuleStatus = (requiredPoints: number) => {
     return progress.totalAirdropPoints >= requiredPoints;
   };
+
+  if (showJournal) {
+    return (
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm">
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-cyan-300 tracking-wider uppercase">Trading Journal & King AI Insights</h2>
+              <button
+                onClick={() => setShowJournal(false)}
+                className="text-slate-400 hover:text-slate-200 transition"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <DayTradingJournal />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (activeModule) {
     const handleBack = () => setActiveModule(null);
@@ -331,6 +354,33 @@ export function AbraxasAcademy() {
               </div>
             );
           })}
+        </div>
+
+        {/* DAY TRADING JOURNAL - COMPANION TOOL */}
+        <div className="rounded-xl border border-cyan-300/40 bg-gradient-to-br from-cyan-500/15 via-slate-900/80 to-slate-900/60 p-6 space-y-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <BarChart3 size={20} className="text-cyan-300" />
+                <h3 className="text-lg sm:text-xl font-bold text-cyan-200 tracking-wider uppercase">Trading Journal</h3>
+                <span className="text-xs bg-cyan-500/30 text-cyan-200 px-2.5 py-1 rounded-full font-mono font-bold">NEW</span>
+              </div>
+              <p className="text-sm text-slate-300/80">Log trades, analyze performance, and receive AI-powered insights from King Oracle. Companion to the Day Trading Strategy lesson.</p>
+              <div className="mt-3 text-xs text-cyan-300/70 font-mono space-y-1">
+                <div>✓ Real-time P&L & win rate tracking</div>
+                <div>✓ MBLB/50 strategy auto-linking</div>
+                <div>✓ King AI technical feedback & emotional analysis</div>
+                <div>✓ Airdrop point rewards for streaks</div>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowJournal(true)}
+              className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/60 bg-gradient-to-r from-cyan-500/40 to-cyan-400/30 px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-cyan-100 hover:border-cyan-300/80 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition shrink-0 whitespace-nowrap"
+            >
+              <BarChart3 size={16} />
+              <span>Open Journal</span>
+            </button>
+          </div>
         </div>
 
         {/* BUY $ABRA - BOTTOM CTA */}

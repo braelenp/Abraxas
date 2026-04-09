@@ -183,6 +183,10 @@ export type UserProfile = {
   academyWhitelisted?: boolean;
   whitelistEnrolledAt?: string;
   whitelistDiscordHandle?: string;
+  // Trading journal
+  journalStreak?: number;
+  totalTrades?: number;
+  tradingWinRate?: number;
   // Tracking
   lastUpdatedAt: string;
 };
