@@ -115,7 +115,8 @@ export async function getJupiterSwapTransaction(
   inputMint: string,
   outputMint: string,
   amount: number,
-  slippageBps: number = 50
+  slippageBps: number = 50,
+  decimals: number = 6
 ): Promise<JupiterSwapResponse | null> {
   try {
     console.log('Getting Jupiter swap transaction for:', {
@@ -127,7 +128,7 @@ export async function getJupiterSwapTransaction(
     });
 
     // First get the quote
-    const quote = await getJupiterQuote(inputMint, outputMint, amount, slippageBps);
+    const quote = await getJupiterQuote(inputMint, outputMint, amount, slippageBps, decimals);
     if (!quote) {
       console.error('Failed to get quote for swap');
       return null;

@@ -34,8 +34,8 @@ export function JupiterSwapPanel() {
 
     setIsLoadingQuote(true);
     try {
-      const amountInSmallestUnits = Math.floor(parseFloat(solAmount) * Math.pow(10, SOL_DECIMALS));
-      const quote = await getJupiterQuote(SOL_TOKEN_CA, ABRA_TOKEN_CA, amountInSmallestUnits, 50);
+      // Pass raw amount and let getJupiterQuote handle decimal conversion
+      const quote = await getJupiterQuote(SOL_TOKEN_CA, ABRA_TOKEN_CA, parseFloat(solAmount), 50, SOL_DECIMALS);
 
       if (quote) {
         const outputAmount = calculateOutputAmount(quote, ABRA_DECIMALS);
@@ -71,15 +71,17 @@ export function JupiterSwapPanel() {
     setSwapState({ status: 'loading', message: 'Getting swap transaction...' });
 
     try {
-      const amountInSmallestUnits = Math.floor(parseFloat(solAmount) * Math.pow(10, SOL_DECIMALS));
+      // Pass raw amount and decimals to getJupiterSwapTransaction
+      const swapAmount = parseFloat(solAmount);
       
       // Get swap transaction from Jupiter
       const swapTx = await getJupiterSwapTransaction(
         publicKey.toString(),
         SOL_TOKEN_CA,
         ABRA_TOKEN_CA,
-        amountInSmallestUnits,
-        50 // 0.5% slippage
+        swapAmount,
+        50, // 0.5% slippage
+        SOL_DECIMALS
       );
 
       if (!swapTx) {
