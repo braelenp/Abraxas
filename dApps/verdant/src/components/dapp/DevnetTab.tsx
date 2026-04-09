@@ -96,7 +96,7 @@ const DevnetTab: React.FC = () => {
             className="p-1.5 rounded transition-colors hover:bg-emerald-900/30"
             title="Refresh"
           >
-            <RefreshCw size={13} className={`text-emerald-600/70 ${spinning ? 'animate-spin' : ''}`} />
+            <RefreshCw size={13} className={`text-emerald-600/70`} />
           </button>
         </div>
         <h2 className="font-cinzel text-base font-semibold text-emerald-200/90">

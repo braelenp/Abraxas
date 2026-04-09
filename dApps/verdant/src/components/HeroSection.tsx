@@ -158,7 +158,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
       </div>
 
       {/* Scroll cue */}
-      <div className="animate-bounce-arrow text-emerald-500/40">
+      <div className="text-emerald-500/40">
         <ChevronDown size={22} />
       </div>
     </section>

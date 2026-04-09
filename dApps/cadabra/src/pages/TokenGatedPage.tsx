@@ -14,8 +14,8 @@ export function TokenGatedPage() {
     <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 overflow-auto z-50">
       {/* Animated background effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl" />
       </div>
 
       {/* Content */}
@@ -44,7 +44,7 @@ export function TokenGatedPage() {
 
             {isLoading ? (
               <div className="flex justify-center py-4">
-                <div className="w-8 h-8 border-2 border-purple-300/30 border-t-purple-300 rounded-full animate-spin" />
+                <div className="w-8 h-8 border-2 border-purple-300/30 border-t-purple-300 rounded-full" />
               </div>
             ) : error ? (
               <div className="space-y-2 py-4">

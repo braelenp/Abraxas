@@ -120,10 +120,10 @@ export default function LoadingPage({ onComplete }: LoadingPageProps) {
           }}
         >
           {/* Outer rotating ring */}
-          <div className="absolute inset-0 rounded-full border-l-4 border-t-4 border-cyan-400 animate-spin" />
+          <div className="absolute inset-0 rounded-full border-l-4 border-t-4 border-cyan-400" />
           {/* Inner reverse ring */}
           <div
-            className="absolute inset-1 rounded-full border-r-2 border-b-2 border-violet-400/50 animate-spin"
+            className="absolute inset-1 rounded-full border-r-2 border-b-2 border-violet-400/50"
             style={{ animationDirection: 'reverse', animationDuration: '3s' }}
           />
           {/* Eye emoji */}
@@ -156,7 +156,7 @@ export default function LoadingPage({ onComplete }: LoadingPageProps) {
             {messageIndex < messages.length && (
               <div className="text-cyan-400">
                 {displayedText}
-                <span className="animate-pulse">▌</span>
+                <span>▌</span>
               </div>
             )}
           </div>
