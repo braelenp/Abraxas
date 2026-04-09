@@ -4,6 +4,7 @@ import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
 import { DaughterPage, type DaughterConfig } from './DaughterPage';
 import { useAbraBalance } from '../hooks/useAbraBalance';
+import { AcademyWhitelistModal } from '../components/AcademyWhitelistModal';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -1151,6 +1152,7 @@ export function ForgePage() {
 	const [minted, setMinted] = useState(false);
 	const [isMinting, setIsMinting] = useState(false);
 	const [selectedDaughter, setSelectedDaughter] = useState<string | null>(null);
+	const [showWhitelistModal, setShowWhitelistModal] = useState(false);
 
 	// Token gating for Mirror/Cadabra access
 	const { hasMinimum } = useAbraBalance(10);
@@ -1208,7 +1210,8 @@ export function ForgePage() {
 	}
 
 	return (
-		<RuneRealm {...RUNE_CONFIG}>
+		<>
+			<RuneRealm {...RUNE_CONFIG}>
 			{/* Institutional Positioning */}
 			<section className="space-y-4 py-6 mb-2">
 				<div className="max-w-3xl mx-auto px-4">
@@ -1282,6 +1285,14 @@ export function ForgePage() {
 						>
 							Enter the Mirror → Cadabra
 							<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+						</button>
+						<button
+							type="button"
+							onClick={() => setShowWhitelistModal(true)}
+							className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-400/40 bg-gradient-to-r from-purple-500/20 to-purple-400/10 px-4 py-3 text-xs font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-400/60"
+						>
+							<Sparkles size={12} />
+							Join Academy Whitelist
 						</button>
 					</div>
 				</div>
@@ -1810,5 +1821,11 @@ export function ForgePage() {
 
 			</section>
 		</RuneRealm>
+		<AcademyWhitelistModal
+			isOpen={showWhitelistModal}
+			onClose={() => setShowWhitelistModal(false)}
+			onSuccess={() => setShowWhitelistModal(false)}
+		/>
+		</>
 	);
 }

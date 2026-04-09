@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
 import { M1PulldownModule } from './M1PulldownModule';
 import { UndercollateralizedLendingModule } from './UndercollateralizedLendingModule';
 import { RaidoDayTradingModule } from './RaidoDayTradingModule';
 import { AbraxasAcademy } from './Academy/AbraxasAcademy';
+import { AcademyWhitelistModal } from './AcademyWhitelistModal';
 
 export function OracleInsights() {
   const [activeModule, setActiveModule] = useState<'lending' | 'm1' | 'raido' | 'academy'>('lending');
+  const [showWhitelistModal, setShowWhitelistModal] = useState(false);
 
   return (
     <div className="space-y-8 px-4">
@@ -68,6 +70,14 @@ export function OracleInsights() {
             <span className="text-lg">📚</span>
             <span>Abraxas Academy</span>
           </button>
+
+          <button
+            onClick={() => setShowWhitelistModal(true)}
+            className="px-4 py-2.5 text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap flex items-center gap-2 bg-gradient-to-r from-purple-600/30 to-purple-500/20 border border-purple-300/50 text-purple-100 shadow-lg shadow-purple-500/25 hover:shadow-lg hover:shadow-purple-500/40 hover:border-purple-300/70"
+          >
+            <Sparkles size={16} />
+            <span>Join Whitelist</span>
+          </button>
         </div>
       </div>
 
@@ -95,6 +105,13 @@ export function OracleInsights() {
           <AbraxasAcademy />
         </div>
       )}
+
+      {/* Academy Whitelist Modal */}
+      <AcademyWhitelistModal
+        isOpen={showWhitelistModal}
+        onClose={() => setShowWhitelistModal(false)}
+        onSuccess={() => setShowWhitelistModal(false)}
+      />
     </div>
   );
 }

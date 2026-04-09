@@ -179,6 +179,10 @@ export type UserProfile = {
   successfulReferrals: number;
   totalAirdropClaimed: number;
   claimedAirdropAt?: string;
+  // Academy whitelist
+  academyWhitelisted?: boolean;
+  whitelistEnrolledAt?: string;
+  whitelistDiscordHandle?: string;
   // Tracking
   lastUpdatedAt: string;
 };

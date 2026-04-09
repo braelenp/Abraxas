@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useNavigate } from 'react-router-dom';
-import { ExternalLink, Copy, Check, Users, ArrowRight } from 'lucide-react';
+import { ExternalLink, Copy, Check, Users, ArrowRight, Sparkles } from 'lucide-react';
 import { useUserProfile } from '../hooks/useProfile';
 import { createReferralLink } from '../lib/profileUtils';
 import { ProfileCreationModal } from '../components/ProfileCreationModal';
 import { WalletLoginModal } from '../components/WalletLoginModal';
 import { AbraxasIDCard } from '../components/AbraxasIDCard';
 import { AirdropPointsWidget } from '../components/AirdropPointsWidget';
+import { AcademyWhitelistModal } from '../components/AcademyWhitelistModal';
 
 // ── Typing Effect Hook ───────────────────────────────────────────────────────
 function useTypingEffect(text: string, speed = 40, delay = 0) {
@@ -573,6 +574,7 @@ function DiscordCTA() {
 export function CampaignLandingPage() {
   const navigate = useNavigate();
   const topRef = useRef<HTMLDivElement>(null);
+  const [showWhitelistModal, setShowWhitelistModal] = useState(false);
 
   // Scroll to top on page load
   useEffect(() => {
@@ -663,6 +665,15 @@ export function CampaignLandingPage() {
 
         {/* Enter DApp Button */}
         <div className="border-t border-slate-700/50 pt-8 pb-12 text-center space-y-4">
+          {/* Academy Whitelist Button */}
+          <button
+            onClick={() => setShowWhitelistModal(true)}
+            className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg border border-purple-400/40 bg-gradient-to-r from-purple-500/20 to-purple-400/10 text-purple-200 font-semibold text-sm hover:from-purple-500/30 hover:to-purple-400/20 transition-all shadow-lg shadow-purple-500/10"
+          >
+            <Sparkles size={16} />
+            <span>Join Academy Whitelist</span>
+          </button>
+
           <button
             onClick={() => navigate('/app')}
             className="inline-flex items-center gap-3 px-12 py-4 rounded-xl border border-purple-400/60 bg-gradient-to-r from-purple-600/40 to-pink-600/40 text-purple-200 font-bold text-lg hover:from-purple-600/50 hover:to-pink-600/50 transition-all shadow-[0_0_32px_rgba(153,69,255,0.3)]"
@@ -684,6 +695,13 @@ export function CampaignLandingPage() {
           <p className="mt-2">© 2026 Abraxas Protocol. All transmutations reserved. 🔮</p>
         </div>
       </div>
+
+      {/* Academy Whitelist Modal */}
+      <AcademyWhitelistModal
+        isOpen={showWhitelistModal}
+        onClose={() => setShowWhitelistModal(false)}
+        onSuccess={() => setShowWhitelistModal(false)}
+      />
     </div>
   );
 }

@@ -126,6 +126,19 @@ export function AbraxasIDCard({
               Member Since: {new Date(profile.createdAt).toLocaleDateString()}
             </div>
 
+            {/* Academy Whitelist Badge */}
+            {profile.academyWhitelisted && (
+              <div className="bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded p-3 border border-purple-500/50 text-center space-y-1">
+                <div className="text-xs text-purple-300 uppercase tracking-wider font-mono font-bold">✦ Academy Whitelisted ✦</div>
+                <div className="text-xs text-purple-300/70">Early Adopter • Exclusive Access</div>
+                {profile.whitelistEnrolledAt && (
+                  <div className="text-xs text-purple-300/50 mt-1">
+                    Enrolled: {new Date(profile.whitelistEnrolledAt).toLocaleDateString()}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Points Breakdown */}
             <div className="bg-slate-950/60 rounded p-4 border border-slate-700/50 space-y-3">
               <div className="text-cyan-300 uppercase tracking-wider font-mono text-xs">Points Breakdown</div>
