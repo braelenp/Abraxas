@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle, ArrowRight, Zap, Users, Trophy, Upload, Play, Radio, Gamepad2 } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
+import { TikTokFeeSharing } from '../components/TikTokFeeSharing';
 import { useAbraBalance } from '../hooks/useAbraBalance';
 
 const RUNE_CONFIG = {
@@ -171,6 +172,25 @@ export function CadabraPage() {
 					</div>
 				</div>
 
+				{/* BUY $CADABRA - TOP CTA */}
+				<div className="max-w-3xl mx-auto px-4">
+					<a
+						href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="block w-full rounded-lg border border-amber-400/60 bg-gradient-to-r from-amber-500/30 to-orange-500/25 px-6 py-3 text-center text-sm font-bold uppercase tracking-wider text-amber-200 shadow-[0_0_16px_rgba(251,146,60,0.25)] transition hover:shadow-[0_0_24px_rgba(251,146,60,0.4)] hover:border-amber-300/80"
+					>
+						<Zap className="inline mr-2" size={16} />
+						Get $CADABRA
+						<ArrowRight className="inline ml-2" size={14} />
+					</a>
+				</div>
+
+				{/* TIKTOK FEE SHARING CARD */}
+				<div className="max-w-3xl mx-auto px-4">
+					<TikTokFeeSharing />
+				</div>
+
 				{/* PULSE: GAMING CLIPS PLATFORM */}
 				<div className="max-w-3xl mx-auto px-4">
 					<div className="border-l-4 border-cyan-400/50 pl-6 space-y-4">
@@ -271,6 +291,29 @@ export function CadabraPage() {
 								Enter the Mirror
 								<ArrowRight size={14} />
 							</button>
+						</div>
+					</div>
+				</div>
+
+				{/* BUY $CADABRA - BOTTOM CTA */}
+				<div className="max-w-3xl mx-auto px-4">
+					<div className="relative overflow-hidden rounded-2xl border border-amber-400/40 bg-gradient-to-br from-amber-500/10 via-slate-900/80 to-slate-900/60 p-8">
+						<div className="relative z-10 text-center space-y-4">
+							<p className="text-xs font-mono text-amber-300/70 uppercase tracking-widest">&gt; INCOMPLETE_WITHOUT_PARTICIPATION</p>
+							<h3 className="text-lg font-bold text-amber-300 tracking-wider uppercase">Own Your Stake in Cadabra</h3>
+							<p className="text-sm text-slate-300/80">
+								$CADABRA is the token of the Mirror. Hold it. Vote with it. Earn from protocol revenue. The Mirror is community-owned. You become part of the infrastructure.
+							</p>
+							<a
+								href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="inline-flex items-center justify-center gap-2 rounded-lg border border-amber-400/70 bg-gradient-to-r from-amber-500/40 to-orange-500/35 px-8 py-3 text-sm font-bold uppercase tracking-wider text-amber-100 shadow-[0_0_24px_rgba(251,146,60,0.35)] transition hover:shadow-[0_0_32px_rgba(251,146,60,0.5)] hover:border-amber-300/90 hover:from-amber-500/50 hover:to-orange-500/45"
+							>
+								<Zap size={18} className="text-orange-400" />
+								<span>Get $CADABRA Now</span>
+								<ArrowRight size={16} />
+							</a>
 						</div>
 					</div>
 				</div>
