@@ -422,7 +422,7 @@ export function RaidoDayTradingModule() {
         <div className="space-y-5 sm:space-y-6">
           {/* Overview Tab */}
           {activeTab === 'overview' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               <RaidoBotLiveStatus />
 
               {/* Lore Tie-in */}
@@ -460,7 +460,7 @@ export function RaidoDayTradingModule() {
               </button>
 
               {showQuiz && (
-                <div className="animate-in fade-in duration-300">
+              <div className="">
                   <InteractiveQuiz />
                 </div>
               )}
@@ -469,7 +469,7 @@ export function RaidoDayTradingModule() {
 
           {/* Watchlist Tab */}
           {activeTab === 'watchlist' && (
-            <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="space-y-4">
               <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-teal-300">Full Raido Watchlist - 26 Symbols Across All Asset Classes</p>
               <AssetWatchlist />
             </div>
@@ -477,7 +477,7 @@ export function RaidoDayTradingModule() {
 
           {/* Strategy Tab */}
           {activeTab === 'strategy' && (
-            <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="space-y-4">
               <StrategyExplanation />
 
               {/* Video Section */}
@@ -493,7 +493,7 @@ export function RaidoDayTradingModule() {
               </button>
 
               {showVideo && (
-                <div className="rounded-lg sm:rounded-xl border border-teal-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '300px', minHeight: '200px' }}>
+                <div className="rounded-lg sm:rounded-xl border border-teal-300/20 overflow-hidden bg-black w-full" style={{ height: '300px', minHeight: '200px' }}>
                   <video
                     src="/assets/raido-strategy-explainer.mp4"
                     title="Raido Day Trading Strategy"
@@ -510,7 +510,7 @@ export function RaidoDayTradingModule() {
 
           {/* Bot Tab */}
           {activeTab === 'bot' && (
-            <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="space-y-4">
               <div className="rounded-lg sm:rounded-xl border border-teal-300/20 bg-teal-500/8 p-3 sm:p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Bot size={16} className="text-teal-300" />

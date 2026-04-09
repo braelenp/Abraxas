@@ -431,7 +431,7 @@ export function M1PulldownModule() {
           </button>
 
           {showM1Video && (
-            <div className="rounded-lg sm:rounded-xl border border-orange-300/20 overflow-hidden bg-black w-full animate-in fade-in duration-300" style={{ height: '300px', minHeight: '200px' }}>
+            <div className="rounded-lg sm:rounded-xl border border-orange-300/20 overflow-hidden bg-black w-full" style={{ height: '300px', minHeight: '200px' }}>
               <video
                 src="/assets/m1-pulldown-explainer.mp4"
                 title="M1 Pulldown - Institutional Liquidity Release"
