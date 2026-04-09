@@ -68,7 +68,6 @@ function DappShell() {
     [],
   );
   const [backgroundIndex, setBackgroundIndex] = useState(0);
-  const [showIntroModal, setShowIntroModal] = useState(false);
   const [hasSeenIntroModal, setHasSeenIntroModal] = useState(() => {
     // Load intro modal dismissal from localStorage on mount
     if (typeof window === 'undefined') return false;
@@ -85,11 +84,15 @@ function DappShell() {
     }
   };
 
-  useEffect(() => {
-    if (!hasSeenIntroModal) {
-      setShowIntroModal(true);
+  // Dismiss intro modal and persist to localStorage
+  const dismissIntroModal = () => {
+    setHasSeenIntroModal(true);
+    try {
+      localStorage.setItem('hasSeenIntroModal', 'true');
+    } catch (e) {
+      console.warn('Could not save intro modal state:', e);
     }
-  }, [hasSeenIntroModal]);
+  };
 
   useEffect(() => {
     const audio = introAmbientRef.current;
@@ -100,7 +103,7 @@ function DappShell() {
     audio.loop = true;
     audio.volume = 0.34;
 
-    if (connected && showIntroModal) {
+    if (connected && !hasSeenIntroModal) {
       const playAttempt = audio.play();
       if (playAttempt) {
         void playAttempt.catch(() => {
@@ -112,7 +115,7 @@ function DappShell() {
 
     audio.pause();
     audio.currentTime = 0;
-  }, [connected, showIntroModal]);
+  }, [connected, hasSeenIntroModal]);
 
   return (
     <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
@@ -172,7 +175,7 @@ function DappShell() {
         </Routes>
       </main>
 
-      {showIntroModal ? (
+      {!hasSeenIntroModal ? (
         <>
           <div className="fixed top-0 left-1/2 z-[55] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
@@ -222,7 +225,6 @@ function DappShell() {
 
               <button
                 onClick={() => {
-                  setShowIntroModal(false);
                   setHasSeenIntroModal(true);
                   // Persist intro modal dismissal to localStorage
                   try {

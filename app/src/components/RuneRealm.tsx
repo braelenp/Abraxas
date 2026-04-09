@@ -97,7 +97,7 @@ function RuneParticles({ coreGlow }: { coreGlow: string }) {
 						top: `${p.top}%`,
 						background: `rgba(${coreGlow}, 0.75)`,
 						boxShadow: `0 0 ${p.size * 4}px rgba(${coreGlow}, 0.5)`,
-						animation: `rr-float ${p.dur}s linear ${p.delay}s infinite`,
+						animation: `rr-float ${p.dur}s linear ${p.delay}s forwards`,
 						opacity: 0,
 					}}
 				/>
@@ -167,7 +167,7 @@ export function RuneRealm({
 							width: 230,
 							height: 230,
 							background: `radial-gradient(circle, rgba(${coreGlow},0.11), transparent 72%)`,
-							animation: 'rr-breathe 3.8s ease-in-out infinite',
+							animation: 'rr-breathe 3.8s ease-in-out forwards',
 						}}
 					/>
 					{/* Fire ring */}
@@ -177,7 +177,7 @@ export function RuneRealm({
 							width: 150,
 							height: 150,
 							background: `radial-gradient(circle, rgba(${fireGlow},0.22), transparent 68%)`,
-							animation: 'rr-breathe 3.8s ease-in-out infinite 0.5s',
+							animation: 'rr-breathe 3.8s ease-in-out forwards 0.5s',
 						}}
 					/>
 					{/* Core gold flash */}
@@ -187,7 +187,7 @@ export function RuneRealm({
 							width: 88,
 							height: 88,
 							background: 'radial-gradient(circle, rgba(253,224,71,0.30), transparent 65%)',
-							animation: 'rr-breathe 3.8s ease-in-out infinite 1s',
+							animation: 'rr-breathe 3.8s ease-in-out forwards 1s',
 						}}
 					/>
 					{/* The rune character */}
@@ -202,7 +202,7 @@ export function RuneRealm({
 								`0 0 80px rgba(${fireGlow},0.55)`,
 								'0 0 130px rgba(6,182,212,0.3)',
 							].join(', '),
-							animation: 'rr-breathe 3.8s ease-in-out infinite',
+						animation: 'rr-breathe 3.8s ease-in-out forwards',
 						}}
 					>
 						{rune}
