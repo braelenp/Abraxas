@@ -4,36 +4,6 @@ import { Shield, AlertTriangle, Zap, Cpu, BarChart3, Eye, Zap as ZapIcon, ArrowR
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 
-function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
-  const [displayed, setDisplayed] = useState('');
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    let idx = 0;
-    const startTime = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (idx < text.length) {
-          setDisplayed(text.slice(0, ++idx));
-        } else {
-          setDone(true);
-          clearInterval(interval);
-        }
-      }, speed);
-    }, delay);
-
-    return () => {
-      clearTimeout(startTime);
-    };
-  }, [text, delay, speed]);
-
-  return (
-    <span className="font-mono text-2xl font-bold text-emerald-200 tracking-wide">
-      {displayed}
-      {!done && <span className="animate-pulse ml-1">∷</span>}
-    </span>
-  );
-}
-
 const RUNE_CONFIG = {
   rune: 'ᚦ',
   runeName: 'Thurisaz',
@@ -130,7 +100,7 @@ export function CircuitPage() {
       <div className="px-4 space-y-6">
         {/* Welcome Header */}
         <div className="space-y-4">
-          <TypingReveal text="Welcome to the next degree." delay={200} speed={60} />
+          <span className="font-mono text-2xl font-bold text-emerald-200 tracking-wide">Welcome to the next degree.</span>
           <h2 className="text-xl font-bold text-emerald-200 tracking-widest uppercase">Circuit — The Immune System</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
             Circuit is not a dashboard. It is the active immune system defending Abraxas and every $ABRA staker from real-world DeFi attacks. Drift, Luna-style cascade failures, liquidity drains — Circuit sees them coming and stops them before they happen.

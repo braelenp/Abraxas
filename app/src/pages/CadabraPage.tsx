@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { MessageCircle, ArrowRight, Zap, Users, Trophy, Upload, Play, Radio, Gamepad2 } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 import { TikTokFeeSharing } from '../components/TikTokFeeSharing';
@@ -16,36 +15,6 @@ const RUNE_CONFIG = {
 	accentClass: 'text-purple-300',
 } as const;
 
-function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
-	const [displayed, setDisplayed] = useState('');
-	const [done, setDone] = useState(false);
-
-	useEffect(() => {
-		let idx = 0;
-		const startTime = setTimeout(() => {
-			const interval = setInterval(() => {
-				if (idx < text.length) {
-					setDisplayed(text.slice(0, ++idx));
-				} else {
-					setDone(true);
-					clearInterval(interval);
-				}
-			}, speed);
-		}, delay);
-
-		return () => {
-			clearTimeout(startTime);
-		};
-	}, [text, delay, speed]);
-
-	return (
-		<span className="font-mono text-2xl font-bold text-purple-200 tracking-wide">
-			{displayed}
-			{!done && <span className="animate-pulse ml-1">∷</span>}
-		</span>
-	);
-}
-
 export function CadabraPage() {
 	// Token gating for Mirror/Cadabra access
 	const { hasMinimum } = useAbraBalance(10);
@@ -61,10 +30,10 @@ export function CadabraPage() {
 	return (
 		<RuneRealm {...RUNE_CONFIG}>
 			<section className="space-y-8 py-8">
-				{/* WELCOME: Dramatic Typing Reveal */}
+				{/* WELCOME: Cadabra intro */}
 				<div className="max-w-3xl mx-auto px-4">
 					<div className="space-y-4">
-						<TypingReveal text="Welcome to the next degree." delay={200} speed={60} />
+						<span className="font-mono text-2xl font-bold text-purple-200 tracking-wide">Welcome to the next degree.</span>
 						<h2 className="text-xl font-bold text-purple-200 tracking-widest uppercase">Cadabra — The Social Mirror</h2>
 						<p className="text-sm leading-relaxed text-slate-300/90">
 							The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the sole gaming clips platform inside Cadabra. Apex Legends is the first installment of the tokenized gaming layer.
