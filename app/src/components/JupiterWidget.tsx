@@ -43,73 +43,105 @@ export function JupiterWidget({
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<any>(null);
   const scriptLoadedRef = useRef(false);
+  const initializationAttemptedRef = useRef(false);
 
   useEffect(() => {
-    // Only load script once globally
-    if (jupiterScriptLoaded || scriptLoadedRef.current) {
-      // Script already loaded in this or another instance
-      console.log('Jupiter script already loaded');
-      return;
-    }
+    // Load Jupiter Terminal script
+    const loadScript = async () => {
+      if (jupiterScriptLoaded && scriptLoadedRef.current) {
+        console.log('Jupiter script already fully loaded, attempting initialization');
+      } else if (!scriptLoadedRef.current) {
+        console.log('Loading Jupiter Terminal script...');
+        
+        return new Promise<void>((resolve) => {
+          const script = document.createElement('script');
+          script.src = 'https://terminal.jup.ag/main-v3.js';
+          script.async = true;
+          
+          script.onload = () => {
+            scriptLoadedRef.current = true;
+            jupiterScriptLoaded = true;
+            console.log('Jupiter Terminal script loaded successfully');
+            resolve();
+          };
+          
+          script.onerror = () => {
+            console.error('Failed to load Jupiter Terminal script');
+            scriptLoadedRef.current = false;
+            resolve();
+          };
+          
+          document.body.appendChild(script);
+        });
+      }
+    };
 
-    // Load Jupiter Terminal script once
-    const script = document.createElement('script');
-    script.src = 'https://terminal.jup.ag/main-v3.js';
-    script.async = true;
-    script.onload = async () => {
-      scriptLoadedRef.current = true;
-      jupiterScriptLoaded = true;
-      console.log('Jupiter Terminal script loaded');
+    const initializeTerminal = async () => {
+      // Prevent multiple initialization attempts
+      if (initializationAttemptedRef.current) {
+        console.log('Terminal initialization already attempted');
+        return;
+      }
+      initializationAttemptedRef.current = true;
 
-      if (containerRef.current && window.Jupiter) {
+      // Wait for script to load
+      await loadScript();
+
+      // Wait for window.Jupiter to become available
+      let retries = 0;
+      while (!window.Jupiter && retries < 20) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        retries++;
+      }
+
+      if (!window.Jupiter) {
+        console.error('Jupiter did not load after retries');
+        return;
+      }
+
+      if (containerRef.current && !terminalRef.current) {
         try {
-          // Initialize Jupiter Terminal only once
-          if (!terminalRef.current) {
-            const terminal = await window.Jupiter.Terminal.load({
-              displayMode: 'integrated',
-              integratedTargetId: 'jupiter-terminal-container',
-              endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
-              formProps: {
-                fixedOutputMint: true,
-                initialInputMint: inputMint,
-                initialOutputMint: outputMint,
-              },
-            });
+          console.log('Initializing Jupiter Terminal...');
+          const terminal = await window.Jupiter.Terminal.load({
+            displayMode: 'integrated',
+            integratedTargetId: 'jupiter-terminal-container',
+            endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+            formProps: {
+              fixedOutputMint: true,
+              initialInputMint: inputMint,
+              initialOutputMint: outputMint,
+            },
+          });
 
-            terminalRef.current = terminal;
-            console.log('Jupiter Terminal initialized');
-          }
+          terminalRef.current = terminal;
+          console.log('Jupiter Terminal initialized successfully');
 
           // Handle successful transactions
           if (onSuccess && typeof window !== 'undefined') {
             const handleSuccess = (event: any) => {
               if (event.detail?.signature) {
+                console.log('Transaction success:', event.detail.signature);
                 onSuccess(event.detail.signature);
               }
             };
-            // Remove old listener if exists to prevent duplicates
-            window.removeEventListener('jupiterSuccess', handleSuccess);
             window.addEventListener('jupiterSuccess', handleSuccess);
           }
         } catch (error) {
           console.error('Failed to initialize Jupiter Terminal:', error);
+          initializationAttemptedRef.current = false; // Reset to retry
         }
       }
     };
-    script.onerror = () => {
-      console.error('Failed to load Jupiter Terminal script');
-    };
 
-    document.body.appendChild(script);
+    initializeTerminal();
 
     return () => {
-      // Don't remove script on unmount since we're keeping it loaded
-      // Only cleanup listeners if component unmounts
+      // Cleanup
       if (onSuccess && typeof window !== 'undefined') {
         window.removeEventListener('jupiterSuccess', () => {});
       }
     };
-  }, []); // Empty dependency array - load script only once
+  }, [inputMint, outputMint, onSuccess]);
 
   return (
     <div
