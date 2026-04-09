@@ -227,9 +227,10 @@ export function useAbraBalance(minimumThreshold: number = MINIMUM_ABRA_FOR_ACCES
 
     fetchBalance();
 
-    // Optionally set up polling to refresh balance every 30 seconds
-    const interval = setInterval(fetchBalance, 30000);
-    return () => clearInterval(interval);
+    // Do NOT poll for balance updates - it causes scroll position resets every 30 seconds
+    // Balance is checked once on mount for access gating; continuous polling is unnecessary
+    // and causes the entire app to re-render, resetting scroll position repeatedly
+    return;
   }, [publicKey, connection, minimumThreshold]);
 
   return state;
