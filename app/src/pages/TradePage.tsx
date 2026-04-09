@@ -1,8 +1,8 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Zap } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
-import { JupiterWidget } from '../components/JupiterWidget';
+import { JupiterSwapPanel } from '../components/JupiterSwapPanel';
 
 const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || `https://bags.fm/${ABRA_TOKEN_CA}`;
@@ -10,14 +10,7 @@ const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() ||
 export function TradePage() {
   const { connected } = useWallet();
   const [activeTab, setActiveTab] = useState<'jupiter' | 'bags'>('jupiter');
-  const [swapSuccess, setSwapSuccess] = useState<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  const handleSwapSuccess = (txSignature: string) => {
-    setSwapSuccess(txSignature);
-    // Auto-dismiss after 5 seconds
-    setTimeout(() => setSwapSuccess(null), 5000);
-  };
 
   const handleTabChange = (tab: 'jupiter' | 'bags') => {
     setActiveTab(tab);
@@ -69,26 +62,9 @@ export function TradePage() {
         </button>
       </div>
 
-      {/* Success Notification */}
-      {swapSuccess && (
-        <div className="rounded-xl border border-emerald-300/40 bg-emerald-900/30 p-4 backdrop-blur-sm">
-          <p className="text-sm text-emerald-200 font-semibold">✓ Swap successful!</p>
-          <p className="text-xs text-emerald-300/80 mt-1 font-mono break-all">{swapSuccess}</p>
-        </div>
-      )}
-
-      {/* Jupiter Terminal - kept mounted, toggled with CSS */}
+      {/* Jupiter Swap Panel */}
       <div style={{ display: activeTab === 'jupiter' ? 'block' : 'none' }}>
-        <div className="mb-3 rounded-lg bg-blue-900/20 border border-blue-300/20 p-3">
-          <p className="text-xs text-blue-200">
-            Jupiter aggregates liquidity across multiple DEXs for the best swap rates. Enter your amount and confirm in the terminal below.
-          </p>
-        </div>
-        <JupiterWidget
-          inputMint="So11111111111111111111111111111111111111112"
-          outputMint={ABRA_TOKEN_CA}
-          onSuccess={handleSwapSuccess}
-        />
+        <JupiterSwapPanel />
       </div>
 
       {/* Bags Buy Widget - kept mounted, toggled with CSS */}
