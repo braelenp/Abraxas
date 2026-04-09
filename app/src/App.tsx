@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { Route, Routes, useLocation, NavLink, Navigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
@@ -67,6 +67,7 @@ function DappShell() {
     [],
   );
   const [backgroundIndex, setBackgroundIndex] = useState(0);
+  const [backgroundErrors, setBackgroundErrors] = useState(0);
   const [hasSeenIntroModal, setHasSeenIntroModal] = useState(() => {
     // Load intro modal dismissal from localStorage on mount
     if (typeof window === 'undefined') return false;
@@ -77,11 +78,23 @@ function DappShell() {
     }
   });
 
-  const onBackgroundError = () => {
-    if (backgroundIndex < dappBackgroundCandidates.length - 1) {
-      setBackgroundIndex((current) => current + 1);
-    }
-  };
+  const onBackgroundError = useCallback(() => {
+    // Track errors to prevent infinite cycling
+    setBackgroundErrors((prev) => {
+      const newErrorCount = prev + 1;
+      // Only cycle through images if we haven't exceeded the candidate count
+      // This prevents infinite loops if all images fail
+      if (newErrorCount <= dappBackgroundCandidates.length) {
+        setBackgroundIndex((current) => {
+          if (current < dappBackgroundCandidates.length - 1) {
+            return current + 1;
+          }
+          return current;
+        });
+      }
+      return newErrorCount;
+    });
+  }, [dappBackgroundCandidates.length]);
 
   // Dismiss intro modal and persist to localStorage
   const dismissIntroModal = () => {
@@ -121,6 +134,8 @@ function DappShell() {
     if (contentRef.current) {
       contentRef.current.scrollTop = 0;
     }
+    // Reset background errors on route change
+    setBackgroundErrors(0);
   }, [location.pathname]);
 
   return (
