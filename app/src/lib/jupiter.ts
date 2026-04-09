@@ -2,6 +2,21 @@ import { Connection, PublicKey, VersionedTransaction } from '@solana/web3.js';
 
 const JUPITER_API_BASE = 'https://quote-api.jup.ag/v6';
 
+/**
+ * Get the Helius RPC endpoint if configured, otherwise use the default.
+ * This ensures Jupiter swap transactions use optimized RPC infrastructure.
+ * 
+ * Configuration via environment variable:
+ * - VITE_SOLANA_RPC_URL=https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY
+ */
+export function getHeliusRpcEndpoint(): string | null {
+  const rpcUrl = import.meta.env.VITE_SOLANA_RPC_URL?.trim();
+  if (rpcUrl && rpcUrl.includes('helius')) {
+    return rpcUrl;
+  }
+  return null;
+}
+
 export interface JupiterQuote {
   inputMint: string;
   outputMint: string;

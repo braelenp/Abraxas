@@ -7,7 +7,6 @@ import { fetchPolymarketBets, type PolymarketBet, POLYMARKET_CATEGORIES, filterB
 import { usePolymarketBets } from '../hooks/usePolymarketBets';
 import { getKingAIProbability } from '../lib/polymarket';
 import { FeatureBadge } from '../components/FeatureBadge';
-import SpendAbra from '../components/SpendAbra';
 import { OraclePerformanceWidget } from '../components/OraclePerformanceWidget';
 import { useNavigate } from 'react-router-dom';
 import { RuneRealm } from '../components/RuneRealm';
@@ -47,7 +46,6 @@ export function DashboardPage() {
   const [placingBet, setPlacingBet] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showOffRampWidget, setShowOffRampWidget] = useState(false);
-  const [showSpendAbra, setShowSpendAbra] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
 
@@ -256,19 +254,6 @@ export function DashboardPage() {
           <p className="mt-2 text-sm font-medium text-slate-200">Cash Out</p>
           <p className="text-xs text-slate-400 mt-1">Convert to Fiat</p>
         </button>
-
-        <button 
-          onClick={() => setShowSpendAbra(true)}
-          disabled={!connected}
-          className="relative glow-panel rounded-2xl border border-purple-300/20 bg-slate-900/75 p-4 backdrop-blur text-center hover:border-purple-300/40 disabled:opacity-50 transition-all"
-        >
-          <div className="absolute top-2 right-2">
-            <FeatureBadge status="live" size="sm" />
-          </div>
-          <Zap size={24} className="mx-auto text-purple-300" />
-          <p className="mt-2 text-sm font-medium text-slate-200">Spend ABRA</p>
-          <p className="text-xs text-slate-400 mt-1">Direct to wallet</p>
-        </button>
       </div>
 
       {/* Fiat Off-Ramp Widget */}
@@ -286,8 +271,6 @@ export function DashboardPage() {
           <p className="text-xs text-white/50 mb-3">Convert your ABRA to USDC and withdraw to your bank account via Ramp or Transak.</p>
         </article>
       )}
-
-      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
 
       {/* Vaults Section */}
       {vaults.length > 0 && (
@@ -541,8 +524,7 @@ export function DashboardPage() {
         )}
       </article>
 
-      {/* Spend ABRA Modal */}
-      {showSpendAbra && <SpendAbra onClose={() => setShowSpendAbra(false)} />}
+      {/* Spend ABRA Modal Removed - Off-ramping feature discontinued */}
     </section>
     </RuneRealm>
   );

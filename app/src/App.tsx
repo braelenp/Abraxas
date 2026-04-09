@@ -17,8 +17,6 @@ import { LoadingPage } from './pages/LoadingPage';
 import { TokenGatedPage } from './pages/TokenGatedPage';
 import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
-import { WithdrawPage } from './pages/WithdrawPage';
-import { CashOutPage } from './pages/CashOutPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
 import { BrandLogo } from './components/BrandLogo';
@@ -185,8 +183,6 @@ function DappShell() {
           <Route path="warden" element={<DashboardPage />} />
           <Route path="stake" element={<StakePage />} />
           <Route path="deposit" element={<DepositPage />} />
-          <Route path="withdraw" element={<WithdrawPage />} />
-          <Route path="cashout" element={<CashOutPage />} />
         </Routes>
       </main>
 
