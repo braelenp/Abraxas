@@ -3,6 +3,23 @@ import { Connection, PublicKey, VersionedTransaction } from '@solana/web3.js';
 const JUPITER_API_BASE = 'https://quote-api.jup.ag/v6';
 
 /**
+ * Check Jupiter API health
+ */
+export async function checkJupiterHealth(): Promise<boolean> {
+  try {
+    console.log('[Jupiter] Checking API health...');
+    // Try to fetch a simple health check or quote with minimal tokens
+    const testUrl = `${JUPITER_API_BASE}/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=EPjFWaLb3odccccccccccccccccccccccccccPwr2ugEp&amount=1000000`;
+    const response = await fetch(testUrl);
+    console.log('[Jupiter] Health check response:', response.status, response.statusText);
+    return response.ok;
+  } catch (error) {
+    console.error('[Jupiter] Health check failed:', error);
+    return false;
+  }
+}
+
+/**
  * Get the Helius RPC endpoint if configured, otherwise use the default.
  * This ensures Jupiter swap transactions use optimized RPC infrastructure.
  * 
@@ -65,41 +82,57 @@ export async function getJupiterQuote(
 ): Promise<JupiterQuote | null> {
   try {
     const amountInSmallestUnits = Math.floor(amount * 10 ** decimals); // Convert using actual decimals
+    
+    // Jupiter quote endpoint parameters
     const params = new URLSearchParams({
       inputMint,
       outputMint,
       amount: amountInSmallestUnits.toString(),
       slippageBps: slippageBps.toString(),
-      onlyDirectRoutes: 'false',
     });
 
-    console.log('Fetching Jupiter quote with params:', {
+    console.log('[Jupiter] Fetching quote:', {
       inputMint,
       outputMint,
-      amount,
-      amountInSmallestUnits,
+      amount: `${amount} (raw)`,
+      amountInSmallestUnits: `${amountInSmallestUnits} (smallest units)`,
+      decimals,
       slippageBps,
     });
 
     const url = `${JUPITER_API_BASE}/quote?${params}`;
-    console.log('Quote URL:', url);
-    const response = await fetch(url);
+    console.log('[Jupiter] Quote URL:', url);
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Jupiter quote HTTP error:', response.status, response.statusText);
-      console.error('Response body:', errorText);
+      console.error(`[Jupiter] HTTP ${response.status} ${response.statusText}`);
+      console.error('[Jupiter] Response:', errorText);
+      
+      // Log specific error details
+      try {
+        const errorJson = JSON.parse(errorText);
+        console.error('[Jupiter] Error details:', errorJson);
+      } catch (e) {
+        // Not JSON, that's ok
+      }
       return null;
     }
 
     const contentType = response.headers.get('content-type');
     if (!contentType || !contentType.includes('application/json')) {
-      console.error('Unexpected response type:', contentType);
+      console.error('[Jupiter] Unexpected response type:', contentType);
       return null;
     }
 
     const data = (await response.json()) as JupiterQuote;
-    console.log('Jupiter quote received:', data);
+    console.log('[Jupiter] Quote received - Output:', data.outAmount, 'Price impact:', data.priceImpactPct);
     return data;
   } catch (error) {
     console.error('Failed to fetch Jupiter quote:', error);

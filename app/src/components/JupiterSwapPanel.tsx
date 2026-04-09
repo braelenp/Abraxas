@@ -33,6 +33,7 @@ export function JupiterSwapPanel() {
     }
 
     setIsLoadingQuote(true);
+    setSwapState({ status: 'idle' }); // Clear previous errors
     try {
       // Pass raw amount and let getJupiterQuote handle decimal conversion
       const quote = await getJupiterQuote(SOL_TOKEN_CA, ABRA_TOKEN_CA, parseFloat(solAmount), 50, SOL_DECIMALS);
@@ -41,17 +42,19 @@ export function JupiterSwapPanel() {
         const outputAmount = calculateOutputAmount(quote, ABRA_DECIMALS);
         setAbraAmount(outputAmount.toFixed(2));
         setPriceImpact(quote.priceImpactPct);
+        setSwapState({ status: 'idle' }); // Clear any error messages
       } else {
+        console.error('[JupiterSwapPanel] Quote is null - check browser console for Jupiter API errors');
         setSwapState({
           status: 'error',
-          message: 'Failed to fetch quote from Jupiter',
+          message: 'Failed to get quote. Check browser console for details.',
         });
       }
     } catch (error) {
       console.error('Quote error:', error);
       setSwapState({
         status: 'error',
-        message: 'Error fetching quote',
+        message: error instanceof Error ? error.message : 'Error fetching quote',
       });
     } finally {
       setIsLoadingQuote(false);
