@@ -7,6 +7,9 @@ interface JupiterWidgetProps {
   onSuccess?: (txSignature: string) => void;
 }
 
+// Global flag to ensure script is only loaded once
+let jupiterScriptLoaded = false;
+
 declare global {
   namespace Jupiter {
     interface Terminal {
@@ -28,6 +31,7 @@ declare global {
 /**
  * JupiterWidget - Integrates Jupiter Terminal directly into Abraxas
  * Provides embedded DEX swap interface without leaving the dApp
+ * Keeps script loaded permanently to prevent scroll jumping on tab changes
  */
 export function JupiterWidget({
   inputMint = 'So11111111111111111111111111111111111111112', // SOL
@@ -38,36 +42,54 @@ export function JupiterWidget({
   const { connection } = useConnection();
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<any>(null);
+  const scriptLoadedRef = useRef(false);
 
   useEffect(() => {
-    // Load Jupiter Terminal script
+    // Only load script once globally
+    if (jupiterScriptLoaded || scriptLoadedRef.current) {
+      // Script already loaded in this or another instance
+      console.log('Jupiter script already loaded');
+      return;
+    }
+
+    // Load Jupiter Terminal script once
     const script = document.createElement('script');
     script.src = 'https://terminal.jup.ag/main-v3.js';
     script.async = true;
     script.onload = async () => {
+      scriptLoadedRef.current = true;
+      jupiterScriptLoaded = true;
+      console.log('Jupiter Terminal script loaded');
+
       if (containerRef.current && window.Jupiter) {
         try {
-          // Initialize Jupiter Terminal
-          const terminal = window.Jupiter.Terminal.load({
-            displayMode: 'integrated',
-            integratedTargetId: 'jupiter-terminal-container',
-            endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
-            formProps: {
-              fixedOutputMint: true,
-              initialInputMint: inputMint,
-              initialOutputMint: outputMint,
-            },
-          });
+          // Initialize Jupiter Terminal only once
+          if (!terminalRef.current) {
+            const terminal = await window.Jupiter.Terminal.load({
+              displayMode: 'integrated',
+              integratedTargetId: 'jupiter-terminal-container',
+              endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+              formProps: {
+                fixedOutputMint: true,
+                initialInputMint: inputMint,
+                initialOutputMint: outputMint,
+              },
+            });
 
-          terminalRef.current = terminal;
+            terminalRef.current = terminal;
+            console.log('Jupiter Terminal initialized');
+          }
 
           // Handle successful transactions
           if (onSuccess && typeof window !== 'undefined') {
-            window.addEventListener('jupiterSuccess', (event: any) => {
+            const handleSuccess = (event: any) => {
               if (event.detail?.signature) {
                 onSuccess(event.detail.signature);
               }
-            });
+            };
+            // Remove old listener if exists to prevent duplicates
+            window.removeEventListener('jupiterSuccess', handleSuccess);
+            window.addEventListener('jupiterSuccess', handleSuccess);
           }
         } catch (error) {
           console.error('Failed to initialize Jupiter Terminal:', error);
@@ -77,18 +99,17 @@ export function JupiterWidget({
     script.onerror = () => {
       console.error('Failed to load Jupiter Terminal script');
     };
+
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup
-      if (script.parentNode) {
-        document.body.removeChild(script);
-      }
-      if (typeof window !== 'undefined') {
+      // Don't remove script on unmount since we're keeping it loaded
+      // Only cleanup listeners if component unmounts
+      if (onSuccess && typeof window !== 'undefined') {
         window.removeEventListener('jupiterSuccess', () => {});
       }
     };
-  }, [inputMint, outputMint, onSuccess]);
+  }, []); // Empty dependency array - load script only once
 
   return (
     <div
