@@ -14,8 +14,8 @@ export function TokenGatedPage() {
     <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 overflow-auto z-50">
       {/* Animated background effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Content */}
@@ -44,7 +44,7 @@ export function TokenGatedPage() {
 
             {isLoading ? (
               <div className="flex justify-center py-4">
-                <div className="w-8 h-8 border-2 border-purple-300/30 border-t-purple-300 rounded-full" />
+                <div className="w-8 h-8 border-2 border-purple-300/30 border-t-purple-300 rounded-full animate-spin" />
               </div>
             ) : error ? (
               <div className="space-y-2 py-4">
@@ -57,7 +57,7 @@ export function TokenGatedPage() {
               </div>
             ) : (
               <div
-                className={`py-4 rounded-lg border ${
+                className={`py-4 rounded-lg border transition-all ${
                   hasMinimum
                     ? 'bg-emerald-500/10 border-emerald-400/30'
                     : 'bg-red-500/10 border-red-400/30'
@@ -89,7 +89,7 @@ export function TokenGatedPage() {
             <div className="pt-4">
               <div className="mb-4 flex justify-center">
                 <div className="w-full max-w-xs">
-                  <WalletMultiButton className="!bg-gradient-to-r !from-amber-500 !to-amber-600 hover:!from-amber-400 hover:!to-amber-500 !w-full !py-3 !rounded-lg !text-[11px] !font-semibold !uppercase !tracking-widest !shadow-lg hover:!shadow-amber-500/50" />
+                  <WalletMultiButton className="!bg-gradient-to-r !from-amber-500 !to-amber-600 hover:!from-amber-400 hover:!to-amber-500 !w-full !py-3 !rounded-lg !text-[11px] !font-semibold !uppercase !tracking-widest !shadow-lg hover:!shadow-amber-500/50 !transition-all" />
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ export function TokenGatedPage() {
           <div className="flex flex-col gap-2 pt-4">
             <button
               onClick={handleRefresh}
-              className="px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-200 text-[10px] font-semibold uppercase tracking-wider active:scale-95"
+              className="px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-200 text-[10px] font-semibold uppercase tracking-wider transition-all active:scale-95"
             >
               Refresh Balance
             </button>
@@ -107,7 +107,7 @@ export function TokenGatedPage() {
             {hasMinimum && !isLoading && (
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white text-[10px] font-semibold uppercase tracking-wider active:scale-95 shadow-lg hover:shadow-purple-500/50"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white text-[10px] font-semibold uppercase tracking-wider transition-all active:scale-95 shadow-lg hover:shadow-purple-500/50"
               >
                 Enter Cadabra
               </button>

@@ -145,7 +145,93 @@ body {
   backdrop-filter: blur(8px);
 }
 
+/* ──────────────── ANSUZ RUNE PULSE ──────────────── */
+@keyframes ansuzPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 20px #00f5ff,
+      0 0 40px #00f5ff,
+      0 0 60px #00b8cc,
+      0 0 15px #ffd700;
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+  }
+  25% {
+    text-shadow:
+      0 0 30px #00f5ff,
+      0 0 60px #00f5ff,
+      0 0 90px #00b8cc,
+      0 0 25px #ffd700,
+      0 0 50px #9945ff;
+    transform: scale(1.03) translateY(-3px);
+    filter: brightness(1.2);
+  }
+  50% {
+    text-shadow:
+      0 0 40px #00f5ff,
+      0 0 80px #00f5ff,
+      0 0 120px #00b8cc,
+      0 0 40px #ffd700,
+      0 0 80px #9945ff;
+    transform: scale(1.06) translateY(-5px);
+    filter: brightness(1.4);
+  }
+  75% {
+    text-shadow:
+      0 0 30px #00f5ff,
+      0 0 60px #00f5ff,
+      0 0 90px #00b8cc,
+      0 0 25px #ffd700;
+    transform: scale(1.03) translateY(-3px);
+    filter: brightness(1.2);
+  }
+}
 
+.ansuz-rune {
+  animation: ansuzPulse 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ──────────────── TYPING EFFECT ──────────────── */
+@keyframes typingReveal {
+  from { width: 0; opacity: 1; }
+  to { width: 100%; opacity: 1; }
+}
+
+@keyframes caretBlink {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--cyan); }
+}
+
+.typing-reveal {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--cyan);
+  animation:
+    typingReveal 1.8s steps(28, end) forwards,
+    caretBlink 0.75s step-end 1.8s infinite;
+}
+
+/* ──────────────── FIRE PARTICLES ──────────────── */
+@keyframes fireRise {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-80px) scale(0.3); opacity: 0; }
+}
+
+.fire-particle {
+  animation: fireRise var(--duration, 2s) ease-out var(--delay, 0s) infinite;
+}
+
+/* ──────────────── LIGHT BEAMS ──────────────── */
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.15; transform: scaleY(0.95); }
+  50% { opacity: 0.45; transform: scaleY(1.05); }
+}
+
+.light-beam {
+  animation: beamPulse var(--beam-duration, 3s) ease-in-out var(--beam-delay, 0s) infinite;
+}
 
 /* ──────────────── GRADIENT TEXT ──────────────── */
 .gradient-text-purple {
@@ -169,7 +255,19 @@ body {
   background-clip: text;
 }
 
+.gradient-text-oracle {
+  background: linear-gradient(135deg, #00f5ff 0%, #ffd700 50%, #00f5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: oracleShimmer 3s ease-in-out infinite;
+}
 
+@keyframes oracleShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 
 /* ──────────────── BOTTOM NAV STYLES ──────────────── */
 .bottom-nav-item {

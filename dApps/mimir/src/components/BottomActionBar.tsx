@@ -14,7 +14,7 @@ export default function BottomActionBar() {
         href="https://abraxas-ten.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg rounded-lg font-bold tracking-widest uppercase bg-gradient-to-r from-purple-700 via-purple-600 to-violet-600 text-white border border-purple-500/50 duration-300 cursor-pointer select-none"
+        className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg rounded-lg font-bold tracking-widest uppercase bg-gradient-to-r from-purple-700 via-purple-600 to-violet-600 text-white border border-purple-500/50 transition-colors duration-300 cursor-pointer select-none"
         style={{
           fontFamily: "'Space Mono', monospace",
         }}
@@ -26,7 +26,7 @@ export default function BottomActionBar() {
         href="https://discord.gg/B6nM8fe3q"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg rounded-lg font-bold tracking-widest uppercase bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white border border-indigo-500/50 duration-300 cursor-pointer select-none"
+        className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg rounded-lg font-bold tracking-widest uppercase bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white border border-indigo-500/50 transition-colors duration-300 cursor-pointer select-none"
         style={{
           fontFamily: "'Space Mono', monospace",
         }}

@@ -78,7 +78,7 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
       {/* Typing phrase */}
       <p className="aurelia-hero-title min-h-[1.6em] px-6 text-center font-serif text-2xl leading-tight sm:text-3xl">
         <span className="shimmer-text">{typed}</span>
-        <span className="ml-0.5" style={{ color: '#f59e0b' }}>|</span>
+        <span className="ml-0.5 animate-pulse" style={{ color: '#f59e0b' }}>|</span>
       </p>
 
       {/* Label */}
@@ -90,7 +90,7 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
       <div className="mt-8 h-px w-40 overflow-hidden rounded-full bg-slate-800">
         <div
           className="h-full rounded-full bg-amber-400/50"
-          style={{ animation: 'loader-progress 5.4s linear forwards' }}
+          style={{}}"
         />
       </div>
     </div>
@@ -168,7 +168,7 @@ function Hero({ onEnterApp }: { onEnterApp: () => void }) {
       </div>
 
       {/* Scroll cue */}
-      <div className="mt-12 opacity-35">
+      <div className="mt-12 animate-bounce opacity-35">
         <div className="flex flex-col items-center gap-1">
           <div className="h-5 w-px rounded-full bg-amber-400/55" />
           <div className="h-1.5 w-1.5 rounded-full bg-amber-400/55" />

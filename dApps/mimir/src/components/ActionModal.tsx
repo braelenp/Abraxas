@@ -81,7 +81,7 @@ export default function ActionModal({ isOpen, actionType, onClose }: ActionModal
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-2xl hover:text-cyan-300"
+          className="absolute top-4 right-4 text-2xl hover:text-cyan-300 transition-colors"
           style={{ color: '#00f5ff' }}
         >
           ✕
@@ -119,7 +119,7 @@ export default function ActionModal({ isOpen, actionType, onClose }: ActionModal
           {config.steps.map((_, idx) => (
             <div
               key={idx}
-              className="h-1 flex-1 rounded-full duration-300"
+              className="h-1 flex-1 rounded-full transition-all duration-300"
               style={{
                 background: idx + 1 <= step ? '#00f5ff' : 'rgba(0, 245, 255, 0.2)',
                 boxShadow:

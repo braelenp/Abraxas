@@ -134,7 +134,7 @@ export default function OraclePage() {
           >
             {displayText}
             {displayText.length < fullText.length && (
-              <span className="animate-pulse">▌</span>
+              <span>▌</span>
             )}
           </h1>
 
@@ -195,7 +195,7 @@ export default function OraclePage() {
                     setSelectedAction(action.label.split(' ')[0] as 'SWAP' | 'DEPOSIT' | 'WITHDRAW')
                   }
                 }}
-                className="p-4 rounded-lg border backdrop-blur-sm hover:scale-105 duration-300 flex flex-col items-center gap-2"
+                className="p-4 rounded-lg border backdrop-blur-sm transition-all hover:scale-105 duration-300 flex flex-col items-center gap-2"
                 style={{
                   borderColor: 'rgba(0, 245, 255, 0.3)',
                   background: 'rgba(0, 245, 255, 0.10)',
@@ -382,7 +382,7 @@ export default function OraclePage() {
             </div>
 
             <button
-              className="w-full px-6 py-3 rounded-lg font-bold tracking-widest hover:scale-105 duration-300"
+              className="w-full px-6 py-3 rounded-lg font-bold tracking-widest transition-all hover:scale-105 duration-300"
               style={{
                 fontFamily: "'Space Mono', monospace",
                 background: 'linear-gradient(135deg, #00f5ff, #9945ff)',
@@ -398,7 +398,7 @@ export default function OraclePage() {
         {/* Center Eye Rune */}
         <div className="flex justify-center my-12">
           <div
-            className="text-8xl animate-pulse"
+            className="text-8xl"
             style={{
               color: '#00f5ff',
               textShadow: '0 0 16px #00f5ff, 0 0 32px #00f5ff, 0 0 48px #9945ff',

@@ -28,15 +28,15 @@ export default function AbraxasFooter() {
 
       {/* Footer links */}
       <div className="flex items-center gap-6 opacity-40 text-xs tracking-widest" style={{ fontFamily: 'Cinzel, serif' }}>
-        <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 text-[#00f5ff]">
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity text-[#00f5ff]">
           Twitter
         </a>
         <span className="text-[#00f5ff]/30">|</span>
-        <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 text-[#00f5ff]">
+        <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity text-[#00f5ff]">
           Telegram
         </a>
         <span className="text-[#00f5ff]/30">|</span>
-        <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 text-[#00f5ff]">
+        <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity text-[#00f5ff]">
           Discord
         </a>
       </div>

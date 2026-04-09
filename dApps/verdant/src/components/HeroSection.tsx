@@ -52,14 +52,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
         }}
       >
         <span
-          className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"
+          className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"
           style={{ boxShadow: '0 0 6px #10b981' }}
         />
         Solana Devnet · Live
       </div>
 
       {/* Sigil */}
-      <div className="mb-8" style={{ opacity: 1 }}>
+      <div className="mb-8" style={{ animation: 'rr-float 6s ease-in-out infinite' }}>
         <VerdantSigil size={148} animate />
       </div>
 
@@ -158,7 +158,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
       </div>
 
       {/* Scroll cue */}
-      <div className="text-emerald-500/40">
+      <div className="animate-bounce-arrow text-emerald-500/40">
         <ChevronDown size={22} />
       </div>
     </section>

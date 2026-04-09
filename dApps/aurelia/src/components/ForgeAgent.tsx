@@ -119,7 +119,7 @@ export default function ForgeAgent() {
                 >
                   {label}
                 </span>
-                {active && <span className="ml-auto h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />}
+                {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-amber-400" />}
               </li>
             )
           })}

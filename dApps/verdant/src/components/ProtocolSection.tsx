@@ -77,7 +77,7 @@ const ProtocolSection: React.FC<ProtocolSectionProps> = ({ onEnterApp }) => {
           {PILLARS.map((p) => (
             <div
               key={p.name}
-              className="relative rounded-xl p-6 group"
+              className="relative rounded-xl p-6 transition-all duration-300 group"
               style={{
                 background: `linear-gradient(135deg, ${p.glowColor}, rgba(13,32,24,0.7))`,
                 border: `1px solid ${p.borderColor}`,
@@ -115,7 +115,7 @@ const ProtocolSection: React.FC<ProtocolSectionProps> = ({ onEnterApp }) => {
 
               {/* Corner accent */}
               <div
-                className="absolute top-0 right-0 w-16 h-16 rounded-br- opacity-0 group-hover:opacity-100"
+                className="absolute top-0 right-0 w-16 h-16 rounded-br- opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{
                   background: `radial-gradient(circle at top right, ${p.accent}18, transparent 70%)`,
                 }}
@@ -128,7 +128,7 @@ const ProtocolSection: React.FC<ProtocolSectionProps> = ({ onEnterApp }) => {
         <div className="text-center">
           <button
             onClick={onEnterApp}
-            className="inline-flex items-center gap-2 font-grotesk text-xs font-semibold tracking-[0.14em] uppercase px-7 py-3 rounded-md"
+            className="inline-flex items-center gap-2 font-grotesk text-xs font-semibold tracking-[0.14em] uppercase px-7 py-3 rounded-md transition-all duration-200"
             style={{
               background: 'linear-gradient(135deg, rgba(16,185,129,0.18), rgba(16,185,129,0.08))',
               border: '1px solid rgba(16,185,129,0.45)',

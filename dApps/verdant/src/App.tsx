@@ -52,7 +52,7 @@ const App: React.FC = () => {
               href="https://abraxas-ten.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-purple-700/60 hover:text-purple-500/70"
+              className="text-purple-700/60 hover:text-purple-500/70 transition-colors"
             >
               Sophia's Species
             </a>{' '}

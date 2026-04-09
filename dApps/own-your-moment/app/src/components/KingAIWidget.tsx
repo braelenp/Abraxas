@@ -142,9 +142,9 @@ export default function KingAIWidget() {
                   <Brain className="h-3 w-3" />
                 </span>
                 <div className="flex items-center gap-1 rounded-[14px] rounded-tl-[4px] border border-white/8 bg-white/[0.04] px-3 py-2.5">
-                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#f2c230]/70 [animation-delay:0ms]" />
-                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#f2c230]/70 [animation-delay:120ms]" />
-                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#f2c230]/70 [animation-delay:240ms]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#f2c230]/70 [animation-delay:0ms]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#f2c230]/70 [animation-delay:120ms]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#f2c230]/70 [animation-delay:240ms]" />
                 </div>
               </div>
             )}

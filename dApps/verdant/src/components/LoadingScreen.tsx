@@ -59,7 +59,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       {/* Typing text */}
       <div className="h-6 font-mono text-xs text-emerald-400/80 tracking-wider mb-8 px-4 text-center">
         {typed}
-        <span className="inline-block w-px h-3.5 bg-emerald-400/70 ml-0.5 align-middle" />
+        <span className="inline-block w-px h-3.5 bg-emerald-400/70 ml-0.5 align-middle animate-pulse" />
       </div>
 
       {/* Progress bar */}

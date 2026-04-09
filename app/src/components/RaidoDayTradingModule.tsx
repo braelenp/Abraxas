@@ -460,7 +460,7 @@ export function RaidoDayTradingModule() {
               </button>
 
               {showQuiz && (
-              <div className="">
+                <div>
                   <InteractiveQuiz />
                 </div>
               )}

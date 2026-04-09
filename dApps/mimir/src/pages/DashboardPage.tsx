@@ -122,10 +122,10 @@ export default function DashboardPage() {
             <a
               key={son.name}
               href={son.path}
-              className="abraxas-panel p-5 flex items-center gap-4 no-underline group duration-300 hover:border-[#9945ff]/40"
+              className="abraxas-panel p-5 flex items-center gap-4 no-underline group transition-all duration-300 hover:border-[#9945ff]/40"
             >
               <span
-                className="text-3xl leading-none duration-300"
+                className="text-3xl leading-none transition-all duration-300"
                 style={{
                   color: son.color,
                   textShadow: `0 0 15px ${son.color}`,
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="text-xs text-[#e8e8f0]/40 mt-0.5">{son.desc}</div>
               </div>
-              <span className="text-[#9945ff]/30 group-hover:text-[#9945ff]/60 text-lg">›</span>
+              <span className="text-[#9945ff]/30 group-hover:text-[#9945ff]/60 transition-colors text-lg">›</span>
             </a>
           ))}
         </section>

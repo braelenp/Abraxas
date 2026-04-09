@@ -73,7 +73,7 @@ const VerdantSigil: React.FC<VerdantSigilProps> = ({
         rx={w * 0.46} ry={h * 0.39}
         fill="url(#vg-outer)"
         filter="url(#vg-blur-xl)"
-        className={animate ? '' : ''}"
+        className={animate ? 'rr-breathe' : ''}
         style={{ transformOrigin: `${cx}px ${cy}px` }}
       />
 
@@ -95,7 +95,7 @@ const VerdantSigil: React.FC<VerdantSigilProps> = ({
         strokeDasharray="3 7"
         fill="none"
         className={animate ? '' : ''}
-        style={{ transformOrigin: `${cx}px ${cy}px` }}"
+        style={{ animation: animate ? 'rr-spin-slow 18s linear infinite reverse' : 'none', transformOrigin: `${cx}px ${cy}px` }}
       />
 
       {/* ── Mid emerald ring ── */}
@@ -107,7 +107,7 @@ const VerdantSigil: React.FC<VerdantSigilProps> = ({
         strokeOpacity="0.5"
         strokeDasharray="5 5"
         fill="none"
-        style={{ transformOrigin: `${cx}px ${cy}px` }}"
+        style={{ animation: animate ? 'rr-spin-slow 12s linear infinite' : 'none', transformOrigin: `${cx}px ${cy}px` }}
       />
 
       {/* ── Inner solid ring ── */}
@@ -261,7 +261,7 @@ const VerdantSigil: React.FC<VerdantSigilProps> = ({
           strokeWidth="1.2"
           strokeOpacity="0.5"
           fill="none"
-          style={{}}"
+          style={{ animation: 'rr-pulse-ring 2.8s ease-out infinite' }}
         />
       )}
 

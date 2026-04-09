@@ -565,9 +565,9 @@ function App() {
         <div className="relative z-10 flex flex-col items-center gap-12">
           {/* Radar rings */}
           <div className="relative w-32 h-32 mb-4">
-            <div className="absolute inset-0 border border-cyan-500/30 rounded-full" />
-            <div className="absolute inset-3 border border-cyan-500/20 rounded-full" />
-            <div className="absolute inset-6 border border-cyan-500/10 rounded-full" />
+            <div className="absolute inset-0 border border-cyan-500/30 rounded-full" style={{ animation: 'pulse 2s ease-in-out infinite' }} />
+            <div className="absolute inset-3 border border-cyan-500/20 rounded-full" style={{ animation: 'pulse 2.5s ease-in-out infinite' }} />
+            <div className="absolute inset-6 border border-cyan-500/10 rounded-full" style={{ animation: 'pulse 3s ease-in-out infinite' }} />
             
             {/* Logo with animated rings */}
             <div className="absolute inset-0 flex items-center justify-center">
