@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap, Wind, Eye, Newspaper, MessageCircle } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
@@ -1145,6 +1146,7 @@ const SONS = [
 ];
 
 export function ForgePage() {
+	const navigate = useNavigate();
 	const fileRef = useRef<HTMLInputElement>(null);
 	const [files, setFiles] = useState<File[]>([]);
 	const [currentStep, setCurrentStep] = useState(1);
@@ -1293,6 +1295,13 @@ export function ForgePage() {
 						>
 							<Sparkles size={12} />
 							Join Academy Whitelist
+						</button>
+						<button
+							type="button"
+							onClick={() => navigate('/app/ledger')}
+							className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-400/40 bg-gradient-to-r from-emerald-500/20 to-cyan-400/10 px-4 py-3 text-xs font-bold uppercase tracking-wider text-emerald-200 shadow-[0_0_12px_rgba(16,185,129,0.15)] transition hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:border-emerald-400/60"
+						>
+							📋 View Whitelist Ledger
 						</button>
 					</div>
 				</div>

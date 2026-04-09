@@ -20,6 +20,7 @@ import { DepositPage } from './pages/DepositPage';
 import { WithdrawPage } from './pages/WithdrawPage';
 import { CashOutPage } from './pages/CashOutPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
@@ -181,6 +182,7 @@ function DappShell() {
           <Route index element={<ProfilePage />} />
           <Route path="forge" element={<ForgePage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="ledger" element={<AcademyLedgerPage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="cadabra" element={<CadabraPage />} />
