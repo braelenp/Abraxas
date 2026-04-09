@@ -1,47 +1,21 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { ExternalLink, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import { useState } from 'react';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
+import { JupiterWidget } from '../components/JupiterWidget';
 
 const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || `https://bags.fm/${ABRA_TOKEN_CA}`;
 
-interface BuyOption {
-  id: string;
-  label: string;
-  description: string;
-  fee: string;
-  route: 'jupiter' | 'bags';
-}
-
-const BUY_OPTIONS: BuyOption[] = [
-  {
-    id: 'jupiter',
-    label: 'Buy via Jupiter',
-    description: 'Swap SOL to ABRA through Jupiter DEX aggregator',
-    fee: '~0.1% (variable)',
-    route: 'jupiter',
-  },
-  {
-    id: 'bags',
-    label: 'Buy via Bags',
-    description: 'Direct swap on Bags DEX - zero fees',
-    fee: '0%',
-    route: 'bags',
-  },
-];
-
 export function TradePage() {
   const { connected } = useWallet();
+  const [activeTab, setActiveTab] = useState<'jupiter' | 'bags'>('jupiter');
+  const [swapSuccess, setSwapSuccess] = useState<string | null>(null);
 
-  const handleBuyViaBags = () => {
-    window.open(ABRA_BAGS_MARKET_URL, '_blank');
-  };
-
-  const handleBuyViaJupiter = () => {
-    // Open Jupiter swap interface for ABRA
-    // Route: SOL → ABRA
-    const jupiterUrl = `https://jup.ag/swap/SOL-${ABRA_TOKEN_CA}`;
-    window.open(jupiterUrl, '_blank');
+  const handleSwapSuccess = (txSignature: string) => {
+    setSwapSuccess(txSignature);
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => setSwapSuccess(null), 5000);
   };
 
   return (
@@ -53,63 +27,84 @@ export function TradePage() {
           <h1 className="text-lg font-bold text-teal-300">Buy ABRA</h1>
         </div>
         <p className="text-xs text-slate-300">
-          Choose your preferred method to acquire ABRA tokens. Both routes lead directly to the exchange interface.
+          Swap directly within Abraxas. Choose Jupiter for best routing or Bags for zero fees.
         </p>
       </div>
 
-      {/* Buying Options Grid */}
-      <div className="space-y-3">
-        {BUY_OPTIONS.map((option) => (
-          <button
-            key={option.id}
-            onClick={() => {
-              if (option.route === 'bags') {
-                handleBuyViaBags();
-              } else if (option.route === 'jupiter') {
-                handleBuyViaJupiter();
-              }
-            }}
-            className="w-full rounded-xl border border-teal-300/40 bg-gradient-to-r from-teal-900/30 to-cyan-900/30 p-4 transition hover:border-teal-300/70 hover:bg-teal-900/40 active:scale-95"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex-1 text-left">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-teal-200">{option.label}</h3>
-                  <ExternalLink className="h-4 w-4 text-teal-300/60" />
-                </div>
-                <p className="text-xs text-slate-400 mt-1">{option.description}</p>
-                <div className="text-[11px] font-mono text-teal-300/80 mt-2">Fee: {option.fee}</div>
-              </div>
-            </div>
-          </button>
-        ))}
+      {/* Tab Selector */}
+      <div className="flex gap-2 rounded-xl border border-cyan-300/20 bg-slate-900/40 p-1.5 backdrop-blur-sm">
+        <button
+          onClick={() => setActiveTab('jupiter')}
+          className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+            activeTab === 'jupiter'
+              ? 'bg-teal-500/30 border border-teal-300/60 text-teal-200 shadow-lg shadow-teal-500/20'
+              : 'text-slate-300 hover:text-slate-200'
+          }`}
+        >
+          Jupiter Terminal
+        </button>
+        <button
+          onClick={() => setActiveTab('bags')}
+          className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+            activeTab === 'bags'
+              ? 'bg-emerald-500/30 border border-emerald-300/60 text-emerald-200 shadow-lg shadow-emerald-500/20'
+              : 'text-slate-300 hover:text-slate-200'
+          }`}
+        >
+          Bags (0% Fee)
+        </button>
       </div>
 
-      {/* Bags Buy Widget */}
-      <div className="mt-4">
-        <div className="rounded-xl border border-emerald-300/30 bg-emerald-900/20 p-4 backdrop-blur-sm mb-4">
-          <h2 className="text-sm font-bold text-emerald-300 mb-2">Quick Swap on Bags</h2>
-          <p className="text-xs text-slate-400">
-            Use the widget below for a direct, zero-fee swap within the dApp.
-          </p>
+      {/* Success Notification */}
+      {swapSuccess && (
+        <div className="rounded-xl border border-emerald-300/40 bg-emerald-900/30 p-4 backdrop-blur-sm">
+          <p className="text-sm text-emerald-200 font-semibold">✓ Swap successful!</p>
+          <p className="text-xs text-emerald-300/80 mt-1 font-mono break-all">{swapSuccess}</p>
         </div>
-        <BagsBuyWidget tokenAddress={ABRA_TOKEN_CA} />
-      </div>
+      )}
+
+      {/* Jupiter Terminal */}
+      {activeTab === 'jupiter' && (
+        <div>
+          <div className="mb-3 rounded-lg bg-blue-900/20 border border-blue-300/20 p-3">
+            <p className="text-xs text-blue-200">
+              Jupiter aggregates liquidity across multiple DEXs for the best swap rates. Enter your amount and confirm in the terminal below.
+            </p>
+          </div>
+          <JupiterWidget
+            inputMint="So11111111111111111111111111111111111111112"
+            outputMint={ABRA_TOKEN_CA}
+            onSuccess={handleSwapSuccess}
+          />
+        </div>
+      )}
+
+      {/* Bags Buy Widget */}
+      {activeTab === 'bags' && (
+        <div>
+          <div className="mb-3 rounded-lg bg-emerald-900/20 border border-emerald-300/20 p-3">
+            <p className="text-xs text-emerald-200">
+              Bags offers zero-fee swaps with instant settlement on-chain. Recommended for best cost efficiency.
+            </p>
+          </div>
+          <BagsBuyWidget tokenAddress={ABRA_TOKEN_CA} />
+        </div>
+      )}
 
       {/* Info Panel */}
       <div className="rounded-xl border border-cyan-300/20 bg-cyan-900/10 p-4 backdrop-blur-sm">
         <div className="space-y-2 text-xs text-slate-300">
           <div className="flex items-start gap-2">
             <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span>Jupiter: Use this for best routing through multiple DEX liquidity pools</span>
+            <span><strong>Jupiter:</strong> Best rates through DEX aggregation (~0.1% fee)</span>
           </div>
           <div className="flex items-start gap-2">
             <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span>Bags: Zero-fee direct swap - recommended for cost efficiency</span>
+            <span><strong>Bags:</strong> Zero-fee direct swap - lowest cost option</span>
           </div>
           <div className="flex items-start gap-2">
             <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span>Both routes execute immediately without leaving the Solana network</span>
+            <span>All transactions happen directly on-chain - no custody of your tokens</span>
           </div>
         </div>
       </div>
@@ -118,7 +113,7 @@ export function TradePage() {
       {!connected && (
         <div className="rounded-xl border border-amber-300/40 bg-amber-900/20 p-4 backdrop-blur-sm">
           <p className="text-xs text-amber-200">
-            Connect your wallet to buy ABRA or use external links above to get started.
+            Connect your wallet to buy ABRA directly in this interface.
           </p>
         </div>
       )}
