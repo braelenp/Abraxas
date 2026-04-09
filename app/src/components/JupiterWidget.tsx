@@ -47,108 +47,109 @@ export function JupiterWidget({
 
   useEffect(() => {
     // Load Jupiter Terminal script
-    const loadScript = async () => {
-      if (jupiterScriptLoaded && scriptLoadedRef.current) {
-        console.log('Jupiter script already fully loaded, attempting initialization');
-      } else if (!scriptLoadedRef.current) {
-        console.log('Loading Jupiter Terminal script...');
-        
-        return new Promise<void>((resolve) => {
-          const script = document.createElement('script');
-          script.src = 'https://terminal.jup.ag/main-v3.js';
-          script.async = true;
-          
-          script.onload = () => {
-            scriptLoadedRef.current = true;
-            jupiterScriptLoaded = true;
-            console.log('Jupiter Terminal script loaded successfully');
-            resolve();
-          };
-          
-          script.onerror = () => {
-            console.error('Failed to load Jupiter Terminal script');
-            scriptLoadedRef.current = false;
-            resolve();
-          };
-          
-          document.body.appendChild(script);
-        });
-      }
+    const loadJupiterScript = () => {
+      return new Promise<void>((resolve) => {
+        // Skip if already loaded
+        if (window.Jupiter) {
+          console.log('Jupiter already available globally');
+          resolve();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://terminal.jup.ag/main-v3.js';
+        script.async = true;
+
+        script.onload = () => {
+          console.log('Jupiter script loaded');
+          resolve();
+        };
+
+        script.onerror = (error) => {
+          console.error('Failed to load Jupiter script:', error);
+          resolve();
+        };
+
+        document.head.appendChild(script);
+      });
     };
 
     const initializeTerminal = async () => {
-      // Prevent multiple initialization attempts
-      if (initializationAttemptedRef.current) {
-        console.log('Terminal initialization already attempted');
-        return;
-      }
-      initializationAttemptedRef.current = true;
+      try {
+        // Load the script
+        await loadJupiterScript();
 
-      // Wait for script to load
-      await loadScript();
-
-      // Wait for window.Jupiter to become available
-      let retries = 0;
-      while (!window.Jupiter && retries < 20) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-        retries++;
-      }
-
-      if (!window.Jupiter) {
-        console.error('Jupiter did not load after retries');
-        return;
-      }
-
-      if (containerRef.current && !terminalRef.current) {
-        try {
-          console.log('Initializing Jupiter Terminal...');
-          const terminal = await window.Jupiter.Terminal.load({
-            displayMode: 'integrated',
-            integratedTargetId: 'jupiter-terminal-container',
-            endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
-            formProps: {
-              fixedOutputMint: true,
-              initialInputMint: inputMint,
-              initialOutputMint: outputMint,
-            },
-          });
-
-          terminalRef.current = terminal;
-          console.log('Jupiter Terminal initialized successfully');
-
-          // Handle successful transactions
-          if (onSuccess && typeof window !== 'undefined') {
-            const handleSuccess = (event: any) => {
-              if (event.detail?.signature) {
-                console.log('Transaction success:', event.detail.signature);
-                onSuccess(event.detail.signature);
-              }
-            };
-            window.addEventListener('jupiterSuccess', handleSuccess);
-          }
-        } catch (error) {
-          console.error('Failed to initialize Jupiter Terminal:', error);
-          initializationAttemptedRef.current = false; // Reset to retry
+        // Wait for window.Jupiter with retry
+        let attempts = 0;
+        while (!window.Jupiter && attempts < 30) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          attempts++;
         }
+
+        if (!window.Jupiter) {
+          console.error('Jupiter Terminal failed to load');
+          return;
+        }
+
+        // Ensure the target container exists
+        const targetContainer = document.getElementById('jupiter-terminal-container');
+        if (!targetContainer) {
+          console.error('Target container not found');
+          return;
+        }
+
+        // Initialize Jupiter Terminal
+        console.log('Loading Jupiter Terminal...');
+        const terminal = await window.Jupiter.Terminal.load({
+          displayMode: 'integrated',
+          integratedTargetId: 'jupiter-terminal-container',
+          endpoint: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+          formProps: {
+            fixedOutputMint: true,
+            initialInputMint: inputMint,
+            initialOutputMint: outputMint,
+          },
+        });
+
+        terminalRef.current = terminal;
+        console.log('Jupiter Terminal loaded successfully');
+
+        // Listen for successful swaps
+        if (onSuccess) {
+          const handleSuccess = (e: any) => {
+            if (e.detail?.signature) {
+              console.log('Swap successful:', e.detail.signature);
+              onSuccess(e.detail.signature);
+            }
+          };
+          window.addEventListener('jupiterSuccess', handleSuccess);
+        }
+      } catch (error) {
+        console.error('Terminal initialization error:', error);
       }
     };
 
-    initializeTerminal();
+    // Skip if already initialized
+    if (!initializationAttemptedRef.current) {
+      initializationAttemptedRef.current = true;
+      initializeTerminal();
+    }
 
     return () => {
-      // Cleanup
-      if (onSuccess && typeof window !== 'undefined') {
+      // Cleanup listeners
+      if (onSuccess) {
         window.removeEventListener('jupiterSuccess', () => {});
       }
     };
-  }, [inputMint, outputMint, onSuccess]);
+  }, []);
 
   return (
     <div
       ref={containerRef}
-      className="rounded-xl border border-teal-300/30 bg-slate-900/40 backdrop-blur-sm overflow-hidden"
+      className="rounded-xl border border-teal-300/30 bg-slate-900/40 backdrop-blur-sm overflow-hidden w-full"
+      style={{ minHeight: '600px', height: '100%' }}
     >
-      <div id="jupiter-terminal-container" className="min-h-[600px] w-full" />
+      <div id="jupiter-terminal-container" className="w-full h-full" style={{ minHeight: '600px' }} />
     </div>
   );
 }
