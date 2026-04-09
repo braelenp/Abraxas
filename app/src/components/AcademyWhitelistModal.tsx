@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, CheckCircle2, Sparkles } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useAbraxas } from '../hooks/useProfile';
-import { useAbraxas } from '../hooks/useProfile';
+import { useAbraxas } from '../providers/AbraxasProvider';
 
 interface AcademyWhitelistModalProps {
   isOpen: boolean;
