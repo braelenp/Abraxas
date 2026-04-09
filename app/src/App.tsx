@@ -60,6 +60,7 @@ function DappShell() {
   const introAmbientRef = useRef<HTMLAudioElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
+  const lastPathnameRef = useRef<string>(location.pathname);
   const dappBackgroundCandidates = useMemo(
     () => [
       '/assets/sophia-minted.jpg',
@@ -130,12 +131,20 @@ function DappShell() {
     audio.currentTime = 0;
   }, [connected, hasSeenIntroModal]);
 
-  // Scroll content to top when route changes (tab navigation)
+  // Scroll content to top only when ACTUALLY changing tabs (not on re-renders)
   useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.scrollTop = 0;
+    // Only scroll if pathname actually changed from the last render
+    if (lastPathnameRef.current !== location.pathname) {
+      lastPathnameRef.current = location.pathname;
+      
+      // Use requestAnimationFrame to ensure DOM is updated before scrolling
+      requestAnimationFrame(() => {
+        if (contentRef.current) {
+          contentRef.current.scrollTop = 0;
+        }
+      });
     }
-    // Reset background errors on route change
+    // Always reset background errors on route change
     setBackgroundErrors(0);
   }, [location.pathname]);
 

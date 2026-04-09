@@ -182,6 +182,7 @@ export function TradePage() {
   const { connected, publicKey, sendTransaction, connect } = useWallet();
   const { sophiaAgents, recordSophiaTrade } = useAbraxas();
   const location = useLocation();
+  const lastPathnameRef = useRef<string>(location.pathname);
   const [selectedPair, setSelectedPair] = useState<RWAPair>(RWA_PAIRS[0]);
   const [pairView, setPairView] = useState<'carousel' | 'list'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -264,24 +265,11 @@ export function TradePage() {
     void refreshStakeRecord();
   }, [connected, publicKey, refreshStakeRecord]);
 
-  // Reset state when navigating to/from the Trade page to ensure proper page state
+  // Reset state ONLY when entering the Trade page (not on every re-render)
   useEffect(() => {
-    // Always reset all modal/overlay states to prevent them from blocking navigation
-    setShowTradeSuccess(false);
-    setShowOffRampWidget(false);
-    setShowLiveMarket(false);
-    setShowOnboardSection(false);
-    setShowSpendAbra(false);
-    setSwapError(null);
-    setCircuitWarning(false);
-
-    if (location.pathname === '/app/trade') {
-      // Additional reset when entering the Trade page
-      setPairView('carousel');
-    }
-
-    // Cleanup when unmounting or navigating away
-    return () => {
+    // Only reset if we actually navigated to /app/trade
+    if (lastPathnameRef.current !== location.pathname && location.pathname === '/app/trade') {
+      lastPathnameRef.current = location.pathname;
       setShowTradeSuccess(false);
       setShowOffRampWidget(false);
       setShowLiveMarket(false);
@@ -289,7 +277,8 @@ export function TradePage() {
       setShowSpendAbra(false);
       setSwapError(null);
       setCircuitWarning(false);
-    };
+      setPairView('carousel');
+    }
   }, [location.pathname]);
 
   const handleQuote = useCallback(async () => {

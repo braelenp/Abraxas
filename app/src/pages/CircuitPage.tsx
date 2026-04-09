@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Shield, AlertTriangle, Zap, Cpu, BarChart3, Eye, Zap as ZapIcon, ArrowRight } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
@@ -18,6 +18,7 @@ const RUNE_CONFIG = {
 
 export function CircuitPage() {
   const location = useLocation();
+  const lastPathnameRef = useRef<string>(location.pathname);
   const { vaults, runCircuitCheck } = useAbraxas();
   const [vaultId, setVaultId] = useState(vaults[0]?.id ?? '');
   const [priceSpeedBps, setPriceSpeedBps] = useState(450);
@@ -25,9 +26,10 @@ export function CircuitPage() {
   const [activitySpikeBps, setActivitySpikeBps] = useState(500);
   const [lastAction, setLastAction] = useState('Not evaluated yet');
 
-  // Reset state when navigating to the Circuit page
+  // Reset state ONLY when actually entering the Circuit page
   useEffect(() => {
-    if (location.pathname === '/app/circuit') {
+    if (lastPathnameRef.current !== location.pathname && location.pathname === '/app/circuit') {
+      lastPathnameRef.current = location.pathname;
       setPriceSpeedBps(450);
       setLiquidityDrainBps(350);
       setActivitySpikeBps(500);
