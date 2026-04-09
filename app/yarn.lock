@@ -1437,11 +1437,6 @@
   resolved "https://registry.npmjs.org/@mobily/ts-belt/-/ts-belt-3.13.1.tgz"
   integrity sha512-K5KqIhPI/EoCTbA6CGbrenM9s41OouyK8A03fGJJcla/zKucsgLbz8HNbeseoLarRPgyWJsUyCYqFhI7t3Ra9Q==
 
-"@moonpay/moonpay-react@^1.10.6":
-  version "1.10.6"
-  resolved "https://registry.npmjs.org/@moonpay/moonpay-react/-/moonpay-react-1.10.6.tgz"
-  integrity sha512-o+fa3FDKITbOTlkKToT49865ZGKkoGT1/eI0XJnYh9KSNMz3oo2PuwDKJHqLLZ5qE642ZAebksWdEElRySD43Q==
-
 "@near-js/crypto@^0.0.3", "@near-js/crypto@0.0.3":
   version "0.0.3"
   resolved "https://registry.npmjs.org/@near-js/crypto/-/crypto-0.0.3.tgz"
@@ -9293,7 +9288,7 @@ react-router@7.13.1:
     cookie "^1.0.1"
     set-cookie-parser "^2.6.0"
 
-react@*, "react@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19", "react@^15.5.3 || ^16.0.0 || ^17.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", react@^19.2.3, react@^19.2.4, react@>=16, react@>=16.8, react@>=18, react@~16:
+react@*, "react@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19", "react@^15.5.3 || ^16.0.0 || ^17.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", react@^19.2.3, react@^19.2.4, react@>=16.8, react@>=18, react@~16:
   version "19.2.4"
   resolved "https://registry.npmjs.org/react/-/react-19.2.4.tgz"
   integrity sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==

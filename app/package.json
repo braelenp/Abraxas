@@ -20,7 +20,6 @@
     "@capacitor/status-bar": "^8.0.1",
     "@coral-xyz/anchor": "^0.32.1",
     "@metaplex-foundation/js": "^0.20.1",
-    "@moonpay/moonpay-react": "^1.10.6",
     "@polymarket/clob-client": "^5.8.0",
     "@solana-mobile/wallet-adapter-mobile": "^2.2.5",
     "@solana/pay": "^0.2.6",
