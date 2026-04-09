@@ -12,11 +12,14 @@ export function AcademyLedgerPage() {
   return (
     <RuneRealm
       agentName="LEDGER"
-      rune="ᛗ" // Mannaz rune - represents community and humanity
-      lore="The eternal record of those who seek knowledge within the Academy. Watch the community grow."
-      color="from-emerald-300 to-cyan-300"
-      glowColor="rgba(16, 185, 129, 0.3)"
-      accentColor="text-emerald-400"
+      rune="ᛗ"
+      runeName="Mannaz"
+      runeEssence="Community · Collective Growth"
+      lore="The eternal record of those who seek knowledge within the Academy. Watch the community grow as each member enrolls and contributes to the collective."
+      ctaLabel="EXPLORE LEDGER"
+      coreGlow="16, 185, 129"
+      fireGlow="34, 211, 238"
+      accentClass="text-emerald-400"
     >
       <section className="space-y-8 pb-16">
         {/* Title */}
