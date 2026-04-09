@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { TrendingDown, Star, Sparkles, ChevronLeft, ChevronRight, Send, ArrowRightLeft, LogIn, Plus, DollarSign, Zap } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -50,23 +50,6 @@ export function DashboardPage() {
   const [showSpendAbra, setShowSpendAbra] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
-  const lastPathnameRef = useRef<string>(location.pathname);
-
-  // Reset state ONLY when actually entering the Dashboard page
-  useEffect(() => {
-    if (lastPathnameRef.current !== location.pathname && location.pathname === '/app/warden') {
-      lastPathnameRef.current = location.pathname;
-      setFollowing([]);
-      setPredictionIndex(0);
-      setPerpIndex(0);
-      setFollowingIndex(0);
-      setBetAmounts({});
-      setPlacingBet(null);
-      setSelectedCategory(null);
-      setShowOffRampWidget(false);
-      setShowSpendAbra(false);
-    }
-  }, [location.pathname]);
 
   // Filter markets by selected category
   const filteredBets = useMemo(() => filterByCategory(polymarketBets, selectedCategory), [polymarketBets, selectedCategory]);

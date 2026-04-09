@@ -60,7 +60,6 @@ function DappShell() {
   const introAmbientRef = useRef<HTMLAudioElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
-  const lastPathnameRef = useRef<string>(location.pathname);
   const dappBackgroundCandidates = useMemo(
     () => [
       '/assets/sophia-minted.jpg',
@@ -108,6 +107,7 @@ function DappShell() {
     }
   };
 
+  // Audio and intro modal effects
   useEffect(() => {
     const audio = introAmbientRef.current;
     if (!audio) {
@@ -130,23 +130,6 @@ function DappShell() {
     audio.pause();
     audio.currentTime = 0;
   }, [connected, hasSeenIntroModal]);
-
-  // Scroll content to top only when ACTUALLY changing tabs (not on re-renders)
-  useEffect(() => {
-    // Only scroll if pathname actually changed from the last render
-    if (lastPathnameRef.current !== location.pathname) {
-      lastPathnameRef.current = location.pathname;
-      
-      // Use requestAnimationFrame to ensure DOM is updated before scrolling
-      requestAnimationFrame(() => {
-        if (contentRef.current) {
-          contentRef.current.scrollTop = 0;
-        }
-      });
-    }
-    // Always reset background errors on route change
-    setBackgroundErrors(0);
-  }, [location.pathname]);
 
   return (
     <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">

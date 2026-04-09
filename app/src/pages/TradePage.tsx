@@ -182,7 +182,6 @@ export function TradePage() {
   const { connected, publicKey, sendTransaction, connect } = useWallet();
   const { sophiaAgents, recordSophiaTrade } = useAbraxas();
   const location = useLocation();
-  const lastPathnameRef = useRef<string>(location.pathname);
   const [selectedPair, setSelectedPair] = useState<RWAPair>(RWA_PAIRS[0]);
   const [pairView, setPairView] = useState<'carousel' | 'list'>('carousel');
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -257,6 +256,7 @@ export function TradePage() {
     }
   }, [programId, publicKey]);
 
+  // Fetch stake records when wallet connected/changes
   useEffect(() => {
     if (!connected || !publicKey) {
       setUserStakes([]);
@@ -264,22 +264,6 @@ export function TradePage() {
     }
     void refreshStakeRecord();
   }, [connected, publicKey, refreshStakeRecord]);
-
-  // Reset state ONLY when entering the Trade page (not on every re-render)
-  useEffect(() => {
-    // Only reset if we actually navigated to /app/trade
-    if (lastPathnameRef.current !== location.pathname && location.pathname === '/app/trade') {
-      lastPathnameRef.current = location.pathname;
-      setShowTradeSuccess(false);
-      setShowOffRampWidget(false);
-      setShowLiveMarket(false);
-      setShowOnboardSection(false);
-      setShowSpendAbra(false);
-      setSwapError(null);
-      setCircuitWarning(false);
-      setPairView('carousel');
-    }
-  }, [location.pathname]);
 
   const handleQuote = useCallback(async () => {
     if (!fromAmount || isNaN(Number(fromAmount))) return;
