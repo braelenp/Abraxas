@@ -333,7 +333,7 @@ export function UndercollateralizedLendingModule() {
                 </button>
 
                 {showQualifyToggle && (
-                  <div className="rounded-lg border border-purple-300/20 bg-purple-500/12 p-4 space-y-2 animate-in fade-in duration-300">
+                  <div className="rounded-lg border border-purple-300/20 bg-purple-500/12 p-4 space-y-2">
                     <p className="text-sm sm:text-base text-purple-300/80">
                       <span className="font-semibold text-purple-200">Your Position:</span> If you hold $ABRA, your vault share immediately qualifies you for undercollateralized lending pools. Your on-chain reputation score is actively monitored and updated. Borrow and earn simultaneously.
                     </p>
@@ -345,7 +345,7 @@ export function UndercollateralizedLendingModule() {
 
           {/* Opportunities Tab */}
           {activeTab === 'opportunities' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               <div className="space-y-2">
                 <p className="text-sm sm:text-base font-bold uppercase tracking-widest text-purple-300">Current Verified Opportunities</p>
                 <p className="text-xs sm:text-sm text-purple-300/70">APY 12-18% on undercollateralized positions. King AI surfaces new verified opportunities weekly.</p>
@@ -367,7 +367,7 @@ export function UndercollateralizedLendingModule() {
 
           {/* Analysis Tab */}
           {activeTab === 'analysis' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               <TradingHistoryAnalysis />
               <YieldAccrualProjection />
             </div>

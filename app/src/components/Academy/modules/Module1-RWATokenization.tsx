@@ -107,7 +107,7 @@ export function AcademyModule1({ onBack, onComplete }: Module1Props) {
           <div className="rounded-lg sm:rounded-xl border border-amber-300/30 bg-gradient-to-br from-amber-500/8 to-slate-900/60 p-6 space-y-6 mb-6">
             {/* Intro Tab */}
             {activeTab === 'intro' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="rounded-lg border border-amber-300/20 bg-amber-500/10 p-4 sm:p-6 space-y-4">
                   <h2 className="text-xl font-bold text-amber-200">The Tokenization Revolution</h2>
                   <p className="text-sm leading-relaxed text-slate-300">
@@ -146,7 +146,7 @@ export function AcademyModule1({ onBack, onComplete }: Module1Props) {
 
             {/* Content Tab */}
             {activeTab === 'content' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="space-y-4">
                   <h2 className="text-xl font-bold text-amber-200">Core Concepts</h2>
 
@@ -197,7 +197,7 @@ export function AcademyModule1({ onBack, onComplete }: Module1Props) {
 
             {/* Quiz Tab */}
             {activeTab === 'quiz' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 {!quizComplete ? (
                   <div className="space-y-4">
                     <h2 className="text-xl font-bold text-amber-200">Test Your Knowledge</h2>

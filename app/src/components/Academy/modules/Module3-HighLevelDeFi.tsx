@@ -103,7 +103,7 @@ export function AcademyModule3({ onBack, onComplete }: Module3Props) {
 
           <div className="rounded-lg sm:rounded-xl border border-orange-300/30 bg-gradient-to-br from-orange-500/8 to-slate-900/60 p-6 space-y-6 mb-6">
             {activeTab === 'intro' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="rounded-lg border border-orange-300/20 bg-orange-500/10 p-4 sm:p-6 space-y-4">
                   <h2 className="text-xl font-bold text-orange-200">The Next Degree of Finance</h2>
                   <p className="text-sm leading-relaxed text-slate-300">
@@ -141,7 +141,7 @@ export function AcademyModule3({ onBack, onComplete }: Module3Props) {
             )}
 
             {activeTab === 'content' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="space-y-4">
                   <h2 className="text-xl font-bold text-orange-200">M1 Pulldown & Institutional Lending</h2>
 
@@ -190,7 +190,7 @@ export function AcademyModule3({ onBack, onComplete }: Module3Props) {
             )}
 
             {activeTab === 'quiz' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 {!quizComplete ? (
                   <div className="space-y-4">
                     <h2 className="text-xl font-bold text-orange-200">Test Your Knowledge</h2>

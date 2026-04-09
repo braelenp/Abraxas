@@ -310,7 +310,7 @@ export function M1PulldownModule() {
 
           {/* Dashboard Tab Content */}
           {activeTab === 'dashboard' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               {/* Key Metrics Row */}
               <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
                 <AnimatedMetric 
@@ -370,7 +370,7 @@ export function M1PulldownModule() {
 
           {/* Benefits Tab Content */}
           {activeTab === 'benefits' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               <BenefitSlider />
               <div className="rounded-lg sm:rounded-xl border border-orange-300/20 bg-orange-500/8 p-3 sm:p-4 space-y-3">
                 <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-orange-300">How M1 Yields Flow to You</p>
@@ -398,7 +398,7 @@ export function M1PulldownModule() {
 
           {/* Timeline Tab Content */}
           {activeTab === 'timeline' && (
-            <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-300">
+            <div className="space-y-5 sm:space-y-6">
               <div className="space-y-2.5 sm:space-y-3">
                 <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-orange-300">Release Schedule</p>
                 <ReleaseTimeline />

@@ -103,7 +103,7 @@ export function AcademyModule2({ onBack, onComplete }: Module2Props) {
 
           <div className="rounded-lg sm:rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/8 to-slate-900/60 p-6 space-y-6 mb-6">
             {activeTab === 'intro' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="rounded-lg border border-blue-300/20 bg-blue-500/10 p-4 sm:p-6 space-y-4">
                   <h2 className="text-xl font-bold text-blue-200">Sovereign Custody in a Regulated World</h2>
                   <p className="text-sm leading-relaxed text-slate-300">
@@ -141,7 +141,7 @@ export function AcademyModule2({ onBack, onComplete }: Module2Props) {
             )}
 
             {activeTab === 'content' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 <div className="space-y-4">
                   <h2 className="text-xl font-bold text-blue-200">Custody & Compliance</h2>
 
@@ -190,7 +190,7 @@ export function AcademyModule2({ onBack, onComplete }: Module2Props) {
             )}
 
             {activeTab === 'quiz' && (
-              <div className="space-y-6 animate-in fade-in">
+              <div className="space-y-6">
                 {!quizComplete ? (
                   <div className="space-y-4">
                     <h2 className="text-xl font-bold text-blue-200">Test Your Knowledge</h2>
