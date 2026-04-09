@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { X, CheckCircle2, Sparkles } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useAbraxas } from '../hooks/useProfile';
+import { useAbraxas } from '../hooks/useProfile';
 
 interface AcademyWhitelistModalProps {
   isOpen: boolean;
@@ -12,6 +14,7 @@ type ModalState = 'form' | 'success';
 
 export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhitelistModalProps) {
   const { publicKey } = useWallet();
+  const { userProfile, addAirdropPoints } = useAbraxas();
   const [state, setModalState] = useState<ModalState>('form');
   const [walletAddress, setWalletAddress] = useState('');
   const [discordHandle, setDiscordHandle] = useState('');
@@ -74,15 +77,23 @@ export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhi
 
       localStorage.setItem(`academy_whitelist_${walletAddress}`, JSON.stringify(enrollmentData));
 
-      // Award bonus points by updating profile
-      const currentProfile = JSON.parse(localStorage.getItem('abraxas_profile') || '{}');
+      // Award bonus points via AbraxasProvider context
+      if (userProfile && userProfile.walletAddress === walletAddress) {
+        addAirdropPoints(walletAddress, 'academy_whitelist', 500);
+      }
+
+      // Also award bonus points by updating localStorage
+      const currentProfile = JSON.parse(localStorage.getItem('abraxas_user_profile') || '{}');
       const newProfile = {
         ...currentProfile,
         academyWhitelisted: true,
-        airdropPoints: (currentProfile.airdropPoints || 0) + 500,
+        airdropPoints: {
+          ...currentProfile.airdropPoints,
+          total: (currentProfile.airdropPoints?.total || 0) + 500,
+        },
         whitelistEnrolledAt: new Date().toISOString(),
       };
-      localStorage.setItem('abraxas_profile', JSON.stringify(newProfile));
+      localStorage.setItem('abraxas_user_profile', JSON.stringify(newProfile));
 
       // Show success screen
       setModalState('success');
