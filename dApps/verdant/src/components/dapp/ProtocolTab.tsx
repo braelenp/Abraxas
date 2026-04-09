@@ -99,7 +99,7 @@ const ProtocolTab: React.FC = () => {
           return (
             <div
               key={p.name}
-              className="rounded-xl overflow-hidden transition-all duration-300"
+              className="rounded-xl overflow-hidden"
               style={{
                 background: `linear-gradient(135deg, ${p.glowColor}, rgba(13,32,24,0.7))`,
                 border: `1px solid ${isOpen ? p.accent + '55' : p.borderColor}`,

@@ -53,11 +53,6 @@ function LightBeams() {
             height: '200%',
             background: `linear-gradient(0deg, transparent, ${b.color}, transparent)`,
             transform: `rotate(${b.angle}deg)`,
-            animationName: 'beamPulse',
-            animationDuration: `${b.duration}s`,
-            animationDelay: `${b.delay}s`,
-            animationTimingFunction: 'ease-in-out',
-            animationIterationCount: 'infinite',
           }}
         />
       ))}
@@ -87,7 +82,7 @@ function OrbitalRunes() {
               transform: 'translate(-50%, -50%)',
               color: i % 2 === 0 ? 'rgba(0,245,255,0.35)' : 'rgba(255,215,0,0.25)',
               textShadow: i % 2 === 0 ? '0 0 8px rgba(0,245,255,0.6)' : '0 0 8px rgba(255,215,0,0.5)',
-              animation: `runePulse ${2.5 + i * 0.15}s ease-in-out ${delay}s infinite`,
+              animation: 'none',
             }}
           >
             {rune}
@@ -156,7 +151,7 @@ export default function MimirPage() {
         style={{
           background: 'linear-gradient(90deg, transparent, rgba(0,245,255,0.15), rgba(255,215,0,0.1), rgba(0,245,255,0.15), transparent)',
           top: '30%',
-          animation: 'beamPulse 6s ease-in-out infinite',
+          animation: 'none',
         }}
       />
 
@@ -193,7 +188,7 @@ export default function MimirPage() {
 
           {/* Subtitle — fades in after greeting */}
           <div
-            className="transition-all duration-1000"
+            className=""
             style={{
               opacity: greetingDone ? 1 : 0,
               transform: greetingDone ? 'translateY(0)' : 'translateY(8px)',
@@ -232,7 +227,7 @@ export default function MimirPage() {
               width: 260,
               height: 260,
               background: 'radial-gradient(circle, rgba(0,245,255,0.06) 0%, rgba(255,215,0,0.03) 50%, transparent 70%)',
-              animation: 'buyPulse 4s ease-in-out infinite',
+              animation: 'none',
             }}
           />
 
@@ -246,7 +241,7 @@ export default function MimirPage() {
               style={{
                 border: '1px solid rgba(0,245,255,0.15)',
                 boxShadow: '0 0 30px rgba(0,245,255,0.1), inset 0 0 30px rgba(0,245,255,0.05)',
-                animation: 'buyPulse 4s ease-in-out 0.5s infinite',
+                animation: 'none',
               }}
             />
             {/* Inner ring */}
@@ -256,7 +251,7 @@ export default function MimirPage() {
                 inset: 16,
                 border: '1px solid rgba(255,215,0,0.1)',
                 boxShadow: '0 0 20px rgba(255,215,0,0.05)',
-                animation: 'buyPulse 3s ease-in-out 1s infinite',
+                animation: 'none',
               }}
             />
 
@@ -334,7 +329,7 @@ export default function MimirPage() {
           {ORACLE_TRAITS.map((t) => (
             <div
               key={t.label}
-              className="p-4 flex gap-4 rounded-xl transition-all duration-300"
+              className="p-4 flex gap-4 rounded-xl"
               style={{
                 background: 'linear-gradient(135deg, rgba(0,20,30,0.7) 0%, rgba(10,10,18,0.9) 100%)',
                 border: '1px solid rgba(0,245,255,0.1)',
@@ -382,7 +377,7 @@ export default function MimirPage() {
             {VISIONS.map((v, i) => (
               <p
                 key={v}
-                className="absolute inset-x-0 text-center text-sm italic transition-all duration-700"
+                className="absolute inset-x-0 text-center text-sm italic"
                 style={{
                   fontFamily: 'Cinzel, serif',
                   color: 'rgba(255,215,0,0.6)',

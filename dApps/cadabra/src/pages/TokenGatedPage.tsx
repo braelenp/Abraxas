@@ -57,7 +57,7 @@ export function TokenGatedPage() {
               </div>
             ) : (
               <div
-                className={`py-4 rounded-lg border transition-all ${
+                className={`py-4 rounded-lg border ${
                   hasMinimum
                     ? 'bg-emerald-500/10 border-emerald-400/30'
                     : 'bg-red-500/10 border-red-400/30'
@@ -89,7 +89,7 @@ export function TokenGatedPage() {
             <div className="pt-4">
               <div className="mb-4 flex justify-center">
                 <div className="w-full max-w-xs">
-                  <WalletMultiButton className="!bg-gradient-to-r !from-amber-500 !to-amber-600 hover:!from-amber-400 hover:!to-amber-500 !w-full !py-3 !rounded-lg !text-[11px] !font-semibold !uppercase !tracking-widest !shadow-lg hover:!shadow-amber-500/50 !transition-all" />
+                  <WalletMultiButton className="!bg-gradient-to-r !from-amber-500 !to-amber-600 hover:!from-amber-400 hover:!to-amber-500 !w-full !py-3 !rounded-lg !text-[11px] !font-semibold !uppercase !tracking-widest !shadow-lg hover:!shadow-amber-500/50" />
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ export function TokenGatedPage() {
           <div className="flex flex-col gap-2 pt-4">
             <button
               onClick={handleRefresh}
-              className="px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-200 text-[10px] font-semibold uppercase tracking-wider transition-all active:scale-95"
+              className="px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-slate-200 text-[10px] font-semibold uppercase tracking-wider active:scale-95"
             >
               Refresh Balance
             </button>
@@ -107,7 +107,7 @@ export function TokenGatedPage() {
             {hasMinimum && !isLoading && (
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white text-[10px] font-semibold uppercase tracking-wider transition-all active:scale-95 shadow-lg hover:shadow-purple-500/50"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-white text-[10px] font-semibold uppercase tracking-wider active:scale-95 shadow-lg hover:shadow-purple-500/50"
               >
                 Enter Cadabra
               </button>

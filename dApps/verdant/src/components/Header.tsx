@@ -24,9 +24,9 @@ const Header: React.FC<HeaderProps> = ({ onEnterApp }) => {
         className="flex items-center gap-2.5 group"
         aria-label="Verdant home"
       >
-        <VerdantSigil size={26} animate={false} className="opacity-90 group-hover:opacity-100 transition-opacity" />
+        <VerdantSigil size={26} animate={false} className="opacity-90 group-hover:opacity-100" />
         <span
-          className="font-cinzel text-sm font-semibold tracking-[0.22em] text-emerald-200/90 group-hover:text-emerald-200 transition-colors"
+          className="font-cinzel text-sm font-semibold tracking-[0.22em] text-emerald-200/90 group-hover:text-emerald-200"
           style={{ textShadow: '0 0 18px rgba(16,185,129,0.5)' }}
         >
           VERDANT

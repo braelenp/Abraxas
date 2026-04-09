@@ -170,7 +170,7 @@ export default function LandingPage() {
           {/* CTA Button */}
           <Link
             to="/app"
-            className="inline-block px-8 py-4 rounded-lg font-bold tracking-widest text-lg transition-all hover:scale-105 duration-300"
+            className="inline-block px-8 py-4 rounded-lg font-bold tracking-widest text-lg hover:scale-105 duration-300"
             style={{
               fontFamily: "'Space Mono', monospace",
               background: 'linear-gradient(135deg, #00f5ff, #9945ff)',
@@ -199,7 +199,7 @@ export default function LandingPage() {
             {features.map((feature, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-lg border backdrop-blur-sm transition-all hover:scale-105 duration-300"
+                className="p-6 rounded-lg border backdrop-blur-sm hover:scale-105 duration-300"
                 style={{
                   borderColor: 'rgba(0, 245, 255, 0.25)',
                   background: 'rgba(0, 245, 255, 0.04)',
@@ -236,7 +236,7 @@ export default function LandingPage() {
         {/* Enter Oracle Button */}
         <Link
           to="/app"
-          className="px-8 py-3 rounded-lg font-bold tracking-widest text-sm md:text-base transition-all hover:scale-105 duration-300 mb-3"
+          className="px-8 py-3 rounded-lg font-bold tracking-widest text-sm md:text-base hover:scale-105 duration-300 mb-3"
           style={{
             fontFamily: "'Space Mono', monospace",
             background: 'linear-gradient(135deg, #00f5ff, #9945ff)',

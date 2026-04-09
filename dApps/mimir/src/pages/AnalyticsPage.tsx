@@ -170,7 +170,7 @@ export default function AnalyticsPage() {
             {metrics.map((m, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-lg border backdrop-blur-sm transition-all hover:scale-105 duration-300"
+                className="p-5 rounded-lg border backdrop-blur-sm hover:scale-105 duration-300"
                 style={{
                   borderColor: 'rgba(0, 245, 255, 0.3)',
                   background: 'rgba(0, 245, 255, 0.10)',

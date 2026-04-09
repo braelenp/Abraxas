@@ -51,7 +51,7 @@ const AbraxasCallout: React.FC = () => {
           href="https://abraxas-ten.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded font-grotesk text-[10px] font-semibold tracking-[0.1em] uppercase transition-all duration-200"
+          className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded font-grotesk text-[10px] font-semibold tracking-[0.1em] uppercase"
           style={{
             background: 'rgba(153,69,255,0.14)',
             border: '1px solid rgba(153,69,255,0.4)',

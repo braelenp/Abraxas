@@ -93,7 +93,7 @@ const DevnetTab: React.FC = () => {
           </div>
           <button
             onClick={refresh}
-            className="p-1.5 rounded transition-colors hover:bg-emerald-900/30"
+            className="p-1.5 rounded hover:bg-emerald-900/30"
             title="Refresh"
           >
             <RefreshCw size={13} className={`text-emerald-600/70`} />
@@ -167,7 +167,7 @@ const DevnetTab: React.FC = () => {
           {txs.map((tx) => (
             <div
               key={tx.sig}
-              className="rounded-lg px-3 py-2.5 transition-all"
+              className="rounded-lg px-3 py-2.5"
               style={{
                 background: 'rgba(13,32,24,0.5)',
                 border: '1px solid rgba(16,185,129,0.1)',
@@ -201,7 +201,7 @@ const DevnetTab: React.FC = () => {
                     href={`https://explorer.solana.com/tx/${tx.sig}?cluster=devnet`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-700/50 hover:text-emerald-500/80 transition-colors"
+                    className="text-emerald-700/50 hover:text-emerald-500/80"
                   >
                     <ExternalLink size={10} />
                   </a>
@@ -218,7 +218,7 @@ const DevnetTab: React.FC = () => {
         href="https://explorer.solana.com/?cluster=devnet"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-md font-grotesk text-xs font-medium tracking-wider text-emerald-600/80 transition-all hover:text-emerald-400/90"
+        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-md font-grotesk text-xs font-medium tracking-wider text-emerald-600/80 hover:text-emerald-400/90"
         style={{ border: '1px solid rgba(16,185,129,0.16)' }}
       >
         Open Solana Explorer

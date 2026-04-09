@@ -61,11 +61,11 @@ export default function ForgePage() {
           {FORGE_ITEMS.map((item) => (
             <button
               key={item.label}
-              className="w-full abraxas-panel box-glow-orange p-5 flex items-center gap-4 group transition-all duration-300 hover:border-[#ff6a00]/40 text-left"
+              className="w-full abraxas-panel box-glow-orange p-5 flex items-center gap-4 group duration-300 hover:border-[#ff6a00]/40 text-left"
               style={{ border: 'none', cursor: 'pointer', background: 'none' }}
             >
               <span
-                className="text-2xl w-10 text-center transition-all duration-300"
+                className="text-2xl w-10 text-center duration-300"
                 style={{ color: '#ff9500', textShadow: '0 0 12px #ff6a00' }}
               >
                 {item.icon}
@@ -79,7 +79,7 @@ export default function ForgePage() {
                 </div>
                 <div className="text-xs text-[#e8e8f0]/35 mt-0.5">{item.desc}</div>
               </div>
-              <span className="text-[#ff6a00]/30 group-hover:text-[#ff6a00]/70 transition-colors text-lg">›</span>
+              <span className="text-[#ff6a00]/30 group-hover:text-[#ff6a00]/70 text-lg">›</span>
             </button>
           ))}
         </section>

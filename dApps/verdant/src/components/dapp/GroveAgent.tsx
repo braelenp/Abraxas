@@ -103,7 +103,7 @@ const GroveAgent: React.FC = () => {
             <React.Fragment key={s.id}>
               <div className="flex flex-col items-center gap-1 flex-1">
                 <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300"
+                  className="w-7 h-7 rounded-full flex items-center justify-center"
                   style={{
                     background: done
                       ? 'rgba(16,185,129,0.25)'
@@ -133,7 +133,7 @@ const GroveAgent: React.FC = () => {
               </div>
               {i < STEPS.length - 1 && (
                 <div
-                  className="flex-1 h-px transition-all duration-500"
+                  className="flex-1 h-px"
                   style={{
                     background: i < current ? 'rgba(16,185,129,0.5)' : 'rgba(16,185,129,0.1)',
                   }}
@@ -148,7 +148,7 @@ const GroveAgent: React.FC = () => {
       {step === 'upload' && (
         <div className="space-y-4">
           <div
-            className="rounded-xl p-6 text-center cursor-pointer transition-all duration-200"
+            className="rounded-xl p-6 text-center cursor-pointer"
             style={{
               background: dragging ? 'rgba(16,185,129,0.08)' : 'rgba(13,32,24,0.5)',
               border: `2px dashed ${dragging ? 'rgba(16,185,129,0.6)' : 'rgba(16,185,129,0.2)'}`,
@@ -176,7 +176,7 @@ const GroveAgent: React.FC = () => {
           <button
             disabled={!file}
             onClick={() => setStep('attest')}
-            className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md disabled:opacity-40 disabled:cursor-not-allowed"
             style={{
               background: 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.1))',
               border: '1px solid rgba(16,185,129,0.5)',
@@ -213,7 +213,7 @@ const GroveAgent: React.FC = () => {
                     onChange={() => setAttested(!attested)}
                     className="mt-0.5 accent-emerald-500"
                   />
-                  <span className="text-xs text-slate-400/80 leading-relaxed group-hover:text-slate-300/80 transition-colors">
+                  <span className="text-xs text-slate-400/80 leading-relaxed group-hover:text-slate-300/80">
                     {txt}
                   </span>
                 </label>
@@ -250,7 +250,7 @@ const GroveAgent: React.FC = () => {
                 <p className="text-sm text-emerald-300/80 mb-3">Minting sovereign SPL token…</p>
                 <div className="w-full h-1.5 rounded-full bg-emerald-900/50 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-lime-400 transition-all duration-75"
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-lime-400"
                     style={{ width: `${mintProgress}%`, boxShadow: '0 0 8px rgba(16,185,129,0.5)' }}
                   />
                 </div>
@@ -268,7 +268,7 @@ const GroveAgent: React.FC = () => {
           <button
             disabled={minting}
             onClick={handleMint}
-            className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.1))',
               border: '1px solid rgba(16,185,129,0.5)',
@@ -321,7 +321,7 @@ const GroveAgent: React.FC = () => {
           {step === 'done' && (
             <button
               onClick={reset}
-              className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md transition-all"
+              className="w-full py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(16,185,129,0.3)',

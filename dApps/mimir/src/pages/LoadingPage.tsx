@@ -112,7 +112,7 @@ export default function LoadingPage({ onComplete }: LoadingPageProps) {
       <div className="relative z-10 flex flex-col items-center gap-12">
         {/* Central Eye with rotating rings */}
         <div
-          className={`w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400/25 via-slate-950 to-violet-400/25 border-2 border-cyan-400/60 flex items-center justify-center relative overflow-hidden shadow-2xl shadow-cyan-400/40 transition-all duration-100 ${glitchActive ? 'scale-110 opacity-80' : ''}`}
+          className={`w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400/25 via-slate-950 to-violet-400/25 border-2 border-cyan-400/60 flex items-center justify-center relative overflow-hidden shadow-2xl shadow-cyan-400/40 duration-100 ${glitchActive ? 'scale-110 opacity-80' : ''}`}
           style={{
             filter: glitchActive
               ? 'hue-rotate(30deg) drop-shadow(0 0 20px rgba(0, 245, 255, 0.8))'
@@ -172,7 +172,7 @@ export default function LoadingPage({ onComplete }: LoadingPageProps) {
         {/* Loading progress bar */}
         <div className="w-64 h-1 rounded-full overflow-hidden border border-cyan-400/30" style={{ background: 'rgba(0, 245, 255, 0.1)' }}>
           <div
-            className="h-full rounded-full transition-all duration-150"
+            className="h-full rounded-full duration-150"
             style={{
               width: `${loadingBar}%`,
               background: 'linear-gradient(90deg, #00f5ff, #9945ff)',

@@ -63,7 +63,7 @@ const DAppShell: React.FC<DAppShellProps> = ({ onBack }) => {
         {/* Back to landing */}
         <button
           onClick={onBack}
-          className="mx-4 mb-6 flex items-center gap-2 text-emerald-700/70 hover:text-emerald-400/80 transition-colors font-grotesk text-xs tracking-wide"
+          className="mx-4 mb-6 flex items-center gap-2 text-emerald-700/70 hover:text-emerald-400/80 font-grotesk text-xs tracking-wide"
         >
           <ArrowLeft size={13} />
           Landing
@@ -88,7 +88,7 @@ const DAppShell: React.FC<DAppShellProps> = ({ onBack }) => {
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-left"
                 style={{
                   background: active ? 'rgba(16,185,129,0.12)' : 'transparent',
                   border: active ? '1px solid rgba(16,185,129,0.35)' : '1px solid transparent',
@@ -148,7 +148,7 @@ const DAppShell: React.FC<DAppShellProps> = ({ onBack }) => {
             borderBottom: '1px solid rgba(16,185,129,0.12)',
           }}
         >
-          <button onClick={onBack} className="text-emerald-700/70 hover:text-emerald-400/80 transition-colors">
+          <button onClick={onBack} className="text-emerald-700/70 hover:text-emerald-400/80">
             <ArrowLeft size={16} />
           </button>
           <span className="font-cinzel text-[11px] tracking-[0.22em] text-emerald-600/60 uppercase">
@@ -176,7 +176,7 @@ const DAppShell: React.FC<DAppShellProps> = ({ onBack }) => {
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 transition-all"
+              className="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5"
               style={{ color: active ? '#6ee7b7' : '#374151' }}
             >
               <div

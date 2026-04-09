@@ -59,7 +59,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
       </div>
 
       {/* Sigil */}
-      <div className="mb-8" style={{ animation: 'rr-float 6s ease-in-out infinite' }}>
+      <div className="mb-8" style={{ opacity: 1 }}>
         <VerdantSigil size={148} animate />
       </div>
 

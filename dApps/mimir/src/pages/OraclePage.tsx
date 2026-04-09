@@ -195,7 +195,7 @@ export default function OraclePage() {
                     setSelectedAction(action.label.split(' ')[0] as 'SWAP' | 'DEPOSIT' | 'WITHDRAW')
                   }
                 }}
-                className="p-4 rounded-lg border backdrop-blur-sm transition-all hover:scale-105 duration-300 flex flex-col items-center gap-2"
+                className="p-4 rounded-lg border backdrop-blur-sm hover:scale-105 duration-300 flex flex-col items-center gap-2"
                 style={{
                   borderColor: 'rgba(0, 245, 255, 0.3)',
                   background: 'rgba(0, 245, 255, 0.10)',
@@ -382,7 +382,7 @@ export default function OraclePage() {
             </div>
 
             <button
-              className="w-full px-6 py-3 rounded-lg font-bold tracking-widest transition-all hover:scale-105 duration-300"
+              className="w-full px-6 py-3 rounded-lg font-bold tracking-widest hover:scale-105 duration-300"
               style={{
                 fontFamily: "'Space Mono', monospace",
                 background: 'linear-gradient(135deg, #00f5ff, #9945ff)',

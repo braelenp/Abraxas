@@ -152,7 +152,7 @@ const VaultTab: React.FC = () => {
             <button
               key={asset.id}
               onClick={() => setSelectedAsset(isSelected ? null : asset.id)}
-              className="w-full text-left rounded-xl p-4 transition-all duration-200"
+              className="w-full text-left rounded-xl p-4"
               style={{
                 background: isSelected ? 'rgba(16,185,129,0.1)' : 'rgba(13,32,24,0.55)',
                 border: `1px solid ${isSelected ? 'rgba(16,185,129,0.45)' : 'rgba(16,185,129,0.12)'}`,
@@ -233,7 +233,7 @@ const VaultTab: React.FC = () => {
               <button
                 key={cfg.duration}
                 onClick={() => setStakeConfig(cfg.duration)}
-                className="rounded-lg p-2.5 text-center transition-all duration-200"
+                className="rounded-lg p-2.5 text-center"
                 style={{
                   background:
                     stakeConfig === cfg.duration
@@ -260,7 +260,7 @@ const VaultTab: React.FC = () => {
           </div>
 
           <button
-            className="w-full py-2 font-grotesk text-[11px] font-semibold tracking-[0.1em] uppercase rounded-md transition-all"
+            className="w-full py-2 font-grotesk text-[11px] font-semibold tracking-[0.1em] uppercase rounded-md"
             style={{
               background: 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.1))',
               border: '1px solid rgba(16,185,129,0.5)',

@@ -177,7 +177,7 @@ export default function VerifyPage() {
             {verifications.map((item, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-lg border backdrop-blur-sm transition-all hover:scale-105 duration-300"
+                className="p-5 rounded-lg border backdrop-blur-sm hover:scale-105 duration-300"
                 style={{
                   borderColor: 'rgba(0, 245, 255, 0.3)',
                   background: 'rgba(0, 245, 255, 0.10)',
@@ -216,7 +216,7 @@ export default function VerifyPage() {
                   style={{ borderColor: item.color + '40', background: item.color + '10' }}
                 >
                   <div
-                    className="h-full rounded-full transition-all duration-500"
+                    className="h-full rounded-full duration-500"
                     style={{
                       width: item.confidence,
                       background: `linear-gradient(90deg, ${item.color}, #00f5ff)`,

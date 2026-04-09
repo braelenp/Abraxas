@@ -23,7 +23,7 @@ export default function BuyAbraButton({ size = 'md', className = '' }: BuyAbraBu
         bg-gradient-to-r from-[#6622cc] via-[#9945ff] to-[#ff6a00]
         text-white
         border border-[#9945ff]/50
-        transition-colors duration-300
+        duration-300
         cursor-pointer select-none
         ${className}
       `}

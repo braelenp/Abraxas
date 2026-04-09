@@ -131,7 +131,7 @@ const GuardianTab: React.FC = () => {
             return (
               <div
                 key={p.id}
-                className="rounded-xl overflow-hidden transition-all duration-200"
+                className="rounded-xl overflow-hidden"
                 style={{
                   background: isOpen ? 'rgba(16,185,129,0.07)' : 'rgba(13,32,24,0.55)',
                   border: `1px solid ${isOpen ? 'rgba(16,185,129,0.4)' : 'rgba(16,185,129,0.12)'}`,
@@ -182,7 +182,7 @@ const GuardianTab: React.FC = () => {
                   {totalVotes > 0 && (
                     <div className="w-full h-1.5 rounded-full bg-emerald-900/40 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400"
                         style={{ width: `${forPct}%` }}
                       />
                     </div>
@@ -229,7 +229,7 @@ const GuardianTab: React.FC = () => {
                               <button
                                 key={choice}
                                 onClick={() => castVote(p.id, choice)}
-                                className="flex-1 py-1.5 font-grotesk text-[10px] font-semibold tracking-wider uppercase rounded transition-all"
+                                className="flex-1 py-1.5 font-grotesk text-[10px] font-semibold tracking-wider uppercase rounded"
                                 style={{
                                   background:
                                     choice === 'for'
