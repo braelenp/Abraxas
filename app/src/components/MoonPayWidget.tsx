@@ -59,18 +59,8 @@ export function MoonPayWidget({ tokenAddress = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMN
           <MoonPayBuyWidget
             variant="embedded"
             baseCurrencyCode="usd"
-            baseCurrencyAmount={100}
-            defaultCurrencyCode="sol"
-            currencyCode="sol"
+            baseCurrencyAmount="100"
             walletAddress={publicKey.toString()}
-            showOnlyCryptos={false}
-            allowsFeeEditing={false}
-            theme={{
-              primary: '#0d9488', // emerald-600
-              surface: '#0f172a', // slate-900
-              text: '#e2e8f0', // slate-200
-              interactive: '#06b6d4', // cyan-500
-            }}
             redirectURL={typeof window !== 'undefined' ? window.location.href : undefined}
           />
         </MoonPayProvider>
