@@ -20,19 +20,31 @@ export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhi
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [displayedText, setDisplayedText] = useState('');
   const [typingDone, setTypingDone] = useState(false);
+  const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
 
   const fullText = 'The Academy Awaits';
 
-  // Auto-fill wallet if connected
+  // Auto-fill wallet if connected and check enrollment status
   useEffect(() => {
     if (publicKey) {
-      setWalletAddress(publicKey.toBase58());
+      const address = publicKey.toBase58();
+      setWalletAddress(address);
+      
+      // Check if this wallet is already enrolled
+      const enrollmentData = localStorage.getItem(`academy_whitelist_${address}`);
+      setIsAlreadyEnrolled(!!enrollmentData);
+    } else {
+      setIsAlreadyEnrolled(false);
     }
   }, [publicKey]);
 
   // Typing effect for title
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      // Reset state when modal closes
+      setModalState('form');
+      return;
+    }
     
     setDisplayedText('');
     setTypingDone(false);
@@ -58,6 +70,13 @@ export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhi
   const handleEnroll = async () => {
     if (!walletAddress.trim()) {
       alert('Please enter your wallet address');
+      return;
+    }
+
+    // Check if already enrolled
+    const existingEnrollment = localStorage.getItem(`academy_whitelist_${walletAddress}`);
+    if (existingEnrollment) {
+      alert('This wallet has already been enrolled in the Academy whitelist.');
       return;
     }
 
@@ -93,6 +112,9 @@ export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhi
         whitelistEnrolledAt: new Date().toISOString(),
       };
       localStorage.setItem('abraxas_user_profile', JSON.stringify(newProfile));
+
+      // Update enrollment status
+      setIsAlreadyEnrolled(true);
 
       // Show success screen
       setModalState('success');
@@ -169,49 +191,89 @@ export function AcademyWhitelistModal({ isOpen, onClose, onSuccess }: AcademyWhi
                 </div>
 
                 {/* Form */}
-                <div className="space-y-4">
-                  {/* Wallet Address */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
-                      Wallet Address
-                    </label>
-                    <input
-                      type="text"
-                      value={walletAddress}
-                      onChange={(e) => setWalletAddress(e.target.value)}
-                      placeholder="Your Solana wallet address"
-                      className="w-full px-4 py-2.5 bg-slate-800/50 border border-purple-400/20 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-400/50 focus:bg-slate-800/70 transition-colors text-sm font-mono"
-                    />
+                {isAlreadyEnrolled ? (
+                  // Already enrolled message
+                  <div className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 p-6 space-y-4 text-center">
+                    <div className="flex justify-center">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-emerald-500/30 rounded-full blur-xl animate-pulse" />
+                        <div className="relative bg-emerald-500/20 p-3 rounded-full border border-emerald-400/50">
+                          <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-emerald-300 mb-1">Already Whitelisted!</h3>
+                      <p className="text-sm text-slate-300">
+                        This wallet address has already been enrolled in the Academy whitelist.
+                      </p>
+                    </div>
+                    <div className="pt-2 border-t border-emerald-400/20 text-xs text-emerald-300">
+                      <p>✦ Enrollment complete</p>
+                      <p>✦ Bonus points already awarded</p>
+                      <p>✦ Academy access unlocked</p>
+                    </div>
                   </div>
+                ) : (
+                  // Enrollment form
+                  <div className="space-y-4">
+                    {/* Wallet Address */}
+                    <div className="space-y-2">
+                      <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
+                        Wallet Address
+                      </label>
+                      <input
+                        type="text"
+                        value={walletAddress}
+                        onChange={(e) => setWalletAddress(e.target.value)}
+                        placeholder="Your Solana wallet address"
+                        className="w-full px-4 py-2.5 bg-slate-800/50 border border-purple-400/20 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-400/50 focus:bg-slate-800/70 transition-colors text-sm font-mono"
+                      />
+                    </div>
 
-                  {/* Discord Handle */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
-                      Discord Handle <span className="text-slate-500">(optional)</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={discordHandle}
-                      onChange={(e) => setDiscordHandle(e.target.value)}
-                      placeholder="username#0000"
-                      className="w-full px-4 py-2.5 bg-slate-800/50 border border-purple-400/20 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-400/50 focus:bg-slate-800/70 transition-colors text-sm font-mono"
-                    />
+                    {/* Discord Handle */}
+                    <div className="space-y-2">
+                      <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
+                        Discord Handle <span className="text-slate-500">(optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={discordHandle}
+                        onChange={(e) => setDiscordHandle(e.target.value)}
+                        placeholder="username#0000"
+                        className="w-full px-4 py-2.5 bg-slate-800/50 border border-purple-400/20 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-400/50 focus:bg-slate-800/70 transition-colors text-sm font-mono"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
-                {/* Enroll button */}
-                <button
-                  onClick={handleEnroll}
-                  disabled={isSubmitting}
-                  className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 disabled:from-slate-700 disabled:to-slate-600 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/20"
-                >
-                  {isSubmitting ? 'Enrolling...' : 'Enroll Now'}
-                </button>
+                {/* Enroll button - only show if not already enrolled */}
+                {!isAlreadyEnrolled && (
+                  <>
+                    <button
+                      onClick={handleEnroll}
+                      disabled={isSubmitting}
+                      className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 disabled:from-slate-700 disabled:to-slate-600 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/20"
+                    >
+                      {isSubmitting ? 'Enrolling...' : 'Enroll Now'}
+                    </button>
 
-                {/* Disclaimer */}
-                <p className="text-xs text-slate-500 text-center leading-relaxed">
-                  Your enrollment will grant Academy access and bonus airdrop points immediately.
-                </p>
+                    {/* Disclaimer */}
+                    <p className="text-xs text-slate-500 text-center leading-relaxed">
+                      Your enrollment will grant Academy access and bonus airdrop points immediately.
+                    </p>
+                  </>
+                )}
+
+                {/* Already enrolled close button */}
+                {isAlreadyEnrolled && (
+                  <button
+                    onClick={onClose}
+                    className="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 active:scale-95 shadow-lg shadow-emerald-500/20"
+                  >
+                    Close
+                  </button>
+                )}
               </>
             ) : (
               <>
