@@ -4,7 +4,18 @@ import ParticleBackground from '../components/ParticleBackground'
 import BuyAbraButton from '../components/BuyAbraButton'
 
 export default function LandingPage() {
+  const [displayText, setDisplayText] = useState('')
   const fullText = 'MIMIR'
+  const targetDelay = 100
+
+  useEffect(() => {
+    if (displayText.length < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(fullText.slice(0, displayText.length + 1))
+      }, targetDelay)
+      return () => clearTimeout(timer)
+    }
+  }, [displayText, fullText, targetDelay])
 
   const features = [
     {
@@ -114,7 +125,10 @@ export default function LandingPage() {
               letterSpacing: '0.1em',
             }}
           >
-            {fullText}
+            {displayText}
+            {displayText.length < fullText.length && (
+              <span>▌</span>
+            )}
           </h1>
 
           {/* Subtitle - The Oracle Provider */}

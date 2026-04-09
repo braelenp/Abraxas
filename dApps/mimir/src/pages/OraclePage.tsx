@@ -6,8 +6,19 @@ import ParticleBackground from '../components/ParticleBackground'
 import ActionModal from '../components/ActionModal'
 
 export default function OraclePage() {
+  const [displayText, setDisplayText] = useState('')
   const [selectedAction, setSelectedAction] = useState<'BUY' | 'SWAP' | 'DEPOSIT' | 'WITHDRAW' | null>(null)
   const fullText = 'Real-Time Market Intelligence.'
+  const targetDelay = 100
+
+  useEffect(() => {
+    if (displayText.length < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(fullText.slice(0, displayText.length + 1))
+      }, targetDelay)
+      return () => clearTimeout(timer)
+    }
+  }, [displayText, fullText, targetDelay])
 
   // Mock portfolio data
   const portfolioStats = {
@@ -121,7 +132,10 @@ export default function OraclePage() {
               minHeight: '3.5rem',
             }}
           >
-            {fullText}
+            {displayText}
+            {displayText.length < fullText.length && (
+              <span>▌</span>
+            )}
           </h1>
 
           {/* Subtitle */}

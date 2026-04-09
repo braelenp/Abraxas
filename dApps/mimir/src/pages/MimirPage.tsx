@@ -116,6 +116,12 @@ const VISIONS = [
 ]
 
 export default function MimirPage() {
+  const { displayed: typedGreeting, done: greetingDone } = useTypingReveal(
+    'Welcome to the next degree.',
+    55,
+    600,
+  )
+
   const [visionIndex, setVisionIndex] = useState(0)
   const visionRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -172,11 +178,27 @@ export default function MimirPage() {
             className="text-base md:text-lg font-mono tracking-widest"
             style={{ color: '#00f5ff', minHeight: '1.8em' }}
           >
-            <span style={{ paddingRight: '2px' }}>Welcome to the next degree.</span>
+            <span
+              style={{
+                borderRight: greetingDone ? '3px solid transparent' : '3px solid #00f5ff',
+                paddingRight: '2px',
+                animation: greetingDone
+                  ? 'caretBlink 0.75s step-end infinite'
+                  : 'none',
+              }}
+            >
+              {typedGreeting}
+            </span>
           </div>
 
-          {/* Subtitle — immediately visible */}
-          <div>
+          {/* Subtitle — fades in after greeting */}
+          <div
+            className="transition-all duration-1000"
+            style={{
+              opacity: greetingDone ? 1 : 0,
+              transform: greetingDone ? 'translateY(0)' : 'translateY(8px)',
+            }}
+          >
             <h1
               className="text-3xl md:text-4xl font-black tracking-[0.2em]"
               style={{

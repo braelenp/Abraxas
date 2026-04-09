@@ -5,7 +5,18 @@ import BottomActionBar from '../components/BottomActionBar'
 import ParticleBackground from '../components/ParticleBackground'
 
 export default function AnalyticsPage() {
+  const [displayText, setDisplayText] = useState('')
   const fullText = 'Strategic Market Intelligence.'
+  const targetDelay = 100
+
+  useEffect(() => {
+    if (displayText.length < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(fullText.slice(0, displayText.length + 1))
+      }, targetDelay)
+      return () => clearTimeout(timer)
+    }
+  }, [displayText, fullText, targetDelay])
 
   const metrics = [
     {
@@ -105,7 +116,10 @@ export default function AnalyticsPage() {
               minHeight: '3.5rem',
             }}
           >
-            {fullText}
+            {displayText}
+            {displayText.length < fullText.length && (
+              <span>▌</span>
+            )}
           </h1>
 
           {/* Subtitle */}
