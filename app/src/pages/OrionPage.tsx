@@ -1,40 +1,10 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Sparkles, Video, Zap, Lock, ArrowRight } from 'lucide-react';
 import { OrionAssistant } from '../components/OrionAssistant';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { OracleInsights } from '../components/OracleInsights';
-
-function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: number; speed?: number }) {
-  const [displayed, setDisplayed] = useState('');
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    let idx = 0;
-    const startTime = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (idx < text.length) {
-          setDisplayed(text.slice(0, ++idx));
-        } else {
-          setDone(true);
-          clearInterval(interval);
-        }
-      }, speed);
-    }, delay);
-
-    return () => {
-      clearTimeout(startTime);
-    };
-  }, [text, delay, speed]);
-
-  return (
-    <span className="font-mono text-2xl font-bold text-red-200 tracking-wide">
-      {displayed}
-      {!done && <span className="animate-pulse ml-1">∷</span>}
-    </span>
-  );
-}
 
 const RUNE_CONFIG = {
   rune: 'ᛏ',

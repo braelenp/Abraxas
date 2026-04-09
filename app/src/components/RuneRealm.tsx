@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import type { ReactNode } from 'react';
 
 // ─── Public config shape ──────────────────────────────────────────────────────
@@ -39,35 +39,7 @@ function seededRand(n: number): number {
 	return x - Math.floor(x);
 }
 
-function useTypingEffect(text: string, charSpeed = 105, startDelay = 650) {
-	const [displayed, setDisplayed] = useState('');
-	const [done, setDone] = useState(false);
 
-	useEffect(() => {
-		setDisplayed('');
-		setDone(false);
-		let idx = 0;
-		let ival: ReturnType<typeof setInterval> | undefined;
-
-		const tval = setTimeout(() => {
-			ival = setInterval(() => {
-				if (idx < text.length) {
-					setDisplayed(text.slice(0, ++idx));
-				} else {
-					setDone(true);
-					clearInterval(ival);
-				}
-			}, charSpeed);
-		}, startDelay);
-
-		return () => {
-			clearTimeout(tval);
-			clearInterval(ival);
-		};
-	}, [text, charSpeed, startDelay]);
-
-	return { displayed, done };
-}
 
 // ─── Particles ────────────────────────────────────────────────────────────────
 
@@ -122,13 +94,6 @@ export function RuneRealm({
 	children,
 }: RuneRealmProps) {
 	const contentRef = useRef<HTMLDivElement | null>(null);
-	const [entered, setEntered] = useState(false);
-	const typing = useTypingEffect(agentName);
-
-	useEffect(() => {
-		const t = setTimeout(() => setEntered(true), 80);
-		return () => clearTimeout(t);
-	}, []);
 
 	const handleCta = () => {
 		if (onCta) {
@@ -155,11 +120,7 @@ export function RuneRealm({
 				<RuneParticles coreGlow={coreGlow} />
 
 				{/* ── Rune glyph with layered halos ──────────────────────────────── */}
-				<div
-					className={`relative flex items-center justify-center transition-all duration-1000 ease-out ${
-						entered ? 'scale-100 opacity-100' : 'scale-[0.65] opacity-0'
-					}`}
-				>
+				<div className="relative flex items-center justify-center">
 					{/* Outer atmosphere */}
 					<div
 						className="absolute rounded-full"
@@ -167,7 +128,7 @@ export function RuneRealm({
 							width: 230,
 							height: 230,
 							background: `radial-gradient(circle, rgba(${coreGlow},0.11), transparent 72%)`,
-							animation: 'rr-breathe 3.8s ease-in-out forwards',
+
 						}}
 					/>
 					{/* Fire ring */}
@@ -177,7 +138,7 @@ export function RuneRealm({
 							width: 150,
 							height: 150,
 							background: `radial-gradient(circle, rgba(${fireGlow},0.22), transparent 68%)`,
-							animation: 'rr-breathe 3.8s ease-in-out forwards 0.5s',
+
 						}}
 					/>
 					{/* Core gold flash */}
@@ -187,7 +148,7 @@ export function RuneRealm({
 							width: 88,
 							height: 88,
 							background: 'radial-gradient(circle, rgba(253,224,71,0.30), transparent 65%)',
-							animation: 'rr-breathe 3.8s ease-in-out forwards 1s',
+
 						}}
 					/>
 					{/* The rune character */}
@@ -202,7 +163,7 @@ export function RuneRealm({
 								`0 0 80px rgba(${fireGlow},0.55)`,
 								'0 0 130px rgba(6,182,212,0.3)',
 							].join(', '),
-						animation: 'rr-breathe 3.8s ease-in-out forwards',
+
 						}}
 					>
 						{rune}
@@ -215,10 +176,7 @@ export function RuneRealm({
 						{runeName} · {runeEssence}
 					</p>
 					<h2 className={`text-[2.25rem] font-black tracking-[0.14em] ${accentClass}`}>
-						{typing.displayed}
-						{!typing.done && (
-							<span className="ml-0.5 animate-pulse text-cyan-200 opacity-75">_</span>
-						)}
+						{agentName}
 					</h2>
 				</div>
 
