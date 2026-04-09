@@ -25,9 +25,9 @@ function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: n
   }, [text, delay, speed]);
 
   return (
-    <span className="font-mono text-3xl font-bold text-purple-300 tracking-widest drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]">
+    <span className="font-mono text-xl sm:text-2xl font-bold text-purple-300 tracking-widest drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]">
       {displayed}
-      {!done && <span className="animate-pulse ml-1">∷</span>}
+      {!done && <span className="ml-1">∷</span>}
     </span>
   );
 }
@@ -236,13 +236,13 @@ export function UndercollateralizedLendingModule() {
         {/* Dramatic Header with Typing Reveal */}
         <div className="space-y-3 sm:space-y-4 border-b border-purple-300/20 pb-4 sm:pb-6">
           <div className="space-y-2">
-            <p className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-purple-300/60">&gt; [ALGORITHMIC_TRUST] CAPITAL_EFFICIENCY</p>
-            <div className="text-lg sm:text-2xl md:text-3xl">
-              <TypingReveal text="Undercollateralized Lending — Capital Access Unlocked" delay={100} speed={40} />
-            </div>
+          <p className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-purple-300/60">&gt; [ALGORITHMIC_TRUST] CAPITAL_EFFICIENCY</p>
+          <div className="text-base sm:text-lg">
+            <TypingReveal text="Undercollateralized Lending — Capital Unlocked" delay={100} speed={40} />
           </div>
-          <p className="text-sm sm:text-base leading-relaxed text-slate-300/90">
-            King AI audits on-chain reputation, trading patterns, and yield accrual flows to unlock capital at 80-110% collateral ratios. Revolutionary capital efficiency powered by algorithmic trust. No centralized intermediary. Pure sovereign lending.
+        </div>
+        <p className="text-xs sm:text-sm leading-relaxed text-slate-300/90">
+          King AI audits on-chain reputation and yield flows to unlock capital at 80-110% collateral ratios. Revolutionary capital efficiency powered by algorithmic trust. No intermediary. Pure sovereign lending.
           </p>
         </div>
 
@@ -269,7 +269,7 @@ export function UndercollateralizedLendingModule() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all shrink-0 whitespace-nowrap ${
                   activeTab === tab
                     ? 'bg-gradient-to-r from-purple-500/30 to-purple-400/20 border border-purple-300/40 text-purple-100 shadow-lg shadow-purple-500/15'
                     : 'text-purple-300/60 hover:text-purple-300/80 border border-purple-300/10 hover:border-purple-300/20'
