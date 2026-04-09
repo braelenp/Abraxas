@@ -23,7 +23,6 @@ import { ProfilePage } from './pages/ProfilePage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
-import { ScrollToTop } from './components/ScrollToTop';
 import { useAbraBalance } from './hooks/useAbraBalance';
 
 // ── Living rune wheel navigation ─────────────────────────────────────────────
@@ -116,6 +115,13 @@ function DappShell() {
     audio.pause();
     audio.currentTime = 0;
   }, [connected, hasSeenIntroModal]);
+
+  // Scroll content to top when route changes (tab navigation)
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [location.pathname]);
 
   return (
     <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
@@ -311,7 +317,6 @@ export default function App() {
 
   return (
     <>
-      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/campaign" element={<CampaignLandingPage />} />
