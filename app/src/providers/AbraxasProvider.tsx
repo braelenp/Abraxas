@@ -1,4 +1,4 @@
-import { createContext, type FC, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, type FC, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   starterAthleteTokens,
   starterFutureAssetClasses,
@@ -122,6 +122,9 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
   });
   const [referralRecords, setReferralRecords] = useState<ReferralRecord[]>([]);
   const [airdropLeaderboard, setAirdropLeaderboard] = useState<AirdropLeaderboardEntry[]>([]);
+
+  // Track if OYM sync has been attempted to prevent multiple calls
+  const oymSyncAttemptedRef = useRef(false);
 
   const addLog = useCallback((entry: Omit<AgentActionLog, 'id' | 'timestamp'>) => {
     setLogs((current) => [
@@ -754,10 +757,11 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (import.meta.env.VITE_OYM_DATA_URL) {
+    if (import.meta.env.VITE_OYM_DATA_URL && !oymSyncAttemptedRef.current) {
+      oymSyncAttemptedRef.current = true;
       void refreshOymData();
     }
-  }, [refreshOymData]);
+  }, []); // Empty dependency array - only run once on mount
 
   const value = useMemo(
     () => ({

@@ -1,10 +1,11 @@
 import { useAbraBalance } from '../hooks/useAbraBalance';
+import { memo } from 'react';
 
 interface HackathonBannerProps {
   show?: boolean;
 }
 
-export function HackathonBanner({ show = true }: HackathonBannerProps) {
+function HackathonBannerComponent({ show = true }: HackathonBannerProps) {
   const { balance, balanceFormatted, hasMinimum } = useAbraBalance(10);
 
   if (!show || !hasMinimum) {
@@ -24,3 +25,5 @@ export function HackathonBanner({ show = true }: HackathonBannerProps) {
     </div>
   );
 }
+
+export const HackathonBanner = memo(HackathonBannerComponent);
