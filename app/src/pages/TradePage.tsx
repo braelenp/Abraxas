@@ -2,7 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { Zap } from 'lucide-react';
 import { useState, useRef } from 'react';
 import { BagsBuyWidget } from '../components/BagsBuyWidget';
-import { JupiterSwapPanel } from '../components/JupiterSwapPanel';
+import { PhantomSwapPanel } from '../components/PhantomSwapPanel';
 
 const ABRA_TOKEN_CA = import.meta.env.VITE_ABRA_TOKEN_CONTRACT_ADDRESS?.trim() || '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || `https://bags.fm/${ABRA_TOKEN_CA}`;
@@ -34,7 +34,7 @@ export function TradePage() {
           <h1 className="text-lg font-bold text-teal-300">Buy ABRA</h1>
         </div>
         <p className="text-xs text-slate-300">
-          Swap directly within Abraxas. Choose Jupiter for best routing or Bags for zero fees.
+          Swap directly within Abraxas using your Phantom wallet. Choose Phantom Swap for DEX aggregation or Bags for zero fees.
         </p>
       </div>
 
@@ -48,7 +48,7 @@ export function TradePage() {
               : 'text-slate-300 hover:text-slate-200'
           }`}
         >
-          Jupiter Terminal
+          Phantom Swap
         </button>
         <button
           onClick={() => handleTabChange('bags')}
@@ -62,9 +62,9 @@ export function TradePage() {
         </button>
       </div>
 
-      {/* Jupiter Swap Panel */}
+      {/* Phantom Swap Panel */}
       <div style={{ display: activeTab === 'jupiter' ? 'block' : 'none' }}>
-        <JupiterSwapPanel />
+        <PhantomSwapPanel />
       </div>
 
       {/* Bags Buy Widget - kept mounted, toggled with CSS */}
