@@ -41,7 +41,8 @@ export async function hasMainnetToken(connection: Connection): Promise<boolean> 
     const usdcMint = new PublicKey('EPjFWaLb3odccccccccccccccccccccccccccPwr2ugEp');
     const accountInfo = await connection.getAccountInfo(usdcMint);
     
-    if (accountInfo && accountInfo.owner.toString() === '11111111112J3xnm7kcrXaJJkUKz6aQ4ixm2v3kQMoSm') {
+    // Check if account exists and owner is the Token Program
+    if (accountInfo && accountInfo.owner.toString() === 'TokenkegQfeZyiNwAJsyFbPVwwQQYuKPztPQWkeS6t') {
       console.log('[Network] Found USDC token on connection - appears to be mainnet');
       return true;
     }
@@ -62,7 +63,7 @@ export async function detectCluster(connection: Connection): Promise<'mainnet' |
     
     try {
       const accountInfo = await connection.getAccountInfo(usdcMint);
-      if (accountInfo && accountInfo.owner.toString() === '11111111112J3xnm7kcrXaJJkUKz6aQ4ixm2v3kQMoSm') {
+      if (accountInfo && accountInfo.owner.toString() === 'TokenkegQfeZyiNwAJsyFbPVwwQQYuKPztPQWkeS6t') {
         console.log('[Network] Detected cluster: mainnet-beta');
         return 'mainnet';
       }
