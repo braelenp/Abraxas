@@ -82,7 +82,7 @@ export function TradePage() {
         <div className="space-y-2 text-xs text-slate-300">
           <div className="flex items-start gap-2">
             <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span><strong>Jupiter:</strong> Best rates through DEX aggregation (~0.1% fee)</span>
+            <span><strong>Phantom Swap:</strong> Sign with your wallet - stays in app</span>
           </div>
           <div className="flex items-start gap-2">
             <span className="text-cyan-400 font-bold mt-0.5">→</span>
