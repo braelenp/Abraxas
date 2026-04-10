@@ -122,25 +122,3 @@ export async function checkAbraTokenExistsOnNetwork(connection: Connection, abra
     return true;
   }
 }
-
-/**
- * Check if ABRA token exists and is accessible on the current network
- */
-export async function checkAbraTokenExistsOnNetwork(
-  connection: Connection,
-  abraTokenAddress: string = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS'
-): Promise<boolean> {
-  try {
-    const abraMint = new PublicKey(abraTokenAddress);
-    const accountInfo = await connection.getAccountInfo(abraMint);
-    
-    if (accountInfo) {
-      console.log('[Network] ABRA token found on this network');
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.error('[Network] ABRA token not found on this network:', error);
-    return false;
-  }
-}
