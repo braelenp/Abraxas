@@ -83,7 +83,31 @@ export async function getJupiterQuote(
   try {
     const amountInSmallestUnits = Math.floor(amount * 10 ** decimals); // Convert using actual decimals
     
-    // Jupiter quote endpoint parameters
+    console.log('[Jupiter] Quote Request:', {
+      inputMint,
+      outputMint,
+      amount: `${amount} (raw)`,
+      amountInSmallestUnits,
+      decimals,
+      slippageBps,
+    });
+
+    // Validate token addresses are valid public keys
+    try {
+      new PublicKey(inputMint);
+      new PublicKey(outputMint);
+    } catch (e) {
+      console.error('[Jupiter] Invalid token address:', e);
+      return null;
+    }
+
+    // Validate amount is positive
+    if (amountInSmallestUnits <= 0) {
+      console.error('[Jupiter] Invalid amount:', amountInSmallestUnits);
+      return null;
+    }
+
+    // Build URL with proper encoding
     const params = new URLSearchParams({
       inputMint,
       outputMint,
@@ -91,22 +115,14 @@ export async function getJupiterQuote(
       slippageBps: slippageBps.toString(),
     });
 
-    console.log('[Jupiter] Fetching quote:', {
-      inputMint,
-      outputMint,
-      amount: `${amount} (raw)`,
-      amountInSmallestUnits: `${amountInSmallestUnits} (smallest units)`,
-      decimals,
-      slippageBps,
-    });
-
     const url = `${JUPITER_API_BASE}/quote?${params}`;
-    console.log('[Jupiter] Quote URL:', url);
+    console.log('[Jupiter] Request URL:', url);
     
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
+        'User-Agent': 'Abraxas/1.0',
       },
     });
 
@@ -135,13 +151,19 @@ export async function getJupiterQuote(
     console.log('[Jupiter] Quote received - Output:', data.outAmount, 'Price impact:', data.priceImpactPct);
     return data;
   } catch (error) {
-    console.error('[Jupiter] Failed to fetch quote:', error);
+    console.error('[Jupiter] FAILED to fetch quote');
+    console.error('[Jupiter] Error type:', error instanceof Error ? error.constructor.name : typeof error);
     
-    // Log network-specific errors
     if (error instanceof TypeError) {
-      console.error('[Jupiter] Network error - possible CORS or connectivity issue');
+      console.error('[Jupiter] TypeError (network/CORS issue):', error.message);
+    } else if (error instanceof SyntaxError) {
+      console.error('[Jupiter] SyntaxError (invalid response):', error.message);
+    } else if (error instanceof Error) {
+      console.error('[Jupiter] Error:', error.message);
+      console.error('[Jupiter] Stack:', error.stack);
+    } else {
+      console.error('[Jupiter] Unknown error:', error);
     }
-    
     return null;
   }
 }
