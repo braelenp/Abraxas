@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { Route, Routes, useLocation, NavLink, Navigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useTranslation } from 'react-i18next';
 import { DashboardPage } from './pages/DashboardPage';
 import { VaultsPage } from './pages/VaultsPage';
 import { MarketPage } from './pages/MarketPage';
@@ -22,19 +23,8 @@ import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
+import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { useAbraBalance } from './hooks/useAbraBalance';
-
-// ── Living rune wheel navigation ─────────────────────────────────────────────
-const navItems = [
-  { to: '/app/profile',  label: 'Profile',   rune: '✧' },
-  { to: '/app/forge',    label: 'Forge',     rune: 'ᚲ' },
-  { to: '/app/orion',    label: 'King AI',   rune: 'ᛏ' },
-  { to: '/app/cadabra',  label: 'Cadabra',   rune: '✦' },
-  { to: '/app/market',   label: 'Market',    rune: 'ᛋ' },
-  { to: '/app/vaults',   label: 'Vaults',    rune: 'ᚨ' },
-  { to: '/app/circuit',  label: 'Circuit',   rune: 'ᚦ' },
-  { to: '/app/trade',    label: 'Trade',     rune: 'ᛚ' },
-];
 
 function ProtectedDapp() {
   const { hasMinimum, isLoading } = useAbraBalance(10);
@@ -54,10 +44,24 @@ function ProtectedDapp() {
 }
 
 function DappShell() {
+  const { t } = useTranslation();
   const { connected } = useWallet();
   const introAmbientRef = useRef<HTMLAudioElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
+
+  // ── Living rune wheel navigation with translations ────────────────────────
+  const navItems = [
+    { to: '/app/profile',  label: t('nav.profile'),   rune: '✧' },
+    { to: '/app/forge',    label: t('nav.forge'),     rune: 'ᚲ' },
+    { to: '/app/orion',    label: t('nav.kingAi'),    rune: 'ᛏ' },
+    { to: '/app/cadabra',  label: t('nav.cadabra'),   rune: '✦' },
+    { to: '/app/market',   label: t('nav.market'),    rune: 'ᛋ' },
+    { to: '/app/vaults',   label: t('nav.vaults'),    rune: 'ᚨ' },
+    { to: '/app/circuit',  label: t('nav.circuit'),   rune: 'ᚦ' },
+    { to: '/app/trade',    label: t('nav.trade'),     rune: 'ᛚ' },
+  ];
+
   const dappBackgroundCandidates = useMemo(
     () => [
       '/assets/sophia-minted.jpg',
@@ -155,8 +159,11 @@ function DappShell() {
       <header className="sticky top-0 z-50 flex-none border-b border-cyan-200/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
         <div className="mb-2 flex items-center justify-between gap-3">
           <BrandLogo size="sm" showWordmark className="dapp-header-brand" />
-          <div className="dapp-header-wallet">
-            <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher variant="compact" />
+            <div className="dapp-header-wallet">
+              <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
+            </div>
           </div>
         </div>
         <p className="text-xs text-slate-300/80">ᚲ Forge · ᚨ Vaults · ᛋ Market · ✦ Cadabra · ᛏ King AI · ᚦ Circuit · ᛚ Trade</p>
@@ -246,7 +253,7 @@ function DappShell() {
                 }}
                 className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:bg-slate-800/70 hover:border-amber-300/80 transition-all"
               >
-                &gt; [ENTER] BEGIN_PROTOCOL
+                &gt; [ENTER] {t('common.loading')}
               </button>
             </div>
           </div>

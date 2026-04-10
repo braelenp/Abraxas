@@ -10,13 +10,16 @@
 import { Share2, Copy, ExternalLink, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useTranslation } from 'react-i18next';
 import { useUserProfile, useReferrals, useAirdropPoints } from '../hooks/useProfile';
 import { AbraxasIDCard } from '../components/AbraxasIDCard';
 import { AirdropPointsWidget } from '../components/AirdropPointsWidget';
 import { ReferralLeaderboard } from '../components/ReferralLeaderboard';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { createReferralLink } from '../lib/profileUtils';
 
 export function ProfilePage() {
+  const { t } = useTranslation();
   const { publicKey } = useWallet();
   const { profile } = useUserProfile();
   const { referralCode } = useReferrals();
@@ -34,10 +37,10 @@ export function ProfilePage() {
         <div className="text-center space-y-4">
           <Sparkles className="mx-auto text-purple-400 animate-spin" size={48} />
           <h1 className="text-2xl font-bold text-slate-300">
-            Create your profile to get started
+            {t('profile.noProfile')}
           </h1>
           <p className="text-slate-500">
-            No profile found. Please create one to participate in the Sharathon.
+            {t('profile.profileNotFound')}
           </p>
         </div>
       </div>
@@ -90,29 +93,36 @@ Making DeFi Great Again 🚀`;
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Hero Header */}
       <div className="border-b border-cyan-500/30 bg-gradient-to-b from-slate-900/80 to-slate-900/40 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-between gap-6">
-            {/* User Info */}
-            <div className="flex items-center gap-4 min-w-0">
-              <div className="text-5xl flex-shrink-0">{profile.rune}</div>
-              <div className="min-w-0">
-                <h1 className="text-3xl font-black text-white truncate">
-                  {profile.username || 'Abraxas User'}
-                </h1>
-                <p className="text-sm text-cyan-300 font-mono mt-1">{profile.abraxasId}</p>
-                {profile.blessing && (
-                  <p className="text-xs text-slate-400 italic mt-2 line-clamp-1">"{profile.blessing}"</p>
-                )}
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          {/* Language Switcher */}
+          <div className="flex justify-end mb-3">
+            <LanguageSwitcher variant="compact" />
+          </div>
+          {/* User Info Section */}
+          <div className="py-4">
+            <div className="flex items-center justify-between gap-6">
+              {/* User Info */}
+              <div className="flex items-center gap-4 min-w-0">
+                <div className="text-5xl flex-shrink-0">{profile.rune}</div>
+                <div className="min-w-0">
+                  <h1 className="text-3xl font-black text-white truncate">
+                    {profile.username || 'Abraxas User'}
+                  </h1>
+                  <p className="text-sm text-cyan-300 font-mono mt-1">{profile.abraxasId}</p>
+                  {profile.blessing && (
+                    <p className="text-xs text-slate-400 italic mt-2 line-clamp-1">"{profile.blessing}"</p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Points Badge */}
-            <div className="text-right flex-shrink-0">
-              <div className="text-4xl font-black bg-gradient-to-r from-orange-300 via-yellow-300 to-orange-400 text-transparent bg-clip-text">
-                {currentPoints}
-              </div>
-              <div className="text-xs text-slate-400 uppercase tracking-widest font-semibold mt-1">
-                ← Airdrop Points
+              {/* Points Badge */}
+              <div className="text-right flex-shrink-0">
+                <div className="text-4xl font-black bg-gradient-to-r from-orange-300 via-yellow-300 to-orange-400 text-transparent bg-clip-text">
+                  {currentPoints}
+                </div>
+                <div className="text-xs text-slate-400 uppercase tracking-widest font-semibold mt-1">
+                  ← {t('profile.myPoints')}
+                </div>
               </div>
             </div>
           </div>
@@ -133,10 +143,10 @@ Making DeFi Great Again 🚀`;
                     : 'text-slate-400 border-transparent hover:text-slate-300 hover:border-slate-600'
                 }`}
               >
-                {tab === 'card' && '✧ ID Card'}
-                {tab === 'points' && '⚡ Points'}
-                {tab === 'referrals' && '🔗 Referrals'}
-                {tab === 'leaderboard' && '👑 Leaderboard'}
+                {tab === 'card' && `✧ ${t('profile.card')}`}
+                {tab === 'points' && `⚡ ${t('profile.points')}`}
+                {tab === 'referrals' && `🔗 ${t('profile.referrals')}`}
+                {tab === 'leaderboard' && `👑 ${t('profile.leaderboard')}`}
               </button>
             ))}
           </div>
@@ -158,7 +168,7 @@ Making DeFi Great Again 🚀`;
               <div>
                 <h3 className="text-xl font-bold text-cyan-300 flex items-center gap-3 mb-2">
                   <Share2 size={24} />
-                  Share Your Profile
+                  {t('profile.share')}
                 </h3>
                 <p className="text-sm text-slate-400">Grow your network and earn bonus points</p>
               </div>
@@ -174,24 +184,24 @@ Making DeFi Great Again 🚀`;
                   onClick={shareOnTwitter}
                   className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Twitter size={20} />
-                  Share on Twitter
+                  𝕏
+                  {t('profile.shareOnTwitter')}
                 </button>
 
                 <button
                   onClick={shareOnDiscord}
                   className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Discord size={20} />
-                  Share on Discord
+                  💬
+                  {t('profile.shareOnDiscord')}
                 </button>
 
                 <button
                   onClick={shareOnLinkedIn}
                   className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-xl text-white font-bold transition border border-slate-600/50"
                 >
-                  <Linkedin size={20} />
-                  Share on LinkedIn
+                  🔗
+                  {t('profile.shareOnLinkedIn')}
                 </button>
 
                 <button
@@ -199,7 +209,7 @@ Making DeFi Great Again 🚀`;
                   className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-700 to-cyan-700 hover:from-purple-600 hover:to-cyan-600 rounded-xl text-white font-bold transition border border-purple-500/50"
                 >
                   <Copy size={20} />
-                  {copied ? 'Link Copied!' : 'Copy Link'}
+                  {copied ? t('profile.copied') : t('profile.copy')}
                 </button>
               </div>
             </div>

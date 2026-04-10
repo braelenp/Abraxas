@@ -10,6 +10,7 @@ import { WalletLoginModal } from '../components/WalletLoginModal';
 import { AbraxasIDCard } from '../components/AbraxasIDCard';
 import { AirdropPointsWidget } from '../components/AirdropPointsWidget';
 import { AcademyWhitelistModal } from '../components/AcademyWhitelistModal';
+import { WhitePaperModal } from '../components/WhitePaperModal';
 
 // ── Typing Effect Hook ───────────────────────────────────────────────────────
 function useTypingEffect(text: string, speed = 40, delay = 0) {
@@ -575,6 +576,7 @@ export function CampaignLandingPage() {
   const navigate = useNavigate();
   const topRef = useRef<HTMLDivElement>(null);
   const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+  const [showWhitePaperModal, setShowWhitePaperModal] = useState(false);
 
   // Scroll to top on page load
   useEffect(() => {
@@ -681,6 +683,15 @@ export function CampaignLandingPage() {
             <span>✧ Start Initiation</span>
             <ArrowRight size={20} />
           </button>
+
+          {/* White Paper & Roadmap Button */}
+          <button
+            onClick={() => setShowWhitePaperModal(true)}
+            className="white-paper-pulse inline-flex items-center justify-center gap-3 px-12 py-4 rounded-xl border border-purple-500/70 bg-gradient-to-r from-purple-700/50 via-purple-600/50 to-orange-600/30 text-purple-100 font-bold text-base hover:from-purple-700/60 hover:via-purple-600/60 hover:to-orange-600/40 transition-all shadow-[0_0_40px_rgba(153,69,255,0.4),0_0_20px_rgba(251,146,60,0.2)]"
+          >
+            <span>✧ White Paper & Roadmap</span>
+          </button>
+
           <p className="text-xs text-slate-400">
             Proceed to the Abraxas Dapp Protocol
           </p>
@@ -701,6 +712,12 @@ export function CampaignLandingPage() {
         isOpen={showWhitelistModal}
         onClose={() => setShowWhitelistModal(false)}
         onSuccess={() => setShowWhitelistModal(false)}
+      />
+
+      {/* White Paper Modal */}
+      <WhitePaperModal
+        isOpen={showWhitePaperModal}
+        onClose={() => setShowWhitePaperModal(false)}
       />
     </div>
   );
