@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { ArrowRightLeft, Zap, AlertCircle, CheckCircle2, ExternalLink } from 'lucide-react';
+import { NetworkStatus } from './NetworkStatus';
 
 const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 
@@ -70,6 +71,9 @@ export function PhantomNativeSwap() {
         <Zap className="h-5 w-5 text-teal-300" />
         <h3 className="font-semibold text-teal-200">Phantom Native Swap</h3>
       </div>
+
+      {/* Network Status */}
+      <NetworkStatus />
 
       {/* Info Box */}
       <div className="rounded-lg bg-teal-900/20 border border-teal-300/30 p-3">
