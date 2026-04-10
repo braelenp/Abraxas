@@ -20,7 +20,7 @@ export function PhantomNativeSwap() {
   
   const [swapState, setSwapState] = useState<SwapState>({ status: 'idle' });
 
-  // Open Phantom's native swap
+  // Open swap through Raydium (works better with URL schemes)
   const handleOpenPhantomSwap = useCallback(async () => {
     if (!connected || !publicKey) {
       setSwapState({
@@ -31,21 +31,25 @@ export function PhantomNativeSwap() {
     }
 
     try {
-      setSwapState({ status: 'loading', message: 'Opening Phantom Swap...' });
+      setSwapState({ status: 'loading', message: 'Opening swap interface...' });
 
-      // Phantom swap URL scheme
-      // Format: https://phantom.app/swap?outputMint=TOKEN_ADDRESS&inputMint=SOL&cluster=mainnet
-      const swapUrl = `https://phantom.app/swap?outputMint=${ABRA_TOKEN_CA}&inputMint=So11111111111111111111111111111111111111112&cluster=mainnet`;
+      // Use Raydium swap URL which is more reliable and integrates with Phantom
+      // Format: https://raydium.io/swap?inputCurrency=SOL&outputCurrency=ABRA_ADDRESS
+      const SOL = 'So11111111111111111111111111111111111111112';
+      const swapUrl = `https://raydium.io/swap?inputCurrency=${SOL}&outputCurrency=${ABRA_TOKEN_CA}`;
       
-      console.log('[PhantomSwap] Opening Phantom swap:', swapUrl);
+      console.log('[PhantomSwap] Opening swap interface:', swapUrl);
       
-      // Open in new window
-      window.open(swapUrl, 'phantom-swap', 'width=600,height=700');
+      // Open in new tab
+      window.open(swapUrl, '_blank');
 
-      setSwapState({
-        status: 'idle',
-        message: undefined,
-      });
+      // Reset state after a short delay
+      setTimeout(() => {
+        setSwapState({
+          status: 'idle',
+          message: undefined,
+        });
+      }, 1000);
     } catch (error) {
       console.error('Swap error:', error);
       setSwapState({
@@ -69,7 +73,7 @@ export function PhantomNativeSwap() {
       {/* Header */}
       <div className="flex items-center gap-2">
         <Zap className="h-5 w-5 text-teal-300" />
-        <h3 className="font-semibold text-teal-200">Phantom Native Swap</h3>
+        <h3 className="font-semibold text-teal-200">Swap SOL for ABRA</h3>
       </div>
 
       {/* Network Status */}
@@ -78,7 +82,7 @@ export function PhantomNativeSwap() {
       {/* Info Box */}
       <div className="rounded-lg bg-teal-900/20 border border-teal-300/30 p-3">
         <p className="text-xs text-teal-200">
-          Swap SOL for ABRA directly through your Phantom wallet. Your wallet handles all routing and security.
+          Open Raydium to swap SOL for ABRA. Sign transactions with your Phantom wallet.
         </p>
       </div>
 
@@ -89,7 +93,7 @@ export function PhantomNativeSwap() {
         className="w-full bg-teal-500/30 hover:bg-teal-500/40 disabled:opacity-30 border border-teal-300/40 rounded-lg py-3 text-sm font-medium text-teal-200 transition-colors flex items-center justify-center gap-2"
       >
         <ArrowRightLeft className="h-4 w-4" />
-        {swapState.status === 'loading' ? 'Opening Phantom Swap...' : 'Open Phantom Swap'}
+        {swapState.status === 'loading' ? 'Opening Raydium...' : 'Swap on Raydium'}
         <ExternalLink className="h-4 w-4" />
       </button>
 
@@ -111,22 +115,22 @@ export function PhantomNativeSwap() {
 
       {/* Features List */}
       <div className="text-xs text-slate-400 pt-2 border-t border-slate-700 space-y-1">
-        <p>• Swap managed entirely by Phantom wallet</p>
+        <p>• Best rates through Raydium DEX</p>
+        <p>• Sign with Phantom wallet</p>
         <p>• Your private keys never leave your device</p>
-        <p>• Automatic best price routing</p>
-        <p>• Full control over transaction details</p>
+        <p>• Full control over swap details</p>
       </div>
 
       {/* Manual Alternative */}
       <div className="rounded-lg bg-slate-800/30 border border-slate-600/30 p-3">
         <p className="text-xs text-slate-400 mb-2">
-          <strong>Alternative:</strong> You can also swap directly in Phantom using the "Swap" tab
+          <strong>Swap Manual:</strong>
         </p>
         <ol className="text-xs text-slate-500 space-y-1">
-          <li>1. Open Phantom wallet extension</li>
-          <li>2. Click the "Swap" tab</li>
-          <li>3. Select SOL as input, ABRA as output</li>
-          <li>4. Enter amount and confirm</li>
+          <li>1. Visit <a href="https://raydium.io/swap" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:underline">raydium.io/swap</a></li>
+          <li>2. Select SOL as input, paste ABRA address as output</li>
+          <li>3. Enter amount and click "Swap"</li>
+          <li>4. Approve with your Phantom wallet</li>
         </ol>
       </div>
     </div>
