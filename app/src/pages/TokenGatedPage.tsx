@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useAbraBalance } from '../hooks/useAbraBalance';
 import { ExternalLink, RefreshCw } from 'lucide-react';
 
 export function TokenGatedPage() {
+  const navigate = useNavigate();
   const { balance, balanceFormatted, isLoading, error, hasMinimum } = useAbraBalance(10);
   const { connected } = useWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -223,15 +225,13 @@ export function TokenGatedPage() {
 
           {/* Buy ABRA button - always visible if not holding enough */}
           {!hasMinimum && !useDemoMode && (
-            <a
-              href={buyAbraUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => navigate('/app/trade')}
               className="ui-action w-full inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400/60 bg-amber-400/20 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-100 shadow-[0_0_16px_rgba(251,146,60,0.2)] transition hover:border-amber-400/80 hover:bg-amber-400/30 hover:shadow-[0_0_24px_rgba(251,146,60,0.4)]"
             >
               <ExternalLink size={14} />
-              Buy $ABRA on Bags
-            </a>
+              Buy $ABRA
+            </button>
           )}
 
           {/* Enter button - visible if has minimum or demo mode active */}

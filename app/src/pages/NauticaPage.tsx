@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Waves, Anchor, Zap, Shield, TrendingUp } from 'lucide-react';
 
 interface NauticaPageProps {
@@ -37,9 +38,11 @@ function TypingReveal({ text, delay = 0, speed = 50 }: { text: string; delay?: n
 }
 
 export function NauticaPage({ onClose, onBuyAbra }: NauticaPageProps) {
+	const navigate = useNavigate();
 	const [stage, setStage] = useState(0);
 
 	const handleBuyAbra = () => {
+		navigate('/app/trade');
 		onBuyAbra?.();
 	};
 

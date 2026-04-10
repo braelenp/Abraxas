@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 
 export interface DaughterConfig {
@@ -185,6 +186,7 @@ const accentGradientMap = {
 };
 
 export function DaughterPage({ config, onClose, onBuyAbra }: DaughterPageProps) {
+	const navigate = useNavigate();
 	const colors = accentColorMap[config.accentColor];
 
 	const handleEnterDapp = () => {
@@ -192,6 +194,7 @@ export function DaughterPage({ config, onClose, onBuyAbra }: DaughterPageProps) 
 	};
 
 	const handleBuyAbra = () => {
+		navigate('/app/trade');
 		onBuyAbra?.();
 	};
 
