@@ -135,7 +135,13 @@ export async function getJupiterQuote(
     console.log('[Jupiter] Quote received - Output:', data.outAmount, 'Price impact:', data.priceImpactPct);
     return data;
   } catch (error) {
-    console.error('Failed to fetch Jupiter quote:', error);
+    console.error('[Jupiter] Failed to fetch quote:', error);
+    
+    // Log network-specific errors
+    if (error instanceof TypeError) {
+      console.error('[Jupiter] Network error - possible CORS or connectivity issue');
+    }
+    
     return null;
   }
 }

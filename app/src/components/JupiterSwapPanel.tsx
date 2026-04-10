@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { ArrowRightLeft, Zap, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { ArrowRightLeft, Zap, AlertCircle, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { PublicKey } from '@solana/web3.js';
 import { getJupiterQuote, getJupiterSwapTransaction, executeSwap, calculateOutputAmount } from '../lib/jupiter';
+import { validateNetworkForTrading, checkAbraTokenExistsOnNetwork } from '../lib/networkValidator';
 
 const ABRA_TOKEN_CA = '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 const SOL_TOKEN_CA = 'So11111111111111111111111111111111111111112';
@@ -24,11 +25,62 @@ export function JupiterSwapPanel() {
   const [isLoadingQuote, setIsLoadingQuote] = useState(false);
   const [swapState, setSwapState] = useState<SwapState>({ status: 'idle' });
   const [priceImpact, setPriceImpact] = useState<string>('0');
+  const [networkValidation, setNetworkValidation] = useState<{
+    isValid: boolean;
+    cluster: string;
+    message: string;
+  } | null>(null);
+  const [isValidatingNetwork, setIsValidatingNetwork] = useState(false);
+
+  // Validate network on mount or when connection changes
+  useEffect(() => {
+    if (!connected) return;
+
+    const validateNetwork = async () => {
+      setIsValidatingNetwork(true);
+      try {
+        const validation = await validateNetworkForTrading(connection);
+        setNetworkValidation(validation);
+
+        // Also check if ABRA token exists
+        if (validation.isValid) {
+          const abraExists = await checkAbraTokenExistsOnNetwork(connection, ABRA_TOKEN_CA);
+          if (!abraExists) {
+            setNetworkValidation({
+              isValid: false,
+              cluster: validation.cluster,
+              message: '❌ ABRA token not found on this network. Make sure you are on mainnet.',
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Network validation error:', error);
+        setNetworkValidation({
+          isValid: false,
+          cluster: 'unknown',
+          message: 'Failed to validate network',
+        });
+      } finally {
+        setIsValidatingNetwork(false);
+      }
+    };
+
+    validateNetwork();
+  }, [connected, connection]);
 
   // Fetch quote from Jupiter
   const handleGetQuote = useCallback(async () => {
     if (!solAmount || parseFloat(solAmount) <= 0) {
       setAbraAmount('0');
+      return;
+    }
+
+    // Check network before fetching quote
+    if (networkValidation && !networkValidation.isValid) {
+      setSwapState({
+        status: 'error',
+        message: networkValidation.message,
+      });
       return;
     }
 
@@ -63,6 +115,15 @@ export function JupiterSwapPanel() {
 
   // Execute swap
   const handleSwap = useCallback(async () => {
+    // Check network first
+    if (networkValidation && !networkValidation.isValid) {
+      setSwapState({
+        status: 'error',
+        message: networkValidation.message,
+      });
+      return;
+    }
+
     if (!connected || !publicKey || !solAmount || parseFloat(solAmount) <= 0) {
       setSwapState({
         status: 'error',
@@ -145,6 +206,26 @@ export function JupiterSwapPanel() {
         <Zap className="h-5 w-5 text-teal-300" />
         <h3 className="font-semibold text-teal-200">Jupiter Swap</h3>
       </div>
+
+      {/* Network Validation Alert */}
+      {isValidatingNetwork && (
+        <div className="rounded-lg bg-blue-900/30 border border-blue-300/40 p-3 flex gap-2">
+          <div className="animate-spin h-5 w-5 border-2 border-blue-300 border-t-transparent rounded-full flex-shrink-0" />
+          <p className="text-xs text-blue-200">Validating network...</p>
+        </div>
+      )}
+
+      {networkValidation && !networkValidation.isValid && (
+        <div className="rounded-lg bg-red-900/30 border border-red-300/40 p-3 flex gap-2">
+          <AlertTriangle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs text-red-200 font-semibold">{networkValidation.message}</p>
+            <p className="text-xs text-red-300/70 mt-1">
+              Jupiter routes only work on mainnet. Please switch your wallet to Solana mainnet.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* SOL Input */}
       <div>
