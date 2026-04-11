@@ -139,11 +139,11 @@ function HeroSection() {
         </p>
 
         <div className="bg-slate-900/50 border border-purple-400/30 rounded-lg p-4 mx-4 text-xs leading-relaxed text-slate-200 backdrop-blur-sm">
-          <p className="text-purple-300 font-semibold mb-2">∴ The Next Transmutation ∴</p>
+          <p className="text-purple-300 font-semibold mb-2">∴ How It Works ∴</p>
           <p>
-            Abraxas captures your sovereign identity through <span className="text-cyan-300">stress inheritance patterns</span> and 
-            <span className="text-pink-300"> biological markers</span> verified on-chain. Each profile mints an unforgeable 
-            <span className="text-orange-300"> Abraxas ID Card</span> — your key to the airdrop economy and Monolith ownership.
+            Create your Abraxas profile and get your <span className="text-orange-300">Abraxas ID Card</span> — your secure key to participate in the economy. Your profile is protected on-chain and gives you access to 
+            <span className="text-cyan-300"> rewards</span>, <span className="text-pink-300">exclusive features</span>, and 
+            <span className="text-cyan-300"> ownership</span> in the Abraxas network.
           </p>
         </div>
       </div>
@@ -638,7 +638,7 @@ export function CampaignLandingPage() {
         <div className="flex items-center justify-between mb-8 pt-2">
           <div className="flex-1">
             <div className="text-4xl md:text-5xl font-black tracking-tighter mb-1">✧ ABRAXAS ✧</div>
-            <p className="text-xs text-slate-400 uppercase tracking-widest">The Next Transmutation</p>
+            <p className="text-xs text-slate-400 uppercase tracking-widest">Your Sovereign Economy</p>
           </div>
           <div className="flex-shrink-0">
             <div className="[&>button]:!bg-gradient-to-r [&>button]:!from-purple-600 [&>button]:!to-cyan-600 [&>button]:!border-purple-500 [&>button]:!text-sm">
