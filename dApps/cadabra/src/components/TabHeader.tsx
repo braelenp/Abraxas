@@ -1,4 +1,4 @@
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'profile'
 
 interface TabHeaderProps {
   activeTab: Tab
@@ -13,6 +13,7 @@ const tabLabels: Record<Tab, string> = {
   post: '✍️ Compose',
   trending: '⚡ Trending',
   marketplace: '👥 KOL Market',
+  'creator-coins': '🎵 Creator Coins',
   profile: '👤 Profile',
 }
 

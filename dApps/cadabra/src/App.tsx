@@ -8,8 +8,9 @@ import { Sidebar } from './components/Sidebar'
 import { TabHeader } from './components/TabHeader'
 import { TrendingPanel } from './components/TrendingPanel'
 import { MobileNav } from './components/MobileNav'
+import { CreatorEconomyModule } from './components/CreatorEconomyModule'
 
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'profile'
 
 type Comment = {
   id: number
@@ -1095,6 +1096,15 @@ function App() {
                     )}
                   </div>
                 </section>
+              )}
+
+              {activeTab === 'creator-coins' && (
+                <CreatorEconomyModule 
+                  onContractInteraction={(action, data) => {
+                    setToast(`Creator Economy: ${action}`)
+                    console.log(`Creator Economy Action: ${action}`, data)
+                  }}
+                />
               )}
 
               {activeTab === 'profile' && (

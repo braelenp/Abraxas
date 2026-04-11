@@ -1,4 +1,4 @@
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'profile'
 
 interface MobileNavProps {
   activeTab: Tab
@@ -11,6 +11,7 @@ const tabs: Array<{ id: Tab; label: string; icon: string }> = [
   { id: 'post', label: 'Post', icon: '✍️' },
   { id: 'trending', label: 'Trending', icon: '⚡' },
   { id: 'marketplace', label: 'KOL', icon: '👥' },
+  { id: 'creator-coins', label: 'Coins', icon: '🎵' },
   { id: 'profile', label: 'Profile', icon: '👤' },
 ]
 

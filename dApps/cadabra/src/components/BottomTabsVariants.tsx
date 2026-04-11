@@ -4,7 +4,7 @@
  * Better matches Abraxas aesthetic
  */
 
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'profile'
 
 interface BottomTabsAdvancedProps {
   activeTab: Tab
@@ -53,6 +53,13 @@ const tabs: Array<{
     rune: '◈',
     description: 'KOL Exchange',
     color: 'from-purple-300 to-purple-400',
+  },
+  {
+    id: 'creator-coins',
+    label: 'Coins',
+    rune: '♪',
+    description: 'Creator Coins',
+    color: 'from-amber-400 to-orange-400',
   },
   {
     id: 'profile',

@@ -1,4 +1,4 @@
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'profile'
 
 interface BottomTabsProps {
   activeTab: Tab
@@ -11,6 +11,7 @@ const tabs: Array<{ id: Tab; label: string; icon: string; symbol: string }> = [
   { id: 'trending', label: 'Trending', icon: '⚡', symbol: 'TREND' },
   { id: 'post', label: 'Create', icon: '✨', symbol: 'MAKE' },
   { id: 'marketplace', label: 'Market', icon: '👥', symbol: 'KOLS' },
+  { id: 'creator-coins', label: 'Coins', icon: '🎵', symbol: 'EARN' },
   { id: 'profile', label: 'Identity', icon: '👤', symbol: 'SELF' },
 ]
 

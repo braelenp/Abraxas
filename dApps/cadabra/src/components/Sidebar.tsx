@@ -1,4 +1,4 @@
-type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'pulse' | 'profile'
+type Tab = 'home' | 'explore' | 'post' | 'trending' | 'marketplace' | 'creator-coins' | 'pulse' | 'profile'
 
 interface SidebarProps {
   activeTab: Tab
@@ -11,6 +11,7 @@ const navItems: Array<{ id: Tab; label: string; icon: string }> = [
   { id: 'explore', label: 'Explore', icon: '🔍' },
   { id: 'marketplace', label: 'KOL Market', icon: '👥' },
   { id: 'trending', label: 'Trending', icon: '⚡' },
+  { id: 'creator-coins', label: 'Creator Coins', icon: '🎵' },
   { id: 'pulse', label: 'Pulse', icon: '🎬' },
   { id: 'post', label: 'Compose', icon: '✍️' },
   { id: 'profile', label: 'Profile', icon: '👤' },
