@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 
 interface WhitePaperModalProps {
   isOpen: boolean;
@@ -264,6 +264,25 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
             <p className="text-center text-purple-300 font-semibold">
               Claim your whitelist spot + Discord role to get priority access
             </p>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-3 pt-4">
+              <button
+                onClick={handleClose}
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-purple-400/60 bg-purple-600/20 text-purple-200 font-semibold text-sm hover:bg-purple-600/30 transition-all shadow-[0_0_16px_rgba(153,69,255,0.2)]"
+              >
+                <span>Join Whitelist</span>
+              </button>
+              <a
+                href="https://discord.gg/JmuXbx3MW"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-indigo-400/60 bg-indigo-600/20 text-indigo-200 font-semibold text-sm hover:bg-indigo-600/30 transition-all shadow-[0_0_16px_rgba(99,102,241,0.2)]"
+              >
+                <span>Join Discord</span>
+                <ExternalLink size={16} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
