@@ -172,7 +172,7 @@ function ProfileCreationSection() {
     <div className="mb-12">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">
-          ∴ Ritual Initiation ∴
+          ∴ Complete Your Profile ∴
         </h2>
         <p className="text-xs text-slate-300 mt-2">Create your Abraxas Profile to begin</p>
       </div>
