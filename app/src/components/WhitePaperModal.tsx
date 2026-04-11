@@ -53,7 +53,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               Abraxas & ABRAX
             </h2>
             <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">
-              White Paper & Roadmap — Version 1.0 — March 2026
+              The Complete Sovereign Economy Engine on Solana • Version 3.0 — April 2026
             </p>
           </div>
           <button
@@ -77,33 +77,45 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               It is built as two symbiotic layers:
             </p>
             <ul className="space-y-2 ml-4">
-              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">Abraxas</span> handles onboarding assets (tokenization, La Casa NFTs, Sophia vaults, the Species agents).</li>
-              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ABRAX</span> handles onboarding capital (instant sovereign payments, tips, royalties, in-app commerce).</li>
+              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">Abraxas</span> onboards and intelligently manages assets (any asset → La Casa NFT → Sophia Vaults powered by the multi-agent Species).</li>
+              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ABRAX</span> onboards and moves capital (sovereign payment rails for instant P2P, creator tips, royalties, in-app commerce, and global onboarding).</li>
             </ul>
             <p>
               <span className="text-orange-300 font-semibold">$ABRA</span> is the single native capital token that powers the entire system.
             </p>
+            <p className="text-slate-300 text-xs">
+              The <span className="text-cyan-300 font-semibold">Species (Daughters and Sons of Sophia)</span> are autonomous AI agents that actively trade, de-risk, and compound value across spot markets, prediction markets, and tokenized RWAs.
+            </p>
+            <p className="text-slate-300 text-xs">
+              <span className="text-green-300 font-semibold">Validators</span> secure the network and run agent computation, earning protocol revenue.
+            </p>
             <p>
-              We are currently in hybrid devnet/mainnet phase. $ABRA holders and whitelist members receive priority access to every new mainnet feature.
+              We are in hybrid devnet/mainnet phase. $ABRA holders, deployers, and validators receive priority access to every new mainnet feature.
             </p>
           </div>
 
           {/* The Problem */}
           <div className="space-y-3 border-t border-slate-700/50 pt-6">
-            <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wider">The Problem</h3>
-            <p>
-              Value is eroding in the old system. Assets are illiquid and trapped in paperwork. Capital movement is slow, expensive, and censored. Creators and builders lose control to intermediaries.
+            <h3 className="text-lg font-bold text-red-400 uppercase tracking-wider">The Problem</h3>
+            <p className="font-semibold">
+              The old system is slow, expensive, censored, and eroding.
             </p>
+            <ul className="space-y-1 ml-4 text-slate-300">
+              <li>• Assets remain illiquid and trapped in paperwork.</li>
+              <li>• Capital movement still relies on intermediaries.</li>
+              <li>• Creators and builders lose control.</li>
+              <li>• There is no seamless bridge between traditional finance and decentralized finance.</li>
+            </ul>
           </div>
 
           {/* The Solution */}
           <div className="space-y-3 border-t border-slate-700/50 pt-6">
-            <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wider">The Solution</h3>
+            <h3 className="text-lg font-bold text-green-400 uppercase tracking-wider">The Solution</h3>
             <p className="text-slate-300">
-              <span className="text-cyan-300 font-semibold">Abraxas brings the assets.</span>
+              <span className="text-cyan-300 font-semibold">Abraxas handles onboarding assets.</span>
             </p>
             <p className="text-slate-300">
-              <span className="text-purple-300 font-semibold">ABRAX brings the capital.</span>
+              <span className="text-purple-300 font-semibold">ABRAX handles onboarding capital.</span>
             </p>
             <p>
               Together they create a closed-loop sovereign economy where value is tokenized, protected, grown, and moved on your terms.
@@ -114,15 +126,22 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
           <div className="space-y-4 border-t border-slate-700/50 pt-6">
             <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wider">How Each Layer Works</h3>
 
-            {/* Abraxas - Asset Onboarding Engine */}
-            <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
-              <h4 className="font-bold text-purple-300">Abraxas – Asset Onboarding Engine</h4>
-              <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Forge hub where any asset becomes a La Casa NFT</li>
-                <li>• Sophia vaults with autonomous AI agents (the Species)</li>
-                <li>• Circuit defense layer</li>
-                <li>• King AI oracle</li>
-                <li>• Foundation Market (dApp equity as tokenized RWA)</li>
+            {/* Abraxas - Asset Onboarding & Management */}
+            <div className="space-y-3 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
+              <h4 className="font-bold text-purple-300">Abraxas – Asset Onboarding & Management</h4>
+              <ul className="space-y-2 text-slate-300 text-xs">
+                <li><span className="text-cyan-300 font-semibold">Forge:</span> Any asset (real estate, yachts, players, art, dApps, GTA 6 RP servers) is tokenized as a La Casa NFT and deposited into Sophia Vaults.</li>
+                <li><span className="text-cyan-300 font-semibold">The Species:</span> Multi-agent collective that collaborates in real time:
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• <span className="text-orange-300">Raido</span> → Spot & prediction market execution using the universal 50Bounce/MBL lane</li>
+                    <li>• <span className="text-blue-300">Horizon</span> → Prediction market scouting</li>
+                    <li>• <span className="text-blue-300">Tide</span> → Stable de-risk arbitrage (extra yield while protecting capital)</li>
+                    <li>• <span className="text-red-300">Circuit</span> → Risk guardian (volatility pause, safety overrides)</li>
+                    <li>• <span className="text-purple-300">King AI</span> → Central coordinator and oracle</li>
+                  </ul>
+                </li>
+                <li><span className="text-cyan-300 font-semibold">Foundation Market:</span> DApp equity and tokenized gaming experiences as new RWA asset classes.</li>
+                <li><span className="text-cyan-300 font-semibold">Pulse (inside Cadabra):</span> Tokenized GTA 6 RP servers, AI-powered tools, Discord bot kits, clip-to-viral pipelines, and in-game economy trading.</li>
               </ul>
             </div>
 
@@ -130,23 +149,36 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
               <h4 className="font-bold text-purple-300">ABRAX – Capital Onboarding & Payment System</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Sovereign payment rails built natively on Solana</li>
-                <li>• Instant P2P transfers, creator tips, royalties, in-app purchases</li>
-                <li>• Built-in Jupiter routing</li>
-                <li>• Optional liquidity pools and staking perks for $ABRA holders</li>
-                <li>• Designed to feel like the new Cash App / PayPal — but fully on-chain and sovereign</li>
+                <li>• Sovereign rails for instant P2P transfers, creator tips, royalties, in-app purchases, and vault funding.</li>
+                <li>• Global onboarding support (local currency → $ABRA) with priority on major crypto-adopting countries (Japan JPY first).</li>
+                <li>• Built-in Jupiter routing and optional liquidity pools.</li>
+                <li>• Feels like the new Cash App / PayPal — but fully on-chain and sovereign.</li>
+              </ul>
+            </div>
+
+            {/* Validators - Decentralized Infrastructure Layer */}
+            <div className="space-y-2 bg-slate-900/40 border border-green-500/20 rounded-lg p-4">
+              <h4 className="font-bold text-green-300">Validators – Decentralized Infrastructure Layer</h4>
+              <ul className="space-y-1 text-slate-300 text-xs">
+                <li>• Stake $ABRA or run dedicated nodes that support agent computation, oracle feeds, and prediction market resolution.</li>
+                <li>• Earn $ABRA staking rewards + share of protocol fees from trades, ABRAX volume, and ecosystem activity.</li>
               </ul>
             </div>
           </div>
 
           {/* $ABRA Token */}
           <div className="space-y-3 border-t border-slate-700/50 pt-6">
-            <h3 className="text-lg font-bold text-orange-300 uppercase tracking-wider">$ABRA Token — The Lifeblood</h3>
-            <p>
-              $ABRA is used for all payments, tips, royalties, vault deposits, and staking.
+            <h3 className="text-lg font-bold text-orange-300 uppercase tracking-wider">$ABRA – The Single Capital Token</h3>
+            <p className="text-slate-300">
+              <span className="text-orange-300 font-semibold">Fixed supply: 999,000,000 (no inflation)</span>
             </p>
-            <p>
-              <span className="text-orange-300 font-semibold">Fixed supply: 999,000,000. No inflation.</span>
+            <ul className="space-y-2 ml-4 text-slate-300 text-xs">
+              <li>• <span className="text-cyan-300 font-semibold">Passive holders</span> → staking yields and airdrops</li>
+              <li>• <span className="text-purple-300 font-semibold">Active deployers</span> → minimum threshold into Sophia Vaults for agent-managed returns (market gains + de-risk arbitrage)</li>
+              <li>• <span className="text-green-300 font-semibold">Validators</span> → infrastructure and protocol revenue share</li>
+            </ul>
+            <p className="text-slate-300 italic text-xs mt-2">
+              Staked $ABRA and deployed $ABRA are separate. Sole holders do not receive bot profits.
             </p>
           </div>
 
@@ -154,66 +186,83 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
           <div className="space-y-3 border-t border-slate-700/50 pt-6">
             <h3 className="text-lg font-bold text-cyan-300 uppercase tracking-wider">Hybrid Devnet / Mainnet Phase</h3>
             <p>
-              Full Abraxas vision is live in showcase/devnet mode. $ABRA holders get priority access as features migrate to mainnet.
+              Full Abraxas vision is live in showcase/devnet mode so the community can experience the complete sovereign economy today.
+            </p>
+            <p>
+              $ABRA holders and whitelist members receive priority access as features migrate to mainnet.
             </p>
           </div>
 
           {/* Roadmap */}
-          <div className="space-y-4 border-t border-slate-700/50 pt-6 pb-12">
+          <div className="space-y-3 border-t border-slate-700/50 pt-6 pb-12">
             <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wider">Roadmap</h3>
 
             {/* Phase 0 */}
             <div className="space-y-2 bg-slate-900/40 border border-slate-700/50 rounded-lg p-4">
-              <h4 className="font-bold text-slate-200">Phase 0 — Current (Live Showcase)</h4>
+              <h4 className="font-bold text-slate-200">Phase 0 – Current (Live Showcase)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Abraxas core, Cadabra + Pulse, Raido trading engine, Monolith gate, Sharathon</li>
+                <li>• Abraxas core with Forge, Vaults, Market, Cadabra + Pulse (GTA 6 RP focus), Raido engine, King AI, Circuit</li>
+                <li>• Multi-agent Species Collective live</li>
+                <li>• Global language support</li>
+                <li>• Streamflow-powered staking/locking</li>
+                <li>• Sharathon referrals and airdrop points</li>
+                <li>• $ABRA utility active on Bags</li>
               </ul>
             </div>
 
             {/* Phase 1 */}
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
-              <h4 className="font-bold text-purple-300">Phase 1 — Mainnet Activation (Q2 2026)</h4>
+              <h4 className="font-bold text-purple-300">Phase 1 – Mainnet Activation (Q2 2026)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Full vault migration</li>
-                <li>• ABRAX payment rails launch</li>
-                <li>• Expanded tokenization flows</li>
-                <li>• Academy curriculum + journal</li>
+                <li>• Full migration of vaults and agents to mainnet</li>
+                <li>• ABRAX sovereign payment rails launch</li>
+                <li>• Validator node program and staking rewards</li>
+                <li>• Athletic Equity asset class (player tokenization via academies)</li>
+                <li>• Expanded global capital onboarding (Japan JPY priority)</li>
               </ul>
             </div>
 
             {/* Phase 2 */}
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
-              <h4 className="font-bold text-purple-300">Phase 2 — Full Sovereign Economy (Q3–Q4 2026)</h4>
+              <h4 className="font-bold text-purple-300">Phase 2 – Full Sovereign Economy (Q3–Q4 2026)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Complete ABRAX feature set</li>
-                <li>• Foundation Market expansion</li>
-                <li>• Apex gaming layer</li>
+                <li>• Complete ABRAX feature set with embedded commerce</li>
+                <li>• Foundation Market expansion (dApp equity + tokenized RP servers)</li>
+                <li>• Apex gaming layer + tournaments</li>
+                <li>• Full Web5 biological ledger integration via Monolith NFT</li>
               </ul>
             </div>
 
             {/* Phase 3 */}
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
-              <h4 className="font-bold text-purple-300">Phase 3 — Global Scale (2027+)</h4>
+              <h4 className="font-bold text-purple-300">Phase 3 – Global Scale (2027+)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
+                <li>• New asset classes and additional agent species</li>
                 <li>• Cross-ecosystem integrations</li>
+                <li>• Institutional custody layers (Utila / CV5 expansion)</li>
                 <li>• The complete parallel financial system</li>
               </ul>
             </div>
           </div>
 
           {/* Call to Action */}
-          <div className="space-y-4 border-t border-slate-700/50 pt-6 pb-24 text-center">
-            <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-300 uppercase tracking-wider">
+          <div className="space-y-4 border-t border-slate-700/50 pt-6 pb-24">
+            <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-300 uppercase tracking-wider text-center">
               Call to Action
             </h3>
-            <p className="text-purple-300 font-semibold">
+            <p className="text-center text-purple-300 font-semibold">
               This is the next degree.
             </p>
-            <p>
-              <span className="text-cyan-300 font-semibold">Abraxas brings the assets.</span> <span className="text-purple-300 font-semibold">ABRAX brings the capital.</span>
+            <ul className="space-y-2 text-slate-300 text-xs">
+              <li>• <span className="text-cyan-300 font-semibold">Hold $ABRA</span> for passive participation.</li>
+              <li>• <span className="text-purple-300 font-semibold">Deploy $ABRA</span> (minimum threshold) into Sophia Vaults for active agent-managed returns.</li>
+              <li>• <span className="text-green-300 font-semibold">Stake or run validator nodes</span> for infrastructure rewards.</li>
+            </ul>
+            <p className="text-center text-slate-300 italic font-semibold mt-4">
+              The species is already alive and compounding.
             </p>
-            <p className="text-slate-400 italic">
-              Claim your whitelist spot + Discord role at: Discord Community
+            <p className="text-center text-purple-300 font-semibold">
+              Claim your whitelist spot + Discord role to get priority access
             </p>
           </div>
         </div>
