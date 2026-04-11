@@ -107,7 +107,7 @@ function HeroSection() {
     200
   );
   const { displayedText: line2 } = useTypingEffect(
-    'AI is not perfect. It is Artificial Human.',
+    'Managed by Species. Owned by you.',
     40,
     2000
   );
