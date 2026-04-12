@@ -219,27 +219,27 @@ export function CadabraPage() {
 						</div>
 						<div className="relative z-10 space-y-6">
 							<div>
-								<h3 className="text-lg font-bold text-cyan-300 tracking-widest uppercase mb-3">⚡ GTPC: GLOBAL TRADING POST COLLECTIVE</h3>
-								<div className="inline-block px-3 py-1 rounded-full border border-cyan-400/40 bg-cyan-500/10 mb-3">
-									<p className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">Coming Q3 2026</p>
+								<h3 className="text-lg font-bold text-red-300 tracking-widest uppercase mb-3">🎮 GTA 6: COMING TO CADABRA</h3>
+								<div className="inline-block px-3 py-1 rounded-full border border-red-400/40 bg-red-500/10 mb-3">
+									<p className="text-xs font-semibold text-red-300 uppercase tracking-wider">Q4 2026</p>
 								</div>
 								<p className="text-sm leading-relaxed text-slate-300">
-									GTPG is the next evolution of Cadabra. A decentralized global marketplace where all RWA asset classes converge. Tournament organizing. Institutional coordination. Cross-border settlement. Gaming integrates with finance. Finance becomes gaming.
+									Grand Theft Auto 6 arrives at Cadabra. In-game assets tokenized as NFTs. Player earnings converted to $CADABRA. Guilds coordinate heists. Reputation scores tied to on-chain trading. Crime becomes commerce. Vice becomes venture capital.
 								</p>
 							</div>
 
 							<div className="space-y-3">
-								<div className="border-l-2 border-cyan-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">🌐 Multi-Asset Trading</h4>
-									<p className="text-xs text-slate-300">Trade across all of Sophia's Daughters. Music rights. Real estate. Gaming rewards. Minerals. All assets. One protocol. One marketplace for the entire tokenized world economy.</p>
+								<div className="border-l-2 border-red-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">🏎️ In-Game Asset Trading</h4>
+									<p className="text-xs text-slate-300">Rare vehicles. Property. Weapons. All tradeable as SPL tokens on Cadabra. Rob a bank. Mint your haul. Sell it to the highest bidder. Your score becomes your stake.</p>
 								</div>
-								<div className="border-l-2 border-cyan-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">🏛️ Institutional Coordination</h4>
-									<p className="text-xs text-slate-300">Large-scale tournaments. Guild federations. DAO treasuries trading across borders. Cadabra becomes the social layer. GTPC becomes the settlement engine.</p>
+								<div className="border-l-2 border-red-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">👥 Guild Heists</h4>
+									<p className="text-xs text-slate-300">Organize multiplayer heists through Cadabra. Split winnings on-chain. Guild treasuries earn yield. Criminal enterprises become DAOs. Loyalty is tokenized.</p>
 								</div>
-								<div className="border-l-2 border-cyan-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">⚙️ Unified Protocol</h4>
-									<p className="text-xs text-slate-300">Single liquidity pool for all tokenized value. One market. One price discovery mechanism. Kingdom-scale economics on a single blockchain.</p>
+								<div className="border-l-2 border-red-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-red-300 mb-1">💰 Reputation Leaderboards</h4>
+									<p className="text-xs text-slate-300">Climb the ranks. Build notoriety. Top criminals get sponsorship deals. Your GTA 6 reputation unlocks real financial opportunities. Play-to-earn at scale.</p>
 								</div>
 							</div>
 
@@ -247,7 +247,7 @@ export function CadabraPage() {
 								href="https://cadabra-eight.vercel.app/"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)] transition hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:border-cyan-300/60 w-full"
+								className="inline-flex items-center justify-center gap-2 rounded-lg border border-red-300/40 bg-gradient-to-r from-red-500/20 to-orange-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-red-200 shadow-[0_0_12px_rgba(239,68,68,0.15)] transition hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:border-red-300/60 w-full"
 							>
 								<Zap size={16} />
 								Enter Cadabra
