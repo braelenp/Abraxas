@@ -131,6 +131,18 @@ export function LandingPage() {
       <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-4 py-12">
         {/* Hero Section */}
         <div className="text-center space-y-8 max-w-2xl mx-auto mb-8">
+          {/* Abraxas Title and Subtext */}
+          <div className="space-y-2 mb-8">
+            <h1 className="text-6xl md:text-7xl font-black tracking-widest">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-400 drop-shadow-[0_0_20px_rgba(153,69,255,0.6)]">
+                ABRAXAS
+              </span>
+            </h1>
+            <p className="text-sm md:text-base font-semibold tracking-[0.2em] text-purple-300 uppercase">
+              The Next Transmutation
+            </p>
+          </div>
+
           {/* Logo/Icon */}
           <div className="flex justify-center mb-6">
             <div className="relative w-32 h-32">
