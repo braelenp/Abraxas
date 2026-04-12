@@ -84,6 +84,150 @@ export function OrionPage() {
       {/* ORACLE INSIGHTS SECTION - New Interactive Module */}
       <OracleInsights />
 
+      {/* ORCA UNCOLLATERALIZED LENDING SECTION */}
+      <div className="px-4 space-y-6 pt-8">
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-purple-200 tracking-widest uppercase">ORCA — Undercollateralized Lending Protocol</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            ORCA expands undercollateralized lending by default through diversified overcollateral asset classes. King AI audits portfolio composition, liquidation history, and on-chain credibility to unlock capital at 80-110% collateral ratios. No intermediary. Pure algorithmic trust.
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-purple-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(78,15,42,0.75),rgba(56,189,248,0.08))] p-4 space-y-4">
+          <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
+            <div className="rounded-2xl border border-purple-300/20 bg-slate-950/40 px-3 py-3">
+              <p className="text-slate-500">Collateral efficiency</p>
+              <p className="mt-1 text-lg font-semibold">80-110%</p>
+            </div>
+            <div className="rounded-2xl border border-purple-300/20 bg-slate-950/40 px-3 py-3">
+              <p className="text-slate-500">Average lending APY</p>
+              <p className="mt-1 text-lg font-semibold">14-18%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* OVERCOLLATERAL ASSET CLASSES - Hippo-Style Categorization */}
+      <div className="px-4 space-y-6 pt-4">
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold text-orange-200 tracking-widest uppercase">Overcollateral Asset Classes</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            Mirror Hippo dApps structure. Each asset class is categorized by type with tradeable market place and value stacking. King AI assigns collateral weights based on infrastructure maturity and liquidation probability.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* RWA Infrastructure - Tradeable */}
+          <div className="rounded-2xl border border-orange-300/25 bg-gradient-to-br from-orange-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-orange-300">RWA Infrastructure</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-orange-200">Real Estate Equity</span> — Tokenized property with deed vault</p>
+              <p><span className="font-semibold text-orange-200">Commodity Futures</span> — Oil, metals, agricultural contracts</p>
+              <p><span className="font-semibold text-orange-200">Invoice Receivables</span> — SMB AR financing on-chain</p>
+              <p className="text-orange-300/60 font-mono">WEIGHT: 95% | Tradeable via Forge</p>
+            </div>
+          </div>
+
+          {/* DApp Fee Revenue - Stacking */}
+          <div className="rounded-2xl border border-cyan-300/25 bg-gradient-to-br from-cyan-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">DApp Fee Revenue</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-cyan-200">Sophia Treasury Streams</span> — Monthly fee accrual secured</p>
+              <p><span className="font-semibold text-cyan-200">Cadabra KOL Royalties</span> — Creator marketplace yield</p>
+              <p><span className="font-semibold text-cyan-200">Raido Trading Volume</span> — Taker fee distributions</p>
+              <p className="text-cyan-300/60 font-mono">WEIGHT: 90% | Value stacking enabled</p>
+            </div>
+          </div>
+
+          {/* SPL Token Holdings - Diversified */}
+          <div className="rounded-2xl border border-emerald-300/25 bg-gradient-to-br from-emerald-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-emerald-300">SPL Token Holdings</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-emerald-200">$ABRA Vault Shares</span> — RWA guardian protocol equity</p>
+              <p><span className="font-semibold text-emerald-200">Ecosystem Token Portfolio</span> — Diversified blue-chip SPL</p>
+              <p><span className="font-semibold text-emerald-200">Staking Rewards Accrual</span> — Validator APY captured</p>
+              <p className="text-emerald-300/60 font-mono">WEIGHT: 85% | Market-priced daily</p>
+            </div>
+          </div>
+
+          {/* On-Chain Reputation - Algorithmic */}
+          <div className="rounded-2xl border border-amber-300/25 bg-gradient-to-br from-amber-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-amber-300">On-Chain Reputation</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-amber-200">Portfolio Win Rate</span> — 60%+ trading profitability</p>
+              <p><span className="font-semibold text-amber-200">Liquidation History</span> — Zero on-chain margin calls</p>
+              <p><span className="font-semibold text-amber-200">Transaction Volume</span> — {'>'}$1M monthly activity</p>
+              <p className="text-amber-300/60 font-mono">MULT: 100% | King AI audited</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* KING AI INTELLIGENT LAYER */}
+      <div className="px-4 space-y-6 pt-4">
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold text-red-200 tracking-widest uppercase">King AI — Intelligent Layer</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            King AI serves as the institutional decision engine, continuously monitoring borrower credibility across all four asset classes. Algorithmic trust replaces intermediaries. Capital flows to signal.
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-red-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(78,15,42,0.75))] p-4 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* Collaboration 1 */}
+            <div className="rounded-lg border border-red-300/20 bg-red-500/8 p-3 space-y-2">
+              <p className="text-xs font-bold uppercase text-red-300">King AI Assistant Collaboration</p>
+              <p className="text-xs leading-relaxed text-slate-300/90">
+                Real-time portfolio analysis and personalized lending recommendations. King AI surfaces opportunities aligned with risk tolerance and capital needs.
+              </p>
+            </div>
+
+            {/* Collaboration 2 */}
+            <div className="rounded-lg border border-red-300/20 bg-red-500/8 p-3 space-y-2">
+              <p className="text-xs font-bold uppercase text-red-300">Abraxas Institution Access</p>
+              <p className="text-xs leading-relaxed text-slate-300/90">
+                $ABRA holders and RWA vault members get institutional-grade capital access. Priority queuing and dedicated pool allocation.
+              </p>
+            </div>
+          </div>
+
+          {/* Intelligence Matrix */}
+          <div className="border-t border-red-300/15 pt-4 space-y-2">
+            <p className="text-xs font-bold uppercase text-red-300/70">King AI Scoring Matrix</p>
+            <div className="grid grid-cols-2 gap-2 text-[10px]">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-red-300/15">
+                <p className="text-red-300/70">Portfolio Risk</p>
+                <p className="font-semibold text-red-200 mt-1">15%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-red-300/15">
+                <p className="text-red-300/70">Liquidation Prob</p>
+                <p className="font-semibold text-red-200 mt-1">3%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-red-300/15">
+                <p className="text-red-300/70">Capital Efficiency</p>
+                <p className="font-semibold text-red-200 mt-1">92%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-red-300/15">
+                <p className="text-red-300/70">Reputation Tier</p>
+                <p className="font-semibold text-red-200 mt-1">Elite</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* DAPP EQUITY FOUNDATION SECTION */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
