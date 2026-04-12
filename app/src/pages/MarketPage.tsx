@@ -299,7 +299,7 @@ const hypothesisExamples = [
 type BreakingSignal = {
   id: string;
   title: string;
-  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol';
+  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol' | 'World Labs' | 'Sophia Protocol' | 'Pulse Network' | 'King AI' | 'Abraxas Protocol' | 'Vaults Protocol';
   timestamp: string;
   snippet: string;
   category: 'dapp_equity' | 'rwa' | 'gaming' | 'defi' | 'market';
