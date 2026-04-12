@@ -222,10 +222,12 @@ export function LandingPage() {
           )}
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-          <ChevronDown size={24} className="text-cyan-300" />
-        </div>
+        {/* Scroll Indicator - Only show when wallet is connected */}
+        {connected && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <ChevronDown size={24} className="text-cyan-300" />
+          </div>
+        )}
       </div>
 
       {/* Info Section */}
