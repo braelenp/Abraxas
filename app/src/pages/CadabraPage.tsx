@@ -8,7 +8,7 @@ const RUNE_CONFIG = {
 	runeName: 'Mirror',
 	runeEssence: 'Reflection · Collective Wisdom',
 	agentName: 'CADABRA',
-	lore: 'The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the sole gaming clips platform inside Cadabra. Apex Legends is the first installment of the tokenized gaming layer.',
+	lore: 'The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the official on-chain layer for GTA 6 RP servers—where players, creators, and server owners tokenize and monetize their experiences through King AI infrastructure.',
 	ctaLabel: 'Enter the Mirror',
 	coreGlow: '153, 69, 255',
 	fireGlow: '168, 85, 247',
@@ -36,7 +36,7 @@ export function CadabraPage() {
 						<span className="font-mono text-2xl font-bold text-purple-200 tracking-wide">Welcome to the next degree.</span>
 						<h2 className="text-xl font-bold text-purple-200 tracking-widest uppercase">Cadabra — The Social Mirror</h2>
 						<p className="text-sm leading-relaxed text-slate-300/90">
-							The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the sole gaming clips platform inside Cadabra. Apex Legends is the first installment of the tokenized gaming layer.
+							The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the official on-chain infrastructure layer for GTA 6 RP servers—where gamers, creators, and server operators coordinate economies, monetize moments, and build DAOs powered by King AI tools.
 						</p>
 					</div>
 				</div>
@@ -160,12 +160,12 @@ export function CadabraPage() {
 					<TikTokFeeSharing />
 				</div>
 
-				{/* PULSE: GAMING CLIPS PLATFORM */}
+				{/* PULSE: GTA 6 RP SERVER INFRASTRUCTURE */}
 				<div className="max-w-3xl mx-auto px-4">
 					<div className="border-l-4 border-cyan-400/50 pl-6 space-y-4">
-						<h3 className="text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; PULSE: THE GAMING CLIPS PLATFORM</h3>
+						<h3 className="text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; PULSE: GTA 6 RP SERVER INFRASTRUCTURE</h3>
 						<p className="text-sm text-slate-300/80">
-							Pulse is the sole gaming clips platform inside Cadabra. No algorithm. No shadow-banning. Direct community curation. Gaming moments become tokens.
+							Pulse is the official on-chain layer for GTA 6 RP servers. King AI generates server tools. Players mint in-game assets as NFTs. Server owners tokenize ownership. Guilds coordinate as DAOs. Gaming moments become tradeable. RP servers become venture capital.
 						</p>
 
 						<div className="space-y-3">
@@ -224,7 +224,7 @@ export function CadabraPage() {
 									<p className="text-xs font-semibold text-red-300 uppercase tracking-wider">Q4 2026</p>
 								</div>
 								<p className="text-sm leading-relaxed text-slate-300">
-									Grand Theft Auto 6 arrives at Cadabra. In-game assets tokenized as NFTs. Player earnings converted to $CADABRA. Guilds coordinate heists. Reputation scores tied to on-chain trading. Crime becomes commerce. Vice becomes venture capital.
+								GTA 6 RP servers are becoming the largest gaming economy in history. Pulse powers the infrastructure: AI-generated server lore, tokenized assets, player-owned DAOs, and clip monetization. Every heist. Every reputation score. Every virtual deal—all on-chain, all tradeable, all monetizable through $ABRA rails.
 								</p>
 							</div>
 

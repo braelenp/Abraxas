@@ -418,6 +418,88 @@ export function OrionPage() {
         </div>
       </div>
 
+      {/* AI-POWERED RP SERVER INFRASTRUCTURE - GTA 6 Ready */}
+      <div className="px-4 space-y-6 pt-8">
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold text-red-200 tracking-widest uppercase">🎮 AI-Powered RP Server Infrastructure</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            King AI powers the next generation of gaming economies. GTA 6 RP servers rely on our AI tools to generate lore, coordinate guilds, tokenize assets, and manage on-chain economies. Server operators pay $10-20/month for access to full AI generation suite.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* AI Server Generation */}
+          <div className="rounded-2xl border border-red-300/25 bg-gradient-to-br from-red-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-red-300">One-Click Server Generation</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-red-200">AI Character Backstories</span> — Infinite unique character lore generated</p>
+              <p><span className="font-semibold text-red-200">Mission Chains & Quests</span> — Dynamic quest generation for servers</p>
+              <p><span className="font-semibold text-red-200">Gang Lore & Factions</span> — AI-powered faction narratives</p>
+              <p className="text-red-300/60 font-mono">$10-20/month access | Powered by King AI</p>
+            </div>
+          </div>
+
+          {/* Discord Bot Kit Marketplace */}
+          <div className="rounded-2xl border border-orange-300/25 bg-gradient-to-br from-orange-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-orange-300">Discord Bot Kit Marketplace</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-orange-200">Whitelist Management Bots</span> — Automated player verification</p>
+              <p><span className="font-semibold text-orange-200">Economy Tracking Dashboards</span> — Real-time server economy data</p>
+              <p><span className="font-semibold text-orange-200">Donation & Revenue Flows</span> — On-chain fund collection in $ABRA</p>
+              <p className="text-orange-300/60 font-mono">$200-500 one-time | $50/month hosting</p>
+            </div>
+          </div>
+
+          {/* Clip-to-Viral Pipeline */}
+          <div className="rounded-2xl border border-cyan-300/25 bg-gradient-to-br from-cyan-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Clip-to-Viral Pipeline</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-cyan-200">AI Video Detection</span> — Auto-detects insane gaming moments</p>
+              <p><span className="font-semibold text-cyan-200">Auto-editing & Captions</span> — TikTok-ready clips in seconds</p>
+              <p><span className="font-semibold text-cyan-200">Multi-platform Upload</span> — YouTube Shorts, Instagram Reels, TikTok</p>
+              <p className="text-cyan-300/60 font-mono">Monetized via La Casa NFTs or rev-share</p>
+            </div>
+          </div>
+
+          {/* In-Game Stock Trader */}
+          <div className="rounded-2xl border border-emerald-300/25 bg-gradient-to-br from-emerald-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-emerald-300">In-Game Stock & Economy Trader</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-emerald-200">AI Meta Trading</span> — Predictive models for in-game stocks</p>
+              <p><span className="font-semibold text-emerald-200">Daily Opportunity Alerts</span> — Mission-tied market opportunities</p>
+              <p><span className="font-semibold text-emerald-200">Tokenized Assets</span> — In-game gains converted to blockchain</p>
+              <p className="text-emerald-300/60 font-mono">Real financial returns from gaming profit</p>
+            </div>
+          </div>
+
+          {/* Tokenized Server Ownership */}
+          <div className="rounded-2xl border border-amber-300/25 bg-gradient-to-br from-amber-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <p className="text-xs font-bold uppercase tracking-widest text-amber-300">Tokenized Server Ownership</p>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300/90">
+              <p><span className="font-semibold text-amber-200">La Casa NFT Fractionalization</span> — Own a piece of any RP server</p>
+              <p><span className="font-semibold text-amber-200">Revenue Sharing DAO</span> — Token holders earn from server revenue</p>
+              <p><span className="font-semibold text-amber-200">Governance Rights</span> — Community votes on server direction</p>
+              <p className="text-amber-300/60 font-mono">Server ownership becomes liquid capital</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* KING AI - INSTITUTIONAL ADVISORY BOX */}
       <div className="px-4 space-y-4 pt-4">
         <div className="rounded-2xl border border-red-300/20 bg-gradient-to-br from-red-500/8 to-slate-900/40 p-4">
