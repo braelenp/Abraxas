@@ -41,10 +41,10 @@ export function CadabraPage() {
 					</div>
 				</div>
 
-				{/* COMMUNITY BUILDING TOOLS */}
+				{/* LEGACY COMMUNITY TOOLS - Deprecated */}
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="border-l-4 border-purple-400/50 pl-6 space-y-4">
-						<h3 className="text-lg font-bold text-purple-300 tracking-wider uppercase">&gt; COMMUNITY BUILDING TOOLS</h3>
+					<div className="border-l-4 border-slate-600/50 pl-6 space-y-4">
+						<h3 className="text-lg font-bold text-slate-400 tracking-wider uppercase">&gt; [LEGACY] OLD COMMUNITY BUILDING TOOLS</h3>
 						<div className="space-y-3">
 							<div className="rounded-lg border border-purple-300/25 bg-slate-900/50 backdrop-blur-sm p-4">
 								<div className="flex gap-3 mb-3">
@@ -211,55 +211,48 @@ export function CadabraPage() {
 					</div>
 				</div>
 
-				{/* APEX LEGENDS REALM */}
+				{/* GTPC: GLOBAL TRADING POST COLLECTIVE - Coming Soon */}
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="relative overflow-hidden rounded-2xl border border-purple-300/30 bg-gradient-to-br from-purple-500/8 via-slate-900/80 to-slate-900/60 p-8">
+					<div className="relative overflow-hidden rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-500/8 via-slate-900/80 to-slate-900/60 p-8">
+						<div className="absolute inset-0 opacity-10">
+							<div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
+						</div>
 						<div className="relative z-10 space-y-6">
 							<div>
-								<h3 className="text-lg font-bold text-purple-300 tracking-widest uppercase mb-3">⚔️ APEX LEGENDS: FIRST TOKENIZED GAMING LAYER</h3>
+								<h3 className="text-lg font-bold text-cyan-300 tracking-widest uppercase mb-3">⚡ GTPC: GLOBAL TRADING POST COLLECTIVE</h3>
+								<div className="inline-block px-3 py-1 rounded-full border border-cyan-400/40 bg-cyan-500/10 mb-3">
+									<p className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">Coming Q3 2026</p>
+								</div>
 								<p className="text-sm leading-relaxed text-slate-300">
-									Apex Legends is the first full installment of Cadabra's tokenized gaming layer. Tournaments. Leaderboards. Rewards. Gaming guilds compete on-chain. Winning becomes financially material.
+									GTPG is the next evolution of Cadabra. A decentralized global marketplace where all RWA asset classes converge. Tournament organizing. Institutional coordination. Cross-border settlement. Gaming integrates with finance. Finance becomes gaming.
 								</p>
 							</div>
 
 							<div className="space-y-3">
-								<div className="border-l-2 border-purple-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-1">🏆 Tournaments & Competitions</h4>
-									<p className="text-xs text-slate-300">Organize tournaments on-chain. Entry fees. Prize pools. Winnings paid instantly to wallets. Gaming skill becomes financial opportunity. Communities organize. Players compete. Victory is rewarded.</p>
+								<div className="border-l-2 border-cyan-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">🌐 Multi-Asset Trading</h4>
+									<p className="text-xs text-slate-300">Trade across all of Sophia's Daughters. Music rights. Real estate. Gaming rewards. Minerals. All assets. One protocol. One marketplace for the entire tokenized world economy.</p>
 								</div>
-								<div className="border-l-2 border-purple-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-1">📊 Leaderboards & Rank</h4>
-									<p className="text-xs text-slate-300">Official leaderboards track performance across Apex Legends and beyond. Climb ranks. Build reputation. Top players earn sponsorships from gaming guilds and brands. Skill compounds into credibility.</p>
+								<div className="border-l-2 border-cyan-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">🏛️ Institutional Coordination</h4>
+									<p className="text-xs text-slate-300">Large-scale tournaments. Guild federations. DAO treasuries trading across borders. Cadabra becomes the social layer. GTPC becomes the settlement engine.</p>
 								</div>
-								<div className="border-l-2 border-purple-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-1">💎 Tokenized Rewards</h4>
-									<p className="text-xs text-slate-300">Winners earn gaming tokens. Tokens can be staked for perks. Traded for other assets. Redeemed for real-world gear. Gaming becomes a legitimate income stream. Your legend becomes your net worth.</p>
-								</div>
-								<div className="border-l-2 border-purple-400/40 pl-4">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-1">🎮 Guild Economy</h4>
-									<p className="text-xs text-slate-300">Gaming guilds coordinate on Cadabra. They recruit players. They fund team efforts. They share winnings. They build brands. Esports becomes a DAO. Players become members. Victory becomes shared wealth.</p>
+								<div className="border-l-2 border-cyan-400/40 pl-4">
+									<h4 className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-1">⚙️ Unified Protocol</h4>
+									<p className="text-xs text-slate-300">Single liquidity pool for all tokenized value. One market. One price discovery mechanism. Kingdom-scale economics on a single blockchain.</p>
 								</div>
 							</div>
 
 							<a
-								href="https://discord.gg/JmuXbx3MW"
+								href="https://cadabra-eight.vercel.app/"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60 w-full"
-							>
-								<Trophy size={16} />
-								Enter Apex Legends Realm
-								<ArrowRight size={14} />
-							</a>
-
-							<button
-								onClick={handleEnterMirror}
-								className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60 w-full"
+								className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-gradient-to-r from-cyan-500/20 to-blue-500/15 px-6 py-3 text-sm font-bold uppercase tracking-wider text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)] transition hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:border-cyan-300/60 w-full"
 							>
 								<Zap size={16} />
-								Enter the Mirror
+								Enter Cadabra
 								<ArrowRight size={14} />
-							</button>
+							</a>
 						</div>
 					</div>
 				</div>
