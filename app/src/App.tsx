@@ -13,6 +13,7 @@ import { SophiaMintPage } from './pages/SophiaMintPage';
 import { OrionPage } from './pages/OrionPage';
 import { LandingPage } from './pages/LandingPage';
 import { CampaignLandingPage } from './pages/CampaignLandingPage';
+import { WhitepaperSummaryPage } from './pages/WhitepaperSummaryPage';
 import { ForgePage } from './pages/ForgePage';
 import { LoadingPage } from './pages/LoadingPage';
 import { TokenGatedPage } from './pages/TokenGatedPage';
@@ -332,6 +333,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/campaign" element={<CampaignLandingPage />} />
+        <Route path="/whitepaper-summary" element={<WhitepaperSummaryPage />} />
         <Route path="/app/*" element={<ProtectedDapp />} />
         <Route path="/vaults" element={<Navigate to="/app/vaults" replace />} />
         <Route path="/market" element={<Navigate to="/app/market" replace />} />

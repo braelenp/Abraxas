@@ -7,6 +7,7 @@ export { SophiaMintPage } from './SophiaMintPage';
 export { OrionPage } from './OrionPage';
 export { LandingPage } from './LandingPage';
 export { CampaignLandingPage } from './CampaignLandingPage';
+export { WhitepaperSummaryPage } from './WhitepaperSummaryPage';
 export { ForgePage } from './ForgePage';
 export { StakePage } from './StakePage';
 export { LoadingPage } from './LoadingPage';
