@@ -1,52 +1,59 @@
 import { useEffect, useState, useRef } from 'react';
-import { ExternalLink, CheckCircle, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
-// Mock Bags Top 100 dApps Data
-type DappCategory = 'AI Agents' | 'DeFi' | 'Social Finance' | 'Fee Sharing' | 'Prediction Markets' | 'Governance' | 'Yield Farming' | 'Trading' | 'Staking' | 'Liquidity';
-
-interface DappListing {
+// Sophia's Daughters Asset Classes
+interface DaughterAssetClass {
   id: string;
+  symbol: string;
   name: string;
-  category: DappCategory;
-  valueScore: number;
-  marketCap: number;
-  verified: boolean;
+  subtitle: string;
   tvl: number;
-  rank: number;
+  apy: number;
+  status: 'live' | 'pilot';
+  description: string;
+  color: { bg: string; border: string; text: string; accent: string };
 }
 
-const topDapps: DappListing[] = [
-  { id: 'd1', name: 'Abraxas', category: 'AI Agents', valueScore: 98, marketCap: 3200000, verified: true, tvl: 9500000, rank: 1 },
-  { id: 'd2', name: 'Orbis API', category: 'AI Agents', valueScore: 96, marketCap: 2850000, verified: true, tvl: 8120000, rank: 2 },
-  { id: 'd3', name: 'quAId', category: 'Prediction Markets', valueScore: 94, marketCap: 2600000, verified: true, tvl: 7450000, rank: 3 },
-  { id: 'd4', name: 'OCCUPY', category: 'Governance', valueScore: 92, marketCap: 2350000, verified: true, tvl: 6200000, rank: 4 },
-  { id: 'd5', name: 'Cluck Norris', category: 'Governance', valueScore: 90, marketCap: 2100000, verified: true, tvl: 5680000, rank: 5 },
-  { id: 'd6', name: 'JackBuilds', category: 'AI Agents', valueScore: 88, marketCap: 1920000, verified: true, tvl: 4850000, rank: 6 },
-  { id: 'd7', name: 'LuckyFee AI', category: 'Fee Sharing', valueScore: 87, marketCap: 1750000, verified: true, tvl: 4200000, rank: 7 },
-  { id: 'd8', name: 'Rando', category: 'Fee Sharing', valueScore: 85, marketCap: 1580000, verified: true, tvl: 3650000, rank: 8 },
-  { id: 'd9', name: 'Hive', category: 'AI Agents', valueScore: 84, marketCap: 1420000, verified: true, tvl: 3100000, rank: 9 },
-  { id: 'd10', name: 'Trenchy.fun', category: 'Social Finance', valueScore: 82, marketCap: 1280000, verified: true, tvl: 2800000, rank: 10 },
+const daughtersAssets: DaughterAssetClass[] = [
+  {
+    id: 'aurelia',
+    symbol: '$AURELIA',
+    name: 'Aurelia',
+    subtitle: 'Real Estate Tokenization',
+    tvl: 156400000,
+    apy: 7.2,
+    status: 'live',
+    description: 'Institutional property-backed yields with transparent occupancy metrics. 278 properties across North America.',
+    color: { bg: 'bg-emerald-500/10', border: 'border-emerald-400/30', text: 'text-emerald-300', accent: 'text-emerald-200' },
+  },
+  {
+    id: 'echo',
+    symbol: '$ECHO',
+    name: 'Echo',
+    subtitle: 'Music Rights & Royalties',
+    tvl: 42300000,
+    apy: 14.8,
+    status: 'live',
+    description: 'Tokenized streaming royalties from independent and emerging artists. Verifiable platform metrics.',
+    color: { bg: 'bg-pink-500/10', border: 'border-pink-400/30', text: 'text-pink-300', accent: 'text-pink-200' },
+  },
+  {
+    id: 'pulse',
+    symbol: '$PULSE',
+    name: 'Pulse',
+    subtitle: 'Gaming Guild Economy',
+    tvl: 28900000,
+    apy: 11.6,
+    status: 'live',
+    description: 'Guild coordination and in-game asset tokenization. GTA 6 RP servers and DeFi gaming economy.',
+    color: { bg: 'bg-violet-500/10', border: 'border-violet-400/30', text: 'text-violet-300', accent: 'text-violet-200' },
+  },
 ];
-
-const categoryColors: Record<DappCategory, { bg: string; border: string; text: string }> = {
-  'AI Agents': { bg: 'bg-purple-500/10', border: 'border-purple-400/30', text: 'text-purple-300' },
-  'DeFi': { bg: 'bg-cyan-500/10', border: 'border-cyan-400/30', text: 'text-cyan-300' },
-  'Social Finance': { bg: 'bg-pink-500/10', border: 'border-pink-400/30', text: 'text-pink-300' },
-  'Fee Sharing': { bg: 'bg-emerald-500/10', border: 'border-emerald-400/30', text: 'text-emerald-300' },
-  'Prediction Markets': { bg: 'bg-amber-500/10', border: 'border-amber-400/30', text: 'text-amber-300' },
-  'Governance': { bg: 'bg-blue-500/10', border: 'border-blue-400/30', text: 'text-blue-300' },
-  'Yield Farming': { bg: 'bg-green-500/10', border: 'border-green-400/30', text: 'text-green-300' },
-  'Trading': { bg: 'bg-orange-500/10', border: 'border-orange-400/30', text: 'text-orange-300' },
-  'Staking': { bg: 'bg-indigo-500/10', border: 'border-indigo-400/30', text: 'text-indigo-300' },
-  'Liquidity': { bg: 'bg-teal-500/10', border: 'border-teal-400/30', text: 'text-teal-300' },
-};
-
-const ABRA_BAGS_MARKET_URL = import.meta.env.VITE_ABRA_TOKEN_BAGS_URL?.trim() || 'https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS';
 
 export function FoundationMarket() {
   const [displayText, setDisplayText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
-  const fullText = 'Welcome to the next degree.';
+  const fullText = 'Sophia\'s Daughters — Institutional Asset Classes';
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -61,7 +68,7 @@ export function FoundationMarket() {
       } else {
         if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
       }
-    }, 50);
+    }, 30);
 
     return () => {
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
@@ -70,7 +77,7 @@ export function FoundationMarket() {
 
   return (
     <>
-      {/* Foundation Market Section */}
+      {/* Sophia's Daughters Section */}
       <article className="relative overflow-hidden rounded-2xl border border-purple-400/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.95),rgba(20,10,40,0.90),rgba(88,28,135,0.08),rgba(147,51,234,0.04))] p-4 backdrop-blur-xl">
         {/* Animated background particles */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -92,7 +99,7 @@ export function FoundationMarket() {
         </div>
 
         <div className="relative z-10">
-          {/* Header with Buy Button */}
+          {/* Header with Lore */}
           <div className="mb-6 flex items-start justify-between gap-4">
             <div className="flex-1">
               {/* Dramatic typing reveal */}
@@ -103,19 +110,19 @@ export function FoundationMarket() {
 
               {/* Lore title */}
               <h3 className="text-sm font-bold text-purple-100 mb-2 flex items-center gap-1">
-                <span className="text-lg">💎</span>
-                Foundation Market — Dapp Equity RWA
+                <span className="text-lg">👑</span>
+                Combined $415.7M Est. Value
               </h3>
 
               {/* Lore blurb */}
               <p className="text-[11px] leading-snug text-slate-300/80 mb-3 max-w-2xl">
-                Top 100 dApps on Bags tokenized as Dapp Equity. <span className="text-purple-300 font-semibold">Verified builders only.</span> Value scores per category. Own the infrastructure.
+                Three institutional RWA families powering capital efficiency across real estate, music rights, and gaming guilds. <span className="text-purple-300 font-semibold">King AI audited.</span> Circuit protected. Multi-agent coordinated.
               </p>
             </div>
 
-            {/* Top Buy Button */}
+            {/* Buy ABRA Button */}
             <a
-              href={ABRA_BAGS_MARKET_URL}
+              href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-shrink-0 h-fit rounded-lg border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-3 py-2 text-xs font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap"
@@ -128,110 +135,76 @@ export function FoundationMarket() {
           {/* Divider */}
           <div className="my-3 flex items-center gap-3">
             <div className="flex-1 h-px bg-gradient-to-r from-purple-500/40 via-purple-300/20 to-transparent" />
-            <span className="text-purple-400/60 font-mono text-[9px] px-1">TOP 100 DAPPS</span>
+            <span className="text-purple-400/60 font-mono text-[9px] px-1">THREE DAUGHTERS</span>
             <div className="flex-1 h-px bg-gradient-to-l from-purple-500/40 via-purple-300/20 to-transparent" />
           </div>
 
-          {/* DApp Table / List */}
-          <div className="space-y-1.5 max-h-6464 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(147,51,234,0.3)_rgba(15,23,42,0.5)]">
-            {topDapps.map((dapp) => {
-              const catColor = categoryColors[dapp.category];
-              return (
-                <div
-                  key={dapp.id}
-                  className="group rounded-lg border border-purple-400/15 bg-slate-950/40 hover:bg-slate-950/60 p-2 transition-all duration-300 hover:shadow-[0_0_12px_rgba(147,51,234,0.2)] hover:border-purple-400/30"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    {/* Rank + Name */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[9px] font-mono font-bold text-purple-300/70 bg-purple-400/10 px-1.5 py-0.5 rounded border border-purple-400/20 flex-shrink-0">
-                          #{dapp.rank}
-                        </span>
-                        <span className="font-semibold text-slate-100 text-xs text-xs truncate">{dapp.name}</span>
-                        {dapp.verified && (
-                          <div title="On-chain verified">
-                            <CheckCircle className="flex-shrink-0 w-4 h-4 text-emerald-400" />
-                          </div>
-                        )}
-                      </div>
-                    </div>
+          {/* Daughters Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {daughtersAssets.map((daughter) => (
+              <div
+                key={daughter.id}
+                className={`group rounded-2xl border ${daughter.color.border} ${daughter.color.bg} p-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(147,51,234,0.2)] hover:border-${daughter.color.text.split('-')[1]}-400/50`}
+              >
+                {/* Status Badge */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border ${daughter.color.border} ${daughter.color.bg} ${daughter.color.text}`}>
+                    {daughter.status === 'live' ? '✓ Live' : '○ Pilot'}
+                  </span>
+                </div>
 
-                    {/* Category Badge */}
-                    <div className={`flex-shrink-0 inline-block text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${catColor.bg} ${catColor.border} ${catColor.text}`}>
-                      {dapp.category}
-                    </div>
+                {/* Header */}
+                <div className="mb-3">
+                  <h4 className={`text-lg font-black ${daughter.color.accent} mb-0.5`}>{daughter.name}</h4>
+                  <p className="text-[10px] text-slate-400">{daughter.subtitle}</p>
+                </div>
 
-                    {/* Value Score */}
-                    <div className="flex-shrink-0 text-right hidden sm:block">
-                      <div className="text-[10px] font-mono font-bold text-purple-300 leading-tight">
-                        {dapp.valueScore}/100
-                      </div>
-                      <div className="w-12 h-1 bg-slate-800/50 rounded-full overflow-hidden border border-purple-400/20 mt-0.5">
-                        <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full"
-                          style={{ width: `${dapp.valueScore}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Market Cap */}
-                    <div className="flex-shrink-0 text-right hidden lg:block">
-                      <div className="text-[9px] text-slate-300/60 leading-tight">Cap</div>
-                      <div className="font-mono font-bold text-amber-300 text-xs">
-                        ${(dapp.marketCap / 1000000).toFixed(1)}M
-                      </div>
-                    </div>
-
-                    {/* View Details Button */}
-                    <a
-                      href={ABRA_BAGS_MARKET_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0 rounded-lg border border-purple-400/30 bg-purple-500/10 p-1.5 hover:bg-purple-500/20 hover:border-purple-400/50 transition text-purple-300 group-hover:text-purple-200"
-                    >
-                      <ExternalLink size={12} />
-                    </a>
+                {/* Metrics Grid */}
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  {/* TVL */}
+                  <div className="bg-slate-950/40 rounded-lg p-2 border border-slate-700/30">
+                    <p className="text-[9px] text-slate-400 mb-0.5">TVL</p>
+                    <p className={`text-sm font-bold ${daughter.color.text}`}>
+                      ${(daughter.tvl / 1000000).toFixed(1)}M
+                    </p>
                   </div>
 
-                  {/* Mobile metrics below (on small screens) */}
-                  <div className="sm:hidden flex items-center justify-between text-[9px] mt-1 pt-1 border-t border-purple-400/10 gap-2">
-                    <span className="text-slate-400">Cap: <span className="font-mono font-bold text-amber-300">${(dapp.marketCap / 1000000).toFixed(1)}M</span></span>
-                    <span className="text-slate-400">Score: <span className="font-mono font-bold text-purple-300">{dapp.valueScore}</span></span>
+                  {/* APY */}
+                  <div className="bg-slate-950/40 rounded-lg p-2 border border-slate-700/30">
+                    <p className="text-[9px] text-slate-400 mb-0.5">APY</p>
+                    <p className={`text-sm font-bold ${daughter.color.text}`}>
+                      {daughter.apy.toFixed(1)}%
+                    </p>
                   </div>
                 </div>
-              );
-            })}
+
+                {/* Description */}
+                <p className="text-[9px] leading-snug text-slate-300/70 mb-3">
+                  {daughter.description}
+                </p>
+
+                {/* Symbol Footer */}
+                <div className={`text-[10px] font-mono font-bold ${daughter.color.text} uppercase tracking-wider pt-2 border-t border-slate-700/30`}>
+                  {daughter.symbol}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Divider before footer */}
-          <div className="my-2.5 flex items-center gap-3">
+          <div className="my-4 flex items-center gap-3">
             <div className="flex-1 h-px bg-gradient-to-r from-purple-500/40 via-purple-300/20 to-transparent" />
-            <span className="text-purple-400/60 font-mono text-[8px] px-1">READY TO INVEST</span>
+            <span className="text-purple-400/60 font-mono text-[8px] px-1">CAPITAL EFFICIENCY ENGINE</span>
             <div className="flex-1 h-px bg-gradient-to-l from-purple-500/40 via-purple-300/20 to-transparent" />
           </div>
 
-          {/* Footer with Bottom Buy Button */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 rounded-lg border border-purple-400/20 bg-purple-500/5 p-3">
-            <div>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-purple-300/80 leading-tight">Ready to own infrastructure?</p>
-              <p className="text-[9px] text-slate-400/65 mt-0.5 leading-tight">Power next-gen dApps with $ABRA</p>
-            </div>
-            <a
-              href={ABRA_BAGS_MARKET_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 rounded-lg border border-purple-400/60 bg-gradient-to-br from-purple-600/40 to-purple-900/40 px-3 py-2 text-xs font-bold text-purple-200 uppercase tracking-wider shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:from-purple-600/60 hover:to-purple-900/60 transition-all duration-300 flex items-center gap-1 whitespace-nowrap"
-            >
-              <Zap size={12} />
-              Buy ABRA
-            </a>
-          </div>
-
-          {/* Information footer */}
-          <div className="mt-2 pt-2 border-t border-purple-400/10 text-center">
-            <p className="text-[8px] text-slate-400/60 font-mono uppercase tracking-wider leading-tight">
-              Bags synced • Value scores 6h • Solana verified
+          {/* Footer Info */}
+          <div className="rounded-lg border border-purple-400/20 bg-purple-500/5 p-3">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-purple-300/80 leading-tight">
+              ORCA lending + Circuit protection + King AI audited
+            </p>
+            <p className="text-[9px] text-slate-400/65 mt-1 leading-tight">
+              Route La Casa deposits through Vaults into optimal Daughters tiers. Multi-agent Species coordination powered by Raido + Tide + Circuit.
             </p>
           </div>
         </div>
