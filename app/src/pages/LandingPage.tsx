@@ -160,7 +160,7 @@ export function LandingPage() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight">
+          <h1 className="text-3xl md:text-4xl font-black tracking-tighter leading-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-400">
               Welcome to the<br />Next Degree
             </span>
