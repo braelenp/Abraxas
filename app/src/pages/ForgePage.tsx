@@ -1154,7 +1154,13 @@ export function ForgePage() {
 	const [minted, setMinted] = useState(false);
 	const [isMinting, setIsMinting] = useState(false);
 	const [selectedDaughter, setSelectedDaughter] = useState<string | null>(null);
+	const [selectedAssetClass, setSelectedAssetClass] = useState<string | null>(null);
+	const [selectedSon, setSelectedSon] = useState<string | null>(null);
 	const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+	const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+		oracleEngine: false,
+		sophiaProtocol: true,
+	});
 
 	// Token gating for Mirror/Cadabra access
 	const { hasMinimum } = useAbraBalance(10);
@@ -1253,7 +1259,111 @@ export function ForgePage() {
 			{/* The Living Oracle – Self-Replicating Growth Engine */}
 			<section className="py-8 border-t border-slate-700/30">
 				<div className="max-w-6xl mx-auto px-4">
-					<OracleEngine />
+					{/* Toggleable Header */}
+					<button
+						onClick={() => setExpandedSections(prev => ({ ...prev, oracleEngine: !prev.oracleEngine }))}
+						className="w-full flex items-center justify-between mb-4 px-4 py-3 rounded-lg border border-orange-400/30 bg-orange-500/5 hover:bg-orange-500/10 transition group"
+					>
+						<h3 className="text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; NEST_ORACLE_ENGINE</h3>
+						<span className={`transition-transform ${expandedSections.oracleEngine ? 'rotate-180' : ''}`}>▼</span>
+					</button>
+					
+					{expandedSections.oracleEngine && <OracleEngine />}
+				</div>
+			</section>
+
+			{/* FORGING SELECTOR - Choose Daughter & Son before crafting */}
+			<section className="space-y-8 py-8 border-t border-slate-700/30">
+				<div className="max-w-6xl mx-auto px-4">
+					<div className="border-l-4 border-cyan-400/50 pl-6 space-y-6 font-mono">
+						<h2 className="text-lg font-bold text-cyan-300 tracking-wider uppercase">&gt; INITIALIZATION_SEQUENCE</h2>
+						<p className="text-sm text-slate-300/80">Before forging begins, select your specialization and your infrastructure partner.</p>
+						
+						{/* Daughters Selector */}
+						<div className="space-y-3">
+							<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_DAUGHTER_(ASSET_CLASS)</p>
+							<div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+								{Object.entries(DAUGHTER_CONFIGS).map(([key, config]) => (
+									<button
+										key={key}
+										onClick={() => setSelectedDaughter(key)}
+										className={`rounded-lg border px-4 py-3 text-center transition ${
+											selectedDaughter === key
+												? 'border-cyan-400 bg-cyan-500/20'
+												: 'border-cyan-300/20 bg-slate-900/40 hover:border-cyan-300/40 hover:bg-slate-900/60'
+										}`}
+									>
+										<div className="text-2xl mb-1">{config.icon}</div>
+										<div className="text-xs font-bold text-slate-100 uppercase">{config.name}</div>
+										<div className="text-[10px] text-slate-400 mt-1">{config.description}</div>
+									</button>
+								))}
+							</div>
+						</div>
+
+						{/* Asset Classes within Selected Daughter */}
+						{selectedDaughter && DAUGHTER_CONFIGS[selectedDaughter] && (
+							<div className="space-y-3">
+								<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_ASSET_CLASS_WITHIN_{selectedDaughter.toUpperCase()}</p>
+								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+									{DAUGHTER_CONFIGS[selectedDaughter].assetClasses.map((asset, idx) => (
+										<button
+											key={idx}
+											onClick={() => setSelectedAssetClass(asset.name)}
+											className={`rounded-lg border px-3 py-2 text-left text-xs transition ${
+												selectedAssetClass === asset.name
+													? 'border-purple-400 bg-purple-500/20'
+													: 'border-purple-300/20 bg-slate-900/40 hover:border-purple-300/40 hover:bg-slate-900/60'
+											}`}
+										>
+											<div className="font-bold text-slate-100 truncate">{asset.icon} {asset.name}</div>
+											<div className="text-[10px] text-slate-400 truncate">{asset.desc}</div>
+										</button>
+									))}
+								</div>
+							</div>
+						)}
+
+						{/* Sons Selector */}
+						<div className="space-y-3">
+							<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_SON_(INFRASTRUCTURE_PROVIDER)</p>
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+								{SONS.map((son) => (
+									<button
+										key={son.name}
+										onClick={() => setSelectedSon(son.name.toLowerCase())}
+										className={`rounded-lg border px-4 py-3 text-center transition ${
+											selectedSon === son.name.toLowerCase()
+												? 'border-violet-400 bg-violet-500/20'
+												: 'border-violet-300/20 bg-slate-900/40 hover:border-violet-300/40 hover:bg-slate-900/60'
+										}`}
+									>
+										<div className="text-3xl mb-1">{son.rune}</div>
+										<div className="text-xs font-bold text-slate-100 uppercase">{son.name}</div>
+										<div className="text-[10px] text-slate-400 mt-1">{son.description}</div>
+									</button>
+								))}
+							</div>
+						</div>
+
+						{/* Ready Message */}
+						{selectedDaughter && selectedAssetClass && selectedSon && (
+							<div className="rounded-lg border border-emerald-400/50 bg-emerald-500/10 p-4 space-y-2">
+								<p className="text-sm font-bold text-emerald-300">✓ CONFIGURATION_READY</p>
+								<p className="text-xs text-emerald-300/90">
+									<span className="font-semibold">{DAUGHTER_CONFIGS[selectedDaughter].name}:</span> {selectedAssetClass} <br/>
+									<span className="font-semibold">Provider:</span> {selectedSon.charAt(0).toUpperCase() + selectedSon.slice(1)}
+								</p>
+								<p className="text-[10px] text-emerald-300/70">Now you are ready to begin forging.</p>
+								<button
+									onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+									className="mt-2 inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-gradient-to-r from-emerald-500/20 to-cyan-500/15 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-200 hover:border-emerald-400/60 transition"
+								>
+									Begin Forging ↑
+								</button>
+							</div>
+						)}
+					</div>
 				</div>
 			</section>
 
