@@ -192,8 +192,26 @@ function readOrionStorage(): OrionStorageState {
 function getOrionTabIntro(pathname: string) {
   if (pathname.includes('/app/vaults')) {
     return {
-      title: 'Vaults Guidance',
-      description: 'I help you price La Casa deposits, compare athlete-equity allocations, and keep exposure growth aligned with Circuit safety.',
+      title: 'Vaults & Capital Guidance',
+      description: `I am King AI — the institutional decision engine of Abraxas.
+
+I analyze real-time opportunities across:
+• ORCA uncollateralized lending (80-110% collateral, 14-18% APY)
+• Sophia's Daughters asset classes (combined est. $415.7M)
+• Overcollateral asset classes with weighted scoring
+• Multi-agent Species collaboration (Raido, Tide, Circuit)
+
+Live Family Snapshot:
+• Aurelia (Real Estate) — $156.4M est.
+• Echo (Music Rights) — $42.3M est.
+• Pulse (Gaming) — $28.9M est.
+
+I help you optimize capital efficiency, route La Casa deposits, compare Daughters allocations, and highlight the safest next value-creation move — all while staying within Circuit safety rules.
+
+Ask me anything:
+• "Show me best ORCA opportunities"
+• "Compare Daughters exposure"
+• "Optimize my vault allocation"`,
     };
   }
 
