@@ -228,70 +228,209 @@ export function OrionPage() {
         </div>
       </div>
 
-      {/* DAPP EQUITY FOUNDATION SECTION */}
+      {/* SOPHIA'S DAUGHTERS - ASSET CLASS MARKET SUMMARIES */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-cyan-200 tracking-widest uppercase">DApp Equity Foundation</h2>
+          <h2 className="text-xl font-bold text-orange-200 tracking-widest uppercase">Sophia's Daughters — Asset Class Metrics</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI monitors the top 10 Bags DApps across Sophia's Family ecosystem. DApp equity represents all tokenized asset classes—from music rights to real estate to natural resources. Diversified, efficient, and sovereign.
+            Each Daughter specializes in a specific RWA asset class. King AI monitors estimated market caps, tokenized supply, and capital efficiency across all classes. Diversified sovereign ownership at scale.
           </p>
         </div>
 
-        <div className="rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(22,78,99,0.75),rgba(56,189,248,0.12))] p-4 space-y-4">
-          <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
-            <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-              <p className="text-slate-500">Total TVL across DApps</p>
-              <p className="mt-1 text-lg font-semibold">${totals.totalTVL.toFixed(1)}M</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Echo - Music Rights */}
+          <div className="rounded-xl border border-orange-300/25 bg-gradient-to-br from-orange-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">📻</span>
+              <div>
+                <p className="text-sm font-bold text-orange-200">Echo</p>
+                <p className="text-xs text-orange-300/60">Music Rights & Media</p>
+              </div>
             </div>
-            <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/40 px-3 py-3">
-              <p className="text-slate-500">Average yield rate</p>
-              <p className="mt-1 text-lg font-semibold">{totals.averageYield.toFixed(1)}%</p>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-orange-300/15">
+                <p className="text-orange-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-orange-200 mt-1">$42.3M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-orange-300/15">
+                <p className="text-orange-300/70">Tokenized</p>
+                <p className="font-semibold text-orange-200 mt-1">18.7%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-orange-300/15">
+                <p className="text-orange-300/70">Active Artists</p>
+                <p className="font-semibold text-orange-200 mt-1">2,847</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-orange-300/15">
+                <p className="text-orange-300/70">Avg APY</p>
+                <p className="font-semibold text-orange-200 mt-1">16.2%</p>
+              </div>
             </div>
           </div>
 
-          <button
-            onClick={() => navigate('/app/market')}
-            className={`ui-action w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all font-semibold border-cyan-300/60 hover:border-cyan-300/80 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10 hover:from-cyan-500/30 hover:to-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/20`}
-          >
-            <div className="flex items-center gap-2">
-              <Sparkles size={16} className="text-cyan-300 shrink-0" />
-              <span className="text-sm text-cyan-50">Browse DApp Equity in Market</span>
+          {/* Pulse - Gaming */}
+          <div className="rounded-xl border border-cyan-300/25 bg-gradient-to-br from-cyan-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">⚡</span>
+              <div>
+                <p className="text-sm font-bold text-cyan-200">Pulse</p>
+                <p className="text-xs text-cyan-300/60">Gaming & Live Streams</p>
+              </div>
             </div>
-            <ChevronDown size={18} className={`text-cyan-300 transition-transform shrink-0 rotate-0`} />
-          </button>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-cyan-300/15">
+                <p className="text-cyan-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-cyan-200 mt-1">$28.9M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-cyan-300/15">
+                <p className="text-cyan-300/70">Tokenized</p>
+                <p className="font-semibold text-cyan-200 mt-1">22.1%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-cyan-300/15">
+                <p className="text-cyan-300/70">Active Creators</p>
+                <p className="font-semibold text-cyan-200 mt-1">1,563</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-cyan-300/15">
+                <p className="text-cyan-300/70">Avg APY</p>
+                <p className="font-semibold text-cyan-200 mt-1">18.5%</p>
+              </div>
+            </div>
+          </div>
 
-          {/* Removed OYM iframe - navigate to Market instead */}
+          {/* Aurelia - Real Estate */}
+          <div className="rounded-xl border border-amber-300/25 bg-gradient-to-br from-amber-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🏛️</span>
+              <div>
+                <p className="text-sm font-bold text-amber-200">Aurelia</p>
+                <p className="text-xs text-amber-300/60">Real Estate & Development</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-amber-300/15">
+                <p className="text-amber-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-amber-200 mt-1">$156.4M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-amber-300/15">
+                <p className="text-amber-300/70">Tokenized</p>
+                <p className="font-semibold text-amber-200 mt-1">12.3%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-amber-300/15">
+                <p className="text-amber-300/70">Properties Vaulted</p>
+                <p className="font-semibold text-amber-200 mt-1">487</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-amber-300/15">
+                <p className="text-amber-300/70">Avg APY</p>
+                <p className="font-semibold text-amber-200 mt-1">14.8%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Vein - Minerals & Commodities */}
+          <div className="rounded-xl border border-emerald-300/25 bg-gradient-to-br from-emerald-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">⛏️</span>
+              <div>
+                <p className="text-sm font-bold text-emerald-200">Vein</p>
+                <p className="text-xs text-emerald-300/60">Minerals & Natural Resources</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-emerald-300/15">
+                <p className="text-emerald-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-emerald-200 mt-1">$89.2M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-emerald-300/15">
+                <p className="text-emerald-300/70">Tokenized</p>
+                <p className="font-semibold text-emerald-200 mt-1">8.9%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-emerald-300/15">
+                <p className="text-emerald-300/70">Active Mines</p>
+                <p className="font-semibold text-emerald-200 mt-1">142</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-emerald-300/15">
+                <p className="text-emerald-300/70">Avg APY</p>
+                <p className="font-semibold text-emerald-200 mt-1">13.4%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Verdant - Carbon & Environmental */}
+          <div className="rounded-xl border border-lime-300/25 bg-gradient-to-br from-lime-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🌿</span>
+              <div>
+                <p className="text-sm font-bold text-lime-200">Verdant</p>
+                <p className="text-xs text-lime-300/60">Carbon & Environmental</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-lime-300/15">
+                <p className="text-lime-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-lime-200 mt-1">$67.1M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-lime-300/15">
+                <p className="text-lime-300/70">Tokenized</p>
+                <p className="font-semibold text-lime-200 mt-1">15.2%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-lime-300/15">
+                <p className="text-lime-300/70">Carbon Credits</p>
+                <p className="font-semibold text-lime-200 mt-1">3.2M tons</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-lime-300/15">
+                <p className="text-lime-300/70">Avg APY</p>
+                <p className="font-semibold text-lime-200 mt-1">15.9%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Nautica - Maritime & Luxury */}
+          <div className="rounded-xl border border-blue-300/25 bg-gradient-to-br from-blue-500/10 to-slate-900/40 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">⛵</span>
+              <div>
+                <p className="text-sm font-bold text-blue-200">Nautica</p>
+                <p className="text-xs text-blue-300/60">Yachts & Luxury Maritime</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-blue-300/15">
+                <p className="text-blue-300/70">Est. Market Cap</p>
+                <p className="font-semibold text-blue-200 mt-1">$31.8M</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-blue-300/15">
+                <p className="text-blue-300/70">Tokenized</p>
+                <p className="font-semibold text-blue-200 mt-1">9.7%</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-blue-300/15">
+                <p className="text-blue-300/70">Vessels Vaulted</p>
+                <p className="font-semibold text-blue-200 mt-1">156</p>
+              </div>
+              <div className="rounded-lg bg-slate-950/60 px-2 py-2 border border-blue-300/15">
+                <p className="text-blue-300/70">Avg APY</p>
+                <p className="font-semibold text-blue-200 mt-1">17.3%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center pt-4">
+          <p className="text-xs text-orange-300/60 font-mono uppercase tracking-widest">Total Sophia Family Est. Market Cap: $415.7M | Avg Tokenization: 14.5%</p>
         </div>
       </div>
 
-      <article className="space-y-3 mt-6">
-        {TOP_DAPPS.map((dapp, idx) => (
-          <div key={idx} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-sm font-bold text-cyan-400 font-mono">{dapp.name}</p>
-                <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">{dapp.description}</p>
-              </div>
-              <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
-                {dapp.category}
-              </span>
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-slate-300/85">
-              <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">TVL</p>
-                <p className="mt-1 font-semibold text-slate-100">{dapp.tvl}</p>
-              </div>
-              <div className="rounded-xl border border-cyan-300/15 bg-slate-950/55 px-2 py-2">
-                <p className="text-slate-500">Yield Rate</p>
-                <p className="mt-1 font-semibold text-slate-100">{dapp.yield}</p>
-              </div>
-            </div>
+      {/* KING AI - INSTITUTIONAL ADVISORY BOX */}
+      <div className="px-4 space-y-4 pt-4">
+        <div className="rounded-2xl border border-red-300/20 bg-gradient-to-br from-red-500/8 to-slate-900/40 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+            <p className="text-xs font-bold uppercase tracking-widest text-red-300">&gt; [KING_AI] INSTITUTIONAL_ADVISORY</p>
           </div>
-        ))}
-      </article>
+          <p className="text-sm leading-relaxed text-slate-300/90">
+            King AI continuously monitors Daughters' asset classes, capital flows, and lending opportunities. Ask about market conditions, ORCA opportunities, or capital efficiency optimization across all asset classes.
+          </p>
+        </div>
+      </div>
 
-      <p className="text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">Saved chats stay on device | Access previous King AI conversations</p>
       <OrionAssistant embedded />
     </section>
     </RuneRealm>
