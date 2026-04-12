@@ -754,11 +754,9 @@ export function MarketPage() {
                 <th className="px-3 py-2 font-medium">Asset</th>
                 <th className="px-3 py-2 font-medium">Class</th>
                 <th className="px-3 py-2 font-medium">Status</th>
-                <th className="px-3 py-2 font-medium">Price</th>
-                <th className="px-3 py-2 font-medium">24h</th>
-                <th className="px-3 py-2 font-medium">Mkt Cap</th>
-                <th className="px-3 py-2 font-medium">Float</th>
-                <th className="px-3 py-2 font-medium">Volume</th>
+                <th className="px-3 py-2 font-medium">APY</th>
+                <th className="px-3 py-2 font-medium">Collateral</th>
+                <th className="px-3 py-2 font-medium">TVL</th>
                 <th className="px-3 py-2 font-medium">Score</th>
               </tr>
             </thead>
@@ -782,14 +780,9 @@ export function MarketPage() {
                       {asset.status}
                     </span>
                   </td>
-                  <td className="px-3 py-2 text-slate-200">${asset.price.toFixed(2)}</td>
-                  <td className={`px-3 py-2 font-semibold ${asset.changePct >= 0 ? 'text-cyan-200' : 'text-rose-300'}`}>
-                    {asset.changePct >= 0 ? '+' : ''}
-                    {asset.changePct.toFixed(1)}%
-                  </td>
-                  <td className="px-3 py-2 text-slate-300">${asset.marketCap.toLocaleString()}</td>
-                  <td className="px-3 py-2 text-slate-300">{asset.floatPct}%</td>
-                  <td className="px-3 py-2 text-slate-300">${asset.dailyVolume.toLocaleString()}</td>
+                  <td className="px-3 py-2 text-cyan-200 font-semibold">{asset.apy ? `${asset.apy.toFixed(1)}%` : '—'}</td>
+                  <td className="px-3 py-2 text-slate-300 text-[10px]">{asset.collateral || '—'}</td>
+                  <td className="px-3 py-2 text-slate-300">${asset.tvl ? (asset.tvl / 1000000).toFixed(1) : '—'}M</td>
                   <td className="px-3 py-2 text-slate-100">{asset.score}/100</td>
                 </tr>
               ))}
