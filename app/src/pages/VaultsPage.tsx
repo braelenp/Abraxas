@@ -1,11 +1,12 @@
 import { FormEvent, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { ChevronDown, AlertCircle, CheckCircle, Loader } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronDown, AlertCircle, CheckCircle, Loader, X } from 'lucide-react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { PublicKey, Transaction } from '@solana/web3.js';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
 import { RuneRealm } from '../components/RuneRealm';
+import { EmbeddedPhantomSwap } from '../components/EmbeddedPhantomSwap';
 import { ABRAXAS_PROGRAM_ID_RAW, ABRA_TOKEN_MINT } from '../lib/solana';
 
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
@@ -33,6 +34,7 @@ const RUNE_CONFIG = {
 
 export function VaultsPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { publicKey, signTransaction, connected } = useWallet();
   const { connection } = useConnection();
   const {
@@ -59,6 +61,11 @@ export function VaultsPage() {
   const [isLoadingBalance, setIsLoadingBalance] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  // Quick action modals
+  const [showSwapModal, setShowSwapModal] = useState(false);
+  const [showTopUpModal, setShowTopUpModal] = useState(false);
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
 
   // Reset state when navigating to the Vaults page
   useEffect(() => {
@@ -274,6 +281,63 @@ export function VaultsPage() {
     }
   };
 
+  // Quick action handlers
+  const handleSwap = () => {
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+    setShowSwapModal(true);
+    addLog({
+      vaultId: 'vaults-quick-actions',
+      action: 'Swap modal opened',
+    });
+  };
+
+  const handleTopUp = () => {
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+    // Redirect to TradePage where users can buy ABRA
+    navigate('/app/trade');
+    addLog({
+      vaultId: 'vaults-quick-actions',
+      action: 'Redirected to TradePage for Top Up',
+    });
+  };
+
+  const handleWithdraw = () => {
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+    setShowWithdrawModal(true);
+    addLog({
+      vaultId: 'vaults-quick-actions',
+      action: 'Withdraw (off-ramp) modal opened',
+    });
+  };
+
+  const handleSwapSuccess = () => {
+    setShowSwapModal(false);
+    setSuccessMessage('Swap modal closed. Check your wallet for confirmation.');
+    setTimeout(() => setSuccessMessage(null), 3000);
+    
+    // Refresh balance
+    if (publicKey && connected) {
+      connection.getBalance(publicKey).then(balance => {
+        setWalletBalance(balance / 1e9);
+      });
+    }
+  };
+
+  const handleWithdrawSuccess = () => {
+    setShowWithdrawModal(false);
+    setSuccessMessage('Opening fiat conversion flow...');
+    setTimeout(() => setSuccessMessage(null), 3000);
+  };
+
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
@@ -336,19 +400,93 @@ export function VaultsPage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-3 gap-2">
-        <button className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" disabled={!connected}>
+        <button 
+          onClick={handleSwap}
+          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
+          disabled={!connected}
+        >
           <p className="text-2xl">⇄</p>
           <p className="mt-1 text-xs font-medium text-slate-200">Swap</p>
         </button>
-        <button className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" disabled={!connected}>
+        <button 
+          onClick={handleTopUp}
+          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
+          disabled={!connected}
+        >
           <p className="text-2xl">↑</p>
           <p className="mt-1 text-xs font-medium text-slate-200">Top Up</p>
         </button>
-        <button className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" disabled={!connected}>
+        <button 
+          onClick={handleWithdraw}
+          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
+          disabled={!connected}
+        >
           <p className="text-2xl">↓</p>
           <p className="mt-1 text-xs font-medium text-slate-200">Withdraw</p>
         </button>
       </div>
+
+      {/* Swap Modal */}
+      {showSwapModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="relative rounded-3xl border border-cyan-300/20 bg-slate-900/95 p-6 backdrop-blur w-96 max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowSwapModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="text-lg font-bold text-cyan-300 mb-4">Swap Tokens</h3>
+            <EmbeddedPhantomSwap />
+          </div>
+        </div>
+      )}
+
+      {/* Withdraw Modal */}
+      {showWithdrawModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="relative rounded-3xl border border-cyan-300/20 bg-slate-900/95 p-6 backdrop-blur w-96 max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowWithdrawModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="text-lg font-bold text-cyan-300 mb-4">Convert ABRA to Fiat</h3>
+            <div className="space-y-4">
+              <div className="rounded-lg bg-cyan-400/10 border border-cyan-300/20 p-4">
+                <p className="text-sm text-cyan-200 mb-2">
+                  <CheckCircle size={16} className="inline mr-2" />
+                  Your Wallet Balance: <span className="font-bold">{walletBalance?.toFixed(4) || '0.0000'} SOL</span>
+                </p>
+                <p className="text-xs text-slate-400 mt-2">
+                  To convert ABRA to fiat, visit the TradePage where you can swap ABRA to USDC and use our off-ramp partners.
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  navigate('/app/trade');
+                  setShowWithdrawModal(false);
+                }}
+                className="w-full rounded-lg bg-gradient-to-r from-cyan-500/40 to-purple-500/40 border border-cyan-300/40 px-4 py-3 text-sm font-bold text-cyan-200 hover:from-cyan-500/60 hover:to-purple-500/60 transition-all"
+              >
+                Go to Trade Page
+              </button>
+
+              <div className="rounded-lg bg-slate-950/50 border border-slate-700/30 p-3">
+                <p className="text-xs text-slate-400 mb-2 font-mono uppercase tracking-wider">Quick Steps:</p>
+                <ol className="text-xs text-slate-300/70 space-y-1 list-decimal list-inside">
+                  <li>Go to Trade page</li>
+                  <li>Swap ABRA to USDC (Jupiter)</li>
+                  <li>Use the off-ramp widget to convert to fiat</li>
+                  <li>Receive in Cash App or Apple Pay</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Create Vault Form */}
       <form onSubmit={onCreateVault} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
