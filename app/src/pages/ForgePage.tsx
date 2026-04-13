@@ -890,6 +890,67 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		dappUrl: 'https://elysium-fine-art.vercel.app/',
 		dappLabel: 'Enter Elysium',
 	},
+	bacchus: {
+		name: 'Bacchus',
+		subtitle: 'Liquid Assets, Tokenized',
+		headerReveal: 'Welcome to the cellar eternal.',
+		description: 'Fine Wine & Rare Spirits',
+		lore: 'Bacchus tokenizes fine wine, rare whiskies, and collectible spirits. Fractional ownership of premium liquid assets becomes on-chain La Casa NFTs. The world\'s most sought-after bottles now yield yield.',
+		accentColor: 'purple',
+		icon: '🍷',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Wine Provenance',
+				desc: 'Submit certificates of authenticity, storage history, temperature logs, insurance records, and appraisals',
+				icon: '📦',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable bottle metadata and vintage records',
+				icon: '🍷',
+			},
+			{
+				step: 3,
+				label: 'Deploy Appreciation Yield',
+				desc: 'Auto-compound market appreciation from aging and auction gains',
+				icon: '📊',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Spirit Equity',
+				description: 'Own vintage fractions from investment-grade cellars',
+				icon: '🥃',
+			},
+			{
+				title: 'King AI Aging Forecasts',
+				description: 'Predictive aging curves, peak drinking windows, market timing',
+				icon: '🧠',
+			},
+			{
+				title: 'Vintage Trading Floor',
+				description: 'Secondary market for wine equity with institutional pricing',
+				icon: '📊',
+			},
+			{
+				title: 'Raido + Tide Integration',
+				description: 'Trade spirit equity on Raido, de-risk through Tide arbitrage',
+				icon: '⚙️',
+			},
+		],
+		assetClasses: [
+			{ name: 'Fine Wines', desc: 'Burgundy, Bordeaux, Champagne, vintage classifications', icon: '🍷' },
+			{ name: 'Rare Whiskies', desc: 'Single malts, bourbons, collector\'s editions', icon: '🥃' },
+			{ name: 'Premium Spirits', desc: 'Cognac, armagnac, vintage brandies', icon: '🍸' },
+			{ name: 'Craft Collections', desc: 'Limited editions, micro-distillery reserves', icon: '🍺' },
+			{ name: 'Vintage Cellars', desc: 'Pre-phylloxera, historical bottles, legacy collections', icon: '🏺' },
+			{ name: 'Investment Lots', desc: 'Curated portfolios with proven ROI', icon: '💎' },
+		],
+		dappUrl: 'https://bacchus-wine-spirits.vercel.app/',
+		dappLabel: 'Enter Bacchus',
+	},
 };
 
 	// Sons of Sophia (Infrastructure Providers) Configurations
@@ -1293,6 +1354,13 @@ const DAUGHTERS_PHASE4 = [
 		name: 'Elysium',
 		description: 'Fine Art & Collectibles',
 		rune: '🎨',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Bacchus',
+		description: 'Fine Wine & Rare Spirits',
+		rune: '🍷',
 		isComingSoon: false,
 		isInternal: true,
 	},

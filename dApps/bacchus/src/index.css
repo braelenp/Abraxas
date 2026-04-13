@@ -1,0 +1,59 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .particle {
+    @apply absolute rounded-full bg-gradient-to-br from-purple-400/30 to-purple-500/10;
+    animation: float linear infinite;
+  }
+
+  .wine-card {
+    @apply transition-all duration-300 ease-out;
+    &:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 40px rgba(153, 69, 255, 0.3);
+    }
+  }
+
+  .wine-bottle {
+    @apply flex items-center justify-center text-7xl p-8 rounded-lg font-bold;
+    background: linear-gradient(135deg, rgba(153, 69, 255, 0.15) 0%, rgba(153, 69, 255, 0.05) 100%);
+    border: 1px solid rgba(153, 69, 255, 0.2);
+    min-height: 200px;
+  }
+
+  .glow-panel {
+    @apply relative overflow-hidden;
+    &::before {
+      content: '';
+      @apply absolute inset-0 pointer-events-none;
+      background: linear-gradient(135deg, rgba(153, 69, 255, 0.1) 0%, transparent 100%);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+      opacity: 0.6;
+    }
+    25% {
+      transform: translateY(-40px) translateX(20px);
+    }
+    50% {
+      opacity: 0.3;
+      transform: translateY(-80px) translateX(-20px);
+    }
+    75% {
+      transform: translateY(-40px) translateX(30px);
+    }
+  }
+}
+
+body {
+  @apply bg-gray-950 text-gray-100;
+}
+
+main {
+  @apply min-h-screen;
+}
