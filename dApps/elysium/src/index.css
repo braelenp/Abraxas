@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, #050505 0%, #1e1e2e 100%);
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+/* Particle animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.3; filter: blur(3px); }
+  50% { opacity: 0.8; filter: blur(8px); }
+}
+
+.glow-panel {
+  box-shadow: 0 0 20px rgba(153, 69, 255, 0.2);
+  border-image: linear-gradient(135deg, rgba(153, 69, 255, 0.5), rgba(153, 69, 255, 0.1)) 1;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(153, 69, 255, 0.8), transparent);
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.rune {
+  font-size: 3rem;
+  text-shadow: 0 0 20px rgba(153, 69, 255, 0.8);
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Art card hover effects */
+.art-card {
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.art-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(153, 69, 255, 0.3);
+}
+
+.art-thumbnail {
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.1), rgba(153, 69, 255, 0.05));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border: 1px solid rgba(153, 69, 255, 0.2);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .rune {
+    font-size: 2rem;
+  }
+  
+  .art-thumbnail {
+    height: 180px;
+    font-size: 3rem;
+  }
+}

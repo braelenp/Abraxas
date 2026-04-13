@@ -829,6 +829,67 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		dappUrl: 'https://astra-sovereign-skies.vercel.app/',
 		dappLabel: 'Enter Astra',
 	},
+	elysium: {
+		name: 'Elysium',
+		subtitle: 'Timeless Art, Tokenized',
+		headerReveal: 'Welcome to the gallery eternal.',
+		description: 'Fine Art & Collectibles',
+		lore: 'Elysium tokenizes fine art, rare collectibles, and cultural masterpieces. Fractional ownership of paintings, sculptures, historical artifacts, and investment-grade collectibles becomes on-chain La Casa NFTs. The world\'s greatest art now yields yield.',
+		accentColor: 'purple',
+		icon: '🎨',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Artwork Provenance',
+				desc: 'Submit high-resolution images, certificates of authenticity, exhibition history, and appraisals',
+				icon: '📸',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable provenance and artwork metadata',
+				icon: '🎨',
+			},
+			{
+				step: 3,
+				label: 'Deploy Appreciation Yield',
+				desc: 'Auto-compound market appreciation gains and exhibition revenue',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Masterpieces',
+				description: 'Own equity in museum-quality art and collectibles',
+				icon: '🖼️',
+			},
+			{
+				title: 'King AI Valuation',
+				description: 'Real-time appraisals, provenance verification, market comparables',
+				icon: '🧠',
+			},
+			{
+				title: 'Auction Floor Trading',
+				description: 'Secondary market for fractional art equity with price discovery',
+				icon: '📊',
+			},
+			{
+				title: 'Raido + Tide Integration',
+				description: 'Trade art equity on Raido, de-risk through Tide arbitrage',
+				icon: '⚙️',
+			},
+		],
+		assetClasses: [
+			{ name: 'Classical Paintings', desc: 'Old Masters, Renaissance, Baroque', icon: '🎨' },
+			{ name: 'Modern Art', desc: 'Impressionism, Expressionism, Modernism', icon: '🖌️' },
+			{ name: 'Contemporary', desc: 'Post-1945 contemporary works and installations', icon: '✨' },
+			{ name: 'Sculptures & Statuary', desc: 'Bronze, marble, and monumental works', icon: '🏛️' },
+			{ name: 'Rare Collectibles', desc: 'Numismatics, watches, memorabilia, manuscripts', icon: '💎' },
+			{ name: 'NFT Artworks', desc: 'Digital art, generative works, and metaverse assets', icon: '🌐' },
+		],
+		dappUrl: 'https://elysium-fine-art.vercel.app/',
+		dappLabel: 'Enter Elysium',
+	},
 };
 
 	// Sons of Sophia (Infrastructure Providers) Configurations
@@ -1225,6 +1286,13 @@ const DAUGHTERS_PHASE4 = [
 		name: 'Astra',
 		description: 'Private Jets & Aviation',
 		rune: '✈️',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Elysium',
+		description: 'Fine Art & Collectibles',
+		rune: '🎨',
 		isComingSoon: false,
 		isInternal: true,
 	},
