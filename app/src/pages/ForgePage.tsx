@@ -768,6 +768,67 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		dappUrl: 'https://chronos-luxury-watches.vercel.app/',
 		dappLabel: 'Enter Chronos',
 	},
+	astra: {
+		name: 'Astra',
+		subtitle: 'Sovereign Skies',
+		headerReveal: 'Welcome to the stratosphere.',
+		description: 'Private Jets & Aviation',
+		lore: 'Astra tokenizes private jets, flight hours, and premium aviation assets. Fractional ownership of Gulfstreams, Bombardiers, Embraers, and exclusive charter contracts becomes on-chain La Casa NFTs. Investors and operators now share the skies without capital constraints.',
+		accentColor: 'blue',
+		icon: '✈️',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Aircraft Documents',
+				desc: 'Submit registration, airworthiness certificates, and valuation reports',
+				icon: '📋',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable aircraft provenance',
+				icon: '✈️',
+			},
+			{
+				step: 3,
+				label: 'Deploy Charter Yield',
+				desc: 'Auto-compound flight hours, charter revenue, and utilization yields',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Aircraft Ownership',
+				description: 'Own equity shares in jets and premium aircraft',
+				icon: '🛩️',
+			},
+			{
+				title: 'King AI Optimization',
+				description: 'Maintenance forecasting, utilization planning, and cost projections',
+				icon: '🧠',
+			},
+			{
+				title: 'Flight Hour Trading',
+				description: 'Buy and sell flight hour contracts on secondary markets',
+				icon: '📊',
+			},
+			{
+				title: 'Raido + Tide Integration',
+				description: 'Trade jet equity, de-risk through stable arbitrage',
+				icon: '⚙️',
+			},
+		],
+		assetClasses: [
+			{ name: 'Heavy Jets', desc: 'Gulfstream, Bombardier Global, Dassault Falcon', icon: '✈️' },
+			{ name: 'Mid-Size Jets', desc: 'Citation X, Learjet, Hawker 7500', icon: '🛩️' },
+			{ name: 'Light Jets', desc: 'Phenom 300E, Citation M2, Embraer Phenom', icon: '✈️' },
+			{ name: 'Flight Hour Contracts', desc: 'Fractional ownership of annual flight time', icon: '⏱️' },
+			{ name: 'Charter Operations', desc: 'Revenue-sharing agreements from charter bookings', icon: '💰' },
+			{ name: 'VIP Hangar Rights', desc: 'Exclusive airport facilities and service contracts', icon: '🏢' },
+		],
+		dappUrl: 'https://astra-sovereign-skies.vercel.app/',
+		dappLabel: 'Enter Astra',
+	},
 };
 
 	// Sons of Sophia (Infrastructure Providers) Configurations
@@ -1157,6 +1218,13 @@ const DAUGHTERS_PHASE4 = [
 		name: 'Chronos',
 		description: 'Luxury Watches & Horology',
 		rune: '⌚',
+		isComingSoon: false,
+		isInternal: true,
+	},
+	{
+		name: 'Astra',
+		description: 'Private Jets & Aviation',
+		rune: '✈️',
 		isComingSoon: false,
 		isInternal: true,
 	},
