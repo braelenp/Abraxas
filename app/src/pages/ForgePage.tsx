@@ -707,7 +707,68 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			dappUrl: 'https://your-gaia-dapp-url.com/',
 			dappLabel: 'Enter Gaia',
 		},
-	};
+	chronos: {
+		name: 'Chronos',
+		subtitle: 'Timeless Value, Tokenized',
+		headerReveal: 'Welcome to precision, rarity, and timelessness.',
+		description: 'Luxury Watches & Horology',
+		lore: 'Chronos tokenizes rare watches, vintage timepieces, and modern masterpieces from the world\'s most coveted horologists. Fractional ownership of Rolex, Patek Philippe, Audemars Piguet, and independent watchmakers becomes on-chain La Casa NFTs. Time itself now yields yield.',
+		accentColor: 'purple',
+		icon: '⌚',
+		flowSteps: [
+			{
+				step: 1,
+				label: 'Upload Watch Documentation',
+				desc: 'Submit certificates of authenticity, provenance records, and appraisals',
+				icon: '📋',
+			},
+			{
+				step: 2,
+				label: 'Mint La Casa NFT',
+				desc: 'On-chain tokenization with immutable horology provenance',
+				icon: '⌚',
+			},
+			{
+				step: 3,
+				label: 'Deploy Appreciation Yield',
+				desc: 'Auto-compound market appreciation, valuation gains, and King AI insights',
+				icon: '🏆',
+			},
+		],
+		features: [
+			{
+				title: 'Fractional Timepieces',
+				description: 'Own shares of rare watches from legendary manufacturers',
+				icon: '⏱️',
+			},
+			{
+				title: 'King AI Valuation',
+				description: 'Real-time watch appraisals, market comparables, and rarity scoring',
+				icon: '🧠',
+			},
+			{
+				title: 'Appreciation Tracking',
+				description: 'Historical price data, auction results, and yield projections',
+				icon: '📈',
+			},
+			{
+				title: 'Raido Trading & Tide Arbitrage',
+				description: 'Trade equity on Raido, de-risk via Tide\'s arbitrage engine',
+				icon: '⚙️',
+			},
+		],
+		assetClasses: [
+			{ name: 'Rolex Sports', desc: 'Daytona, Submariner, GMT-Master II legends', icon: '⌚' },
+			{ name: 'Patek Philippe', desc: 'Nautilus, Aquanaut, Annual Calendar classics', icon: '👑' },
+			{ name: 'Audemars Piguet', desc: 'Royal Oak, Royal Oak Offshore icons', icon: '⚫' },
+			{ name: 'Vintage Rare', desc: 'Pre-owned collectible timepieces', icon: '🕰️' },
+			{ name: 'Independent Masters', desc: 'Boutique watchmakers and horological art', icon: '🎨' },
+			{ name: 'Limited Editions', desc: 'Numbered pieces and special productions', icon: '✨' },
+		],
+		dappUrl: 'https://chronos-luxury-watches.vercel.app/',
+		dappLabel: 'Enter Chronos',
+	},
+};
 
 	// Sons of Sophia (Infrastructure Providers) Configurations
 	const SON_CONFIGS: Record<string, DaughterConfig> = {
@@ -1090,6 +1151,13 @@ const DAUGHTERS_PHASE4 = [
 		description: 'Luxury Collectibles & Fine Goods',
 		rune: '👑',
 		isComingSoon: true,
+		isInternal: true,
+	},
+	{
+		name: 'Chronos',
+		description: 'Luxury Watches & Horology',
+		rune: '⌚',
+		isComingSoon: false,
 		isInternal: true,
 	},
 	{
