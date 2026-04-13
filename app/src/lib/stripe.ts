@@ -39,8 +39,8 @@ export async function initializeStripe() {
     throw new Error('Stripe public key is not configured. Set VITE_STRIPE_PUBLIC_KEY in .env');
   }
 
-  const { Stripe } = await import('@stripe/stripe-js');
-  stripeInstance = await Stripe(STRIPE_PUBLIC_KEY);
+  const { loadStripe } = await import('@stripe/stripe-js');
+  stripeInstance = await loadStripe(STRIPE_PUBLIC_KEY);
   return stripeInstance;
 }
 

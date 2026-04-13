@@ -528,6 +528,7 @@ export function MarketPage() {
         
         // Log the deposit action
         addLog({
+          vaultId: 'global',
           action: `Deposit confirmed on-chain`,
           detail: `${amount} ABRA transferred via Solana (signature: ${signature.substring(0, 8)}...)`,
         });
@@ -553,6 +554,7 @@ export function MarketPage() {
         if (!result.success) {
           setErrorMessage(result.error || 'ACH deposit failed');
           addLog({
+            vaultId: 'global',
             action: 'ACH deposit failed',
             detail: result.error || 'Failed to create Stripe payment intent',
           });
@@ -561,6 +563,7 @@ export function MarketPage() {
         }
 
         addLog({
+          vaultId: 'global',
           action: `ACH deposit initiated`,
           detail: `${amount} USD via Stripe Financial Connections`,
         });
@@ -575,6 +578,7 @@ export function MarketPage() {
       const errorMsg = error instanceof Error ? error.message : 'Deposit failed';
       setErrorMessage(errorMsg);
       addLog({
+        vaultId: 'global',
         action: 'Deposit failed',
         detail: errorMsg,
       });
@@ -676,6 +680,7 @@ export function MarketPage() {
         
         // Log the withdrawal action
         addLog({
+          vaultId: 'global',
           action: `Withdrawal confirmed on-chain`,
           detail: `${amount} ABRA transferred to wallet (signature: ${signature.substring(0, 8)}...)`,
         });
@@ -687,6 +692,7 @@ export function MarketPage() {
       } else {
         // For fiat withdrawals: simulate the flow
         addLog({
+          vaultId: 'global',
           action: `Withdrawal initiated to fiat account`,
           detail: `${amount} pending ACH transfer`,
         });
@@ -701,6 +707,7 @@ export function MarketPage() {
       const errorMsg = error instanceof Error ? error.message : 'Withdrawal failed';
       setErrorMessage(errorMsg);
       addLog({
+        vaultId: 'global',
         action: 'Withdrawal failed',
         detail: errorMsg,
       });
@@ -749,6 +756,7 @@ export function MarketPage() {
 
       // Log the cash out action and inform user about Stripe processing
       addLog({
+        vaultId: 'global',
         action: 'ACH payout initiated',
         detail: `${amount} USD to verified bank account via Stripe`,
       });
@@ -1524,7 +1532,7 @@ export function MarketPage() {
                   </>
                 ) : (
                   'Confirm CashOut'
-                )
+                )}
               </button>
             </div>
           </article>
