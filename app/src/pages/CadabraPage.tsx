@@ -32,19 +32,19 @@ export function CadabraPage() {
 			<section className="space-y-8 py-8">
 				{/* WELCOME: Cadabra intro */}
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="space-y-4">
-						<span className="font-mono text-2xl font-bold text-purple-200 tracking-wide">Welcome to the next degree.</span>
-						<h2 className="text-xl font-bold text-purple-200 tracking-widest uppercase">Cadabra — The Social Mirror</h2>
+					<div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-2xl border border-purple-300/20 p-6 space-y-3">
+						<h1 className="text-3xl font-bold text-purple-100 mb-2">💬 Welcome to Cadabra</h1>
+						<h2 className="text-lg font-bold text-purple-300">The Social Network for Money & Investing</h2>
 						<p className="text-sm leading-relaxed text-slate-300/90">
-							The Instagram of the Abraxas ecosystem. Build community, share alpha, tokenize moments, and make DeFi great again. Pulse is the official on-chain infrastructure layer for GTA 6 RP servers—where gamers, creators, and server operators coordinate economies, monetize moments, and build DAOs powered by King AI tools.
+							Think of Cadabra as Instagram, but for money. Share investment ideas. Discuss real estate trends. Find like-minded investors. Build communities around assets you care about. Here, market information flows freely, communities validate opportunities, and collective wisdom drives prices.
 						</p>
 					</div>
 				</div>
 
-				{/* LEGACY COMMUNITY TOOLS - Deprecated */}
+				{/* HOW IT WORKS */}
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="border-l-4 border-slate-600/50 pl-6 space-y-4">
-						<h3 className="text-lg font-bold text-slate-400 tracking-wider uppercase">&gt; [LEGACY] OLD COMMUNITY BUILDING TOOLS</h3>
+					<div className="border-l-4 border-purple-400/50 pl-6 space-y-4">
+						<h3 className="text-lg font-bold text-purple-300">🏛️ How Cadabra Works</h3>
 						<div className="space-y-3">
 							<div className="rounded-lg border border-purple-300/25 bg-slate-900/50 backdrop-blur-sm p-4">
 								<div className="flex gap-3 mb-3">

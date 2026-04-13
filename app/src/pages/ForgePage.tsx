@@ -1223,38 +1223,53 @@ export function ForgePage() {
 			{/* Institutional Positioning */}
 			<section className="space-y-4 py-6 mb-2">
 				<div className="max-w-3xl mx-auto px-4">
-					<div className="border-l-4 border-orange-400/40 pl-6 space-y-2 font-mono">
-						<p className="text-xs font-bold text-orange-300/70 uppercase tracking-widest">&gt; WHAT_IS_THE_FORGE</p>
+					<div className="bg-gradient-to-br from-orange-500/10 to-orange-500/5 rounded-2xl border border-orange-300/20 p-6 space-y-3">
+						<h1 className="text-2xl font-bold text-orange-100">🔥 Welcome to the Forge</h1>
 						<p className="text-sm text-slate-300/90">
-							The Forge tokenizes World Labs Protocol—an institutional-grade digital asset management system. We convert institutional-caliber asset infrastructure into consumer-accessible dapp equity, vaults, and yield protocols.
+							The Forge turns real-world assets into digital investments you can own online. Real estate. Music rights. Commodities. Everything of value can now be tokenized, traded, and staked for rewards—without middlemen taking cuts.
 						</p>
 					</div>
 				</div>
 			</section>
 
-			{/* The Forging Process – Briefing */}
-			<section className="space-y-6 py-8 mb-4">
-				<div className="max-w-3xl mx-auto px-4">
-					<div className="border-l-4 border-orange-400/50 pl-6 space-y-4 font-mono">
-						<h2 className="text-lg font-bold text-orange-300 tracking-wider uppercase">&gt; SYSTEM_INITIALIZATION</h2>
-						<div className="space-y-3 text-sm text-slate-300/80">
-							<p>
-								<span className="text-orange-400 font-mono">[01_TOKENIZE]</span> <span className="text-orange-400/70 text-[11px] font-mono">Upload asset proof: Deeds, Rights, Commodities, IP. Any intrinsic value asset.</span>
-							</p>
-							<p>
-								<span className="text-orange-400 font-mono">[02_ATTEST]</span> <span className="text-orange-400/70 text-[11px] font-mono">Self-certify ownership. No intermediaries. Maintain sovereign control.</span>
-							</p>
-							<p>
-								<span className="text-orange-400 font-mono">[03_FORGE]</span> <span className="text-orange-400/70 text-[11px] font-mono">Mint RWA token on-chain. Eligible for liquidity & yield protocols.</span>
-							</p>
-							<p>
-								<span className="text-orange-400 font-mono">[04_YIELD]</span> <span className="text-orange-400/70 text-[11px] font-mono">Deposit into specialized vaults. Capital compounds autonomously.</span>
-							</p>
+		{/* The Forging Process – Briefing */}
+		<section className="space-y-6 py-8 mb-4">
+			<div className="max-w-3xl mx-auto px-4">
+				<div className="bg-gradient-to-br from-orange-500/10 to-orange-500/5 rounded-2xl border border-orange-300/20 p-6 space-y-4">
+					<h2 className="text-lg font-bold text-orange-100 mb-4">📋 4 Simple Steps to Tokenize</h2>
+					<div className="space-y-3 text-sm text-slate-300/80">
+						<div className="flex gap-3">
+							<span className="flex-shrink-0 text-2xl">1️⃣</span>
+							<div>
+								<p className="font-bold text-orange-200">Upload Your Asset</p>
+								<p className="text-xs text-slate-400">Proof of ownership (deed, contract, proof of purchase)</p>
+							</div>
 						</div>
-						<p className="text-xs text-orange-300/70 pt-2 italic uppercase tracking-widest">&gt; ENTER_FORGE_TO_BEGIN</p>
+						<div className="flex gap-3">
+							<span className="flex-shrink-0 text-2xl">2️⃣</span>
+							<div>
+								<p className="font-bold text-orange-200">Verify Ownership</p>
+								<p className="text-xs text-slate-400">System confirms you own what you claim</p>
+							</div>
+						</div>
+						<div className="flex gap-3">
+							<span className="flex-shrink-0 text-2xl">3️⃣</span>
+							<div>
+								<p className="font-bold text-orange-200">Mint Your Token</p>
+								<p className="text-xs text-slate-400">Your asset becomes tradeable 24/7 online</p>
+							</div>
+						</div>
+						<div className="flex gap-3">
+							<span className="flex-shrink-0 text-2xl">4️⃣</span>
+							<div>
+								<p className="font-bold text-orange-200">Earn Returns</p>
+								<p className="text-xs text-slate-400">Stake in vaults, earn yields automatically</p>
+							</div>
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
 			{/* The Living Oracle – Self-Replicating Growth Engine */}
 			<section className="py-8 border-t border-slate-700/30">

@@ -46,23 +46,25 @@ export function OrionPage() {
   return (
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
-      <article className="glow-panel rounded-3xl border border-red-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(78,15,42,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
-        <div className="font-mono">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-red-300">&gt; [KING_AI] INSTITUTIONAL_DeFi_LAYER</p>
-          <h2 className="mt-2 text-sm font-bold text-red-200 tracking-widest uppercase">SOVEREIGN_CAPITAL | NEXT_DEGREE_FINANCE</h2>
-          <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
-            King AI serves as Abraxas's institutional intelligence layer, unlocking capital efficiency through undercollateralized lending and M1 pulldown mechanisms. Below, explore how billions in institutional flows reshape DeFi. DApp equity across Sophia's Family protocols powers the foundation.
+      <article className="glow-panel rounded-3xl border border-red-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(78,15,42,0.75),rgba(56,189,248,0.12))] p-6 backdrop-blur space-y-4">
+        <div>
+          <p className="text-sm font-bold text-red-300 uppercase tracking-widest mb-2">&gt; King AI: Smart Money</p>
+          <h2 className="text-2xl font-bold text-red-100 mb-3">👑 Borrow More, Risk Less</h2>
+          <p className="text-sm leading-relaxed text-slate-300/90 mb-4">
+            King AI is like a personal financial advisor that never sleeps. It analyzes your portfolio, approves better loan terms, and helps you unlock value from assets most banks won't recognize. Think of it as having your own smart banker working 24/7.
           </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
-          <div className="rounded-2xl border border-orange-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">Capital efficiency gain</p>
-            <p className="mt-1 text-lg font-semibold">80-110%</p>
-          </div>
-          <div className="rounded-2xl border border-orange-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">M1 liquidity unlock</p>
-            <p className="mt-1 text-lg font-semibold">$Billions</p>
+          
+          <div className="grid grid-cols-2 gap-3 text-xs mt-4">
+            <div className="rounded-lg border border-red-300/20 bg-red-500/10 px-3 py-3">
+              <p className="text-slate-400 text-xs">Better Loan Terms</p>
+              <p className="mt-2 text-xl font-bold text-red-200">80-110%</p>
+              <p className="text-[10px] text-slate-400 mt-1">vs standard limits</p>
+            </div>
+            <div className="rounded-lg border border-red-300/20 bg-red-500/10 px-3 py-3">
+              <p className="text-slate-400 text-xs">Monthly Returns</p>
+              <p className="mt-2 text-xl font-bold text-red-200">14-18%</p>
+              <p className="text-[10px] text-slate-400 mt-1\">APY average</p>
+            </div>
           </div>
         </div>
       </article>
@@ -87,9 +89,9 @@ export function OrionPage() {
       {/* ORCA UNCOLLATERALIZED LENDING SECTION */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-purple-200 tracking-widest uppercase">ORCA — Undercollateralized Lending Protocol</h2>
+          <h2 className="text-xl font-bold text-purple-200">💳 ORCA: Better Loans</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            ORCA expands undercollateralized lending by default through diversified overcollateral asset classes. King AI audits portfolio composition, liquidation history, and on-chain credibility to unlock capital at 80-110% collateral ratios. No intermediary. Pure algorithmic trust.
+            Most banks lend you only a fraction of your assets' value. ORCA is different. King AI analyzes your portfolio—your real estate, your tokenized assets, your trading history—and safely lends you 80-110% of their value. More money. Smarter risk. No middlemen.
           </p>
         </div>
 
@@ -110,9 +112,9 @@ export function OrionPage() {
       {/* OVERCOLLATERAL ASSET CLASSES - Hippo-Style Categorization */}
       <div className="px-4 space-y-6 pt-4">
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-orange-200 tracking-widest uppercase">Overcollateral Asset Classes</h2>
+          <h2 className="text-xl font-bold text-orange-200">📊 What You Can Borrow Against</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            Mirror Hippo dApps structure. Each asset class is categorized by type with tradeable market place and value stacking. King AI assigns collateral weights based on infrastructure maturity and liquidation probability.
+            King AI looks at different types of assets to decide loan amounts. Real estate, digital tokens, business fees, your track record—it all counts. Here's how we evaluate each category.
           </p>
         </div>
 
@@ -178,9 +180,9 @@ export function OrionPage() {
       {/* KING AI INTELLIGENT LAYER */}
       <div className="px-4 space-y-6 pt-4">
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-red-200 tracking-widest uppercase">King AI — Intelligent Layer</h2>
+          <h2 className="text-lg font-bold text-red-200">🤖 How King AI Works</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI serves as the institutional decision engine, continuously monitoring borrower credibility across all four asset classes. Algorithmic trust replaces intermediaries. Capital flows to signal.
+            King AI continuously watches your portfolio, success rate, and financial history. It's like a loan officer that never takes a vacation. The better your track record, the better your terms.
           </p>
         </div>
 
@@ -231,9 +233,9 @@ export function OrionPage() {
       {/* SOPHIA'S DAUGHTERS - ASSET CLASS MARKET SUMMARIES */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-orange-200 tracking-widest uppercase">Sophia's Daughters — Asset Class Metrics</h2>
+          <h2 className="text-xl font-bold text-orange-200">🌍 Asset Classes Available</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            Each Daughter specializes in a specific RWA asset class. King AI monitors estimated market caps, tokenized supply, and capital efficiency across all classes. Diversified sovereign ownership at scale.
+            Sophia's Family specializes in different real-world investments. Music rights. Gaming. Real estate. Natural resources. Each category earns competitive returns. Here's what's available today.
           </p>
         </div>
 
@@ -421,9 +423,9 @@ export function OrionPage() {
       {/* AI-POWERED RP SERVER INFRASTRUCTURE - GTA 6 Ready */}
       <div className="px-4 space-y-6 pt-8">
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-red-200 tracking-widest uppercase">🎮 AI-Powered RP Server Infrastructure</h2>
+          <h2 className="text-lg font-bold text-red-200">🎮 Gaming & Entertainment</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI powers the next generation of gaming economies. GTA 6 RP servers rely on our AI tools to generate lore, coordinate guilds, tokenize assets, and manage on-chain economies. Server operators pay $10-20/month for access to full AI generation suite.
+            King AI powers the next generation of gaming servers. GTA 6 RP servers, esports tournaments, streaming content—all managed on-chain. Game operators pay a monthly fee for AI tools that handle everything from economy management to revenue sharing.
           </p>
         </div>
 
