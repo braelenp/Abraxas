@@ -510,21 +510,22 @@ export function MarketPage() {
     <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-4">
       {/* --- ABRA Balance Dashboard --- */}
-      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-5 backdrop-blur">
+      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 p-5 backdrop-blur">
         <div className="flex items-center justify-between mb-4">
           <div className="flex-1">
-            <p className="text-xs text-slate-300/80 uppercase tracking-wider font-mono">ABRA Balance</p>
+            <p className="text-sm font-semibold text-cyan-200 mb-1">💰 Your ABRA Balance</p>
+            <p className="text-xs text-slate-400">View your balance and manage your funds</p>
             {isLoading ? (
               <div className="mt-4 flex items-center gap-3">
                 <div className="w-6 h-6 border-2 border-cyan-300/30 border-t-cyan-300 rounded-full animate-spin" />
-                <p className="text-sm text-slate-300">Scanning...</p>
+                <p className="text-sm text-slate-300">Updating...</p>
               </div>
             ) : (
               <>
                 <p className="mt-3 text-5xl font-black text-emerald-400 drop-shadow-lg" style={{ textShadow: '0 0 24px rgba(34, 197, 94, 0.5)' }}>
                   {balanceFormatted}
                 </p>
-                <p className="mt-2 text-xs text-emerald-300/80 font-mono">✓ Gated Access Active</p>
+                <p className="mt-2 text-xs text-emerald-300/80">✓ All set</p>
               </>
             )}
           </div>
@@ -536,24 +537,24 @@ export function MarketPage() {
             <div className="mt-4 grid grid-cols-3 gap-2">
               <button
                 onClick={() => setActiveModal('deposit')}
-                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-blue-600/80 to-cyan-600/80 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-cyan-500/50 active:scale-95 flex items-center justify-center gap-1"
+                className="relative px-3 py-3 rounded-lg bg-gradient-to-r from-blue-600/80 to-cyan-600/80 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold transition-all duration-200 shadow-lg hover:shadow-cyan-500/50 active:scale-95 flex flex-col items-center justify-center gap-1"
               >
-                <ArrowDownToLine size={14} />
-                Deposit
+                <ArrowDownToLine size={18} />
+                <span>Add Money</span>
               </button>
               <button
                 onClick={() => setActiveModal('withdraw')}
-                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-purple-500/50 active:scale-95 flex items-center justify-center gap-1"
+                className="relative px-3 py-3 rounded-lg bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold transition-all duration-200 shadow-lg hover:shadow-purple-500/50 active:scale-95 flex flex-col items-center justify-center gap-1"
               >
-                <ArrowUpFromLine size={14} />
-                Withdraw
+                <ArrowUpFromLine size={18} />
+                <span>Withdraw</span>
               </button>
               <button
                 onClick={() => setActiveModal('cashout')}
-                className="relative px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-emerald-500/50 active:scale-95 flex items-center justify-center gap-1"
+                className="relative px-3 py-3 rounded-lg bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold transition-all duration-200 shadow-lg hover:shadow-emerald-500/50 active:scale-95 flex flex-col items-center justify-center gap-1"
               >
-                <DollarSign size={14} />
-                CashOut
+                <DollarSign size={18} />
+                <span>to Bank</span>
               </button>
             </div>
           </>
@@ -566,7 +567,7 @@ export function MarketPage() {
       {/* --- Live Price Ticker – Market Overview --- */}
       <LivePriceTicker />
 
-      {/* --- Breaking Signals – The Horizon Speaks --- */}
+      {/* --- Breaking Signals – Market News --- */}
       <article className="glow-panel rounded-2xl border border-cyan-300/25 bg-[linear-gradient(135deg,rgba(15,23,42,0.92),rgba(10,37,64,0.82),rgba(56,189,248,0.08))] p-5 backdrop-blur-xl overflow-hidden">
         <div className="space-y-3 mb-4">
           <div className="flex items-center gap-3">
@@ -575,12 +576,12 @@ export function MarketPage() {
               <Newspaper className="text-cyan-300 relative z-10 drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]" size={18} />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-cyan-200 tracking-widest uppercase">Breaking Signals</h2>
-              <p className="text-[10px] text-cyan-300/60 font-mono">The Horizon Speaks</p>
+              <h2 className="text-lg font-bold text-cyan-200">📰 Market News & Alerts</h2>
+              <p className="text-xs text-cyan-300/70">Real-time market updates you should know about</p>
             </div>
           </div>
-          <p className="text-xs leading-relaxed text-slate-300/75 italic">
-            Horizon scans the far edge of the market and brings the breaking signals straight to the family. Real-time signals from across RWA markets, prediction protocols, and dapp equity flows.
+          <p className="text-sm leading-relaxed text-slate-300">
+            Stay in the loop with live updates from our market intelligence system. You'll see signals from real-world asset markets, trading platforms, and investment opportunities.
           </p>
         </div>
 
@@ -639,8 +640,8 @@ export function MarketPage() {
 
         {/* Footer note */}
         <div className="mt-4 pt-3 border-t border-cyan-300/10">
-          <p className="text-[9px] text-slate-400/70 text-center font-mono uppercase tracking-wider">
-            Live feed refreshes every 30 seconds • Powered by Horizon oracle network
+          <p className="text-xs text-slate-400 text-center">
+            Updates every 30 seconds • Powered by real-time market data
           </p>
         </div>
       </article>

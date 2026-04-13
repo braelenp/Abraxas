@@ -46,158 +46,54 @@ export function CircuitPage() {
 
   return (
     <RuneRealm {...RUNE_CONFIG}>
-    <section className="space-y-4">
-      {/* HERO SECTION */}
-      <article className="glow-panel rounded-3xl border border-emerald-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.9),rgba(5,46,22,0.75),rgba(56,189,248,0.12))] p-4 backdrop-blur space-y-4">
-        <div className="font-mono">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-300">&gt; [CIRCUIT] AUTONOMOUS_DEFENSE_LAYER</p>
-          <h2 className="mt-2 text-sm font-bold text-emerald-200 tracking-widest uppercase">THE_IMMUNE_SYSTEM | AEGIS_ACTIVE</h2>
-          <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
-            Circuit is the autonomous immune system of Abraxas. While other protocols are caught flat-footed by exploits like Drift, Circuit monitors real-time liquidity flows, collateral health, and market impact signals — then acts before damage spreads. Every vault. Every $ABRA holder. Protected.
-          </p>
+    <section className="space-y-6">
+      {/* Welcome Header */}
+      <div className="glow-panel rounded-2xl border border-emerald-300/20 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 p-6 backdrop-blur">
+        <div className="flex items-center gap-3 mb-3">
+          <Shield className="h-6 w-6 text-emerald-300" />
+          <h1 className="text-2xl font-bold text-emerald-200">🛡️ Circuit: Your Financial Shield</h1>
         </div>
-
-        <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/90">
-          <div className="rounded-2xl border border-emerald-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">Response latency</p>
-            <p className="mt-1 text-lg font-semibold text-emerald-300">Sub-second</p>
-          </div>
-          <div className="rounded-2xl border border-emerald-300/20 bg-slate-950/40 px-3 py-3">
-            <p className="text-slate-500">Protection coverage</p>
-            <p className="mt-1 text-lg font-semibold text-emerald-300">100%</p>
-          </div>
-        </div>
-      </article>
-
-      {/* BUY $ABRA - TOP CTA */}
-      <div className="flex justify-center px-4">
-        <a
-          href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-400/60 bg-gradient-to-r from-emerald-500/30 to-cyan-500/25 px-8 py-4 text-sm font-bold uppercase tracking-wider text-emerald-200 shadow-[0_0_16px_rgba(52,211,153,0.25)] transition hover:shadow-[0_0_24px_rgba(52,211,153,0.4)] hover:border-emerald-300/80"
-        >
-          <Shield size={18} className="text-emerald-400" />
-          Buy $ABRA Token
-          <ArrowRight size={16} />
-        </a>
+        <p className="text-sm leading-relaxed text-slate-300">
+          Circuit is your personal insurance system. It watches your money 24/7 and automatically protects it from market dangers — like the Drift hack that cost others millions. With Circuit, you sleep easy.
+        </p>
       </div>
 
-      {/* MAIN CONTENT */}
-      <div className="px-4 space-y-6">
-        {/* Welcome Header */}
-        <div className="space-y-4">
-          <span className="font-mono text-2xl font-bold text-emerald-200 tracking-wide">Welcome to the next degree.</span>
-          <h2 className="text-xl font-bold text-emerald-200 tracking-widest uppercase">Circuit — The Immune System</h2>
-          <p className="text-sm leading-relaxed text-slate-300/90">
-            Circuit is not a dashboard. It is the active immune system defending Abraxas and every $ABRA staker from real-world DeFi attacks. Drift, Luna-style cascade failures, liquidity drains — Circuit sees them coming and stops them before they happen.
-          </p>
-        </div>
-
-        {/* REAL-TIME MONITORING SECTION */}
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-300/30 bg-gradient-to-br from-emerald-500/8 via-slate-900/80 to-slate-900/60 p-8">
-          <div className="relative z-10 space-y-6">
+      {/* Why Circuit Matters */}
+      <div className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/60 p-5 space-y-4">
+        <h2 className="text-lg font-bold text-emerald-300 flex items-center gap-2">
+          <Eye size={20} /> What Circuit Protects You From
+        </h2>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <span className="text-2xl">⚠️</span>
             <div>
-              <h3 className="text-lg font-bold text-emerald-300 tracking-widest uppercase mb-4 flex items-center gap-2">
-                <Eye size={20} className="text-emerald-400" /> Real-Time Monitoring
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                Circuit watches every second. Liquidity pools. Collateral ratios. Market impact signals. Price speed across 50ms windows. Sophia vault composition. When anomalies spike above safety thresholds, Circuit doesn't wait for governance votes or liquidation auctions — it acts immediately.
-              </p>
+              <p className="font-semibold text-slate-100">Market Crashes</p>
+              <p className="text-xs text-slate-400">Sudden price drops that could wipe out investments</p>
             </div>
-
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="border-l-2 border-emerald-400/40 pl-3 py-2">
-                <p className="font-bold uppercase tracking-widest text-emerald-300 mb-1">Liquidity Drain Detection</p>
-                <p className="text-slate-400">Tracks withdrawal velocity across all connected pools</p>
-              </div>
-              <div className="border-l-2 border-emerald-400/40 pl-3 py-2">
-                <p className="font-bold uppercase tracking-widest text-emerald-300 mb-1">Price Speed Analysis</p>
-                <p className="text-slate-400">50ms window anomaly detection prevents flash crashes</p>
-              </div>
-              <div className="border-l-2 border-emerald-400/40 pl-3 py-2">
-                <p className="font-bold uppercase tracking-widest text-emerald-300 mb-1">Collateral Health</p>
-                <p className="text-slate-400">Real-time LTV & liquidation risk monitoring</p>
-              </div>
-              <div className="border-l-2 border-emerald-400/40 pl-3 py-2">
-                <p className="font-bold uppercase tracking-widest text-emerald-300 mb-1">Activity Spike Detection</p>
-                <p className="text-slate-400">Unusual volume & position changes trigger alerts</p>
-              </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">💨</span>
+            <div>
+              <p className="font-semibold text-slate-100">Money Drains</p>
+              <p className="text-xs text-slate-400">Unusual amounts leaving the system too fast</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">🎯</span>
+            <div>
+              <p className="font-semibold text-slate-100">Targeted Attacks</p>
+              <p className="text-xs text-slate-400">Hackers trying to exploit the system (like Drift)</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">📊</span>
+            <div>
+              <p className="font-semibold text-slate-100">Bad Collateral</p>
+              <p className="text-xs text-slate-400">Your vault's health gets monitored constantly</p>
             </div>
           </div>
         </div>
-
-        {/* AUTOMATIC PROTECTIVE RESPONSES SECTION */}
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-300/30 bg-gradient-to-br from-cyan-500/8 via-slate-900/80 to-slate-900/60 p-8">
-          <div className="relative z-10 space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-cyan-300 tracking-widest uppercase mb-4 flex items-center gap-2">
-                <Zap size={20} className="text-cyan-400" /> Automatic Protective Responses
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                When Circuit detects danger, it doesn't send a notification email. It acts. Risky flows are paused. Capital moves to stables. Sophia agents redirect yield. Vault members get real-time alerts. All before exploiters can extract value.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="rounded-lg border border-cyan-300/20 bg-slate-950/40 p-3">
-                <p className="font-bold text-cyan-300 text-xs uppercase tracking-widest mb-2">⏸ Flow Pause Protocol</p>
-                <p className="text-xs text-slate-400">Risky transactions suspended when price volatility exceeds safety bands. Reactivates when conditions normalize.</p>
-              </div>
-              <div className="rounded-lg border border-cyan-300/20 bg-slate-950/40 p-3">
-                <p className="font-bold text-cyan-300 text-xs uppercase tracking-widest mb-2">💰 Capital Redistribution</p>
-                <p className="text-xs text-slate-400">When liquidity drain is imminent, vault collateral automatically moves to stable asset positions, preserving capital.</p>
-              </div>
-              <div className="rounded-lg border border-cyan-300/20 bg-slate-950/40 p-3">
-                <p className="font-bold text-cyan-300 text-xs uppercase tracking-widest mb-2">🎯 Sophia Agent Alert</p>
-                <p className="text-xs text-slate-400">King AI and all Sophia vault agents are notified in real-time. Automated rebalancing cascades across the species.</p>
-              </div>
-              <div className="rounded-lg border border-cyan-300/20 bg-slate-950/40 p-3">
-                <p className="font-bold text-cyan-300 text-xs uppercase tracking-widest mb-2">🔔 Member Notification</p>
-                <p className="text-xs text-slate-400">Every $ABRA holder and vault member receives real-time protection alerts. Your capital is defended. Period.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* HOW CIRCUIT PREVENTS DRIFT-LIKE EXPLOITS */}
-        <div className="relative overflow-hidden rounded-2xl border border-orange-300/30 bg-gradient-to-br from-orange-500/8 via-slate-900/80 to-slate-900/60 p-8">
-          <div className="relative z-10 space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-orange-300 tracking-widest uppercase mb-4 flex items-center gap-2">
-                <AlertTriangle size={20} className="text-orange-400" /> Case Study: The Drift Exploit
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                Drift's vulnerability allowed liquidators to manipulate positions through cascading collateral damage. Without Circuit, Abraxas would suffer the same fate. With Circuit, here's what happens:
-              </p>
-            </div>
-
-            <div className="space-y-3 border-l-4 border-orange-400/40 pl-6">
-              <div>
-                <p className="font-bold text-orange-300 text-xs uppercase tracking-widest mb-1">Second 0 — Anomaly Detected</p>
-                <p className="text-xs text-slate-300">Circuit spots the liquidation cascade beginning. Price speed spikes 5,000 bps. Activity volume jumps 1,200%.</p>
-              </div>
-              <div>
-                <p className="font-bold text-orange-300 text-xs uppercase tracking-widest mb-1">Second 0.3 — Flow Pause Activated</p>
-                <p className="text-xs text-slate-300">All risky liquidation flows are paused. No more cascading margin calls. The attack vector is blocked.</p>
-              </div>
-              <div>
-                <p className="font-bold text-orange-300 text-xs uppercase tracking-widest mb-1">Second 0.6 — Capital Redistributed</p>
-                <p className="text-xs text-slate-300">Vault collateral automatically moves to stables. Position sizes rebalance. $ABRA holders' exposure is contained.</p>
-              </div>
-              <div>
-                <p className="font-bold text-orange-300 text-xs uppercase tracking-widest mb-1">Second 1.0 — All Clear</p>
-                <p className="text-xs text-slate-300">Circuit evaluates if conditions have stabilized. Flows reactivate cautiously. The exploit never had a foothold.</p>
-              </div>
-            </div>
-
-            <p className="text-xs text-slate-400 italic border-t border-orange-300/20 pt-4">
-              Drift: $100M+ exploited. Luna: $40B evaporated. Abraxas + Circuit: Protected before damage spreads.
-            </p>
-          </div>
-        </div>
-
-        {/* BENEFITS SECTION */}
+      </div>
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-emerald-300 tracking-widest uppercase">Benefits to $ABRA Stakers & Sophia Vault Members</h3>
           
@@ -232,17 +128,21 @@ export function CircuitPage() {
           </div>
         </div>
 
-        {/* CIRCUIT SAFETY TRIGGER SIMULATOR */}
-        <div className="space-y-4 border-t border-emerald-300/20 pt-6">
-          <h3 className="text-lg font-bold text-emerald-300 tracking-widest uppercase">Interactive: Test Circuit Protection</h3>
-          <p className="text-xs text-slate-300">Simulate attack scenarios and watch Circuit respond.</p>
+      {/* Test Circuit Responses */}
+      <div className="space-y-4 border-t border-emerald-300/20 pt-6">
+        <h3 className="text-lg font-bold text-emerald-300 flex items-center gap-2">
+          <Zap size={20} /> How Circuit Responds
+        </h3>
+        <p className="text-sm text-slate-300">See how Circuit protects your vault when danger strikes.</p>
 
-          <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/75 p-4 backdrop-blur">
-            <form onSubmit={onEvaluate} className="space-y-3">
+        <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/75 p-4 backdrop-blur">
+          <form onSubmit={onEvaluate} className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold text-slate-200 mb-2">Choose Your Vault</label>
               <select
                 value={vaultId}
                 onChange={(event) => setVaultId(event.target.value)}
-                className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
               >
                 {vaults.length === 0 ? (
                   <option>No vaults available</option>
@@ -254,70 +154,73 @@ export function CircuitPage() {
                   ))
                 )}
               </select>
-
-              <div>
-                <label className="block text-xs text-slate-300/80 mb-1 font-mono">Price Speed (bps) — Flash crash detection</label>
-                <input
-                  type="number"
-                  value={priceSpeedBps}
-                  onChange={(event) => setPriceSpeedBps(Number(event.target.value))}
-                  className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-                />
-                <p className="text-[10px] text-slate-500 mt-1">Threshold: 500 bps warning, 1000 bps protection</p>
-              </div>
-
-              <div>
-                <label className="block text-xs text-slate-300/80 mb-1 font-mono">Liquidity Drain (bps) — Withdrawal velocity</label>
-                <input
-                  type="number"
-                  value={liquidityDrainBps}
-                  onChange={(event) => setLiquidityDrainBps(Number(event.target.value))}
-                  className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-                />
-                <p className="text-[10px] text-slate-500 mt-1">Threshold: 600 bps warning, 900 bps protection</p>
-              </div>
-
-              <div>
-                <label className="block text-xs text-slate-300/80 mb-1 font-mono">Activity Spike (bps) — Unusual volume</label>
-                <input
-                  type="number"
-                  value={activitySpikeBps}
-                  onChange={(event) => setActivitySpikeBps(Number(event.target.value))}
-                  className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-                />
-                <p className="text-[10px] text-slate-500 mt-1">Threshold: 1200 bps protection</p>
-              </div>
-
-              <button type="submit" className="ui-action w-full rounded-xl bg-emerald-300 px-3 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-200 transition">
-                Simulate Attack Scenario
-              </button>
-            </form>
-          </article>
-
-          <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/75 p-4 text-xs backdrop-blur">
-            <div className="space-y-2">
-              <p><span className="font-bold text-emerald-300">Protected Vault:</span> {selectedVault?.name ?? 'N/A'}</p>
-              <p><span className="font-bold text-emerald-300">Last Circuit Action:</span> {lastAction}</p>
-              <p className="text-slate-400">When alert thresholds are exceeded, Circuit automatically pauses risky flows and protects vault collateral.</p>
             </div>
-          </article>
-        </div>
-      </div>
 
-      {/* BUY $ABRA - BOTTOM CTA */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-200 mb-2">Price Moving Too Fast?</label>
+              <p className="text-xs text-slate-400 mb-2">This detects sudden price movements (like a crash)</p>
+              <input
+                type="number"
+                value={priceSpeedBps}
+                onChange={(event) => setPriceSpeedBps(Number(event.target.value))}
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+              />
+              <p className="text-xs text-emerald-300/80 mt-1">Alert at 500, Protection at 1000</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-200 mb-2">People Withdrawing Too Much?</label>
+              <p className="text-xs text-slate-400 mb-2">This detects money leaving the system too fast</p>
+              <input
+                type="number"
+                value={liquidityDrainBps}
+                onChange={(event) => setLiquidityDrainBps(Number(event.target.value))}
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+              />
+              <p className="text-xs text-emerald-300/80 mt-1">Alert at 600, Protection at 900</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-200 mb-2">Unusual Activity Spike?</label>
+              <p className="text-xs text-slate-400 mb-2">This detects weird trading patterns</p>
+              <input
+                type="number"
+                value={activitySpikeBps}
+                onChange={(event) => setActivitySpikeBps(Number(event.target.value))}
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+              />
+              <p className="text-xs text-emerald-300/80 mt-1">Protection triggered at 1200</p>
+            </div>
+
+            <button type="submit" className="ui-action w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 px-3 py-3 text-sm font-semibold text-slate-950 transition">
+              🚨 Simulate Danger & See Response
+            </button>
+          </form>
+        </article>
+
+        <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/75 p-4 text-sm backdrop-blur">
+          <div className="space-y-2">
+            <p><span className="font-semibold text-emerald-300">Your Vault:</span> {selectedVault?.name ?? 'Choose one above'}</p>
+            <p><span className="font-semibold text-emerald-300">Last Check:</span> {lastAction}</p>
+            <p className="text-slate-400 text-xs">When Circuit detects danger, it instantly pauses risky trading and moves your money to safety.</p>
+          </div>
+        </article>
+      </div>
+      </section>
+      
+      {/* Bottom call to action */}
       <div className="flex justify-center px-4 pb-4">
         <a
           href="https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-400/60 bg-gradient-to-r from-emerald-500/30 to-cyan-500/25 px-8 py-4 text-sm font-bold uppercase tracking-wider text-emerald-200 shadow-[0_0_16px_rgba(52,211,153,0.25)] transition hover:shadow-[0_0_24px_rgba(52,211,153,0.4)] hover:border-emerald-300/80"
+          className="inline-flex items-center justify-center gap-3 rounded-lg border border-emerald-400/60 bg-gradient-to-r from-emerald-500/30 to-cyan-500/25 px-8 py-3 text-sm font-bold text-emerald-200 shadow-[0_0_16px_rgba(52,211,153,0.25)] transition hover:shadow-[0_0_24px_rgba(52,211,153,0.4)] hover:border-emerald-300/80"
         >
           <Shield size={18} className="text-emerald-400" />
-          Protect with $ABRA
+          Get Protected: Buy $ABRA Now
           <ArrowRight size={16} />
         </a>
       </div>
-    </section>
     </RuneRealm>
   );
 }

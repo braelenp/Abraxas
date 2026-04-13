@@ -27,14 +27,14 @@ export function TradePage() {
 
   return (
     <div className="flex flex-col gap-6 py-4" ref={contentRef}>
-      {/* Header */}
-      <div className="rounded-xl border border-teal-300/30 bg-teal-900/20 p-4 backdrop-blur-sm">
-        <div className="flex items-center gap-2 mb-2">
-          <Zap className="h-5 w-5 text-teal-300" />
-          <h1 className="text-lg font-bold text-teal-300">Buy ABRA</h1>
+      {/* Welcome Header */}
+      <div className="rounded-2xl border border-teal-300/20 bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-6 backdrop-blur">
+        <div className="flex items-center gap-3 mb-3">
+          <Zap className="h-6 w-6 text-teal-300" />
+          <h1 className="text-2xl font-bold text-teal-200">⚡ Get ABRA Tokens</h1>
         </div>
-        <p className="text-xs text-slate-300">
-          Swap directly within Abraxas. Choose our embedded swap with Phantom signing or Bags for zero fees.
+        <p className="text-sm leading-relaxed text-slate-300">
+          Buy ABRA tokens right here in one click. We've made it super simple with two easy options — pick the one that works best for you.
         </p>
       </div>
 
@@ -78,19 +78,25 @@ export function TradePage() {
       </div>
 
       {/* Info Panel */}
-      <div className="rounded-xl border border-cyan-300/20 bg-cyan-900/10 p-4 backdrop-blur-sm">
-        <div className="space-y-2 text-xs text-slate-300">
-          <div className="flex items-start gap-2">
-            <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span><strong>Phantom Swap:</strong> Sign with your wallet - stays in app</span>
+      <div className="rounded-xl border border-teal-300/20 bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-4 backdrop-blur">
+        <div className="space-y-3 text-sm text-slate-300">
+          <div className="flex items-start gap-3">
+            <span className="text-teal-400 font-bold text-lg leading-none mt-0.5">1️⃣</span>
+            <div>
+              <strong>Phantom Swap:</strong> Sign with your wallet. Tokens stay with you the whole time.
+            </div>
           </div>
-          <div className="flex items-start gap-2">
-            <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span><strong>Bags:</strong> Zero-fee direct swap - lowest cost option</span>
+          <div className="flex items-start gap-3">
+            <span className="text-teal-400 font-bold text-lg leading-none mt-0.5">2️⃣</span>
+            <div>
+              <strong>Bags (No Fees):</strong> Even cheaper option. Zero trading fees, instant settlement.
+            </div>
           </div>
-          <div className="flex items-start gap-2">
-            <span className="text-cyan-400 font-bold mt-0.5">→</span>
-            <span>All transactions happen directly on-chain - no custody of your tokens</span>
+          <div className="flex items-start gap-3">
+            <span className="text-cyan-400 font-bold text-lg leading-none mt-0.5">✓</span>
+            <div>
+              All transactions happen directly on-chain. We never hold your tokens.
+            </div>
           </div>
         </div>
       </div>
