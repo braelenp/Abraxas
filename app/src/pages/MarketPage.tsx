@@ -536,7 +536,8 @@ export function MarketPage() {
         setSuccessMessage(`✅ Deposit successful! Transaction: ${signature.substring(0, 20)}...`);
         setDepositAmount('');
         setDepositMethod('solana');
-        setActiveModal(null);
+        // Keep modal open for 3 seconds before auto-closing
+        setTimeout(() => setActiveModal(null), 3000);
       } else {
         // For ACH/wire deposits: real Stripe processing via backend
         if (!publicKey) {
@@ -570,10 +571,9 @@ export function MarketPage() {
         
         setSuccessMessage(`✅ ACH verified! $${amount} will arrive in 1-2 business days. You may see temporary authorizations on your bank account.`);
         setDepositAmount('');
-        setActiveModal(null);
+        // Keep modal open for 3 seconds before auto-closing
+        setTimeout(() => setActiveModal(null), 3000);
       }
-      
-      setTimeout(() => setSuccessMessage(null), 4000);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Deposit failed';
       setErrorMessage(errorMsg);
@@ -688,7 +688,8 @@ export function MarketPage() {
         setSuccessMessage(`✅ Withdrawal successful! Transaction: ${signature.substring(0, 20)}...`);
         setWithdrawAmount('');
         setWithdrawMethod('solana');
-        setActiveModal(null);
+        // Keep modal open for 3 seconds before auto-closing
+        setTimeout(() => setActiveModal(null), 3000);
       } else {
         // For fiat withdrawals: simulate the flow
         addLog({
@@ -697,12 +698,11 @@ export function MarketPage() {
           detail: `${amount} pending ACH transfer`,
         });
         
-        setSuccessMessage(`Withdrawal requested! $${amount} will arrive in 1-2 business days.`);
+        setSuccessMessage(`✅ Withdrawal requested! $${amount} will arrive in 1-2 business days.`);
         setWithdrawAmount('');
-        setActiveModal(null);
+        // Keep modal open for 3 seconds before auto-closing
+        setTimeout(() => setActiveModal(null), 3000);
       }
-      
-      setTimeout(() => setSuccessMessage(null), 4000);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Withdrawal failed';
       setErrorMessage(errorMsg);
@@ -765,10 +765,9 @@ export function MarketPage() {
         `✅ Cash out confirmed! $${amount} (less $2.50 ACH fee) will arrive in 1-2 business days to your bank account ending in ${selectedBank?.slice(-4) || 'xxxx'}.`
       );
       setCashOutAmount('');
+      // Keep modal open for 3 seconds before auto-closing
+      setTimeout(() => setActiveModal(null), 3000);
       setSelectedBank('');
-      setActiveModal(null);
-      
-      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Cash out failed';
       setErrorMessage(errorMsg);
