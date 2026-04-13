@@ -340,91 +340,141 @@ export function VaultsPage() {
 
   return (
     <RuneRealm {...RUNE_CONFIG}>
-    <section className="space-y-4">
+    <section className="space-y-6">
       {/* Error/Success Messages */}
       {errorMessage && (
-        <div className="rounded-2xl border border-red-400/30 bg-red-500/10 p-3 flex items-start gap-2">
-          <AlertCircle size={16} className="text-red-400 mt-0.5 flex-shrink-0" />
+        <div className="rounded-2xl border border-red-400/30 bg-red-500/10 p-4 flex items-start gap-3">
+          <AlertCircle size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
           <div>
-            <p className="text-sm text-red-200 font-medium">Error</p>
-            <p className="text-xs text-red-300/80">{errorMessage}</p>
+            <p className="text-sm text-red-200 font-bold">Oops! Something went wrong</p>
+            <p className="text-sm text-red-300/80 mt-1">{errorMessage}</p>
           </div>
         </div>
       )}
       {successMessage && (
-        <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-3 flex items-start gap-2">
-          <CheckCircle size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-emerald-200">{successMessage}</p>
+        <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4 flex items-start gap-3">
+          <CheckCircle size={20} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+          <p className="text-sm text-emerald-200 font-bold">{successMessage}</p>
         </div>
       )}
 
-      {/* Wallet Status */}
-      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-4 backdrop-blur">
-        <div className="flex items-center justify-between">
-          <div className="font-mono">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-300">&gt; [VAULT_MARKET] LIVE_MODE</p>
-            <h2 className="mt-2 text-sm font-bold text-cyan-200 tracking-widest uppercase">
-              {connected ? '✓ WALLET_CONNECTED' : '○ WALLET_DISCONNECTED'}
-            </h2>
-          </div>
-          {connected && (
-            <div className="text-right">
-              <p className="text-[10px] text-cyan-300/60 uppercase tracking-wider font-mono">SOL Balance</p>
-              <div className="flex items-center gap-1">
-                {isLoadingBalance && <Loader size={12} className="animate-spin" />}
-                <p className="text-sm font-bold text-cyan-300">
-                  {isLoadingBalance ? 'Loading...' : walletBalance?.toFixed(4) ?? '0.0000'}
-                </p>
+      {/* Welcome Section */}
+      <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-6 backdrop-blur">
+        <div className="max-w-2xl">
+          <p className="text-sm font-bold text-cyan-300/80 uppercase tracking-widest font-mono mb-3">&gt; Welcome to Your Vaults</p>
+          <h1 className="text-2xl font-bold text-cyan-200 mb-2">🏦 Grow Your Money Safely</h1>
+          <p className="text-sm text-slate-300/90 leading-relaxed mb-4">
+            Vaults are like digital piggy banks for your investment portfolio. Pick what you want to invest in (real estate, music rights, gaming equity, or dApp tokens), and our smart managers automatically help your money grow.
+          </p>
+          
+          <div className="grid grid-cols-2 gap-3 text-xs mt-4">
+            <div className="flex items-start gap-2">
+              <span className="text-lg flex-shrink-0">🔒</span>
+              <div>
+                <p className="font-bold text-slate-200">Safe & Secure</p>
+                <p className="text-slate-400">Protected by smart contracts</p>
               </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-lg flex-shrink-0">📈</span>
+              <div>
+                <p className="font-bold text-slate-200">Automatic Growth</p>
+                <p className="text-slate-400">Your money compounds</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-lg flex-shrink-0">🤖</span>
+              <div>
+                <p className="font-bold text-slate-200">AI Managed</p>
+                <p className="text-slate-400">Sophia handles the work</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-lg flex-shrink-0">⏱️</span>
+              <div>
+                <p className="font-bold text-slate-200">Any Time</p>
+                <p className="text-slate-400">Withdraw whenever you want</p>
+              </div>
+            </div>
+          </div>
+
+          {!connected && (
+            <div className="mt-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-400/30">
+              <p className="text-xs text-yellow-200">
+                <span className="font-bold">👋 Ready to start?</span> Connect your wallet above to create your first vault.
+              </p>
             </div>
           )}
         </div>
-        <button
-          onClick={() => setShowAboutVaults(!showAboutVaults)}
-          className="mt-3 flex items-center gap-2 text-sm text-cyan-200/80 hover:text-cyan-100 transition"
-        >
-          <span>{showAboutVaults ? 'Hide' : 'Show'} details</span>
-          <ChevronDown size={14} className={`transition-transform ${showAboutVaults ? 'rotate-180' : ''}`} />
-        </button>
-        {showAboutVaults && (
-          <div className="mt-3 space-y-2 text-sm">
-            <p className="leading-relaxed text-slate-300/90">
-              Vaults let you create diversified RWA positions across dapp equity, real estate, music rights, and more. Sophia agents automatically manage deposits, yield routing, and protective actions.
-            </p>
-            <p className="text-amber-100/90">
-              {connected ? '✓ Your wallet is now connected to live vault operations.' : '⚠ Connect your wallet to create and manage vaults.'}
-            </p>
-          </div>
-        )}
       </article>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-3 gap-2">
-        <button 
-          onClick={handleSwap}
-          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
-          disabled={!connected}
-        >
-          <p className="text-2xl">⇄</p>
-          <p className="mt-1 text-xs font-medium text-slate-200">Swap</p>
-        </button>
-        <button 
-          onClick={handleTopUp}
-          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
-          disabled={!connected}
-        >
-          <p className="text-2xl">↑</p>
-          <p className="mt-1 text-xs font-medium text-slate-200">Top Up</p>
-        </button>
-        <button 
-          onClick={handleWithdraw}
-          className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-3 backdrop-blur text-center hover:bg-slate-800/75 transition disabled:opacity-50" 
-          disabled={!connected}
-        >
-          <p className="text-2xl">↓</p>
-          <p className="mt-1 text-xs font-medium text-slate-200">Withdraw</p>
-        </button>
+      <div className="grid grid-cols-1 gap-3">
+        <div className="rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+          <p className="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-3">⚡ Quick Actions</p>
+          <div className="grid grid-cols-3 gap-2">
+            <button 
+              onClick={handleSwap}
+              className="flex flex-col items-center gap-2 rounded-xl border border-cyan-300/30 bg-cyan-500/10 p-3 hover:bg-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={!connected}
+            >
+              <span className="text-2xl">⇄</span>
+              <span className="text-xs font-medium text-slate-200">Trade Tokens</span>
+            </button>
+            <button 
+              onClick={handleTopUp}
+              className="flex flex-col items-center gap-2 rounded-xl border border-emerald-300/30 bg-emerald-500/10 p-3 hover:bg-emerald-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={!connected}
+            >
+              <span className="text-2xl">💰</span>
+              <span className="text-xs font-medium text-slate-200">Buy ABRA</span>
+            </button>
+            <button 
+              onClick={handleWithdraw}
+              className="flex flex-col items-center gap-2 rounded-xl border border-amber-300/30 bg-amber-500/10 p-3 hover:bg-amber-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={!connected}
+            >
+              <span className="text-2xl">🏦</span>
+              <span className="text-xs font-medium text-slate-200">Cash Out</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* How It Works */}
+      <article className="rounded-2xl border border-cyan-300/20 bg-slate-900/50 p-6 backdrop-blur">
+        <p className="text-sm font-bold text-cyan-300 uppercase tracking-widest mb-4">📚 How Vaults Work</p>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <span className="flex-shrink-0 text-xl">1️⃣</span>
+            <div>
+              <p className="font-bold text-slate-200">Create a vault</p>
+              <p className="text-xs text-slate-400">Pick a name and choose what type of investment (DApp tokens, real estate, etc.)</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="flex-shrink-0 text-xl">2️⃣</span>
+            <div>
+              <p className="font-bold text-slate-200">Assign an AI manager</p>
+              <p className="text-xs text-slate-400">Pick Sophia Sentinel (safe), Sophia Yield (growth), or Sophia Defensive (conservative)</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="flex-shrink-0 text-xl">3️⃣</span>
+            <div>
+              <p className="font-bold text-slate-200">Add money</p>
+              <p className="text-xs text-slate-400">Deposit your tokens into the vault</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="flex-shrink-0 text-xl">4️⃣</span>
+            <div>
+              <p className="font-bold text-slate-200">Watch it grow</p>
+              <p className="text-xs text-slate-400">Sophia automatically manages your investment and earns you rewards</p>
+            </div>
+          </div>
+        </div>
+      </article>
 
       {/* Swap Modal */}
       {showSwapModal && (
@@ -488,158 +538,194 @@ export function VaultsPage() {
         </div>
       )}
 
-      {/* Create Vault Form */}
-      <form onSubmit={onCreateVault} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; CREATE_VAULT</p>
-        <input
-          value={vaultName}
-          onChange={(event) => setVaultName(event.target.value)}
-          className="mb-2 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm disabled:opacity-50"
-          placeholder="Vault name"
-          disabled={!connected || isCreatingVault}
-        />
-        <select
-          value={assetType}
-          onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
-          className="mb-3 w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm disabled:opacity-50"
-          disabled={!connected || isCreatingVault}
-        >
-          <option value="dapp_equity">DApp Equity</option>
-          <option value="real_estate">Real Estate Development</option>
-          <option value="trading_portfolio">Trading Portfolios</option>
-          <option value="music_rights">Music Rights & Media</option>
-          <option value="ip_licensing">IP Licensing</option>
-        </select>
-        <button
-          type="submit"
-          className="ui-action w-full rounded-xl bg-cyan-300 px-3 py-2 text-sm font-semibold text-slate-950 disabled:opacity-50 flex items-center justify-center gap-2"
-          disabled={!connected || isCreatingVault}
-        >
-          {isCreatingVault && <Loader size={14} className="animate-spin" />}
-          {isCreatingVault ? 'Creating...' : 'Create Vault'}
-        </button>
+      {/* Create Vault */}
+      <form onSubmit={onCreateVault} className="rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-6 backdrop-blur">
+        <p className="mb-4 text-sm font-bold text-cyan-400 uppercase tracking-widest">➕ Create Your First Vault</p>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-cyan-300 mb-2">Vault Name (what will you invest in?)</label>
+            <input
+              value={vaultName}
+              onChange={(event) => setVaultName(event.target.value)}
+              className="w-full rounded-xl border border-slate-600 bg-slate-950 px-4 py-3 text-sm placeholder-slate-500 focus:border-cyan-400 focus:outline-none disabled:opacity-50"
+              placeholder="e.g., My Music Investment, Tech Growth Fund"
+              disabled={!connected || isCreatingVault}
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-cyan-300 mb-2">What type of investment?</label>
+            <select
+              value={assetType}
+              onChange={(event) => setAssetType(event.target.value as VaultAssetType)}
+              className="w-full rounded-xl border border-slate-600 bg-slate-950 px-4 py-3 text-sm focus:border-cyan-400 focus:outline-none disabled:opacity-50"
+              disabled={!connected || isCreatingVault}
+            >
+              <option value="dapp_equity">🎮 DApp & Tech Tokens</option>
+              <option value="real_estate">🏠 Real Estate</option>
+              <option value="trading_portfolio">📈 Trading & Growth</option>
+              <option value="music_rights">🎵 Music & Entertainment</option>
+              <option value="ip_licensing">📚 IP & Intellectual Property</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-gradient-to-r from-cyan-500/60 to-blue-500/60 border border-cyan-300/40 px-4 py-3 text-sm font-bold text-white hover:from-cyan-500/80 hover:to-blue-500/80 transition disabled:opacity-50 flex items-center justify-center gap-2"
+            disabled={!connected || isCreatingVault}
+          >
+            {isCreatingVault && <Loader size={16} className="animate-spin" />}
+            {isCreatingVault ? 'Creating...' : '✨ Create Vault'}
+          </button>
+        </div>
       </form>
 
-      {/* Vaults List */}
+      {/* Your Vaults */}
       <article className="space-y-3">
         {vaults.length === 0 ? (
-          <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 p-4 text-center">
-            <p className="text-[10px] text-slate-400/70 uppercase tracking-wider font-mono">No vaults yet | Create your first vault above</p>
+          <div className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 p-6 text-center">
+            <p className="text-sm text-slate-400/70">📭 No vaults yet</p>
+            <p className="text-xs text-slate-500 mt-1">Create one above to get started!</p>
           </div>
         ) : (
-          vaults.map((vault) => (
-            <div key={vault.id} className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-bold text-cyan-300 font-mono">{vault.name}</p>
-                      <p className="mt-1 text-[10px] text-cyan-300/60 font-mono uppercase tracking-wider">${vault.vaultValue.toLocaleString()} | {assetTypeLabel(vault.assetType)}</p>
-                    </div>
-                    <button
-                      onClick={() => setExpandedVaultMetrics(prev => ({ ...prev, [vault.id]: !prev[vault.id] }))}
-                      className="text-cyan-300 hover:text-cyan-100 transition"
-                    >
-                      <ChevronDown size={18} className={`transition-transform ${expandedVaultMetrics[vault.id] ? 'rotate-180' : ''}`} />
-                    </button>
+          <>
+            <p className="text-sm font-bold text-cyan-300 uppercase tracking-widest px-1">💼 Your Vaults</p>
+            {vaults.map((vault) => (
+              <div key={vault.id} className="rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <p className="text-sm font-bold text-cyan-300">{vault.name}</p>
+                    <p className="text-xs text-slate-400 mt-1">{assetTypeLabel(vault.assetType)}</p>
                   </div>
-                  {expandedVaultMetrics[vault.id] && (
-                    <div className="mt-2 space-y-1 text-xs text-slate-300/80 border-t border-cyan-300/10 pt-2">
-                      <p>Circuit: {vault.circuitState} • La Casa deposits: {vault.laCasaDeposits}</p>
-                      <p>DApp Equity exposure: ${vault.athleteExposure.toLocaleString()} • Buffer: {vault.protectiveBuffer.toFixed(1)}%</p>
-                      <p>Assigned: {vault.assignedAgent ?? 'None'}</p>
+                  <button
+                    onClick={() => setExpandedVaultMetrics(prev => ({ ...prev, [vault.id]: !prev[vault.id] }))}
+                    className="text-cyan-300 hover:text-cyan-100 transition p-1"
+                  >
+                    <ChevronDown size={18} className={`transition-transform ${expandedVaultMetrics[vault.id] ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
+
+                {/* Vault Balance */}
+                <div className="bg-slate-950/50 rounded-lg p-3 mb-3 border border-slate-700/30">
+                  <p className="text-xs text-slate-400 mb-1">Current Value</p>
+                  <p className="text-lg font-bold text-cyan-300">${vault.vaultValue.toLocaleString()}</p>
+                </div>
+
+                {/* Expanded Details */}
+                {expandedVaultMetrics[vault.id] && (
+                  <div className="bg-slate-950/50 rounded-lg p-3 mb-3 border border-slate-700/30 space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Your deposit:</span>
+                      <span className="text-slate-200 font-mono">${vault.depositedAmount.toLocaleString()}</span>
                     </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Deposit/Action Section */}
-              {activeVaultId === vault.id && (
-                <div className="mt-3 rounded-xl border border-cyan-300/20 bg-slate-950/50 p-3">
-                  <p className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest font-mono">DEPOSIT_AMOUNT</p>
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      value={depositAmount}
-                      onChange={(e) => setDepositAmount(e.target.value)}
-                      placeholder="0.00"
-                      className="flex-1 rounded-lg border border-slate-600 bg-slate-950 px-2 py-1.5 text-xs disabled:opacity-50"
-                      disabled={!connected || isDepositing}
-                    />
-                    <button
-                      onClick={() => onDeposit(vault.id)}
-                      className="ui-action rounded-lg bg-cyan-300 px-3 py-1.5 text-xs font-semibold text-slate-950 disabled:opacity-50 flex items-center gap-1"
-                      disabled={!connected || isDepositing}
-                    >
-                      {isDepositing && <Loader size={12} className="animate-spin" />}
-                      {isDepositing ? 'Depositing..' : 'Deposit'}
-                    </button>
-                    <button
-                      onClick={() => setActiveVaultId(null)}
-                      className="rounded-lg border border-slate-600 px-3 py-1.5 text-xs font-medium text-slate-300 disabled:opacity-50"
-                      disabled={isDepositing}
-                    >
-                      Cancel
-                    </button>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">AI Manager:</span>
+                      <span className="text-slate-200">{vault.assignedAgent || '—'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Status:</span>
+                      <span className={`font-bold ${vault.circuitState === 'normal' ? 'text-emerald-400' : vault.circuitState === 'warning' ? 'text-yellow-400' : 'text-orange-400'}`}>
+                        {vault.circuitState.toUpperCase()}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              <div className="mt-3 flex gap-2">
-                <select
-                  value={getSelectedAgent(vault.id, vault.assignedAgent)}
-                  onChange={(event) =>
-                    setSelectedAgents((current) => ({
-                      ...current,
-                      [vault.id]: event.target.value
-                    }))
-                  }
-                  className="flex-1 rounded-xl border border-slate-600 bg-slate-950 px-2 py-2 text-xs disabled:opacity-50"
-                  disabled={!connected}
-                >
-                  {agentOptions.map((agent) => (
-                    <option key={agent} value={agent}>
-                      {agent}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={() => onAssignAgent(vault.id, getSelectedAgent(vault.id, vault.assignedAgent))}
-                  className="ui-action rounded-xl bg-cyan-300 px-3 py-2 text-xs font-semibold text-slate-950 disabled:opacity-50"
-                  disabled={!connected}
-                >
-                  Assign
-                </button>
-                <button
-                  onClick={() => setActiveVaultId(activeVaultId === vault.id ? null : vault.id)}
-                  className="rounded-xl border border-slate-500 px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800/50 transition disabled:opacity-50"
-                  disabled={!connected}
-                >
-                  {activeVaultId === vault.id ? 'Hide' : 'Deposit'}
-                </button>
+                {/* Action Buttons */}
+                <div className="space-y-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => setActiveVaultId(activeVaultId === vault.id ? null : vault.id)}
+                      className="rounded-lg border border-cyan-300/30 bg-cyan-500/10 px-3 py-2 text-xs font-bold text-cyan-200 hover:bg-cyan-500/20 transition disabled:opacity-50"
+                      disabled={!connected}
+                    >
+                      💵 Add Money
+                    </button>
+                    <select
+                      value={getSelectedAgent(vault.id, vault.assignedAgent)}
+                      onChange={(event) =>
+                        setSelectedAgents((current) => ({
+                          ...current,
+                          [vault.id]: event.target.value
+                        }))
+                      }
+                      className="rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-xs font-bold text-slate-200 focus:border-cyan-400 focus:outline-none disabled:opacity-50"
+                      disabled={!connected}
+                    >
+                      <option value="">Choose Manager...</option>
+                      {agentOptions.map((agent) => (
+                        <option key={agent} value={agent}>
+                          {agent}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <button
+                    onClick={() => onAssignAgent(vault.id, getSelectedAgent(vault.id, vault.assignedAgent))}
+                    className="w-full rounded-lg bg-gradient-to-r from-purple-500/40 to-indigo-500/40 border border-purple-300/40 px-3 py-2 text-xs font-bold text-purple-200 hover:from-purple-500/60 hover:to-indigo-500/60 transition disabled:opacity-50"
+                    disabled={!connected || !getSelectedAgent(vault.id, vault.assignedAgent)?.includes('Sophia')}
+                  >
+                    🤖 Assign Manager
+                  </button>
+                </div>
+
+                {/* Deposit Form */}
+                {activeVaultId === vault.id && (
+                  <div className="mt-3 rounded-lg border border-cyan-300/20 bg-slate-950/50 p-3">
+                    <p className="text-xs font-bold text-cyan-400 mb-2">How much do you want to add?</p>
+                    <div className="flex gap-2">
+                      <input
+                        type="number"
+                        value={depositAmount}
+                        onChange={(e) => setDepositAmount(e.target.value)}
+                        placeholder="Amount"
+                        className="flex-1 rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-xs focus:border-cyan-400 focus:outline-none disabled:opacity-50"
+                        disabled={!connected || isDepositing}
+                      />
+                      <button
+                        onClick={() => onDeposit(vault.id)}
+                        className="rounded-lg bg-emerald-500/40 border border-emerald-300/40 px-3 py-2 text-xs font-bold text-emerald-200 hover:bg-emerald-500/60 transition disabled:opacity-50 flex items-center gap-1"
+                        disabled={!connected || isDepositing}
+                      >
+                        {isDepositing ? <Loader size={12} className="animate-spin" /> : '✓'}
+                        {isDepositing ? 'Processing..' : 'Deposit'}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          ))
+            ))}
+          </>
         )}
       </article>
 
-      {/* Asset Classes Info */}
-      <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="mb-3 text-[11px] font-bold text-cyan-400 uppercase tracking-widest font-mono">&gt; ASSET_CLASS_HINTS</p>
-        <div className="space-y-2">
-          {futureAssetClasses.map((assetClass) => (
-            <div key={assetClass.id} className="rounded-2xl border border-cyan-300/20 bg-slate-950/35 px-3 py-3">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-bold text-cyan-300 font-mono">{assetClass.title}</p>
-                <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-100">
-                  {assetClass.status === 'coming_soon' ? 'Coming soon' : 'Blueprint'}
-                </span>
+      {/* Investment Options */}
+      {futureAssetClasses.length > 0 && (
+        <article className="rounded-2xl border border-cyan-300/20 bg-slate-900/50 p-6 backdrop-blur">
+          <p className="mb-4 text-sm font-bold text-cyan-300 uppercase tracking-widest">🔮 Coming Soon</p>
+          <div className="space-y-3">
+            {futureAssetClasses.map((assetClass) => (
+              <div key={assetClass.id} className="rounded-lg border border-cyan-300/10 bg-slate-950/50 p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs font-bold text-cyan-300">{assetClass.title}</p>
+                  <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[9px] font-bold text-cyan-100 uppercase">
+                    {assetClass.status === 'coming_soon' ? '⏳ Coming Soon' : '📋 Blueprint'}
+                  </span>
+                </div>
+                <p className="mt-2 text-[10px] text-slate-400">{assetClass.description}</p>
               </div>
-              <p className="mt-2 text-[10px] leading-relaxed text-cyan-300/60 font-mono uppercase tracking-[0.05em]">{assetClass.description}</p>
-            </div>
-          ))}
-        </div>
-      </article>
+            ))}
+          </div>
+        </article>
+      )}
+
+      {/* Wallet Status */}
+      {!connected && (
+        <article className="rounded-2xl border border-yellow-300/20 bg-yellow-500/10 p-4 backdrop-blur text-center">
+          <p className="text-xs text-yellow-200">
+            <span className="font-bold">👛 Not connected yet?</span><br />
+            Click the wallet button in the top right to connect and start creating vaults.
+          </p>
+        </article>
+      )}
     </section>
     </RuneRealm>
   );
