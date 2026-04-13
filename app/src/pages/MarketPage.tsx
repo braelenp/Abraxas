@@ -394,8 +394,10 @@ export function MarketPage() {
   const [cashOutAmount, setCashOutAmount] = useState('');
   const [selectedBank, setSelectedBank] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   
-  const { vaults } = useAbraxas();
+  const { vaults, addLog } = useAbraxas();
   const { balance, balanceFormatted, balanceUsd, balanceUsdFormatted, abraPrice, isLoading } = useAbraBalance(10);
 
   const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
@@ -421,52 +423,147 @@ export function MarketPage() {
       setToAmount('');
       setIsLoadingQuote(false);
       setActiveModal(null);
+      setErrorMessage(null);
+      setSuccessMessage(null);
     }
   }, [location.pathname]);
 
   const handleDeposit = async () => {
-    if (!depositAmount || isNaN(Number(depositAmount))) return;
+    if (!depositAmount || isNaN(Number(depositAmount))) {
+      setErrorMessage('Please enter a valid amount');
+      return;
+    }
+    
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+
+    const amount = parseFloat(depositAmount);
+    if (amount <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+      return;
+    }
+    
     setIsProcessing(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Deposited $${depositAmount} via ${depositMethod}`);
+      // Log the deposit action
+      addLog({
+        action: `Deposit initiated via ${depositMethod}`,
+        detail: `${amount} deposited to market account`,
+      });
+      
+      setSuccessMessage(`Successfully deposited $${amount} via ${depositMethod === 'solana' ? 'Solana wallet' : 'bank transfer'}!`);
       setDepositAmount('');
+      setDepositMethod('solana');
       setActiveModal(null);
+      
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Deposit failed';
+      setErrorMessage(errorMsg);
     } finally {
       setIsProcessing(false);
     }
   };
 
   const handleWithdraw = async () => {
-    if (!withdrawAmount || isNaN(Number(withdrawAmount))) return;
-    if (Number(withdrawAmount) > accountBalance) {
-      alert('Insufficient balance');
+    if (!withdrawAmount || isNaN(Number(withdrawAmount))) {
+      setErrorMessage('Please enter a valid amount');
       return;
     }
+    
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+
+    const amount = parseFloat(withdrawAmount);
+    if (amount <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+      return;
+    }
+    
+    if (amount > accountBalance) {
+      setErrorMessage(`Insufficient balance. Available: $${accountBalance.toFixed(2)}`);
+      return;
+    }
+    
     setIsProcessing(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Withdrew $${withdrawAmount} via ${withdrawMethod}`);
+      // Log the withdrawal action
+      addLog({
+        action: `Withdrawal initiated to ${withdrawMethod}`,
+        detail: `${amount} withdrawn from market account`,
+      });
+      
+      setSuccessMessage(`Successfully withdrew $${amount} to ${withdrawMethod === 'solana' ? 'Solana wallet' : 'fiat'}!`);
       setWithdrawAmount('');
+      setWithdrawMethod('solana');
       setActiveModal(null);
+      
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Withdrawal failed';
+      setErrorMessage(errorMsg);
     } finally {
       setIsProcessing(false);
     }
   };
 
   const handleCashOut = async () => {
-    if (!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount))) return;
-    if (Number(cashOutAmount) > accountBalance) {
-      alert('Insufficient balance');
+    if (!cashOutAmount || isNaN(Number(cashOutAmount))) {
+      setErrorMessage('Please enter a valid amount');
       return;
     }
+    
+    if (!selectedBank) {
+      setErrorMessage('Please select a bank account');
+      return;
+    }
+    
+    if (!connected) {
+      setErrorMessage('Please connect your wallet first');
+      return;
+    }
+
+    const amount = parseFloat(cashOutAmount);
+    if (amount <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+      return;
+    }
+    
+    if (amount > accountBalance) {
+      setErrorMessage(`Insufficient balance. Available: $${accountBalance.toFixed(2)}`);
+      return;
+    }
+    
     setIsProcessing(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert(`Cashing out $${cashOutAmount} to selected bank`);
+      // Log the cash out action
+      addLog({
+        action: 'ACH cashout initiated',
+        detail: `${amount} USD initiated to bank account ${selectedBank}`,
+      });
+      
+      setSuccessMessage(`Cash out initiated! $${amount} will arrive in 1-2 business days to your selected account.`);
       setCashOutAmount('');
       setSelectedBank('');
       setActiveModal(null);
+      
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Cash out failed';
+      setErrorMessage(errorMsg);
     } finally {
       setIsProcessing(false);
     }
@@ -897,6 +994,18 @@ export function MarketPage() {
               </button>
             </div>
 
+            {/* Error/Success Messages */}
+            {errorMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-400/30 text-red-200 text-sm">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 text-sm">
+                {successMessage}
+              </div>
+            )}
+
             {/* Method Selection */}
             <div className="mb-4">
               <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Method</label>
@@ -991,6 +1100,18 @@ export function MarketPage() {
                 <X size={20} />
               </button>
             </div>
+
+            {/* Error/Success Messages */}
+            {errorMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-400/30 text-red-200 text-sm">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 text-sm">
+                {successMessage}
+              </div>
+            )}
 
             {/* Balance Display */}
             <div className="mb-4 p-3 rounded-lg bg-purple-500/10 border border-purple-400/20">
@@ -1099,6 +1220,18 @@ export function MarketPage() {
                 <X size={20} />
               </button>
             </div>
+
+            {/* Error/Success Messages */}
+            {errorMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-400/30 text-red-200 text-sm">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 text-sm">
+                {successMessage}
+              </div>
+            )}
 
             {/* Balance Display */}
             <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-400/20">
