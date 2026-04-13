@@ -53,14 +53,14 @@ function DappShell() {
 
   // ── Living rune wheel navigation with translations ────────────────────────
   const navItems = [
-    { to: '/app/profile',  label: t('nav.profile'),   rune: '✧' },
     { to: '/app/forge',    label: t('nav.forge'),     rune: 'ᚲ' },
-    { to: '/app/orion',    label: t('nav.kingAi'),    rune: 'ᛏ' },
-    { to: '/app/cadabra',  label: t('nav.cadabra'),   rune: '✦' },
-    { to: '/app/market',   label: t('nav.market'),    rune: 'ᛋ' },
     { to: '/app/vaults',   label: t('nav.vaults'),    rune: 'ᚨ' },
+    { to: '/app/market',   label: t('nav.market'),    rune: 'ᛋ' },
+    { to: '/app/cadabra',  label: t('nav.cadabra'),   rune: '✦' },
+    { to: '/app/orion',    label: t('nav.kingAi'),    rune: 'ᛏ' },
     { to: '/app/circuit',  label: t('nav.circuit'),   rune: 'ᚦ' },
     { to: '/app/trade',    label: t('nav.trade'),     rune: 'ᛚ' },
+    { to: '/app/profile',  label: t('nav.profile'),   rune: '✧' },
   ];
 
   const dappBackgroundCandidates = useMemo(
