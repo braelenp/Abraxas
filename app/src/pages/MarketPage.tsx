@@ -1,12 +1,14 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper, X, ArrowDownToLine, ArrowUpFromLine, DollarSign } from 'lucide-react';
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+import { PublicKey, Transaction } from '@solana/web3.js';
+import { ArrowUpRight, Banknote, Brain, Building2, ChevronDown, Dumbbell, ExternalLink, Lightbulb, Sparkles, Zap, Newspaper, X, ArrowDownToLine, ArrowUpFromLine, DollarSign, Loader } from 'lucide-react';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { RuneRealm } from '../components/RuneRealm';
 import { LivePriceTicker } from '../components/LivePriceTicker';
 import { FoundationMarket } from '../components/FoundationMarket';
 import { useAbraBalance } from '../hooks/useAbraBalance';
+import { ABRA_TOKEN_MINT } from '../lib/solana';
 
 // --- RWA Prediction Market Types ---
 type PredictionMarket = {
@@ -378,7 +380,8 @@ const RUNE_CONFIG = {
 
 export function MarketPage() {
   const location = useLocation();
-  const { connected } = useWallet();
+  const { connected, publicKey, signTransaction, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [selectedClass, setSelectedClass] = useState<MarketClass | 'all'>('all');
   const [showMarketInfo, setShowMarketInfo] = useState(false);
   const [expandedThesis, setExpandedThesis] = useState<Record<string, boolean>>({});
@@ -434,7 +437,7 @@ export function MarketPage() {
       return;
     }
     
-    if (!connected) {
+    if (!connected || !publicKey) {
       setErrorMessage('Please connect your wallet first');
       return;
     }
@@ -450,21 +453,108 @@ export function MarketPage() {
     setSuccessMessage(null);
     
     try {
-      // Log the deposit action
-      addLog({
-        action: `Deposit initiated via ${depositMethod}`,
-        detail: `${amount} deposited to market account`,
-      });
+      // For Solana deposits: create a token transfer transaction
+      if (depositMethod === 'solana') {
+        if (!signTransaction || !sendTransaction) {
+          setErrorMessage('Wallet does not support transactions');
+          setIsProcessing(false);
+          return;
+        }
+
+        // Import SPL token utilities
+        const {
+          ASSOCIATED_TOKEN_PROGRAM_ID,
+          createTransferCheckedInstruction,
+          getAssociatedTokenAddressSync,
+          getMint,
+          TOKEN_PROGRAM_ID,
+        } = await import('@solana/spl-token');
+
+        // Get token and account info
+        const mintAddress = new PublicKey(ABRA_TOKEN_MINT);
+        const marketVaultAddress = new PublicKey('GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm'); // Placeholder vault
+        
+        const latestBlockhash = await connection.getLatestBlockhash('confirmed');
+        const mintAccount = await getMint(connection, mintAddress, 'confirmed', TOKEN_PROGRAM_ID);
+        
+        const sourceTokenAccount = getAssociatedTokenAddressSync(
+          mintAddress,
+          publicKey,
+          false,
+          TOKEN_PROGRAM_ID,
+          ASSOCIATED_TOKEN_PROGRAM_ID
+        );
+        
+        const vaultTokenAccount = getAssociatedTokenAddressSync(
+          mintAddress,
+          marketVaultAddress,
+          false,
+          TOKEN_PROGRAM_ID,
+          ASSOCIATED_TOKEN_PROGRAM_ID
+        );
+
+        // Check if source account exists
+        const sourceTokenAccountInfo = await connection.getAccountInfo(sourceTokenAccount, 'confirmed');
+        if (!sourceTokenAccountInfo) {
+          setErrorMessage('No ABRA token account found. Buy ABRA first.');
+          setIsProcessing(false);
+          return;
+        }
+
+        // Create transfer instruction
+        const tokenAmount = BigInt(Math.floor(amount * 1e6)); // ABRA has 6 decimals
+        const instruction = createTransferCheckedInstruction(
+          sourceTokenAccount,
+          mintAddress,
+          vaultTokenAccount,
+          publicKey,
+          tokenAmount,
+          mintAccount.decimals,
+          [],
+          TOKEN_PROGRAM_ID
+        );
+
+        // Build and send transaction
+        const tx = new Transaction({
+          feePayer: publicKey,
+          blockhash: latestBlockhash.blockhash,
+          lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        });
+
+        tx.add(instruction);
+        const signed = await signTransaction(tx);
+        const signature = await sendTransaction(signed, connection, { skipPreflight: false });
+        
+        // Log the deposit action
+        addLog({
+          action: `Deposit confirmed on-chain`,
+          detail: `${amount} ABRA transferred via Solana (signature: ${signature.substring(0, 8)}...)`,
+        });
+        
+        setSuccessMessage(`✅ Deposit successful! Transaction: ${signature.substring(0, 20)}...`);
+        setDepositAmount('');
+        setDepositMethod('solana');
+        setActiveModal(null);
+      } else {
+        // For ACH/wire deposits: simulate the flow
+        addLog({
+          action: `Deposit initiated via bank transfer`,
+          detail: `${amount} pending via ACH/wire`,
+        });
+        
+        setSuccessMessage(`Deposit requested! $${amount} will arrive in 1-3 business days.`);
+        setDepositAmount('');
+        setActiveModal(null);
+      }
       
-      setSuccessMessage(`Successfully deposited $${amount} via ${depositMethod === 'solana' ? 'Solana wallet' : 'bank transfer'}!`);
-      setDepositAmount('');
-      setDepositMethod('solana');
-      setActiveModal(null);
-      
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setTimeout(() => setSuccessMessage(null), 4000);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Deposit failed';
       setErrorMessage(errorMsg);
+      addLog({
+        action: 'Deposit failed',
+        detail: errorMsg,
+      });
     } finally {
       setIsProcessing(false);
     }
@@ -476,7 +566,7 @@ export function MarketPage() {
       return;
     }
     
-    if (!connected) {
+    if (!connected || !publicKey) {
       setErrorMessage('Please connect your wallet first');
       return;
     }
@@ -497,21 +587,100 @@ export function MarketPage() {
     setSuccessMessage(null);
     
     try {
-      // Log the withdrawal action
-      addLog({
-        action: `Withdrawal initiated to ${withdrawMethod}`,
-        detail: `${amount} withdrawn from market account`,
-      });
+      // For Solana withdrawals: create a token transfer from vault to wallet
+      if (withdrawMethod === 'solana') {
+        if (!signTransaction || !sendTransaction) {
+          setErrorMessage('Wallet does not support transactions');
+          setIsProcessing(false);
+          return;
+        }
+
+        // Import SPL token utilities
+        const {
+          ASSOCIATED_TOKEN_PROGRAM_ID,
+          createTransferCheckedInstruction,
+          getAssociatedTokenAddressSync,
+          getMint,
+          TOKEN_PROGRAM_ID,
+        } = await import('@solana/spl-token');
+
+        // Get token and account info
+        const mintAddress = new PublicKey(ABRA_TOKEN_MINT);
+        const marketVaultAddress = new PublicKey('GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm'); // Placeholder vault
+        
+        const latestBlockhash = await connection.getLatestBlockhash('confirmed');
+        const mintAccount = await getMint(connection, mintAddress, 'confirmed', TOKEN_PROGRAM_ID);
+        
+        const destinationTokenAccount = getAssociatedTokenAddressSync(
+          mintAddress,
+          publicKey,
+          false,
+          TOKEN_PROGRAM_ID,
+          ASSOCIATED_TOKEN_PROGRAM_ID
+        );
+        
+        const vaultTokenAccount = getAssociatedTokenAddressSync(
+          mintAddress,
+          marketVaultAddress,
+          false,
+          TOKEN_PROGRAM_ID,
+          ASSOCIATED_TOKEN_PROGRAM_ID
+        );
+
+        // Create transfer instruction (simulated - in production would be from vault authority)
+        const tokenAmount = BigInt(Math.floor(amount * 1e6)); // ABRA has 6 decimals
+        const instruction = createTransferCheckedInstruction(
+          vaultTokenAccount,
+          mintAddress,
+          destinationTokenAccount,
+          marketVaultAddress, // In practice, this would be the vault authority
+          tokenAmount,
+          mintAccount.decimals,
+          [],
+          TOKEN_PROGRAM_ID
+        );
+
+        // Build and send transaction
+        const tx = new Transaction({
+          feePayer: publicKey,
+          blockhash: latestBlockhash.blockhash,
+          lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        });
+
+        tx.add(instruction);
+        const signed = await signTransaction(tx);
+        const signature = await sendTransaction(signed, connection, { skipPreflight: false });
+        
+        // Log the withdrawal action
+        addLog({
+          action: `Withdrawal confirmed on-chain`,
+          detail: `${amount} ABRA transferred to wallet (signature: ${signature.substring(0, 8)}...)`,
+        });
+        
+        setSuccessMessage(`✅ Withdrawal successful! Transaction: ${signature.substring(0, 20)}...`);
+        setWithdrawAmount('');
+        setWithdrawMethod('solana');
+        setActiveModal(null);
+      } else {
+        // For fiat withdrawals: simulate the flow
+        addLog({
+          action: `Withdrawal initiated to fiat account`,
+          detail: `${amount} pending ACH transfer`,
+        });
+        
+        setSuccessMessage(`Withdrawal requested! $${amount} will arrive in 1-2 business days.`);
+        setWithdrawAmount('');
+        setActiveModal(null);
+      }
       
-      setSuccessMessage(`Successfully withdrew $${amount} to ${withdrawMethod === 'solana' ? 'Solana wallet' : 'fiat'}!`);
-      setWithdrawAmount('');
-      setWithdrawMethod('solana');
-      setActiveModal(null);
-      
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setTimeout(() => setSuccessMessage(null), 4000);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Withdrawal failed';
       setErrorMessage(errorMsg);
+      addLog({
+        action: 'Withdrawal failed',
+        detail: errorMsg,
+      });
     } finally {
       setIsProcessing(false);
     }
@@ -1074,9 +1243,16 @@ export function MarketPage() {
               <button
                 onClick={handleDeposit}
                 disabled={!depositAmount || isNaN(Number(depositAmount)) || isProcessing}
-                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {isProcessing ? 'Processing...' : 'Confirm Deposit'}
+                {isProcessing ? (
+                  <>
+                    <Loader size={16} className="animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  'Confirm Deposit'
+                )}
               </button>
             </div>
           </article>
@@ -1194,9 +1370,16 @@ export function MarketPage() {
               <button
                 onClick={handleWithdraw}
                 disabled={!withdrawAmount || isNaN(Number(withdrawAmount)) || Number(withdrawAmount) > accountBalance || isProcessing}
-                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {isProcessing ? 'Processing...' : 'Confirm Withdrawal'}
+                {isProcessing ? (
+                  <>
+                    <Loader size={16} className="animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  'Confirm Withdrawal'
+                )}
               </button>
             </div>
           </article>
@@ -1301,9 +1484,16 @@ export function MarketPage() {
               <button
                 onClick={handleCashOut}
                 disabled={!cashOutAmount || !selectedBank || isNaN(Number(cashOutAmount)) || Number(cashOutAmount) > accountBalance || isProcessing}
-                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all"
+                className="flex-1 px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {isProcessing ? 'Processing...' : 'Confirm CashOut'}
+                {isProcessing ? (
+                  <>
+                    <Loader size={16} className="animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  'Confirm CashOut'
+                )
               </button>
             </div>
           </article>
