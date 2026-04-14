@@ -81,12 +81,55 @@ export function SpeciesAwakeningPage() {
     );
   }
 
-  if (profileLoading || !profile) {
+  if (profileLoading && !profile) {
     return (
       <div className="space-y-4 text-center py-12">
         <div className="text-4xl font-black text-purple-400">✧</div>
         <h1 className="text-2xl font-bold text-slate-300">Loading Campaign...</h1>
         <p className="text-slate-500">Awakening your profile</p>
+        <p className="text-xs text-slate-600 mt-4">Using API: {process.env.REACT_APP_API_URL || 'auto-detected'}</p>
+      </div>
+    );
+  }
+
+  // Show error state if API is unavailable but still render UI with mock data
+  if (profileError && !profile) {
+    return (
+      <div className="space-y-6 pb-20">
+        <div className="rounded-lg border border-amber-400/30 bg-amber-950/40 p-4 backdrop-blur-sm">
+          <p className="text-xs font-mono uppercase tracking-widest text-amber-300 mb-2">⚠️ API Connection Issue</p>
+          <p className="text-sm text-amber-100 mb-3">{profileError}</p>
+          <p className="text-xs text-amber-200/70">Make sure the backend server is running on port 3001 or set REACT_APP_API_URL environment variable.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-3 px-4 py-2 rounded border border-amber-400/50 bg-amber-500/20 text-amber-300 text-sm font-semibold hover:bg-amber-500/30"
+          >
+            Retry Connection
+          </button>
+        </div>
+
+        {/* Render mock UI when offline */}
+        <section className="space-y-3">
+          <div className="text-center space-y-2 mb-6">
+            <p className="text-xs font-mono uppercase tracking-widest text-purple-400/60">✧ Species Awakening ✧</p>
+            <h1 className="text-3xl font-black text-slate-50 drop-shadow-[0_0_12px_rgba(153,69,255,0.3)]">
+              The Airdrop Awaits
+            </h1>
+            <p className="text-sm text-slate-400">
+              (Offline mode - backend server not available)
+            </p>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="space-y-4 text-center py-12">
+        <div className="text-4xl font-black text-purple-400">🔮</div>
+        <h1 className="text-2xl font-bold text-slate-300">Profile Unavailable</h1>
+        <p className="text-slate-500">Unable to load your campaign profile</p>
       </div>
     );
   }

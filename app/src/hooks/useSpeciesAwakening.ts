@@ -3,7 +3,7 @@
  * Manages user progress, tasks, and leaderboard for the airdrop campaign
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import type {
   SpeciesAwakeningUserProgress,
@@ -11,11 +11,23 @@ import type {
   SpeciesAwakeningLeaderboardEntry,
 } from '../lib/types';
 
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_BASE = process.env.REACT_APP_API_URL || (() => {
+  // Handle both localhost and production URLs
+  if (typeof window !== 'undefined') {
+    const protocol = window.location.protocol;
+    const host = window.location.host;
+    // If running on vercel or similar, use same origin
+    if (host.includes('vercel') || host.includes('abraxas')) {
+      return `${protocol}//${host}`;
+    }
+  }
+  return 'http://localhost:3001';
+})();
 
 export function useSpeciesAwakening() {
   const { publicKey } = useWallet();
   const walletAddress = publicKey?.toString();
+  const initAttemptRef = useRef(0);
 
   // Profile state
   const [profile, setProfile] = useState<SpeciesAwakeningUserProgress | null>(null);
@@ -32,7 +44,7 @@ export function useSpeciesAwakening() {
   const [leaderboardLoading, setLeaderboardLoading] = useState(false);
   const [leaderboardError, setLeaderboardError] = useState<string | null>(null);
 
-  // Fetch user profile
+  // Fetch user profile with retry logic
   const fetchProfile = useCallback(async () => {
     if (!walletAddress) return;
 
@@ -40,24 +52,46 @@ export function useSpeciesAwakening() {
       setProfileLoading(true);
       setProfileError(null);
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
       const response = await fetch(
-        `${API_BASE}/api/species-awakening/profile/${walletAddress}`
+        `${API_BASE}/api/species-awakening/profile/${walletAddress}`,
+        { signal: controller.signal }
       );
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('Failed to fetch profile');
+        throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
       setProfile(data.profile);
+      setProfileError(null);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : 'Failed to fetch profile';
       setProfileError(message);
       console.error('Fetch profile error:', error);
+      // Set a default profile to allow UI to continue
+      if (!profile) {
+        setProfile({
+          walletAddress: walletAddress || '',
+          totalPoints: 0,
+          level: 1,
+          levelName: 'Novice Awakening',
+          progressToNext: 0,
+          nextLevelPoints: 100,
+          completedTasks: [],
+          whitelistEligible: false,
+          joinedAt: new Date().toISOString(),
+          lastUpdatedAt: new Date().toISOString(),
+        });
+      }
     } finally {
       setProfileLoading(false);
     }
-  }, [walletAddress]);
+  }, [walletAddress, profile]);
 
   // Fetch user's tasks
   const fetchTasks = useCallback(async () => {
@@ -67,20 +101,29 @@ export function useSpeciesAwakening() {
       setTasksLoading(true);
       setTasksError(null);
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
       const response = await fetch(
-        `${API_BASE}/api/species-awakening/tasks/${walletAddress}`
+        `${API_BASE}/api/species-awakening/tasks/${walletAddress}`,
+        { signal: controller.signal }
       );
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('Failed to fetch tasks');
+        throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
-      setTasks(data.tasks);
+      setTasks(data.tasks || []);
+      setTasksError(null);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : 'Failed to fetch tasks';
       setTasksError(message);
       console.error('Fetch tasks error:', error);
+      // Set empty tasks array to allow UI to continue
+      setTasks([]);
     } finally {
       setTasksLoading(false);
     }
@@ -92,20 +135,28 @@ export function useSpeciesAwakening() {
       setLeaderboardLoading(true);
       setLeaderboardError(null);
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
       const response = await fetch(
-        `${API_BASE}/api/species-awakening/leaderboard?limit=${limit}`
+        `${API_BASE}/api/species-awakening/leaderboard?limit=${limit}`,
+        { signal: controller.signal }
       );
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('Failed to fetch leaderboard');
+        throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
-      setLeaderboard(data.leaderboard);
+      setLeaderboard(data.leaderboard || []);
+      setLeaderboardError(null);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
+      const message = error instanceof Error ? error.message : 'Failed to fetch leaderboard';
       setLeaderboardError(message);
       console.error('Fetch leaderboard error:', error);
+      setLeaderboard([]);
     } finally {
       setLeaderboardLoading(false);
     }
@@ -120,6 +171,9 @@ export function useSpeciesAwakening() {
       }
 
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
         const response = await fetch(`${API_BASE}/api/species-awakening/complete-task`, {
           method: 'POST',
           headers: {
@@ -129,7 +183,10 @@ export function useSpeciesAwakening() {
             walletAddress,
             taskId,
           }),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           const error = await response.json();
@@ -157,6 +214,7 @@ export function useSpeciesAwakening() {
   // Load all data on mount and when wallet changes
   useEffect(() => {
     if (walletAddress) {
+      initAttemptRef.current = 0;
       fetchProfile();
       fetchTasks();
       fetchLeaderboard();
@@ -186,5 +244,6 @@ export function useSpeciesAwakening() {
     // Utility
     isConnected: !!walletAddress,
     walletAddress,
+    apiBase: API_BASE,
   };
 }
