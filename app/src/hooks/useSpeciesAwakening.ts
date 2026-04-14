@@ -12,27 +12,13 @@ import type {
 } from '../lib/types';
 
 const API_BASE = (() => {
-  const envUrl = process.env.REACT_APP_API_URL || process.env.VITE_API_URL;
-  if (envUrl) {
-    console.log('[Species Awakening] Using API_URL from env:', envUrl);
-    return envUrl;
-  }
-  
+  // For Vercel deployment, always use same origin (same domain)
+  // For local development, also use same origin
+  // Vercel serverless functions are at /api/...
   if (typeof window !== 'undefined') {
-    const protocol = window.location.protocol;
-    const host = window.location.host;
-    
-    // For Vercel deployments, use same origin (rewrites will handle routing)
-    if (host.includes('vercel') || host.includes('abraxas')) {
-      const url = `${protocol}//${host}`;
-      console.log('[Species Awakening] Using Vercel same-origin URL:', url);
-      return url;
-    }
+    console.log('[Species Awakening] Using same-origin API at /api/...');
   }
-  
-  const defaultUrl = 'http://localhost:3001';
-  console.log('[Species Awakening] Using default localhost URL:', defaultUrl);
-  return defaultUrl;
+  return '';
 })();
 
 export function useSpeciesAwakening() {
