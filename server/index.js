@@ -389,7 +389,7 @@ function handlePayoutFailed(payout) {
 // In-memory stores (replace with database in production)
 const speciesAwakeningUsers = new Map();
 const speciesAwakeningTasks = new Map([
-  ['discord-join', { id: 'discord-join', icon: '💬', title: 'Join Discord Community', platform: 'Discord', type: 'daily', reward: 50, link: 'https://discord.gg/abraxas' }],
+  ['discord-join', { id: 'discord-join', icon: '�', title: 'Join Discord as Genesis Validator', platform: 'Discord', type: 'daily', reward: 100, link: 'https://discord.gg/abraxas', description: 'Join the Discord community and download your Genesis Validator certificate' }],
   ['twitter-follow', { id: 'twitter-follow', icon: '𝕏', title: 'Follow Abraxas on X', platform: 'X', type: 'daily', reward: 50, link: 'https://x.com/abraxasio' }],
   ['twitter-retweet', { id: 'twitter-retweet', icon: '𝕏', title: 'Retweet Species Awakening Post', platform: 'X', type: 'daily', reward: 100, link: 'https://x.com/abraxasio' }],
   ['discord-post', { id: 'discord-post', icon: '💬', title: 'Post About Daughters of Abraxas', platform: 'Discord', type: 'daily', reward: 75, link: 'https://discord.gg/abraxas' }],

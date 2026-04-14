@@ -11,7 +11,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { Share2, Copy, ArrowRight, Zap, Trophy, Star, CheckCircle2, Target, BookOpen, Users } from 'lucide-react';
+import { Share2, Copy, ArrowRight, Zap, Trophy, Star, CheckCircle2, Target, BookOpen, Users, Download } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useTranslation } from 'react-i18next';
 import { useSpeciesAwakening } from '../hooks/useSpeciesAwakening';
@@ -24,7 +24,7 @@ const RWA_ASSETS = [
     name: 'Chronos Luxury Watches',
     emoji: '⌚',
     description: 'Institutional-grade horological assets with verified provenance and real-time market pricing.',
-    allocation: 'Real-world luxury collectibles backed by blockchain verification.',
+    allocation: 'Premium luxury watch collectibles backed by blockchain verification.',
   },
   {
     id: 'astra',
@@ -41,11 +41,53 @@ const RWA_ASSETS = [
     allocation: 'Gallery-verified contemporary and classical art portfolio.',
   },
   {
-    id: 'credos',
-    name: 'Credos Debt Instruments',
-    emoji: '📋',
-    description: 'Structured debt products from verified credit providers with transparent yield.',
-    allocation: 'Fixed-income securities and emerging market debt opportunities.',
+    id: 'bacchus',
+    name: 'Bacchus Wine & Spirits',
+    emoji: '🍷',
+    description: 'Premium fine wines and rare spirits with sommelier-grade authentication.',
+    allocation: 'Collectible wines, rare whiskies, and vintage spirits.',
+  },
+  {
+    id: 'echo',
+    name: 'Echo Music Rights',
+    emoji: '🎵',
+    description: 'Streaming royalties and music publishing rights with real-time yield tracking.',
+    allocation: 'Music royalties from streaming platforms and licensing agreements.',
+  },
+  {
+    id: 'legacy',
+    name: 'Legacy Athlete Equity',
+    emoji: '⚽',
+    description: 'NIL stakes and athlete equity with performance-based yield multipliers.',
+    allocation: 'Athlete Name, Image, Likeness (NIL) rights and equity.',
+  },
+  {
+    id: 'pulse',
+    name: 'Pulse Gaming & Streams',
+    emoji: '🎮',
+    description: 'Gaming clips, live stream rights, and content creator equity.',
+    allocation: 'Gaming content, streaming revenue, and creator partnerships.',
+  },
+  {
+    id: 'aurelia',
+    name: 'Aurelia Real Estate',
+    emoji: '🏢',
+    description: 'Fractional real estate and development projects with transparent tenant metrics.',
+    allocation: 'Commercial and residential development projects.',
+  },
+  {
+    id: 'vein',
+    name: 'Vein Minerals & Resources',
+    emoji: '⛏️',
+    description: 'Mining rights and natural resource extraction with environmental compliance.',
+    allocation: 'Mineral reserves, mining operations, and resource extraction.',
+  },
+  {
+    id: 'verdant',
+    name: 'Verdant Carbon Assets',
+    emoji: '🌿',
+    description: 'Carbon credits and environmental offset projects with verified impact.',
+    allocation: 'Carbon credits, environmental conservation, and ESG assets.',
   },
 ];
 
@@ -59,6 +101,7 @@ export function SpeciesAwakeningPage() {
   const [showFullLeaderboard, setShowFullLeaderboard] = useState(false);
   const [completingTaskId, setCompletingTaskId] = useState<string | null>(null);
   const [taskCompletionMessage, setTaskCompletionMessage] = useState<string | null>(null);
+  const [showCertificateModal, setShowCertificateModal] = useState(false);
 
   const {
     profile,
@@ -174,10 +217,101 @@ export function SpeciesAwakeningPage() {
 
     if (result.success) {
       setTaskCompletionMessage(result.reward || 'Task completed!');
+      
+      // Show certificate modal if this is the Discord join task
+      if (taskId === 'discord-join') {
+        setTimeout(() => setShowCertificateModal(true), 500);
+      }
+      
       setTimeout(() => setTaskCompletionMessage(null), 3000);
     } else {
       setTaskCompletionMessage(result.error || 'Failed to complete task');
     }
+  };
+
+  const generateCertificate = () => {
+    // Create canvas for certificate
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 800;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Background
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Border
+    ctx.strokeStyle = '#9945ff';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+
+    // Inner decorative border
+    ctx.strokeStyle = '#9945ff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+
+    // Title
+    ctx.font = 'bold 48px Arial';
+    ctx.fillStyle = '#9945ff';
+    ctx.textAlign = 'center';
+    ctx.fillText('Certificate of Achievement', canvas.width / 2, 120);
+
+    // Subtitle
+    ctx.font = '24px Arial';
+    ctx.fillStyle = '#e4d5ff';
+    ctx.fillText('Species Awakening Genesis Validator', canvas.width / 2, 180);
+
+    // Divider line
+    ctx.strokeStyle = '#9945ff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(200, 220);
+    ctx.lineTo(canvas.width - 200, 220);
+    ctx.stroke();
+
+    // Achievement text
+    ctx.font = '20px Arial';
+    ctx.fillStyle = '#ccc';
+    ctx.textAlign = 'center';
+    ctx.fillText('This certifies that', canvas.width / 2, 280);
+
+    // User name/wallet
+    ctx.font = 'bold 28px Arial';
+    ctx.fillStyle = '#9945ff';
+    const displayName = publicKey?.toString().slice(0, 8) || 'Genesis Member';
+    ctx.fillText(displayName, canvas.width / 2, 340);
+
+    // Achievement description
+    ctx.font = '18px Arial';
+    ctx.fillStyle = '#ccc';
+    ctx.textAlign = 'center';
+    ctx.fillText('has completed the Genesis validation quest and joined the', canvas.width / 2, 400);
+    ctx.fillText('Species Awakening Discord community as a founding member', canvas.width / 2, 430);
+
+    // Achievement badge section
+    ctx.font = 'bold 20px Arial';
+    ctx.fillStyle = '#9945ff';
+    ctx.fillText('🔮 Genesis Validator Badge Earned 🔮', canvas.width / 2, 500);
+
+    // Date
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#888';
+    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    ctx.fillText(`Date: ${today}`, canvas.width / 2, 590);
+
+    // Footer
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#666';
+    ctx.fillText('Valid on Solana Mainnet | Abraxas Protocol', canvas.width / 2, 720);
+    ctx.fillText('This certificate grants whitelist priority for upcoming distributions', canvas.width / 2, 750);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `species-awakening-certificate-${publicKey?.toString().slice(0, 8)}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
   };
 
   return (
@@ -233,24 +367,39 @@ export function SpeciesAwakeningPage() {
           </div>
         </div>
 
-        {/* Whitelist Status */}
-        <div className="border-t border-purple-300/20 pt-3 flex items-center gap-2 text-sm">
-          <span
-            className={`inline-block w-3 h-3 rounded-full ${
-              profile.whitelistEligible ? 'bg-emerald-400/80' : 'bg-slate-600/50'
-            }`}
-          />
-          <span className="text-slate-300">
-            {profile.whitelistEligible ? (
-              <>
-                <span className="text-emerald-300 font-semibold">✓ Whitelist Eligible</span> — Top 100 activated
-              </>
-            ) : (
-              <>
-                <span className="text-slate-400">{1500 - profile.totalPoints} pts</span> until whitelist status
-              </>
-            )}
-          </span>
+        {/* Whitelist Status + Button */}
+        <div className="border-t border-purple-300/20 pt-3 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm">
+            <span
+              className={`inline-block w-3 h-3 rounded-full ${
+                profile.whitelistEligible ? 'bg-emerald-400/80' : 'bg-slate-600/50'
+              }`}
+            />
+            <span className="text-slate-300">
+              {profile.whitelistEligible ? (
+                <>
+                  <span className="text-emerald-300 font-semibold">✓ Whitelist Eligible</span> — Genesis tier
+                </>
+              ) : (
+                <>
+                  <span className="text-slate-400">{1500 - profile.totalPoints} pts</span> until whitelist
+                </>
+              )}
+            </span>
+          </div>
+
+          {profile.whitelistEligible && (
+            <button
+              onClick={() => {
+                // In production, this would submit to whitelist
+                setTaskCompletionMessage('✨ Whitelist registration submitted!');
+                setTimeout(() => setTaskCompletionMessage(null), 3000);
+              }}
+              className="px-4 py-2 rounded-lg border border-emerald-400/50 bg-emerald-500/20 text-emerald-200 text-xs font-bold hover:bg-emerald-500/30 transition-all"
+            >
+              Join Whitelist
+            </button>
+          )}
         </div>
       </section>
 
@@ -510,12 +659,59 @@ export function SpeciesAwakeningPage() {
           The Species Awakening is a collaborative journey. Complete quests, help others, and rise through the ranks to claim your place in the Abraxas ecosystem.
         </p>
         <a
-          href="#"
+          href="https://discord.gg/abraxas"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-purple-400/60 bg-purple-500/25 text-purple-200 text-sm font-bold hover:bg-purple-500/35 transition-all"
         >
-          Learn More <ArrowRight size={16} />
+          Join Discord Community <ArrowRight size={16} />
         </a>
       </section>
+
+      {/* ── CERTIFICATE MODAL ─────────────────────────────────── */}
+      {showCertificateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+          <div className="rounded-2xl border border-purple-400/50 bg-slate-900/95 p-6 max-w-md w-full space-y-4 backdrop-blur-xl">
+            <div className="text-center space-y-2">
+              <p className="text-xs font-mono uppercase tracking-widest text-purple-300">🏆 Achievement Unlocked</p>
+              <h2 className="text-2xl font-black text-purple-200">Genesis Validator</h2>
+              <p className="text-sm text-slate-400">
+                You've earned your Species Awakening certificate! Download it and share in Discord.
+              </p>
+            </div>
+
+            <div className="bg-slate-800/50 rounded-lg p-4 border border-purple-300/20">
+              <p className="text-xs text-slate-300 text-center mb-3">
+                ✨ Your certificate proves your Genesis Validator status and grants whitelist priority.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => {
+                  generateCertificate();
+                  setShowCertificateModal(false);
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-emerald-400/60 bg-emerald-500/25 text-emerald-200 font-bold hover:bg-emerald-500/35 transition-all"
+              >
+                <Download size={18} />
+                Download Certificate (PNG)
+              </button>
+              
+              <button
+                onClick={() => setShowCertificateModal(false)}
+                className="w-full px-4 py-2 rounded-lg border border-slate-600/50 bg-slate-800/50 text-slate-300 font-semibold hover:bg-slate-800 transition-all"
+              >
+                Continue
+              </button>
+
+              <p className="text-xs text-slate-500 text-center">
+                💡 Pro tip: Download and share your certificate in the #genesis-validators Discord channel to unlock exclusive rewards!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
