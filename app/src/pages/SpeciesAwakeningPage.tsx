@@ -63,6 +63,7 @@ export function SpeciesAwakeningPage() {
   const {
     profile,
     profileLoading,
+    profileError,
     tasks,
     tasksLoading,
     leaderboard,
