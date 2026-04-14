@@ -381,6 +381,221 @@ function handlePayoutFailed(payout) {
 }
 
 // ============================================================================
+// SPECIES AWAKENING CAMPAIGN ENDPOINTS
+// ============================================================================
+
+// In-memory stores (replace with database in production)
+const speciesAwakeningUsers = new Map();
+const speciesAwakeningTasks = new Map([
+  ['discord-join', { id: 'discord-join', icon: '💬', title: 'Join Discord Community', platform: 'Discord', type: 'daily', reward: 50, link: 'https://discord.gg/abraxas' }],
+  ['twitter-follow', { id: 'twitter-follow', icon: '𝕏', title: 'Follow Abraxas on X', platform: 'X', type: 'daily', reward: 50, link: 'https://x.com/abraxasio' }],
+  ['twitter-retweet', { id: 'twitter-retweet', icon: '𝕏', title: 'Retweet Species Awakening Post', platform: 'X', type: 'daily', reward: 100, link: 'https://x.com/abraxasio' }],
+  ['discord-post', { id: 'discord-post', icon: '💬', title: 'Post About Daughters of Abraxas', platform: 'Discord', type: 'daily', reward: 75, link: 'https://discord.gg/abraxas' }],
+  ['twitter-rwa', { id: 'twitter-rwa', icon: '𝕏', title: 'Share RWA Explanation (Weekly)', platform: 'X', type: 'weekly', reward: 250, link: 'https://x.com' }],
+  ['referral', { id: 'referral', icon: '✨', title: 'Invite 3 Friends (Weekly)', platform: 'Multi', type: 'weekly', reward: 300 }],
+]);
+
+const LEVEL_THRESHOLDS = [
+  { level: 1, required: 0, name: 'Novice Awakening' },
+  { level: 2, required: 100, name: 'Seeker of Truth' },
+  { level: 3, required: 250, name: 'Wisdom Keeper' },
+  { level: 4, required: 450, name: 'Rune Learner' },
+  { level: 5, required: 700, name: 'Protocol Student' },
+  { level: 10, required: 2000, name: 'Aether Adept' },
+  { level: 15, required: 4000, name: 'Awakening Seeker' },
+  { level: 20, required: 7000, name: 'Sovereign Master' },
+];
+
+const WHITELIST_THRESHOLD = 1500;
+
+function getLevelInfo(points) {
+  const currentLevel = LEVEL_THRESHOLDS
+    .slice()
+    .reverse()
+    .find((t) => points >= t.required) || LEVEL_THRESHOLDS[0];
+
+  const nextLevel = LEVEL_THRESHOLDS
+    .find((t) => points < t.required) || LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
+
+  const progressToNext =
+    points < nextLevel.required
+      ? Math.round(
+          ((points - currentLevel.required) / (nextLevel.required - currentLevel.required)) * 100
+        )
+      : 100;
+
+  return { currentLevel, nextLevel, progressToNext };
+}
+
+// Get or create user progress
+function getOrCreateUserProgress(walletAddress) {
+  if (!speciesAwakeningUsers.has(walletAddress)) {
+    speciesAwakeningUsers.set(walletAddress, {
+      walletAddress,
+      totalPoints: 0,
+      completedTasks: [],
+      joinedAt: new Date().toISOString(),
+      lastUpdatedAt: new Date().toISOString(),
+    });
+  }
+  return speciesAwakeningUsers.get(walletAddress);
+}
+
+// GET /api/species-awakening/profile/:walletAddress
+app.get('/api/species-awakening/profile/:walletAddress', (req, res) => {
+  try {
+    const { walletAddress } = req.params;
+    
+    if (!walletAddress) {
+      return res.status(400).json({ error: 'Wallet address required' });
+    }
+
+    const progress = getOrCreateUserProgress(walletAddress);
+    const levelInfo = getLevelInfo(progress.totalPoints);
+    
+    res.json({
+      success: true,
+      profile: {
+        walletAddress: progress.walletAddress,
+        totalPoints: progress.totalPoints,
+        level: levelInfo.currentLevel.level,
+        levelName: levelInfo.currentLevel.name,
+        progressToNext: levelInfo.progressToNext,
+        nextLevelPoints: levelInfo.nextLevel.required,
+        completedTasks: progress.completedTasks,
+        whitelistEligible: progress.totalPoints >= WHITELIST_THRESHOLD,
+        joinedAt: progress.joinedAt,
+        lastUpdatedAt: progress.lastUpdatedAt,
+      },
+    });
+  } catch (error) {
+    console.error('Get Species Awakening Profile Error:', error);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
+
+// GET /api/species-awakening/tasks/:walletAddress
+app.get('/api/species-awakening/tasks/:walletAddress', (req, res) => {
+  try {
+    const { walletAddress } = req.params;
+    
+    if (!walletAddress) {
+      return res.status(400).json({ error: 'Wallet address required' });
+    }
+
+    const progress = getOrCreateUserProgress(walletAddress);
+    const tasks = Array.from(speciesAwakeningTasks.values()).map(task => ({
+      ...task,
+      completed: progress.completedTasks.includes(task.id),
+    }));
+
+    res.json({
+      success: true,
+      tasks,
+    });
+  } catch (error) {
+    console.error('Get Tasks Error:', error);
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+});
+
+// POST /api/species-awakening/complete-task
+app.post('/api/species-awakening/complete-task', (req, res) => {
+  try {
+    const { walletAddress, taskId } = req.body;
+
+    if (!walletAddress || !taskId) {
+      return res.status(400).json({ error: 'Wallet address and task ID required' });
+    }
+
+    const task = speciesAwakeningTasks.get(taskId);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    const progress = getOrCreateUserProgress(walletAddress);
+
+    if (progress.completedTasks.includes(taskId)) {
+      return res.status(400).json({ error: 'Task already completed' });
+    }
+
+    // Mark task as completed
+    progress.completedTasks.push(taskId);
+    progress.totalPoints += task.reward;
+    progress.lastUpdatedAt = new Date().toISOString();
+
+    // Get updated level info
+    const levelInfo = getLevelInfo(progress.totalPoints);
+
+    res.json({
+      success: true,
+      message: `Task completed! +${task.reward} points`,
+      profile: {
+        walletAddress: progress.walletAddress,
+        totalPoints: progress.totalPoints,
+        level: levelInfo.currentLevel.level,
+        levelName: levelInfo.currentLevel.name,
+        progressToNext: levelInfo.progressToNext,
+        whitelistEligible: progress.totalPoints >= WHITELIST_THRESHOLD,
+      },
+    });
+  } catch (error) {
+    console.error('Complete Task Error:', error);
+    res.status(500).json({ error: 'Failed to complete task' });
+  }
+});
+
+// GET /api/species-awakening/leaderboard?limit=100
+app.get('/api/species-awakening/leaderboard', (req, res) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit || '100'), 1000);
+
+    // Convert to array, calculate levels, and sort
+    const leaderboard = Array.from(speciesAwakeningUsers.values())
+      .map((user) => {
+        const levelInfo = getLevelInfo(user.totalPoints);
+        return {
+          walletAddress: user.walletAddress,
+          totalPoints: user.totalPoints,
+          level: levelInfo.currentLevel.level,
+          levelName: levelInfo.currentLevel.name,
+          whitelistEligible: user.totalPoints >= WHITELIST_THRESHOLD,
+          joinedAt: user.joinedAt,
+        };
+      })
+      .sort((a, b) => b.totalPoints - a.totalPoints)
+      .slice(0, limit)
+      .map((entry, index) => ({
+        rank: index + 1,
+        ...entry,
+      }));
+
+    res.json({
+      success: true,
+      leaderboard,
+      total: speciesAwakeningUsers.size,
+    });
+  } catch (error) {
+    console.error('Get Leaderboard Error:', error);
+    res.status(500).json({ error: 'Failed to fetch leaderboard' });
+  }
+});
+
+// GET /api/species-awakening/tasks (list all available tasks)
+app.get('/api/species-awakening/tasks', (req, res) => {
+  try {
+    const tasks = Array.from(speciesAwakeningTasks.values());
+    res.json({
+      success: true,
+      tasks,
+    });
+  } catch (error) {
+    console.error('Get All Tasks Error:', error);
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+});
+
+// ============================================================================
 // ERROR HANDLING MIDDLEWARE
 // ============================================================================
 

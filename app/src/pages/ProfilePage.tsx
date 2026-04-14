@@ -83,6 +83,12 @@ export function ProfilePage() {
       description: 'Swap and route assets',
       path: '/app/trade',
     },
+    {
+      icon: '🔮',
+      title: 'Species Awakening',
+      description: 'Airdrop campaign dashboard',
+      path: '/app/species-awakening',
+    },
   ];
 
   return (

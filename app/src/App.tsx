@@ -21,6 +21,7 @@ import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
+import { SpeciesAwakeningPage } from './pages/SpeciesAwakeningPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
 import { HackathonBanner } from './components/HackathonBanner';
@@ -191,6 +192,7 @@ function DappShell() {
           <Route path="warden" element={<DashboardPage />} />
           <Route path="stake" element={<StakePage />} />
           <Route path="deposit" element={<DepositPage />} />
+          <Route path="species-awakening" element={<SpeciesAwakeningPage />} />
         </Routes>
       </main>
 

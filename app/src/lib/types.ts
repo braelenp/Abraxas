@@ -205,3 +205,50 @@ export type ProfileCreationPayload = {
   walletAddress: string;
   username?: string;
 };
+
+// ── Species Awakening Campaign ──────────────────────────────────────────
+export type SpeciesAwakeningTaskType = 'daily' | 'weekly';
+export type SpeciesAwakeningPlatform = 'Discord' | 'X' | 'Multi';
+
+export type SpeciesAwakeningTask = {
+  id: string;
+  icon: string;
+  title: string;
+  platform: SpeciesAwakeningPlatform;
+  type: SpeciesAwakeningTaskType;
+  reward: number;
+  description?: string;
+  link?: string;
+  validationUrl?: string; // Backend URL to validate completion
+  completedBy?: string[]; // Array of wallet addresses that completed
+  completed?: boolean; // Client-side flag for this user
+};
+
+export type SpeciesAwakeningUserProgress = {
+  walletAddress: string;
+  totalPoints: number;
+  level: number;
+  levelName: string;
+  progressToNext: number;
+  nextLevelPoints: number; // Points required for next level
+  completedTasks: string[]; // Task IDs completed
+  lastTaskCompletedAt?: string;
+  whitelistEligible: boolean;
+  joinedAt: string;
+  lastUpdatedAt: string;
+};
+
+export type SpeciesAwakeningLeaderboardEntry = {
+  rank: number;
+  walletAddress: string;
+  username?: string;
+  level: number;
+  points: number;
+  whitelistEligible: boolean;
+};
+
+export type CompleteTaskPayload = {
+  walletAddress: string;
+  taskId: string;
+  verificationData?: Record<string, unknown>; // For Discord/X verification
+};

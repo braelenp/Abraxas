@@ -14,3 +14,4 @@ export { LoadingPage } from './LoadingPage';
 export { OnboardPage } from './OnboardPage';
 export { TokenGatedPage } from './TokenGatedPage';
 export { ProfilePage } from './ProfilePage';
+export { SpeciesAwakeningPage } from './SpeciesAwakeningPage';
