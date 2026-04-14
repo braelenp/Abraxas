@@ -11,17 +11,28 @@ import type {
   SpeciesAwakeningLeaderboardEntry,
 } from '../lib/types';
 
-const API_BASE = process.env.REACT_APP_API_URL || (() => {
-  // Handle both localhost and production URLs
+const API_BASE = (() => {
+  const envUrl = process.env.REACT_APP_API_URL || process.env.VITE_API_URL;
+  if (envUrl) {
+    console.log('[Species Awakening] Using API_URL from env:', envUrl);
+    return envUrl;
+  }
+  
   if (typeof window !== 'undefined') {
     const protocol = window.location.protocol;
     const host = window.location.host;
-    // If running on vercel or similar, use same origin
+    
+    // For Vercel deployments, use same origin (rewrites will handle routing)
     if (host.includes('vercel') || host.includes('abraxas')) {
-      return `${protocol}//${host}`;
+      const url = `${protocol}//${host}`;
+      console.log('[Species Awakening] Using Vercel same-origin URL:', url);
+      return url;
     }
   }
-  return 'http://localhost:3001';
+  
+  const defaultUrl = 'http://localhost:3001';
+  console.log('[Species Awakening] Using default localhost URL:', defaultUrl);
+  return defaultUrl;
 })();
 
 export function useSpeciesAwakening() {
@@ -95,33 +106,37 @@ export function useSpeciesAwakening() {
 
   // Fetch user's tasks
   const fetchTasks = useCallback(async () => {
-    if (!walletAddress) return;
+    if (!walletAddress) {
+      console.log('[Species Awakening] fetchTasks: No wallet address');
+      return;
+    }
 
     try {
       setTasksLoading(true);
       setTasksError(null);
 
+      const taskUrl = `${API_BASE}/api/species-awakening/tasks/${walletAddress}`;
+      console.log('[Species Awakening] Fetching tasks from:', taskUrl);
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-      const response = await fetch(
-        `${API_BASE}/api/species-awakening/tasks/${walletAddress}`,
-        { signal: controller.signal }
-      );
+      const response = await fetch(taskUrl, { signal: controller.signal });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
+      console.log('[Species Awakening] Tasks fetched:', data.tasks?.length || 0, 'tasks');
       setTasks(data.tasks || []);
       setTasksError(null);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to fetch tasks';
+      console.error('[Species Awakening] fetchTasks error:', message, error);
       setTasksError(message);
-      console.error('Fetch tasks error:', error);
       // Set empty tasks array to allow UI to continue
       setTasks([]);
     } finally {
