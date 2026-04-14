@@ -659,7 +659,7 @@ export function SpeciesAwakeningPage() {
           The Species Awakening is a collaborative journey. Complete quests, help others, and rise through the ranks to claim your place in the Abraxas ecosystem.
         </p>
         <a
-          href="https://discord.gg/abraxas"
+          href="https://discord.gg/EhgEe2MPa"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-purple-400/60 bg-purple-500/25 text-purple-200 text-sm font-bold hover:bg-purple-500/35 transition-all"
