@@ -1,0 +1,18 @@
+# Nixpacks configuration for Abraxas server
+# This explicitly tells Railroad to use Node.js and ignore other languages
+
+[providers]
+# Force Node.js provider
+node = {}
+
+[build]
+# Explicitly set Node version
+"nodejs" = "18"
+
+[start]
+# Start command
+run = "node index.js"
+
+[variables]
+NODE_ENV = "production"
+PORT = "3001"

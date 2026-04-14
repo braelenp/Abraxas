@@ -8,4 +8,6 @@ app
 dApps
 programs
 target
+Cargo.toml
 *.md
+
