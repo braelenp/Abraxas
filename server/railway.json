@@ -3,6 +3,7 @@
     "builder": "nixpacks"
   },
   "deploy": {
-    "startCommand": "node index.js"
+    "startCommand": "node index.js",
+    "restartPolicyMaxRetries": 5
   }
 }
