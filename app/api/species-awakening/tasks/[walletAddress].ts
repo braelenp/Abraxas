@@ -29,9 +29,18 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       completed: progress.completedTasks.includes(task.id),
     }));
 
+    console.log('[Tasks API] Wallet:', walletAddress);
+    console.log('[Tasks API] Tasks count:', tasks.length);
+    console.log('[Tasks API] Task IDs:', tasks.map((t) => t.id));
+
     res.status(200).json({
       success: true,
       tasks,
+      debug: {
+        walletAddress,
+        tasksCount: tasks.length,
+        taskIds: tasks.map((t) => t.id),
+      },
     });
   } catch (error) {
     console.error('Tasks error:', error);
