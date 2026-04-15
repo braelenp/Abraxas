@@ -112,6 +112,7 @@ export function useSpeciesAwakening() {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
+        console.error(`[Species Awakening] API returned ${response.status}`);
         throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
 
@@ -121,14 +122,29 @@ export function useSpeciesAwakening() {
       if (data.tasks && data.tasks.length > 0) {
         console.log('[Species Awakening] First task:', data.tasks[0]);
       }
-      setTasks(data.tasks || []);
+      
+      if (data.tasks && data.tasks.length > 0) {
+        setTasks(data.tasks);
+      } else {
+        console.warn('[Species Awakening] No tasks returned from API, setting fallback tasks');
+        // Fallback with hardcoded tasks to test UI
+        setTasks([
+          { id: 'discord-join', icon: '✧', title: 'Join Discord as Genesis Validator', platform: 'Discord', type: 'daily', reward: 100, link: 'https://discord.gg/EhgEe2MPa', description: 'Join the Discord community', completed: false },
+          { id: 'twitter-follow', icon: '𝕏', title: 'Follow Abraxas on X', platform: 'X', type: 'daily', reward: 50, link: 'https://x.com/abraxasio', completed: false },
+        ]);
+      }
       setTasksError(null);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to fetch tasks';
       console.error('[Species Awakening] fetchTasks error:', message, error);
       setTasksError(message);
-      // Set empty tasks array to allow UI to continue
-      setTasks([]);
+      
+      // Fallback: set test tasks so we can see if UI works
+      console.warn('[Species Awakening] Setting fallback test tasks');
+      setTasks([
+        { id: 'discord-join', icon: '✧', title: 'Join Discord as Genesis Validator', platform: 'Discord', type: 'daily', reward: 100, link: 'https://discord.gg/EhgEe2MPa', description: 'Join the Discord community', completed: false },
+        { id: 'twitter-follow', icon: '𝕏', title: 'Follow Abraxas on X', platform: 'X', type: 'daily', reward: 50, link: 'https://x.com/abraxasio', completed: false },
+      ]);
     } finally {
       setTasksLoading(false);
     }
