@@ -117,6 +117,10 @@ export function useSpeciesAwakening() {
 
       const data = await response.json();
       console.log('[Species Awakening] Tasks fetched:', data.tasks?.length || 0, 'tasks');
+      console.log('[Species Awakening] Task data:', JSON.stringify(data, null, 2));
+      if (data.tasks && data.tasks.length > 0) {
+        console.log('[Species Awakening] First task:', data.tasks[0]);
+      }
       setTasks(data.tasks || []);
       setTasksError(null);
     } catch (error) {
