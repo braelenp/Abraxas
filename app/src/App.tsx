@@ -21,6 +21,7 @@ import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
+import { AcademyPage } from './pages/Academy/AcademyPage';
 import { SpeciesAwakeningPage } from './pages/SpeciesAwakeningPage';
 import { BrandLogo } from './components/BrandLogo';
 import { OrionAssistant } from './components/OrionAssistant';
@@ -182,6 +183,7 @@ function DappShell() {
           <Route path="forge" element={<ForgePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="ledger" element={<AcademyLedgerPage />} />
+          <Route path="academy/*" element={<AcademyPage />} />
           <Route path="vaults" element={<VaultsPage />} />
           <Route path="market" element={<MarketPage />} />
           <Route path="cadabra" element={<CadabraPage />} />
@@ -344,6 +346,7 @@ export default function App() {
         <Route path="/orion" element={<Navigate to="/app/orion" replace />} />
         <Route path="/circuit" element={<Navigate to="/app/circuit" replace />} />
         <Route path="/sophia" element={<Navigate to="/app/sophia" replace />} />
+        <Route path="/academy" element={<Navigate to="/app/academy" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
