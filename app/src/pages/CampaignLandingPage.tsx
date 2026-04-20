@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useUserProfile } from '../hooks/useProfile';
 import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ABRAXAS_PRIMARY_VALUE_PROP, ABRAXAS_SUPPORTING_VALUE_PROP } from '../lib/messaging';
 
 /**
  * ── Campaign Landing Page (Profile Creation) ────────────────────────────────
@@ -117,7 +118,7 @@ export function CampaignLandingPage() {
               Create Your Profile
             </h2>
             <p className="text-sm text-slate-300">
-              Join Abraxas and unlock your sovereign economy access
+              {ABRAXAS_PRIMARY_VALUE_PROP} {ABRAXAS_SUPPORTING_VALUE_PROP}
             </p>
           </div>
 

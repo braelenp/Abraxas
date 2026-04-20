@@ -682,7 +682,7 @@ export function CurriculumHub() {
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-[10px] font-mono uppercase tracking-[0.28em] text-cyan-300/65">Abraxas Academy</p>
-              <h1 className="mt-3 text-3xl font-semibold text-white">Own the machine before the machine moves your capital.</h1>
+              <h1 className="mt-3 text-3xl font-semibold text-white">{ABRAXAS_CORE_VALUE_PROP}</h1>
             </div>
             <div className="rounded-2xl border border-cyan-300/20 bg-slate-900/70 p-3 text-cyan-200">
               <BookOpen size={22} />
@@ -778,12 +778,14 @@ export function CurriculumHub() {
               <ArrowRight size={16} />
             </Link>
             <Link
-              to="/app/species-awakening"
+              href="https://discord.gg/EhgEe2MPa"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ui-action inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/75 px-4 py-2.5 text-sm font-semibold text-slate-200"
             >
-              <span>Open Species Awakening</span>
+              <span>Join Discord Community</span>
               <ArrowRight size={16} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

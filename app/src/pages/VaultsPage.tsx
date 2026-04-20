@@ -6,8 +6,9 @@ import { PublicKey, Transaction } from '@solana/web3.js';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
 import { RuneRealm } from '../components/RuneRealm';
-import { EmbeddedPhantomSwap } from '../components/EmbeddedPhantomSwap';
+
 import { ABRAXAS_PROGRAM_ID_RAW, ABRA_TOKEN_MINT } from '../lib/solana';
+import { ACTIVE_TAX_YEAR, buildVaultTaxReport, downloadVaultTaxReportCsv, downloadVaultTaxReportPdf } from '../lib/taxReporting';
 
 const agentOptions = ['Sophia Sentinel', 'Sophia Yield', 'Sophia Defensive'];
 
@@ -43,6 +44,10 @@ export function VaultsPage() {
     createVault,
     assignAgent,
     addLog,
+    laCasaDeposits,
+    logs,
+    sophiaTradeRecords,
+    sophiaAgents,
   } = useAbraxas();
 
   const [vaultName, setVaultName] = useState('');
@@ -63,9 +68,8 @@ export function VaultsPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Quick action modals
-  const [showSwapModal, setShowSwapModal] = useState(false);
-  const [showTopUpModal, setShowTopUpModal] = useState(false);
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [generatingTaxReportId, setGeneratingTaxReportId] = useState<string | null>(null);
 
   // Reset state when navigating to the Vaults page
   useEffect(() => {
@@ -281,61 +285,39 @@ export function VaultsPage() {
     }
   };
 
-  // Quick action handlers
-  const handleSwap = () => {
-    if (!connected) {
-      setErrorMessage('Please connect your wallet first');
+
+
+  const handleTaxReport = async (vaultId: string) => {
+    const vault = vaults.find((entry) => entry.id === vaultId);
+    if (!vault) {
+      setErrorMessage('Vault not found for tax report generation');
       return;
     }
-    setShowSwapModal(true);
-    addLog({
-      vaultId: 'vaults-quick-actions',
-      action: 'Swap modal opened',
-    });
-  };
 
-  const handleTopUp = () => {
-    if (!connected) {
-      setErrorMessage('Please connect your wallet first');
-      return;
-    }
-    // Redirect to TradePage where users can buy ABRA
-    navigate('/app/trade');
-    addLog({
-      vaultId: 'vaults-quick-actions',
-      action: 'Redirected to TradePage for Top Up',
-    });
-  };
+    setGeneratingTaxReportId(vaultId);
+    setErrorMessage(null);
+    setSuccessMessage(null);
 
-  const handleWithdraw = () => {
-    if (!connected) {
-      setErrorMessage('Please connect your wallet first');
-      return;
-    }
-    setShowWithdrawModal(true);
-    addLog({
-      vaultId: 'vaults-quick-actions',
-      action: 'Withdraw (off-ramp) modal opened',
-    });
-  };
-
-  const handleSwapSuccess = () => {
-    setShowSwapModal(false);
-    setSuccessMessage('Swap modal closed. Check your wallet for confirmation.');
-    setTimeout(() => setSuccessMessage(null), 3000);
-    
-    // Refresh balance
-    if (publicKey && connected) {
-      connection.getBalance(publicKey).then(balance => {
-        setWalletBalance(balance / 1e9);
+    try {
+      const report = buildVaultTaxReport({
+        vault,
+        deposits: laCasaDeposits,
+        logs,
+        tradeRecords: sophiaTradeRecords,
+        agents: sophiaAgents,
+        year: ACTIVE_TAX_YEAR,
       });
-    }
-  };
 
-  const handleWithdrawSuccess = () => {
-    setShowWithdrawModal(false);
-    setSuccessMessage('Opening fiat conversion flow...');
-    setTimeout(() => setSuccessMessage(null), 3000);
+      downloadVaultTaxReportPdf(report);
+      downloadVaultTaxReportCsv(report);
+
+      setSuccessMessage(`${vault.name} tax report exported as PDF and CSV.`);
+      setTimeout(() => setSuccessMessage(null), 3500);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to generate tax report');
+    } finally {
+      setGeneratingTaxReportId(null);
+    }
   };
 
   return (
@@ -361,10 +343,10 @@ export function VaultsPage() {
       {/* Welcome Section */}
       <article className="glow-panel rounded-3xl border border-cyan-300/20 bg-[linear-gradient(140deg,rgba(15,23,42,0.88),rgba(10,37,64,0.76),rgba(56,189,248,0.15))] p-6 backdrop-blur">
         <div className="max-w-2xl">
-          <p className="text-sm font-bold text-cyan-300/80 uppercase tracking-widest font-mono mb-3">&gt; Welcome to Your Vaults</p>
-          <h1 className="text-2xl font-bold text-cyan-200 mb-2">🏦 Grow Your Money Safely</h1>
+          <p className="text-sm font-bold text-cyan-300/80 uppercase tracking-widest font-mono mb-3">&gt; Own Your Asset Management Firm</p>
+          <h1 className="text-2xl font-bold text-cyan-200 mb-2">🏦 Vault Management — Steps 3–6</h1>
           <p className="text-sm text-slate-300/90 leading-relaxed mb-4">
-            Vaults are like digital piggy banks for your investment portfolio. Pick what you want to invest in (real estate, music rights, gaming equity, or dApp tokens), and our smart managers automatically help your money grow.
+            You've acquired ABRA and minted your NFT. Now create a vault to stake your asset with a Sophia agent who manages 24/7. You own everything. The agents do the work. You keep the ABRAX gains.
           </p>
           
           <div className="grid grid-cols-2 gap-3 text-xs mt-4">
@@ -410,35 +392,7 @@ export function VaultsPage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 gap-3">
-        <div className="rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-          <p className="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-3">⚡ Quick Actions</p>
-          <div className="grid grid-cols-3 gap-2">
-            <button 
-              onClick={handleSwap}
-              className="flex flex-col items-center gap-2 rounded-xl border border-cyan-300/30 bg-cyan-500/10 p-3 hover:bg-cyan-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
-              disabled={!connected}
-            >
-              <span className="text-2xl">⇄</span>
-              <span className="text-xs font-medium text-slate-200">Trade Tokens</span>
-            </button>
-            <button 
-              onClick={handleTopUp}
-              className="flex flex-col items-center gap-2 rounded-xl border border-emerald-300/30 bg-emerald-500/10 p-3 hover:bg-emerald-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
-              disabled={!connected}
-            >
-              <span className="text-2xl">💰</span>
-              <span className="text-xs font-medium text-slate-200">Buy ABRA</span>
-            </button>
-            <button 
-              onClick={handleWithdraw}
-              className="flex flex-col items-center gap-2 rounded-xl border border-amber-300/30 bg-amber-500/10 p-3 hover:bg-amber-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed" 
-              disabled={!connected}
-            >
-              <span className="text-2xl">🏦</span>
-              <span className="text-xs font-medium text-slate-200">Cash Out</span>
-            </button>
-          </div>
-        </div>
+
       </div>
 
       {/* How It Works */}
@@ -476,67 +430,7 @@ export function VaultsPage() {
         </div>
       </article>
 
-      {/* Swap Modal */}
-      {showSwapModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="relative rounded-3xl border border-cyan-300/20 bg-slate-900/95 p-6 backdrop-blur w-96 max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setShowSwapModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition"
-            >
-              <X size={20} />
-            </button>
-            <h3 className="text-lg font-bold text-cyan-300 mb-4">Swap Tokens</h3>
-            <EmbeddedPhantomSwap />
-          </div>
-        </div>
-      )}
 
-      {/* Withdraw Modal */}
-      {showWithdrawModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="relative rounded-3xl border border-cyan-300/20 bg-slate-900/95 p-6 backdrop-blur w-96 max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setShowWithdrawModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition"
-            >
-              <X size={20} />
-            </button>
-            <h3 className="text-lg font-bold text-cyan-300 mb-4">Convert ABRA to Fiat</h3>
-            <div className="space-y-4">
-              <div className="rounded-lg bg-cyan-400/10 border border-cyan-300/20 p-4">
-                <p className="text-sm text-cyan-200 mb-2">
-                  <CheckCircle size={16} className="inline mr-2" />
-                  Your Wallet Balance: <span className="font-bold">{walletBalance?.toFixed(4) || '0.0000'} SOL</span>
-                </p>
-                <p className="text-xs text-slate-400 mt-2">
-                  To convert ABRA to fiat, visit the TradePage where you can swap ABRA to USDC and use our off-ramp partners.
-                </p>
-              </div>
-
-              <button
-                onClick={() => {
-                  navigate('/app/trade');
-                  setShowWithdrawModal(false);
-                }}
-                className="w-full rounded-lg bg-gradient-to-r from-cyan-500/40 to-purple-500/40 border border-cyan-300/40 px-4 py-3 text-sm font-bold text-cyan-200 hover:from-cyan-500/60 hover:to-purple-500/60 transition-all"
-              >
-                Go to Trade Page
-              </button>
-
-              <div className="rounded-lg bg-slate-950/50 border border-slate-700/30 p-3">
-                <p className="text-xs text-slate-400 mb-2 font-mono uppercase tracking-wider">Quick Steps:</p>
-                <ol className="text-xs text-slate-300/70 space-y-1 list-decimal list-inside">
-                  <li>Go to Trade page</li>
-                  <li>Swap ABRA to USDC (Jupiter)</li>
-                  <li>Use the off-ramp widget to convert to fiat</li>
-                  <li>Receive in Cash App or Apple Pay</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Create Vault */}
       <form onSubmit={onCreateVault} className="rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-6 backdrop-blur">
@@ -658,6 +552,16 @@ export function VaultsPage() {
                       ))}
                     </select>
                   </div>
+                  <button
+                    onClick={() => handleTaxReport(vault.id)}
+                    className="w-full rounded-lg border border-fuchsia-300/60 bg-gradient-to-r from-fuchsia-500/40 via-pink-500/35 to-amber-400/35 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-fuchsia-50 shadow-[0_0_22px_rgba(217,70,239,0.18)] transition hover:from-fuchsia-500/60 hover:via-pink-500/55 hover:to-amber-400/45"
+                  >
+                    {generatingTaxReportId === vault.id ? (
+                      <span className="inline-flex items-center gap-2"><Loader size={12} className="animate-spin" /> Generating Tax Report</span>
+                    ) : (
+                      `Tax Report · PDF + CSV`
+                    )}
+                  </button>
                   <button
                     onClick={() => onAssignAgent(vault.id, getSelectedAgent(vault.id, vault.assignedAgent))}
                     className="w-full rounded-lg bg-gradient-to-r from-purple-500/40 to-indigo-500/40 border border-purple-300/40 px-3 py-2 text-xs font-bold text-purple-200 hover:from-purple-500/60 hover:to-indigo-500/60 transition disabled:opacity-50"

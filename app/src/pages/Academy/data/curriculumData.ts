@@ -1,6 +1,6 @@
-export const ABRAXAS_CORE_VALUE_PROP = `Abraxas lets you own your own AI-powered digital asset management firm.
-Tokenize real-world assets into NFTs → put them in intelligent Sophia Vaults → let AI agents grow and protect your money 24/7.
-You own everything. The agents do the work. You keep the gains.`;
+import { ABRAXAS_FULL_VALUE_PROP } from '../../../lib/messaging';
+
+export const ABRAXAS_CORE_VALUE_PROP = ABRAXAS_FULL_VALUE_PROP;
 
 export const ACADEMY_PROGRESS_STORAGE_KEY = 'abraxas_academy_curriculum_progress';
 export const ACADEMY_ONCHAIN_SYNC_STORAGE_KEY = 'abraxas_academy_last_sync';
@@ -103,7 +103,7 @@ export const ACADEMY_OVERVIEW: AcademyOverview = {
   preface: [
     'When this curriculum was first created in August 2025 under World Labs Protocol, the financial world was already shifting. Geopolitical tensions, algorithmic dominance, and the rise of cryptocurrency and DeFi were creating both chaos and opportunity.',
     'Back then, it was called Baby Billionaire Academy: a simple, fun way to teach the next generation, and anyone willing to learn, how to navigate markets with real edge. The time has now come to evolve it into something greater.',
-    'This is now the Abraxas Academy. Abraxas is the complete sovereign economy on Solana. Here, you do not just trade. You tokenize real-world assets into La Casa NFTs, place them in intelligent Sophia Vaults, and let the multi-agent Species actively manage and compound value for you 24/7.',
+    'This is now the Abraxas Academy. The message is simple: own your own AI-powered digital asset management firm. You stay in control. The agents do the work. You keep the gains.',
     'Day trading is the lead product because that is what most learners are actively looking for: a repeatable edge with serious upside potential that feels more solid than sports betting because it is built on structure, timing, and execution rather than luck. DeFi and portfolio or asset management stay as the backend progression, teaching you how to own real assets, move capital with ABRAX, and harden wealth against inflation and tax erosion.',
   ],
   access: 'The full academy is token-gated. A minimum holding of $1,000 in ABRA is required to unlock the complete curriculum, while partial free teasers remain available to everyone. This keeps the learning base aligned with the sovereign economy being built.',
@@ -790,11 +790,11 @@ export const ACADEMY_MODULES: AcademyModule[] = [
       },
     ],
     video: {
-      title: 'Full Lore Video',
+      title: 'Community Discussion',
       description:
-        'Open the full Species Awakening lore track and continue into the live Abraxas campaign experience.',
-      href: '/app/species-awakening',
-      ctaLabel: 'Watch the Full Lore Arc',
+        'Take your sovereignty knowledge to the Discord community and discuss the ownership thesis with other Abraxas builders.',
+      href: 'https://discord.gg/EhgEe2MPa',
+      ctaLabel: 'Join Community',
     },
     quiz: [
       {

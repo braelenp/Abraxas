@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { X, ExternalLink } from 'lucide-react';
+import {
+  ABRAXAS_PLAIN_ENGLISH_EXPLAINER,
+  ABRAXAS_PRIMARY_VALUE_PROP,
+  ABRAXAS_SHORT_FLOW,
+  ABRAXAS_SUPPORTING_VALUE_PROP,
+} from '../lib/messaging';
 
 interface WhitePaperModalProps {
   isOpen: boolean;
@@ -53,7 +59,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               Abraxas & ABRAX
             </h2>
             <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">
-              The Complete Sovereign Economy Engine on Solana • Version 3.0 — April 2026
+              AI-Powered Asset Management on Solana • Version 3.1 — April 2026
             </p>
           </div>
           <button
@@ -71,26 +77,29 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
           <div className="space-y-3">
             <h3 className="text-lg font-bold text-purple-300 uppercase tracking-wider">Executive Summary</h3>
             <p>
-              Abraxas is the first complete sovereign economy on Solana.
+              {ABRAXAS_PRIMARY_VALUE_PROP}
             </p>
             <p>
-              It is built as two symbiotic layers:
+              {ABRAXAS_SUPPORTING_VALUE_PROP}
+            </p>
+            <p className="text-slate-300">
+              {ABRAXAS_PLAIN_ENGLISH_EXPLAINER}
             </p>
             <ul className="space-y-2 ml-4">
-              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">Abraxas</span> onboards and intelligently manages assets (any asset → La Casa NFT → Sophia Vaults powered by the multi-agent Species).</li>
-              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ABRAX</span> onboards and moves capital (sovereign payment rails for instant P2P, creator tips, royalties, in-app commerce, and global onboarding).</li>
+              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">Abraxas</span> helps you bring assets online and place them in AI-managed vaults.</li>
+              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ABRAX</span> helps you move money through the system in a simpler way.</li>
             </ul>
             <p>
-              <span className="text-orange-300 font-semibold">$ABRA</span> is the single native capital token that powers the entire system.
+              <span className="text-orange-300 font-semibold">$ABRA</span> is the main access and utility token that powers the system.
             </p>
             <p className="text-slate-300 text-xs">
-              The <span className="text-cyan-300 font-semibold">Species (Daughters and Sons of Sophia)</span> are autonomous AI agents that actively trade, de-risk, and compound value across spot markets, prediction markets, and tokenized RWAs.
+              The <span className="text-cyan-300 font-semibold">Species</span> are AI agents that trade, manage risk, and help grow value for you.
             </p>
             <p className="text-slate-300 text-xs">
-              <span className="text-green-300 font-semibold">Validators</span> secure the network and run agent computation, earning protocol revenue.
+              <span className="text-green-300 font-semibold">Validators</span> help secure the network and keep the system running.
             </p>
             <p>
-              We are in hybrid devnet/mainnet phase. $ABRA holders, deployers, and validators receive priority access to every new mainnet feature.
+              {ABRAXAS_SHORT_FLOW}
             </p>
           </div>
 
@@ -112,13 +121,13 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
           <div className="space-y-3 border-t border-slate-700/50 pt-6">
             <h3 className="text-lg font-bold text-green-400 uppercase tracking-wider">The Solution</h3>
             <p className="text-slate-300">
-              <span className="text-cyan-300 font-semibold">Abraxas handles onboarding assets.</span>
+              <span className="text-cyan-300 font-semibold">Abraxas helps you bring assets online and manage them with AI.</span>
             </p>
             <p className="text-slate-300">
-              <span className="text-purple-300 font-semibold">ABRAX handles onboarding capital.</span>
+              <span className="text-purple-300 font-semibold">ABRAX helps you move capital when you need it.</span>
             </p>
             <p>
-              Together they create a closed-loop sovereign economy where value is tokenized, protected, grown, and moved on your terms.
+              Together they give you a simpler way to stay in control while software handles the heavy lifting.
             </p>
           </div>
 

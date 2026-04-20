@@ -32,8 +32,8 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
   const [mintResult, setMintResult] = useState<{ signature?: string; mint?: string }>({});
 
   const isPhantomAvailable = isPhantomNFTCapable();
-  const nftTitle = nftType === 'sophia' ? 'Sophia Agent' : 'Genesis Monolith';
-  const nftIcon = nftType === 'sophia' ? '🤖' : '◆';
+  const nftTitle = nftType === 'sophia' ? 'La Casa Asset' : 'Genesis Monolith';
+  const nftIcon = nftType === 'sophia' ? '🏠' : '◆';
 
   /**
    * Handle NFT mint click
@@ -108,7 +108,7 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
             &gt; [PHANTOM] MINT_{nftType.toUpperCase()}
           </h3>
           <p className="text-[11px] text-cyan-300/60 uppercase tracking-wide">
-            Sign with Phantom to mint your {nftTitle}
+            Sign with Phantom to mint your {nftTitle} NFT
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
           <h4 className="text-lg font-bold text-cyan-300 mb-1">{nftTitle} NFT</h4>
           <p className="text-xs text-cyan-400/60">
             {nftType === 'sophia' 
-              ? 'AI agent with full autonomy capabilities'
+              ? 'Tokenized ownership record for vault-ready asset management'
               : 'Genesis holder status with 2x multiplier'}
           </p>
         </div>
@@ -129,15 +129,15 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
             <>
               <div className="flex gap-2 text-xs text-cyan-300">
                 <span>✓</span>
-                <span>Autonomous AI agent</span>
+                <span>Tokenized asset record</span>
               </div>
               <div className="flex gap-2 text-xs text-cyan-300">
                 <span>✓</span>
-                <span>Tradeable on marketplaces</span>
+                <span>Wallet-native ownership proof</span>
               </div>
               <div className="flex gap-2 text-xs text-cyan-300">
                 <span>✓</span>
-                <span>Earn rental income</span>
+                <span>Ready for Sophia Vault routing</span>
               </div>
             </>
           ) : (
@@ -194,7 +194,7 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
             &gt; [PREPARING] METADATA
           </h3>
           <p className="text-cyan-400/60 text-center max-w-xs text-xs mt-4">
-            Preparing NFT metadata for mint...
+            Preparing tokenization metadata for mint...
           </p>
         </div>
       </div>

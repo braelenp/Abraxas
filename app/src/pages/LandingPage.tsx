@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { ChevronDown, Sparkles } from 'lucide-react';
+import {
+  ABRAXAS_PLAIN_ENGLISH_EXPLAINER,
+  ABRAXAS_PRIMARY_VALUE_PROP,
+  ABRAXAS_SHORT_FLOW,
+  ABRAXAS_SIMPLE_PILLARS,
+  ABRAXAS_SUPPORTING_VALUE_PROP,
+} from '../lib/messaging';
 
 /**
  * ── Landing Page ────────────────────────────────────────────────────────────
@@ -162,30 +169,57 @@ export function LandingPage() {
           {/* Main Headline */}
           <h1 className="text-3xl md:text-4xl font-black tracking-tighter leading-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-400">
-              Welcome to the<br />Next Degree
+              {ABRAXAS_PRIMARY_VALUE_PROP}
             </span>
           </h1>
 
           {/* Subheadline - Simple Explanation */}
           <p className="text-lg md:text-xl text-slate-200 leading-relaxed max-w-xl mx-auto">
-            Tokenize any real-world asset. Put it in intelligent vaults. Move capital instantly and fairly on Solana.
+            {ABRAXAS_SUPPORTING_VALUE_PROP}
           </p>
 
-          {/* Abraxas Overview Video */}
-          <div className="mt-12 max-w-2xl mx-auto w-full px-2">
-            <div className="relative rounded-2xl overflow-hidden border border-purple-400/30 shadow-[0_0_40px_rgba(153,69,255,0.3),inset_0_0_20px_rgba(153,69,255,0.1)] backdrop-blur-sm bg-slate-900/40">
-              <video
-                className="w-full h-auto block"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="/assets/abraxas-overview.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_20px_rgba(153,69,255,0.2)]" />
+          <p className="text-sm text-slate-400 leading-relaxed max-w-xl mx-auto">
+            {ABRAXAS_SHORT_FLOW}
+          </p>
+
+          {/* Videos Section */}
+          <div className="mt-12 max-w-4xl mx-auto w-full px-2 space-y-8">
+            {/* Abraxas Overview Video */}
+            <div>
+              <p className="text-xs font-mono uppercase tracking-[0.28em] text-purple-300/80 mb-3">Video 1</p>
+              <h3 className="text-lg font-semibold text-white mb-4">Abraxas Overview</h3>
+              <div className="relative rounded-2xl overflow-hidden border border-purple-400/30 shadow-[0_0_40px_rgba(153,69,255,0.3),inset_0_0_20px_rgba(153,69,255,0.1)] backdrop-blur-sm bg-slate-900/40">
+                <video
+                  className="w-full h-auto block"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src="/assets/abraxas-overview.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_20px_rgba(153,69,255,0.2)]" />
+              </div>
+            </div>
+
+            {/* How Abraxas Works Video */}
+            <div>
+              <p className="text-xs font-mono uppercase tracking-[0.28em] text-purple-300/80 mb-3">Video 2</p>
+              <h3 className="text-lg font-semibold text-white mb-4">How Abraxas Works</h3>
+              <div className="relative rounded-2xl overflow-hidden border border-purple-400/30 shadow-[0_0_40px_rgba(153,69,255,0.3),inset_0_0_20px_rgba(153,69,255,0.1)] backdrop-blur-sm bg-slate-900/40">
+                <video
+                  className="w-full h-auto block"
+                  controls
+                  muted
+                  playsInline
+                >
+                  <source src="/assets/how-abraxas-works.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_20px_rgba(153,69,255,0.2)]" />
+              </div>
             </div>
           </div>
 
@@ -193,20 +227,20 @@ export function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             <div className="bg-slate-900/40 border border-cyan-300/20 rounded-lg p-6 backdrop-blur-sm hover:border-cyan-300/40 transition-all">
               <div className="text-3xl font-black text-cyan-400 mb-3">✧</div>
-              <h3 className="text-sm font-bold text-cyan-300 mb-2">Tokenize Assets</h3>
-              <p className="text-xs text-slate-300">Transform any real estate, yacht, art, or collectible into La Casa NFTs.</p>
+              <h3 className="text-sm font-bold text-cyan-300 mb-2">Bring Assets Online</h3>
+              <p className="text-xs text-slate-300">Turn assets into digital positions you can track and use more easily.</p>
             </div>
             
             <div className="bg-slate-900/40 border border-purple-300/20 rounded-lg p-6 backdrop-blur-sm hover:border-purple-300/40 transition-all">
               <div className="text-3xl font-black text-purple-400 mb-3">ᚨ</div>
-              <h3 className="text-sm font-bold text-purple-300 mb-2">Intelligent Vaults</h3>
-              <p className="text-xs text-slate-300">AI agents actively manage and grow your assets with precision.</p>
+              <h3 className="text-sm font-bold text-purple-300 mb-2">AI-Managed Vaults</h3>
+              <p className="text-xs text-slate-300">Put assets in vaults where AI agents help manage and protect them.</p>
             </div>
             
             <div className="bg-slate-900/40 border border-orange-300/20 rounded-lg p-6 backdrop-blur-sm hover:border-orange-300/40 transition-all">
               <div className="text-3xl font-black text-orange-400 mb-3">ᛋ</div>
-              <h3 className="text-sm font-bold text-orange-300 mb-2">Instant Capital</h3>
-              <p className="text-xs text-slate-300">Move money instantly with ABRAX native stablecoin on Solana.</p>
+              <h3 className="text-sm font-bold text-orange-300 mb-2">Money That Moves Fast</h3>
+              <p className="text-xs text-slate-300">Use ABRAX to move money simply and settle faster on Solana.</p>
             </div>
           </div>
         </div>
@@ -257,34 +291,21 @@ export function LandingPage() {
           
           <div className="bg-slate-800/50 border border-purple-300/20 rounded-lg p-6 space-y-4 text-sm text-slate-200 leading-relaxed">
             <p>
-              Abraxas is a <span className="text-cyan-300 font-semibold">complete sovereign economy on Solana</span>.
+              <span className="text-cyan-300 font-semibold">{ABRAXAS_PRIMARY_VALUE_PROP}</span>
             </p>
+            <p className="text-slate-300">{ABRAXAS_PLAIN_ENGLISH_EXPLAINER}</p>
             
             <ul className="space-y-3 text-xs">
-              <li className="flex gap-3">
-                <span className="text-purple-400 font-bold min-w-fit">•</span>
-                <span><span className="text-purple-300 font-semibold">Tokenize any asset</span> (real estate, yachts, players, art) into <span className="text-orange-300">La Casa NFTs</span></span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-cyan-400 font-bold min-w-fit">•</span>
-                <span><span className="text-cyan-300 font-semibold">AI Species</span> actively manage, protect, and grow your assets</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-emerald-400 font-bold min-w-fit">•</span>
-                <span><span className="text-emerald-300 font-semibold">ABRAX</span> is our native stablecoin for instant payments</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-pink-400 font-bold min-w-fit">•</span>
-                <span><span className="text-pink-300 font-semibold">$ABRA</span> is the utility token for staking, vaults, and governance</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-yellow-400 font-bold min-w-fit">•</span>
-                <span><span className="text-yellow-300 font-semibold">Validators</span> secure the network and earn rewards</span>
-              </li>
+              {ABRAXAS_SIMPLE_PILLARS.map((item, index) => (
+                <li key={item} className="flex gap-3">
+                  <span className="text-cyan-400 font-bold min-w-fit">{index + 1}.</span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
 
             <p className="pt-3 border-t border-slate-700">
-              You can participate <span className="text-cyan-300 font-semibold">passively</span> (hold or stake ABRA) or <span className="text-purple-300 font-semibold">actively</span> (deploy ABRA into vaults for agent-managed returns).
+              Start simple: hold ABRA, use vaults, or let the agents help you manage positions without giving up control.
             </p>
           </div>
         </div>
@@ -293,7 +314,7 @@ export function LandingPage() {
       {/* Footer */}
       <div className="relative z-10 w-full bg-slate-950/80 border-t border-slate-800 py-8 px-4 text-center">
         <p className="text-xs text-slate-400">
-          Abraxas • Web5 Biological Ledger on Solana • Protected by seven Elder Futhark runes
+          Abraxas • AI-powered asset management on Solana • You stay in control
         </p>
       </div>
     </div>

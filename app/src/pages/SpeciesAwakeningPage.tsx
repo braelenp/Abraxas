@@ -13,8 +13,8 @@
 import { useState, useMemo } from 'react';
 import { Share2, Copy, ArrowRight, Zap, Trophy, Star, CheckCircle2, Target, BookOpen, Users, Download } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useTranslation } from 'react-i18next';
 import { useSpeciesAwakening } from '../hooks/useSpeciesAwakening';
+import type { SpeciesAwakeningTask } from '../lib/types';
 
 // ── Mock Data ────────────────────────────────────────────────────────────
 // These are kept for RWA assets reference only
@@ -95,7 +95,6 @@ const RWA_ASSETS = [
 // (Now handled by backend)
 
 export function SpeciesAwakeningPage() {
-  const { t } = useTranslation();
   const { publicKey, connected } = useWallet();
   const [copied, setCopied] = useState(false);
   const [showFullLeaderboard, setShowFullLeaderboard] = useState(false);
@@ -112,7 +111,6 @@ export function SpeciesAwakeningPage() {
     leaderboard,
     leaderboardLoading,
     completeTask,
-    isConnected,
   } = useSpeciesAwakening();
 
   if (!connected) {
@@ -181,6 +179,13 @@ export function SpeciesAwakeningPage() {
   const completedTasks = tasks.filter((t) => t.completed).length;
   const totalTasks = tasks.length;
   const taskProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+  const groupedTasks = useMemo(
+    () => ({
+      discord: tasks.filter((task) => task.platform === 'Discord'),
+      social: tasks.filter((task) => task.platform !== 'Discord'),
+    }),
+    [tasks]
+  );
 
   const visibleLeaderboard = showFullLeaderboard ? leaderboard : leaderboard.slice(0, 10);
 
@@ -227,6 +232,32 @@ export function SpeciesAwakeningPage() {
     } else {
       setTaskCompletionMessage(result.error || 'Failed to complete task');
     }
+  };
+
+  const handleTaskAction = async (task: SpeciesAwakeningTask) => {
+    if (task.link) {
+      window.open(task.link, '_blank', 'noopener,noreferrer');
+    }
+
+    if (!task.completed) {
+      await handleCompleteTask(task.id);
+    }
+  };
+
+  const getTaskActionLabel = (task: SpeciesAwakeningTask) => {
+    if (task.completed) {
+      return 'Completed';
+    }
+
+    if (task.platform === 'Discord') {
+      return task.id === 'discord-post' ? 'Open Discord' : 'Join Discord';
+    }
+
+    if (task.platform === 'X') {
+      return 'Open X';
+    }
+
+    return 'Complete Task';
   };
 
   const generateCertificate = () => {
@@ -429,86 +460,94 @@ export function SpeciesAwakeningPage() {
         </div>
       </section>
 
-      {/* ── ACTIVE TASKS SECTION ──────────────────────────────── */}
-      <section className="space-y-3">
+      {/* ── QUESTS ────────────────────────────────────────────── */}
+      <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <Target size={20} className="text-purple-300" />
+          <Target size={20} className="text-cyan-300" />
           <h2 className="text-lg font-bold text-slate-100">Active Quests</h2>
+          <span className="ml-auto text-xs text-slate-500">{totalTasks} available</span>
         </div>
 
         {taskCompletionMessage && (
-          <div className={`rounded-lg p-3 text-sm font-semibold text-center ${
-            taskCompletionMessage.includes('Failed') 
-              ? 'bg-red-500/20 border border-red-400/30 text-red-300'
-              : 'bg-emerald-500/20 border border-emerald-400/30 text-emerald-300'
-          }`}>
+          <div className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
             {taskCompletionMessage}
           </div>
         )}
 
-        <div className="space-y-2">
-          {tasksLoading ? (
-            <div className="text-center py-8 text-slate-400">Loading tasks...</div>
-          ) : tasks.length === 0 ? (
-            <div className="text-center py-8 text-slate-400">No tasks available</div>
-          ) : (
-            tasks.map((task) => (
-              <div
-                key={task.id}
-                className={`rounded-lg border p-3 transition-all backdrop-blur-sm ${
-                  task.completed
-                    ? 'border-emerald-400/30 bg-emerald-500/10'
-                    : 'border-slate-600/50 bg-slate-800/40 hover:border-purple-400/40 hover:bg-slate-800/60'
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="text-2xl">{task.icon}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <div>
-                        <h3 className="text-sm font-semibold text-slate-100">{task.title}</h3>
-                        <p className="text-xs text-slate-400 mt-0.5">
-                          {task.platform}{' '}
-                          <span className="text-slate-500">
-                            • {task.type === 'daily' ? 'Daily' : 'Weekly'}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xs font-bold text-purple-300">+{task.reward}</span>
-                        {task.completed && (
-                          <CheckCircle2 size={16} className="text-emerald-400" />
-                        )}
-                      </div>
-                    </div>
-                  </div>
+        {tasksLoading ? (
+          <div className="rounded-lg border border-slate-700/50 bg-slate-900/30 p-4 text-sm text-slate-400">
+            Loading quests...
+          </div>
+        ) : totalTasks === 0 ? (
+          <div className="rounded-lg border border-slate-700/50 bg-slate-900/30 p-4 text-sm text-slate-400">
+            No quests are live yet.
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {groupedTasks.discord.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Users size={18} className="text-purple-300" />
+                  <h3 className="text-sm font-bold uppercase tracking-wide text-purple-200">Discord Quests</h3>
                 </div>
 
-                {!task.completed && (
-                  <div className="flex gap-2 mt-2">
-                    {task.link && (
-                      <a
-                        href={task.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1 text-xs font-semibold text-purple-300 hover:text-purple-200 transition border border-purple-400/30 rounded py-1.5 hover:border-purple-400/60"
-                      >
-                        Open <ArrowRight size={12} />
-                      </a>
-                    )}
-                    <button
-                      onClick={() => handleCompleteTask(task.id)}
-                      disabled={completingTaskId === task.id}
-                      className="flex-shrink-0 px-3 py-1.5 rounded text-xs font-semibold border border-emerald-400/50 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 disabled:opacity-50 transition"
-                    >
-                      {completingTaskId === task.id ? 'Marking...' : 'Mark Done'}
-                    </button>
-                  </div>
-                )}
+                <div className="space-y-3">
+                  {groupedTasks.discord.map((task) => (
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      isCompleting={completingTaskId === task.id}
+                      actionLabel={getTaskActionLabel(task)}
+                      onAction={() => handleTaskAction(task)}
+                    />
+                  ))}
+                </div>
               </div>
-            ))
-          )}
+            )}
+
+            {groupedTasks.social.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Star size={18} className="text-amber-300" />
+                  <h3 className="text-sm font-bold uppercase tracking-wide text-amber-200">Other Quests</h3>
+                </div>
+
+                <div className="space-y-3">
+                  {groupedTasks.social.map((task) => (
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      isCompleting={completingTaskId === task.id}
+                      actionLabel={getTaskActionLabel(task)}
+                      onAction={() => handleTaskAction(task)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+
+      {/* ── DISCORD INVITE SECTION ────────────────────────────── */}
+      <section className="rounded-lg border border-purple-400/40 bg-gradient-to-br from-purple-900/30 to-slate-900/40 p-6 text-center space-y-4 backdrop-blur-sm">
+        <div className="flex justify-center">
+          <div className="text-5xl">✧</div>
         </div>
+        <div>
+          <h2 className="text-xl font-bold text-purple-200 mb-2">Join Our Discord</h2>
+          <p className="text-sm text-slate-300 mb-4">
+            Connect with the Genesis Validator community and be part of the Species Awakening
+          </p>
+        </div>
+        <a
+          href="https://discord.gg/EhgEe2MPa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 transition shadow-lg"
+        >
+          Join Discord <ArrowRight size={16} />
+        </a>
       </section>
 
       {/* ── SHARE YOUR PROGRESS ───────────────────────────────── */}
@@ -712,6 +751,61 @@ export function SpeciesAwakeningPage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+type TaskCardProps = {
+  task: SpeciesAwakeningTask;
+  isCompleting: boolean;
+  actionLabel: string;
+  onAction: () => void;
+};
+
+function TaskCard({ task, isCompleting, actionLabel, onAction }: TaskCardProps) {
+  return (
+    <div className="rounded-xl border border-slate-700/50 bg-slate-900/35 p-4 backdrop-blur-sm">
+      <div className="flex items-start gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-purple-400/30 bg-purple-500/10 text-xl text-purple-200">
+          {task.icon}
+        </div>
+
+        <div className="min-w-0 flex-1 space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-100">{task.title}</h3>
+            <span className="rounded-full border border-slate-600/60 px-2 py-0.5 text-[11px] uppercase tracking-wide text-slate-300">
+              {task.type}
+            </span>
+            <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-cyan-200">
+              +{task.reward} pts
+            </span>
+          </div>
+
+          <p className="text-xs text-slate-400">
+            {task.description || `Complete this ${task.platform} quest to grow your Species Awakening score.`}
+          </p>
+
+          <div className="flex items-center justify-between gap-3 pt-1">
+            <span className="text-xs text-slate-500">{task.platform}</span>
+
+            {task.completed ? (
+              <span className="inline-flex items-center gap-1 rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-200">
+                <CheckCircle2 size={14} />
+                Completed
+              </span>
+            ) : (
+              <button
+                onClick={onAction}
+                disabled={isCompleting}
+                className="inline-flex items-center gap-2 rounded-lg border border-purple-400/50 bg-purple-500/15 px-3 py-2 text-xs font-semibold text-purple-100 transition-all hover:bg-purple-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isCompleting ? 'Completing...' : actionLabel}
+                {!isCompleting && <ArrowRight size={14} />}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

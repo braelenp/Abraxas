@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import {
+  ABRAXAS_PLAIN_ENGLISH_EXPLAINER,
+  ABRAXAS_PRIMARY_VALUE_PROP,
+  ABRAXAS_SHORT_FLOW,
+  ABRAXAS_SUPPORTING_VALUE_PROP,
+} from '../lib/messaging';
 
 /**
  * ── Whitepaper Summary Page ──────────────────────────────────────────────────
@@ -132,14 +138,16 @@ export function WhitepaperSummaryPage() {
               <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">
                 What is Abraxas?
               </h2>
-              <p className="text-sm text-slate-300">One-minute understanding of the protocol</p>
+              <p className="text-sm text-slate-300">One-minute plain-English overview</p>
             </div>
 
             {/* Main Description */}
             <div className="bg-slate-900/60 border border-cyan-300/20 rounded-xl p-8 space-y-6">
               <h3 className="text-xl font-black text-cyan-300 text-center">
-                A Complete Sovereign Economy on Solana
+                {ABRAXAS_PRIMARY_VALUE_PROP}
               </h3>
+              <p className="text-sm text-center text-slate-300">{ABRAXAS_SUPPORTING_VALUE_PROP}</p>
+              <p className="text-sm text-center text-slate-400">{ABRAXAS_PLAIN_ENGLISH_EXPLAINER}</p>
 
               {/* Key Points */}
               <div className="space-y-5">
@@ -151,9 +159,9 @@ export function WhitepaperSummaryPage() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-purple-300 mb-1">Tokenize Any Asset</h4>
+                    <h4 className="font-bold text-purple-300 mb-1">Bring Assets Online</h4>
                     <p className="text-sm text-slate-300 leading-relaxed">
-                      Convert real-world assets like real estate, yachts, players, and art into <span className="text-orange-300 font-semibold">La Casa NFTs</span> that live on-chain and earn yield.
+                      Put real-world assets into a digital form that is easier to track, manage, and use inside Abraxas.
                     </p>
                   </div>
                 </div>
@@ -166,9 +174,9 @@ export function WhitepaperSummaryPage() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-cyan-300 mb-1">Intelligent Vaults with AI Species</h4>
+                    <h4 className="font-bold text-cyan-300 mb-1">Use AI-Managed Vaults</h4>
                     <p className="text-sm text-slate-300 leading-relaxed">
-                      <span className="text-cyan-300 font-semibold">The Species</span> (AI agents) actively manage, protect, and grow your assets. Each species specializes in a different asset class for expert-level management.
+                      AI agents watch your positions, help manage risk, and work around the clock while you stay in charge.
                     </p>
                   </div>
                 </div>
@@ -181,9 +189,9 @@ export function WhitepaperSummaryPage() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-emerald-300 mb-1">Two Tokens for Two Purposes</h4>
+                    <h4 className="font-bold text-emerald-300 mb-1">Move Money More Easily</h4>
                     <p className="text-sm text-slate-300 leading-relaxed">
-                      <span className="text-emerald-300 font-semibold">ABRAX</span> is our native stablecoin for instant payments. <span className="text-pink-300 font-semibold">$ABRA</span> is the utility token used for staking, vault deployment, and governance.
+                      ABRAX is built for moving money. ABRA is the access and utility token used across the system.
                     </p>
                   </div>
                 </div>
@@ -196,9 +204,9 @@ export function WhitepaperSummaryPage() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-yellow-300 mb-1">Validators Secure the Network</h4>
+                    <h4 className="font-bold text-yellow-300 mb-1">Stay in Control</h4>
                     <p className="text-sm text-slate-300 leading-relaxed">
-                      <span className="text-yellow-300 font-semibold">Validators</span> maintain security, verify transactions, and earn rewards for keeping Abraxas running smoothly.
+                      The point of Abraxas is simple: you own the account, you choose the assets, and the software does the heavy lifting.
                     </p>
                   </div>
                 </div>
@@ -208,16 +216,17 @@ export function WhitepaperSummaryPage() {
             {/* How You Participate */}
             <div className="bg-slate-900/60 border border-purple-300/20 rounded-xl p-8 space-y-4">
               <h3 className="text-lg font-bold text-purple-300">How You Can Participate</h3>
+              <p className="text-sm text-slate-300">{ABRAXAS_SHORT_FLOW}</p>
 
               <div className="space-y-3">
                 <div className="flex gap-3 items-start">
                   <span className="text-cyan-400 font-bold min-w-fit">Passive:</span>
-                  <p className="text-sm text-slate-300">Hold or stake $ABRA to earn network rewards and participate in governance.</p>
+                  <p className="text-sm text-slate-300">Hold ABRA and use the system at your own pace.</p>
                 </div>
 
                 <div className="flex gap-3 items-start">
                   <span className="text-purple-400 font-bold min-w-fit">Active:</span>
-                  <p className="text-sm text-slate-300">Deploy $ABRA into intelligent vaults and let the Species manage your assets for returns.</p>
+                  <p className="text-sm text-slate-300">Put assets into vaults and let AI agents help manage them for you.</p>
                 </div>
               </div>
             </div>

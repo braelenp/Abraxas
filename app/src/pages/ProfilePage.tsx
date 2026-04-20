@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserProfile, useAirdropPoints } from '../hooks/useProfile';
 import { AbraxasIDCard } from '../components/AbraxasIDCard';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { ABRAXAS_PLAIN_ENGLISH_EXPLAINER, ABRAXAS_PRIMARY_VALUE_PROP } from '../lib/messaging';
 
 export function ProfilePage() {
   const { t } = useTranslation();
@@ -42,52 +43,49 @@ export function ProfilePage() {
       done: true,
     },
     {
+      icon: 'ᛚ',
+      title: 'Trade',
+      description: '① Get ABRA — Acquire ABRA tokens on Solana DEX',
+      path: '/app/trade',
+      step: 1,
+    },
+    {
       icon: 'ᚲ',
       title: 'Forge',
-      description: 'Stake ABRA and mint positions',
+      description: '② Mint NFT — Tokenize an asset into vault-ready form',
       path: '/app/forge',
+      step: 2,
     },
     {
       icon: 'ᚨ',
       title: 'Vaults',
-      description: 'Deploy assets into intelligent vaults',
+      description: '③④⑤ Create → Assign Agent → Stake & Earn ABRAX',
       path: '/app/vaults',
+      step: 3,
     },
     {
       icon: 'ᛋ',
       title: 'Market',
-      description: 'Browse all RWA classes',
+      description: 'Review asset opportunities and vault performance',
       path: '/app/market',
     },
     {
       icon: '✦',
       title: 'Cadabra',
-      description: 'Community and social features',
+      description: 'Community & discussions powered by ABRA holders',
       path: '/app/cadabra',
     },
     {
       icon: 'ᛏ',
       title: 'King AI',
-      description: 'Institutional capital insights',
+      description: 'AI guidance for strategy and decisions',
       path: '/app/orion',
     },
     {
       icon: 'ᚦ',
       title: 'Circuit',
-      description: 'Vault protection and thresholds',
+      description: 'Risk controls & vault protection settings',
       path: '/app/circuit',
-    },
-    {
-      icon: 'ᛚ',
-      title: 'Trade',
-      description: 'Swap and route assets',
-      path: '/app/trade',
-    },
-    {
-      icon: '🔮',
-      title: 'Species Awakening',
-      description: 'Airdrop campaign dashboard',
-      path: '/app/species-awakening',
     },
   ];
 
@@ -132,7 +130,7 @@ export function ProfilePage() {
           <div className="text-sm text-cyan-400 font-semibold uppercase tracking-wider">Getting Started</div>
         </div>
         
-        <p className="text-slate-300 text-sm">Each tab in Abraxas represents a different function of the protocol. Start with any that interests you:</p>
+        <p className="text-slate-300 text-sm">{ABRAXAS_PRIMARY_VALUE_PROP} {ABRAXAS_PLAIN_ENGLISH_EXPLAINER}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {features.map((feature, idx) => (
@@ -218,19 +216,19 @@ export function ProfilePage() {
         <ul className="space-y-3 text-sm text-slate-300">
           <li className="flex gap-3">
             <span className="text-cyan-400 font-bold flex-shrink-0">1.</span>
-            <span>Visit the <button onClick={() => navigate('/app/forge')} className="text-cyan-400 font-semibold hover:underline">Forge</button> to stake ABRA and mint positions</span>
+            <span>Visit the <button onClick={() => navigate('/app/forge')} className="text-cyan-400 font-semibold hover:underline">Forge</button> to bring an asset into the system</span>
           </li>
           <li className="flex gap-3">
             <span className="text-cyan-400 font-bold flex-shrink-0">2.</span>
-            <span>Explore <button onClick={() => navigate('/app/market')} className="text-cyan-400 font-semibold hover:underline">Market</button> to discover RWA asset classes</span>
+            <span>Explore <button onClick={() => navigate('/app/market')} className="text-cyan-400 font-semibold hover:underline">Market</button> to review options and pricing</span>
           </li>
           <li className="flex gap-3">
             <span className="text-cyan-400 font-bold flex-shrink-0">3.</span>
-            <span>Deploy assets to <button onClick={() => navigate('/app/vaults')} className="text-cyan-400 font-semibold hover:underline">Vaults</button> for AI-managed growth</span>
+            <span>Move assets to <button onClick={() => navigate('/app/vaults')} className="text-cyan-400 font-semibold hover:underline">Vaults</button> so AI can help manage them</span>
           </li>
           <li className="flex gap-3">
             <span className="text-cyan-400 font-bold flex-shrink-0">4.</span>
-            <span>Monitor your portfolio and yields in this Dashboard</span>
+            <span>Monitor performance and stay in control from this Dashboard</span>
           </li>
         </ul>
       </div>
