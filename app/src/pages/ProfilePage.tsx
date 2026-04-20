@@ -34,59 +34,40 @@ export function ProfilePage() {
     );
   }
 
-  const features = [
+  const primarySections = [
     {
-      icon: '✧',
-      title: 'Profile',
-      description: 'Your Abraxas identity and stats',
-      path: '/app/profile',
-      done: true,
+      icon: '◈',
+      title: 'Dashboard',
+      description: 'See your firm, gains, vault health, and tax snapshot',
+      path: '/app/dashboard',
     },
     {
-      icon: 'ᛚ',
-      title: 'Trade',
-      description: '① Get ABRA — Acquire ABRA tokens on Solana DEX',
-      path: '/app/trade',
-      step: 1,
+      icon: '◌',
+      title: 'Tokenize',
+      description: 'Turn an asset into a vault-ready La Casa NFT record',
+      path: '/app/tokenize',
     },
     {
-      icon: 'ᚲ',
-      title: 'Forge',
-      description: '② Mint NFT — Tokenize an asset into vault-ready form',
-      path: '/app/forge',
-      step: 2,
-    },
-    {
-      icon: 'ᚨ',
-      title: 'Vaults',
-      description: '③④⑤ Create → Assign Agent → Stake & Earn ABRAX',
+      icon: '◍',
+      title: 'My Vaults',
+      description: 'Open vaults, assign agents, and manage positions',
       path: '/app/vaults',
-      step: 3,
     },
     {
-      icon: 'ᛋ',
-      title: 'Market',
-      description: 'Review asset opportunities and vault performance',
-      path: '/app/market',
+      icon: '◎',
+      title: 'Agents',
+      description: 'Review agent performance, protection, and execution',
+      path: '/app/agents',
     },
-    {
-      icon: '✦',
-      title: 'Cadabra',
-      description: 'Community & discussions powered by ABRA holders',
-      path: '/app/cadabra',
-    },
-    {
-      icon: 'ᛏ',
-      title: 'King AI',
-      description: 'AI guidance for strategy and decisions',
-      path: '/app/orion',
-    },
-    {
-      icon: 'ᚦ',
-      title: 'Circuit',
-      description: 'Risk controls & vault protection settings',
-      path: '/app/circuit',
-    },
+  ];
+
+  const secondaryTools = [
+    { title: 'Legacy Forge', path: '/app/forge' },
+    { title: 'Market Signals', path: '/app/market' },
+    { title: 'Trade Console', path: '/app/trade' },
+    { title: 'King AI', path: '/app/orion' },
+    { title: 'Circuit Defense', path: '/app/circuit' },
+    { title: 'Cadabra', path: '/app/cadabra' },
   ];
 
   return (
@@ -126,14 +107,14 @@ export function ProfilePage() {
       {/* Getting Started Guide */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-black text-cyan-300">Explore the Seven Runes</h2>
+          <h2 className="text-2xl font-black text-cyan-300">Explore the Four Core Sections</h2>
           <div className="text-sm text-cyan-400 font-semibold uppercase tracking-wider">Getting Started</div>
         </div>
         
         <p className="text-slate-300 text-sm">{ABRAXAS_PRIMARY_VALUE_PROP} {ABRAXAS_PLAIN_ENGLISH_EXPLAINER}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {features.map((feature, idx) => (
+          {primarySections.map((feature, idx) => (
             <button
               key={idx}
               onClick={() => navigate(feature.path)}
@@ -144,7 +125,6 @@ export function ProfilePage() {
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{feature.icon}</span>
                     <h3 className="font-bold text-slate-100">{feature.title}</h3>
-                    {feature.done && <span className="text-xs bg-green-500/30 text-green-300 px-2 py-0.5 rounded">✓</span>}
                   </div>
                   <p className="text-xs text-slate-400">{feature.description}</p>
                 </div>
@@ -152,6 +132,22 @@ export function ProfilePage() {
               </div>
             </button>
           ))}
+        </div>
+
+        <div className="rounded-xl border border-slate-700/50 bg-slate-900/30 p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Secondary Tools</p>
+          <p className="mt-2 text-xs text-slate-500">Legacy screens still exist, but they no longer occupy the main tab bar.</p>
+          <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3">
+            {secondaryTools.map((tool) => (
+              <button
+                key={tool.title}
+                onClick={() => navigate(tool.path)}
+                className="rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-left text-xs text-slate-300 transition hover:border-cyan-400/40 hover:text-cyan-100"
+              >
+                {tool.title}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

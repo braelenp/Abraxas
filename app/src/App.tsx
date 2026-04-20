@@ -205,37 +205,34 @@ function DappShell() {
                   {ABRAXAS_PLAIN_ENGLISH_EXPLAINER} {ABRAXAS_SHORT_FLOW}
                 </p>
 
-                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [RUNE_CIRCLE] MANIFEST</p>
+                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [CORE_SECTIONS] NAVIGATION</p>
                 <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-orange-300">• ᚲ Kenaz — Forge.</span> Turn assets into digital positions.</li>
-                  <li><span className="font-semibold text-cyan-300">• ᚨ Ansuz — Vaults.</span> Place those positions into AI-managed vaults.</li>
-                  <li><span className="font-semibold text-amber-300">• ᛋ Sowilo — Market.</span> Review opportunities and market activity.</li>
-                  <li><span className="font-semibold text-purple-300">• ✦ Mirror — Cadabra.</span> Join the community and share updates.</li>
-                  <li><span className="font-semibold text-red-300">• ᛏ Tiwaz — King AI.</span> Get AI oversight and portfolio guidance.</li>
-                  <li><span className="font-semibold text-emerald-300">• ᚦ Thurisaz — Circuit.</span> Add protection and risk controls.</li>
-                  <li><span className="font-semibold text-teal-300">• ᛚ Laguz — Trade.</span> Move and swap assets when needed.</li>
+                  <li><span className="font-semibold text-cyan-300">• Dashboard.</span> See your firm, gains, automation, and tax summary at a glance.</li>
+                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Mint La Casa asset records and move them into the system.</li>
+                  <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Open Sophia Vaults, assign automation, and manage positions.</li>
+                  <li><span className="font-semibold text-violet-300">• Agents.</span> Review AI performance, marketplace data, and execution tools.</li>
                 </ul>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-300">
-                  Each rune activates in its tab.<br />
-                  Step through. The protocol awaits your intent.
+                  The app now opens through four primary sections.<br />
+                  Supporting tools still exist inside those sections without expanding the main nav.
                 </p>
 
                 <div className="mt-6 border-t border-amber-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [FOUNDATION_MARKET]</p>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [SECONDARY_TOOLS]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Inside Market, review the opportunities available to you.<br />
-                    Watch performance, compare options, and decide what fits your goals.<br />
-                    <span className="text-purple-300 font-semibold">Simple visibility before action.</span>
+                    Legacy screens like Market, Trade, Circuit, and King AI are still available.<br />
+                    They now live behind the four core sections instead of occupying the main tab bar.<br />
+                    <span className="text-purple-300 font-semibold">Same tools, cleaner navigation.</span>
                   </p>
                 </div>
 
                 <div className="mt-4 border-t border-cyan-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FORGE]</p>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FLOW]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Forge is where you get started.<br />
-                    Bring an asset online, prepare it for a vault, and decide how you want AI to help manage it.<br />
-                    <span className="text-orange-300 font-semibold">You stay in control from the start.</span>
+                    Dashboard shows the big picture.<br />
+                    Tokenize gets the asset on-chain. My Vaults manages it. Agents scales and protects the operation.<br />
+                    <span className="text-orange-300 font-semibold">Four tabs, one operating flow.</span>
                   </p>
                 </div>
               </div>

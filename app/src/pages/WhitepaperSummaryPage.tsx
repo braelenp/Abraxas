@@ -231,41 +231,33 @@ export function WhitepaperSummaryPage() {
               </div>
             </div>
 
-            {/* The Seven Runes */}
+            {/* Primary App Sections */}
             <div className="bg-slate-900/60 border border-orange-300/20 rounded-xl p-8 space-y-4">
-              <h3 className="text-lg font-bold text-orange-300">Seven Elder Futhark Runes</h3>
-              <p className="text-xs text-slate-300 mb-4">Each rune represents a different function of the protocol:</p>
+              <h3 className="text-lg font-bold text-orange-300">Four Core Sections</h3>
+              <p className="text-xs text-slate-300 mb-4">The main app navigation is intentionally simple:</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 <div className="flex gap-2">
-                  <span className="text-orange-400 font-bold">ᚲ Kenaz</span>
-                  <span className="text-slate-300">Forge (minting & staking)</span>
+                  <span className="text-cyan-400 font-bold">1.</span>
+                  <span className="text-slate-300">Dashboard</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-cyan-400 font-bold">ᚨ Ansuz</span>
-                  <span className="text-slate-300">Vaults (asset management)</span>
+                  <span className="text-amber-400 font-bold">2.</span>
+                  <span className="text-slate-300">Tokenize</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-amber-400 font-bold">ᛋ Sowilo</span>
-                  <span className="text-slate-300">Market (asset discovery)</span>
+                  <span className="text-emerald-400 font-bold">3.</span>
+                  <span className="text-slate-300">My Vaults</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-purple-400 font-bold">✦ Mirror</span>
-                  <span className="text-slate-300">Cadabra (community)</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-red-400 font-bold">ᛏ Tiwaz</span>
-                  <span className="text-slate-300">King AI (oracle & insights)</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-emerald-400 font-bold">ᚦ Thurisaz</span>
-                  <span className="text-slate-300">Circuit (protection)</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-teal-400 font-bold">ᛚ Laguz</span>
-                  <span className="text-slate-300">Trade (swaps & DEX)</span>
+                  <span className="text-violet-400 font-bold">4.</span>
+                  <span className="text-slate-300">Agents</span>
                 </div>
               </div>
+
+              <p className="text-xs text-slate-400">
+                Supporting tools like Market, Trade, Circuit, and King AI are still available inside those sections without expanding the main tab bar.
+              </p>
             </div>
 
             {/* Call to Action Info */}
@@ -274,7 +266,7 @@ export function WhitepaperSummaryPage() {
                 You're ready to explore the full dApp.
               </p>
               <p className="text-xs text-slate-300">
-                Click below to enter all seven tabs, deploy vaults, trade assets, and start your journey in Abraxas.
+                Click below to enter the four-tab app, deploy vaults, review agents, and start operating your Abraxas stack.
               </p>
             </div>
           </div>
