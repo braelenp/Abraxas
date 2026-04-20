@@ -777,7 +777,7 @@ export function CurriculumHub() {
               <span>{completedCount === ACADEMY_MODULES.length ? 'Review Final Module' : `Continue with ${nextModule.title}`}</span>
               <ArrowRight size={16} />
             </Link>
-            <Link
+            <a
               href="https://discord.gg/EhgEe2MPa"
               target="_blank"
               rel="noopener noreferrer"
