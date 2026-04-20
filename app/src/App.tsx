@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
-import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useTranslation } from 'react-i18next';
 import { DashboardPage } from './pages/DashboardPage';
@@ -50,8 +49,6 @@ function ProtectedDapp() {
 
 function DappShell() {
   const { t } = useTranslation();
-  const { connected } = useWallet();
-  const introAmbientRef = useRef<HTMLAudioElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
 
@@ -92,39 +89,20 @@ function DappShell() {
     });
   }, [dappBackgroundCandidates.length]);
 
-  // Dismiss intro modal and persist to localStorage
-  const dismissIntroModal = () => {
-    setHasSeenIntroModal(true);
-    try {
-      localStorage.setItem('hasSeenIntroModal', 'true');
-    } catch (e) {
-      console.warn('Could not save intro modal state:', e);
-    }
-  };
-
-  // Audio and intro modal effects
+  // Reset scroll position when navigating across app sections.
   useEffect(() => {
-    const audio = introAmbientRef.current;
-    if (!audio) {
-      return;
-    }
+    const resetScroll = () => {
+      contentRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
 
-    audio.loop = true;
-    audio.volume = 0.34;
+    resetScroll();
 
-    if (connected && !hasSeenIntroModal) {
-      const playAttempt = audio.play();
-      if (playAttempt) {
-        void playAttempt.catch(() => {
-          // Ignore autoplay failures; user interaction will resume playback.
-        });
-      }
-      return;
-    }
-
-    audio.pause();
-    audio.currentTime = 0;
-  }, [connected, hasSeenIntroModal]);
+    const rafId = requestAnimationFrame(resetScroll);
+    return () => cancelAnimationFrame(rafId);
+  }, [location.pathname]);
 
   return (
     <div className="dapp-theme tech-distortion relative mx-auto flex h-[100dvh] min-h-[100dvh] w-full max-w-md min-h-0 flex-col overflow-hidden text-slate-100">
@@ -202,37 +180,37 @@ function DappShell() {
                   {ABRAXAS_PRIMARY_VALUE_PROP} {ABRAXAS_SUPPORTING_VALUE_PROP}
                 </p>
                 <p className="mt-3 leading-relaxed text-slate-300 text-xs">
-                  {ABRAXAS_PLAIN_ENGLISH_EXPLAINER} {ABRAXAS_SHORT_FLOW}
+                  {ABRAXAS_PLAIN_ENGLISH_EXPLAINER}
                 </p>
 
-                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [CORE_SECTIONS] NAVIGATION</p>
+                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [DAPP_MAP] CORE_SECTIONS</p>
                 <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-cyan-300">• Dashboard.</span> See your firm, gains, automation, and tax summary at a glance.</li>
-                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Mint La Casa asset records and move them into the system.</li>
-                  <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Open Sophia Vaults, assign automation, and manage positions.</li>
-                  <li><span className="font-semibold text-violet-300">• Agents.</span> Review AI performance, marketplace data, and execution tools.</li>
+                  <li><span className="font-semibold text-cyan-300">• Dashboard.</span> Your operating overview: vault value, gains, tax summary, and recent activity.</li>
+                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Create a La Casa NFT record for the asset you want to bring into the system.</li>
+                  <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Open a Sophia Vault, deposit assets, assign automation, and export reporting.</li>
+                  <li><span className="font-semibold text-violet-300">• Agents.</span> Review the AI stack, protection tools, and execution performance.</li>
                 </ul>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-300">
-                  The app now opens through four primary sections.<br />
-                  Supporting tools still exist inside those sections without expanding the main nav.
+                  The navigation stays at four tabs so the user flow is obvious from the first screen.<br />
+                  Supporting tools still exist, but they sit behind these sections instead of crowding the main nav.
                 </p>
 
                 <div className="mt-6 border-t border-amber-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [SECONDARY_TOOLS]</p>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [USER_FLOW]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Legacy screens like Market, Trade, Circuit, and King AI are still available.<br />
-                    They now live behind the four core sections instead of occupying the main tab bar.<br />
-                    <span className="text-purple-300 font-semibold">Same tools, cleaner navigation.</span>
+                    Start on Dashboard to understand the account.<br />
+                    Use Tokenize to create the asset record, move into My Vaults to manage it, then use Agents when you want deeper automation and execution.<br />
+                    <span className="text-purple-300 font-semibold">Simple path in, deeper tools behind it.</span>
                   </p>
                 </div>
 
                 <div className="mt-4 border-t border-cyan-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [FLOW]</p>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [SUPPORTING_TOOLS]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Dashboard shows the big picture.<br />
-                    Tokenize gets the asset on-chain. My Vaults manages it. Agents scales and protects the operation.<br />
-                    <span className="text-orange-300 font-semibold">Four tabs, one operating flow.</span>
+                    Market, Trade, Circuit, King AI, and other legacy screens are still available where they are useful.<br />
+                    They no longer need dedicated tabs because the four main sections already frame the full workflow.<br />
+                    <span className="text-orange-300 font-semibold">Four tabs, one clean operating model.</span>
                   </p>
                 </div>
               </div>
@@ -240,7 +218,6 @@ function DappShell() {
               <button
                 onClick={() => {
                   setHasSeenIntroModal(true);
-                  // Persist intro modal dismissal to localStorage
                   try {
                     localStorage.setItem('hasSeenIntroModal', 'true');
                   } catch (e) {
@@ -254,15 +231,6 @@ function DappShell() {
             </div>
           </div>
         </>
-      ) : null}
-
-      {connected ? (
-        <audio
-          ref={introAmbientRef}
-          src="/assets/landing-theme.mp3"
-          preload="auto"
-          playsInline
-        />
       ) : null}
 
       {location.pathname === '/app/orion' ? null : <OrionAssistant />}

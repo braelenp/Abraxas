@@ -76,7 +76,13 @@ export function WhitepaperSummaryPage() {
   }, []);
 
   const handleEnterDapp = () => {
-    navigate('/app/profile');
+    try {
+      localStorage.removeItem('hasSeenIntroModal');
+    } catch {
+      // Ignore storage errors and continue navigation.
+    }
+
+    navigate('/app/dashboard');
   };
 
   return (

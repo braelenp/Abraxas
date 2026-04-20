@@ -5,7 +5,6 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { PublicKey, Transaction } from '@solana/web3.js';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import type { VaultAssetType } from '../lib/types';
-import { RuneRealm } from '../components/RuneRealm';
 
 import { ABRAXAS_PROGRAM_ID_RAW, ABRA_TOKEN_MINT } from '../lib/solana';
 import { ACTIVE_TAX_YEAR, buildVaultTaxReport, downloadVaultTaxReportCsv, downloadVaultTaxReportPdf } from '../lib/taxReporting';
@@ -20,19 +19,6 @@ function assetTypeLabel(assetType: VaultAssetType) {
   if (assetType === 'ip_licensing') return 'IP Licensing';
   return 'DApp Equity';
 }
-
-const RUNE_CONFIG = {
-  rune: 'ᚨ',
-  runeName: 'Ansuz',
-  runeEssence: 'Divine Wisdom · Sacred Speech',
-  agentName: 'SOPHIA',
-  lore: "Ansuz carries the breath of Odin, divine intelligence flowing into form. Sophia speaks your vaults into being, governing every deposit, allocation, and yield cycle with autonomous precision.",
-  ctaLabel: 'Open the Vaults',
-  coreGlow: '34, 211, 238',
-  fireGlow: '99, 102, 241',
-  accentClass: 'text-cyan-300',
-} as const;
-
 export function VaultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -321,7 +307,6 @@ export function VaultsPage() {
   };
 
   return (
-    <RuneRealm {...RUNE_CONFIG}>
     <section className="space-y-6">
       {/* Error/Success Messages */}
       {errorMessage && (
@@ -631,6 +616,5 @@ export function VaultsPage() {
         </article>
       )}
     </section>
-    </RuneRealm>
   );
 }
