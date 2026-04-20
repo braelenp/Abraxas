@@ -18,8 +18,6 @@ import { TokenGatedPage } from './pages/TokenGatedPage';
 import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
 import { ProfilePage } from './pages/ProfilePage';
-import { AcademyLedgerPage } from './pages/AcademyLedgerPage';
-import { AcademyPage } from './pages/Academy/AcademyPage';
 
 import { DashboardHomePage } from './pages/DashboardHomePage';
 import { TokenizeHubPage } from './pages/TokenizeHubPage';
@@ -177,8 +175,6 @@ function DappShell() {
           <Route path="tokenize" element={<TokenizeHubPage />} />
           <Route path="forge" element={<ForgePage />} />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="ledger" element={<AcademyLedgerPage />} />
-          <Route path="academy/*" element={<AcademyPage />} />
           <Route path="vaults" element={<VaultsHubPage />} />
           <Route path="agents" element={<AgentsPage />} />
           <Route path="market" element={<MarketPage />} />

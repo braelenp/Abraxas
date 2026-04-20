@@ -14,5 +14,4 @@ export { LoadingPage } from './LoadingPage';
 export { OnboardPage } from './OnboardPage';
 export { TokenGatedPage } from './TokenGatedPage';
 export { ProfilePage } from './ProfilePage';
-export { AcademyPage } from './Academy/AcademyPage';
 

@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { M1PulldownModule } from './M1PulldownModule';
 import { UndercollateralizedLendingModule } from './UndercollateralizedLendingModule';
-import { RaidoDayTradingModule } from './RaidoDayTradingModule';
-import { AbraxasAcademy } from './Academy/AbraxasAcademy';
-import { AcademyWhitelistModal } from './AcademyWhitelistModal';
 
 export function OracleInsights() {
-  const [expandedModules, setExpandedModules] = useState<Set<'lending' | 'm1' | 'raido' | 'academy' | 'whitelist'>>(new Set(['lending']));
-  const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+  const [expandedModules, setExpandedModules] = useState<Set<'lending' | 'm1'>>(new Set(['lending']));
 
-  const toggleModule = (module: 'lending' | 'm1' | 'raido' | 'academy' | 'whitelist') => {
+  const toggleModule = (module: 'lending' | 'm1') => {
     const newExpanded = new Set(expandedModules);
     if (newExpanded.has(module)) {
       newExpanded.delete(module);
@@ -37,27 +33,6 @@ export function OracleInsights() {
       label: 'M1 Pulldown',
       color: 'orange',
       component: M1PulldownModule,
-    },
-    {
-      id: 'raido' as const,
-      icon: '⚒',
-      label: 'Trading Intelligence',
-      color: 'teal',
-      component: RaidoDayTradingModule,
-    },
-    {
-      id: 'academy' as const,
-      icon: '📚',
-      label: 'Abraxas Academy',
-      color: 'purple',
-      component: AbraxasAcademy,
-    },
-    {
-      id: 'whitelist' as const,
-      icon: '✨',
-      label: 'Whitelist',
-      color: 'purple',
-      component: null,
     },
   ];
 
@@ -94,41 +69,30 @@ export function OracleInsights() {
             <div key={module.id} className="border border-red-300/10 rounded-lg overflow-hidden">
               {/* Category Header */}
               <button
-                onClick={() => module.id === 'whitelist' ? setShowWhitelistModal(true) : toggleModule(module.id)}
+                onClick={() => toggleModule(module.id)}
                 className={getColorClasses(module.color, expandedModules.has(module.id))}
               >
                 <div className="flex items-center gap-3">
                   <span className="text-lg">{module.icon}</span>
                   <span className="font-bold uppercase tracking-wider text-sm">{module.label}</span>
                 </div>
-                {module.id !== 'whitelist' && (
-                  <ChevronDown
-                    size={20}
-                    className={`transition-transform shrink-0 ${expandedModules.has(module.id) ? 'rotate-180' : ''}`}
-                  />
-                )}
+                <ChevronDown
+                  size={20}
+                  className={`transition-transform shrink-0 ${expandedModules.has(module.id) ? 'rotate-180' : ''}`}
+                />
               </button>
 
               {/* Category Content (Nested) */}
-              {module.id !== 'whitelist' && expandedModules.has(module.id) && module.component && (
+              {expandedModules.has(module.id) && module.component && (
                 <div className="bg-slate-950/30 border-t border-red-300/10 p-4 sm:p-6">
                   {module.component === UndercollateralizedLendingModule && <UndercollateralizedLendingModule />}
                   {module.component === M1PulldownModule && <M1PulldownModule />}
-                  {module.component === RaidoDayTradingModule && <RaidoDayTradingModule />}
-                  {module.component === AbraxasAcademy && <AbraxasAcademy />}
                 </div>
               )}
             </div>
           ))}
         </div>
       </div>
-
-      {/* Academy Whitelist Modal */}
-      <AcademyWhitelistModal
-        isOpen={showWhitelistModal}
-        onClose={() => setShowWhitelistModal(false)}
-        onSuccess={() => setShowWhitelistModal(false)}
-      />
     </div>
   );
 }

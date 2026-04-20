@@ -13,21 +13,8 @@ type AppPrimaryNavProps = {
 
 export function AppPrimaryNav({ showLearnButton = true }: AppPrimaryNavProps) {
   return (
-    <>
-      {showLearnButton ? (
-        <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 mx-auto flex w-full max-w-md justify-end px-4">
-          <NavLink
-            to="/app/academy"
-            className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-amber-300/45 bg-slate-950/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-200 shadow-[0_12px_32px_rgba(15,23,42,0.55)] backdrop-blur-xl transition hover:border-amber-200/70 hover:bg-slate-900"
-          >
-            <span className="text-base leading-none">L</span>
-            <span>Learn</span>
-          </NavLink>
-        </div>
-      ) : null}
-
-      <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-cyan-300/15 bg-slate-950/94 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl">
-        {primaryNavItems.map(({ to, label, shortLabel }) => (
+    <nav className="z-40 mx-auto flex w-full max-w-md flex-none border-t border-cyan-300/15 bg-slate-950/94 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl">
+      {primaryNavItems.map(({ to, label, shortLabel }) => (
           <NavLink
             key={to}
             to={to}
@@ -54,6 +41,5 @@ export function AppPrimaryNav({ showLearnButton = true }: AppPrimaryNavProps) {
           </NavLink>
         ))}
       </nav>
-    </>
-  );
+    );
 }

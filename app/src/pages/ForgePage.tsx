@@ -5,7 +5,6 @@ import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
 import { DaughterPage, type DaughterConfig } from './DaughterPage';
 import { useAbraBalance } from '../hooks/useAbraBalance';
-import { AcademyWhitelistModal } from '../components/AcademyWhitelistModal';
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -1428,7 +1427,6 @@ export function ForgePage() {
 	const [selectedDaughter, setSelectedDaughter] = useState<string | null>(null);
 	const [selectedAssetClass, setSelectedAssetClass] = useState<string | null>(null);
 	const [selectedSon, setSelectedSon] = useState<string | null>(null);
-	const [showWhitelistModal, setShowWhitelistModal] = useState(false);
 	const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
 		oracleEngine: false,
 		sophiaProtocol: true,
@@ -1683,14 +1681,7 @@ export function ForgePage() {
 							Enter the Mirror → Cadabra
 							<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
 						</button>
-						<button
-							type="button"
-							onClick={() => setShowWhitelistModal(true)}
-							className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-400/40 bg-gradient-to-r from-purple-500/20 to-purple-400/10 px-4 py-3 text-xs font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-400/60"
-						>
-							<Sparkles size={12} />
-							Join Academy Whitelist
-						</button>
+
 						<button
 							type="button"
 							onClick={() => navigate('/app/ledger')}
@@ -1935,11 +1926,6 @@ export function ForgePage() {
 
 			</section>
 		</RuneRealm>
-		<AcademyWhitelistModal
-			isOpen={showWhitelistModal}
-			onClose={() => setShowWhitelistModal(false)}
-			onSuccess={() => setShowWhitelistModal(false)}
-		/>
 		</>
 	);
 }
