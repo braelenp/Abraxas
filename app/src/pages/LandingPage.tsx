@@ -188,47 +188,6 @@ export function LandingPage() {
             {ABRAXAS_SHORT_FLOW}
           </p>
 
-          {/* Videos Section */}
-          <div className="mt-12 max-w-4xl mx-auto w-full px-2 space-y-8">
-            {/* Abraxas Overview Video */}
-            <div>
-              <p className="text-xs font-mono uppercase tracking-[0.28em] text-purple-300/80 mb-3">Video 1</p>
-              <h3 className="text-lg font-semibold text-white mb-4">Abraxas Overview</h3>
-              <div className="relative rounded-2xl overflow-hidden border border-purple-400/30 shadow-[0_0_40px_rgba(153,69,255,0.3),inset_0_0_20px_rgba(153,69,255,0.1)] backdrop-blur-sm bg-slate-900/40">
-                <video
-                  className="w-full h-auto block"
-                  controls
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src="/assets/abraxas-overview.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_20px_rgba(153,69,255,0.2)]" />
-              </div>
-            </div>
-
-            {/* How Abraxas Works Video */}
-            <div>
-              <p className="text-xs font-mono uppercase tracking-[0.28em] text-purple-300/80 mb-3">Video 2</p>
-              <h3 className="text-lg font-semibold text-white mb-4">How Abraxas Works</h3>
-              <div className="relative rounded-2xl overflow-hidden border border-purple-400/30 shadow-[0_0_40px_rgba(153,69,255,0.3),inset_0_0_20px_rgba(153,69,255,0.1)] backdrop-blur-sm bg-slate-900/40">
-                <video
-                  className="w-full h-auto block"
-                  controls
-                  muted
-                  playsInline
-                >
-                  <source src="/assets/how-abraxas-works.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_20px_rgba(153,69,255,0.2)]" />
-              </div>
-            </div>
-          </div>
-
           {/* Key Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             <div className="bg-slate-900/40 border border-cyan-300/20 rounded-lg p-6 backdrop-blur-sm hover:border-cyan-300/40 transition-all">
