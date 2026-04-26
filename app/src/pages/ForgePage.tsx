@@ -4,7 +4,7 @@ import { Upload, CheckCircle, Flame, Sparkles, FileText, ArrowRight, Shield, Zap
 import { RuneRealm } from '../components/RuneRealm';
 import { OracleEngine } from '../components/OracleEngine';
 import { DaughterPage, type DaughterConfig } from './DaughterPage';
-import { useAbraBalance } from '../hooks/useAbraBalance';
+
 
 // Breaking Signals mock data (imported from MarketPage data structure)
 type BreakingSignal = {
@@ -1432,14 +1432,7 @@ export function ForgePage() {
 		sophiaProtocol: true,
 	});
 
-	// Token gating for Mirror/Cadabra access
-	const { hasMinimum } = useAbraBalance(10);
-
 	const handleEnterMirror = () => {
-		if (!hasMinimum) {
-			alert('You need at least 10 $ABRA to access the Mirror. Please acquire $ABRA first.');
-			return;
-		}
 		window.open('https://cadabra-eight.vercel.app/', '_blank');
 	};
 

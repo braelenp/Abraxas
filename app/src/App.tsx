@@ -13,7 +13,6 @@ import { CampaignLandingPage } from './pages/CampaignLandingPage';
 import { WhitepaperSummaryPage } from './pages/WhitepaperSummaryPage';
 import { ForgePage } from './pages/ForgePage';
 import { LoadingPage } from './pages/LoadingPage';
-import { TokenGatedPage } from './pages/TokenGatedPage';
 import { StakePage } from './pages/StakePage';
 import { DepositPage } from './pages/DepositPage';
 import { ProfilePage } from './pages/ProfilePage';
@@ -25,25 +24,12 @@ import { AgentsPage } from './pages/AgentsPage';
 import { BrandLogo } from './components/BrandLogo';
 import { AppPrimaryNav } from './components/AppPrimaryNav';
 import { OrionAssistant } from './components/OrionAssistant';
-import { HackathonBanner } from './components/HackathonBanner';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
-import { useAbraBalance } from './hooks/useAbraBalance';
 import { ABRAXAS_PLAIN_ENGLISH_EXPLAINER, ABRAXAS_PRIMARY_VALUE_PROP, ABRAXAS_SHORT_FLOW, ABRAXAS_SUPPORTING_VALUE_PROP } from './lib/messaging';
 
 function ProtectedDapp() {
-  const { hasMinimum, isLoading } = useAbraBalance(10);
-  
-  // If still loading, show loading page while checking balance
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
-  // If balance is below minimum, show gate page
-  if (!hasMinimum) {
-    return <TokenGatedPage />;
-  }
-
-  // Otherwise show full dApp
+  // Direct access - no token gate required
+  // Users can mint BlackBox NFT after tokenizing their assets
   return <DappShell />;
 }
 
@@ -140,8 +126,6 @@ function DappShell() {
         <p className="text-xs text-slate-300/85">{ABRAXAS_PRIMARY_VALUE_PROP}</p>
         <p className="mt-1 text-[11px] text-slate-500">Tokenize assets. Put them in Sophia Vaults. Let agents manage the work while you keep ownership.</p>
       </header>
-
-      <HackathonBanner show={true} />
 
       <main
         ref={contentRef}

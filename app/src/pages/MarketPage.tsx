@@ -402,7 +402,7 @@ export function MarketPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   
   const { vaults, addLog } = useAbraxas();
-  const { balance, balanceFormatted, balanceUsd, balanceUsdFormatted, abraPrice, isLoading } = useAbraBalance(10);
+  const { balance, balanceFormatted, balanceUsd, balanceUsdFormatted, abraPrice, isLoading } = useAbraBalance(0);
 
   const portfolioValue = vaults.reduce((sum, vault) => sum + vault.vaultValue, 0);
   const accountBalance = balanceUsd;

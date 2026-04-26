@@ -4,7 +4,7 @@ import { useAbraBalance } from '../hooks/useAbraBalance';
 
 export function WalletPortfolioWidget() {
   const { connected } = useWallet();
-  const { balance, balanceFormatted, isLoading, error } = useAbraBalance(10);
+  const { balance, balanceFormatted, isLoading, error } = useAbraBalance(0);
 
   if (!connected) {
     return null;

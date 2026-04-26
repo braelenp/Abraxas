@@ -1,7 +1,7 @@
 import { MessageCircle, ArrowRight, Zap, Users, Trophy, Upload, Play, Radio, Gamepad2 } from 'lucide-react';
 import { RuneRealm } from '../components/RuneRealm';
 import { TikTokFeeSharing } from '../components/TikTokFeeSharing';
-import { useAbraBalance } from '../hooks/useAbraBalance';
+
 
 const RUNE_CONFIG = {
 	rune: '✦',
@@ -16,14 +16,7 @@ const RUNE_CONFIG = {
 } as const;
 
 export function CadabraPage() {
-	// Token gating for Mirror/Cadabra access
-	const { hasMinimum } = useAbraBalance(10);
-
 	const handleEnterMirror = () => {
-		if (!hasMinimum) {
-			alert('You need at least 10 $ABRA to access the Mirror. Please acquire $ABRA first.');
-			return;
-		}
 		window.open('https://cadabra-eight.vercel.app/', '_blank');
 	};
 
