@@ -24,9 +24,9 @@ export function VaultsHubPage() {
         </div>
         <div className="mt-4 flex items-start justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-semibold text-white">Sophia Vaults protect the principal and route the upside back to you.</h1>
+            <h1 className="text-2xl font-semibold text-white">Stake your BlackBox NFT into Sophia Vaults for autonomous AI management.</h1>
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              Put tokenized assets into intelligent vaults, assign the right Sophia agent, and let automation handle positioning, defense, and monitoring without giving up ownership.
+              Tokenize real-world assets into BlackBox NFTs, stake them into intelligent Sophia Vaults, and let the Species AI agents (Raido, Tide, Circuit, King AI) manage, defend, and compound your wealth 24/7 — all while you keep full ownership. Yields flow back to you as ABRAX stablecoin.
             </p>
           </div>
           <div className="min-w-[8rem] rounded-2xl border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 text-right">
@@ -34,9 +34,9 @@ export function VaultsHubPage() {
             <p className={`mt-2 text-xl font-semibold ${netGains >= 0 ? 'text-emerald-100' : 'text-rose-200'}`}>{formatUsd(netGains)}</p>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-          <Link to="/app/stake" className="rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-3 text-center text-slate-200 transition hover:border-emerald-300/45 hover:text-emerald-100">Stake ABRA</Link>
-          <Link to="/app/deposit" className="rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-3 text-center text-slate-200 transition hover:border-emerald-300/45 hover:text-emerald-100">Deposit Flow</Link>
+        <div className="mt-4 space-y-2 text-xs">
+          <Link to="/app/deposit" className="block w-full rounded-xl border border-emerald-400/50 bg-gradient-to-r from-emerald-500/30 to-emerald-400/20 px-3 py-3 text-center font-bold text-emerald-100 transition hover:from-emerald-500/50 hover:to-emerald-400/40">🎯 Stake Your BlackBox NFT</Link>
+          <Link to="/app/stake" className="block w-full rounded-xl border border-slate-600 bg-slate-950/50 px-3 py-3 text-center text-slate-300 transition hover:border-slate-500 hover:text-slate-200">Optional: Stake ABRA</Link>
         </div>
       </article>
 
