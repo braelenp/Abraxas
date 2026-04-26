@@ -80,7 +80,7 @@ const RUNE_CONFIG = {
 	runeName: 'Kenaz',
 	runeEssence: 'Torch · Capital Forging',
 	agentName: 'FORGE',
-	lore: 'Kenaz is the rune of transformation. The Forge is the sovereign capital forge of Abraxas—where any real-world asset becomes an on-chain BlackBox NFT (the on-chain Black Card). Convert proof of ownership into liquid, tradeable positions. Institutional-grade infrastructure. Sovereign access for the people. The Forge does not choose which asset burns brightest. The one that burns for you reveals itself through time.',
+	lore: '',
 	ctaLabel: 'Enter the Forge',
 	coreGlow: '234, 88, 12',
 	fireGlow: '251, 191, 36',
@@ -1461,21 +1461,6 @@ export function ForgePage() {
 		// Example: window.open('https://your-exchange-url', '_blank');
 	};
 
-	if (selectedDaughter) {
-		const daughterConfig = DAUGHTER_CONFIGS[selectedDaughter] || SON_CONFIGS[selectedDaughter];
-		if (daughterConfig) {
-			return (
-				<div className="relative">
-					<DaughterPage 
-						config={daughterConfig} 
-						onClose={() => setSelectedDaughter(null)} 
-						onBuyAbra={handleDaughterBuyAbra} 
-					/>
-				</div>
-			);
-		}
-	}
-
 	return (
 		<>
 			<RuneRealm {...RUNE_CONFIG}>
@@ -1555,7 +1540,7 @@ export function ForgePage() {
 						
 						{/* Daughters Selector */}
 						<div className="space-y-3">
-							<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_DAUGHTER_(ASSET_CLASS)</p>
+							<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_DAUGHTER_(ASSET_CLASS) <span className="text-red-400">*REQUIRED</span></p>
 							<div className="grid grid-cols-2 md:grid-cols-4 gap-3">
 								{Object.entries(DAUGHTER_CONFIGS).map(([key, config]) => (
 									<button
@@ -1578,7 +1563,7 @@ export function ForgePage() {
 						{/* Asset Classes within Selected Daughter */}
 						{selectedDaughter && DAUGHTER_CONFIGS[selectedDaughter] && (
 							<div className="space-y-3">
-								<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_ASSET_CLASS_WITHIN_{selectedDaughter.toUpperCase()}</p>
+								<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_ASSET_CLASS_WITHIN_{selectedDaughter.toUpperCase()} <span className="text-red-400">*REQUIRED</span></p>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 									{DAUGHTER_CONFIGS[selectedDaughter].assetClasses.map((asset, idx) => (
 										<button
@@ -1599,26 +1584,34 @@ export function ForgePage() {
 						)}
 
 						{/* Sons Selector */}
-						<div className="space-y-3">
-							<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_SON_(INFRASTRUCTURE_PROVIDER)</p>
-							<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-								{SONS.map((son) => (
-									<button
-										key={son.name}
-										onClick={() => setSelectedSon(son.name.toLowerCase())}
-										className={`rounded-lg border px-4 py-3 text-center transition ${
-											selectedSon === son.name.toLowerCase()
-												? 'border-violet-400 bg-violet-500/20'
-												: 'border-violet-300/20 bg-slate-900/40 hover:border-violet-300/40 hover:bg-slate-900/60'
-										}`}
-									>
-										<div className="text-3xl mb-1">{son.rune}</div>
-										<div className="text-xs font-bold text-slate-100 uppercase">{son.name}</div>
-										<div className="text-[10px] text-slate-400 mt-1">{son.description}</div>
-									</button>
-								))}
+						{selectedDaughter && selectedAssetClass ? (
+							<div className="space-y-3">
+								<p className="text-xs font-bold text-slate-400 uppercase tracking-widest">&gt; SELECT_SON_(INFRASTRUCTURE_PROVIDER) <span className="text-red-400">*REQUIRED</span></p>
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+									{SONS.map((son) => (
+										<button
+											key={son.name}
+											onClick={() => setSelectedSon(son.name.toLowerCase())}
+											className={`rounded-lg border px-4 py-3 text-center transition ${
+												selectedSon === son.name.toLowerCase()
+													? 'border-violet-400 bg-violet-500/20'
+													: 'border-violet-300/20 bg-slate-900/40 hover:border-violet-300/40 hover:bg-slate-900/60'
+											}`}
+										>
+											<div className="text-3xl mb-1">{son.rune}</div>
+											<div className="text-xs font-bold text-slate-100 uppercase">{son.name}</div>
+											<div className="text-[10px] text-slate-400 mt-1">{son.description}</div>
+										</button>
+									))}
+								</div>
 							</div>
-						</div>
+						) : (
+							<div className="rounded-lg border border-slate-700/40 bg-slate-900/40 p-4">
+								<p className="text-xs text-slate-400 italic">
+									Complete Daughter and Asset Class selection first to choose an infrastructure provider.
+								</p>
+							</div>
+						)}
 
 						{/* Ready Message */}
 						{selectedDaughter && selectedAssetClass && selectedSon && (
@@ -1737,7 +1730,12 @@ export function ForgePage() {
 					<button
 						type="button"
 						onClick={() => fileRef.current?.click()}
-						className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-orange-300/60 bg-gradient-to-r from-orange-500/25 to-amber-500/20 px-4 py-3 text-sm font-bold uppercase tracking-wider text-orange-100 shadow-[0_0_20px_rgba(234,88,12,0.2)] transition hover:shadow-[0_0_28px_rgba(234,88,12,0.35)]"
+						disabled={!selectedDaughter || !selectedAssetClass || !selectedSon}
+						className={`inline-flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-bold uppercase tracking-wider transition ${
+							selectedDaughter && selectedAssetClass && selectedSon
+								? 'border-orange-300/60 bg-gradient-to-r from-orange-500/25 to-amber-500/20 text-orange-100 shadow-[0_0_20px_rgba(234,88,12,0.2)] hover:shadow-[0_0_28px_rgba(234,88,12,0.35)]'
+								: 'border-slate-600/40 bg-slate-900/40 text-slate-500 cursor-not-allowed'
+						}`}
 					>
 						<Sparkles size={15} />
 						Begin Tokenization
@@ -1751,12 +1749,22 @@ export function ForgePage() {
 						{STEPS.map(({ n, label }) => {
 							const done = currentStep > n;
 							const active = currentStep === n;
+							
+							// Calculate if step is available based on prerequisites
+							let isAvailable = false;
+							if (n === 1) isAvailable = true;
+							else if (n === 2) isAvailable = files.length > 0;
+							else if (n === 3) isAvailable = files.length > 0 && attested;
+							else if (n === 4) isAvailable = minted;
+							
+							const isDisabled = !isAvailable && !done && !active;
+							
 							return (
-								<li key={n} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition ${active ? 'border border-orange-300/30 bg-orange-500/10' : 'border border-transparent'}`}>
-									<span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition ${done ? 'bg-orange-400 text-slate-950' : active ? 'border border-orange-300/60 text-orange-300' : 'border border-slate-600/60 text-slate-600'}`}>
+								<li key={n} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition ${active ? 'border border-orange-300/30 bg-orange-500/10' : 'border border-transparent'} ${isDisabled ? 'opacity-40' : ''}`}>
+									<span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition ${done ? 'bg-orange-400 text-slate-950' : active ? 'border border-orange-300/60 text-orange-300' : isDisabled ? 'border border-slate-700/40 text-slate-700' : 'border border-slate-600/60 text-slate-600'}`}>
 										{done ? <CheckCircle size={13} /> : n}
 									</span>
-									<span className={`text-xs ${done ? 'text-slate-400 line-through' : active ? 'font-semibold text-slate-200' : 'text-slate-600'}`}>{label}</span>
+									<span className={`text-xs ${done ? 'text-slate-400 line-through' : active ? 'font-semibold text-slate-200' : isDisabled ? 'text-slate-700' : 'text-slate-600'}`}>{label}</span>
 								</li>
 							);
 						})}
@@ -1863,7 +1871,7 @@ export function ForgePage() {
 						<div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-orange-300/40 bg-orange-500/15">
 							<CheckCircle size={22} className="text-orange-300" />
 						</div>
-						<p className="text-sm font-bold text-green-400 font-mono">✓ [NFT_MINTED] BLACKBOX</p>
+						<p className="text-sm font-bold text-green-400 font-mono">✓ [NFT_MINTED] LA_CASA</p>
 						<p className="mt-1 text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Asset tokenized | Auto-deposited to Sophia vault</p>
 						{previewUrl && (
 							<img src={previewUrl} alt="Minted asset" className="mx-auto mt-4 h-28 w-28 rounded-xl border border-orange-300/25 object-cover shadow-[0_0_20px_rgba(234,88,12,0.2)]" />
