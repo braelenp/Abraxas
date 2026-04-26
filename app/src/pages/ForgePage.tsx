@@ -1432,10 +1432,6 @@ export function ForgePage() {
 		sophiaProtocol: true,
 	});
 
-	const handleEnterMirror = () => {
-		window.open('https://cadabra-eight.vercel.app/', '_blank');
-	};
-
 	const handleFiles = (picked: FileList | null) => {
 		if (!picked) return;
 		setFiles(Array.from(picked));
@@ -1483,13 +1479,13 @@ export function ForgePage() {
 	return (
 		<>
 			<RuneRealm {...RUNE_CONFIG}>
-			{/* Institutional Positioning */}
+			{/* Welcome Section */}
 			<section className="space-y-4 py-6 mb-2">
 				<div className="max-w-3xl mx-auto px-4">
 					<div className="bg-gradient-to-br from-orange-500/10 to-orange-500/5 rounded-2xl border border-orange-300/20 p-6 space-y-3">
 						<h1 className="text-2xl font-bold text-orange-100">🔥 Welcome to the Forge</h1>
 						<p className="text-sm text-slate-300/90">
-							The Forge turns real-world assets into digital investments you can own online. Real estate. Music rights. Commodities. Everything of value can now be tokenized, traded, and staked for rewards—without middlemen taking cuts.
+							Real-world assets become BlackBox NFTs. Then stake them into Sophia Vaults for AI agents to autonomously manage and compound your wealth 24/7.
 						</p>
 					</div>
 				</div>
@@ -1641,47 +1637,6 @@ export function ForgePage() {
 								</button>
 							</div>
 						)}
-					</div>
-				</div>
-			</section>
-
-			{/* CADABRA - THE SOCIAL MIRROR */}
-			<section className="space-y-8 py-8 border-t border-slate-700/30">
-				<div className="space-y-4">
-					<div className="border-l-4 border-purple-400/50 pl-6 space-y-4 font-mono">
-						<h3 className="text-lg font-bold text-purple-300 tracking-wider uppercase">&gt; CADABRA_THE_SOCIAL_MIRROR</h3>
-						<p className="text-sm text-slate-300/80">
-							The Abraxas protocol is the engine. <span className="text-purple-300 font-semibold">Cadabra is the nervous system.</span> While your assets tokenize and compound, Cadabra captures the most valuable signal: collective human intelligence on markets.
-						</p>
-						<div className="bg-gradient-to-r from-purple-500/10 via-slate-900/50 to-slate-900/50 border border-purple-300/20 rounded-lg p-4 space-y-3">
-							<div className="flex gap-3">
-								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[ALPHA]</span>
-								<p className="text-xs text-slate-300">Real-time price discovery, KOL positioning, meme cycle tracking across every RWA asset class.</p>
-							</div>
-							<div className="flex gap-3">
-								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[CONVICTION]</span>
-								<p className="text-xs text-slate-300">Every forged asset has a discussion channel. Community consensus flows before protocols move.</p>
-							</div>
-							<div className="flex gap-3">
-								<span className="text-purple-400 font-mono text-[10px] font-bold uppercase shrink-0">[DESTINY]</span>
-								<p className="text-xs text-slate-300">Price discovery, narrative coalescing, institutional intent manifestation—Market structure begins at the Mirror.</p>
-							</div>
-						</div>
-						<button
-							onClick={handleEnterMirror}
-							className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/20 to-violet-500/15 px-4 py-3 text-xs font-bold uppercase tracking-wider text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.15)] transition hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:border-purple-300/60"
-						>
-							Enter the Mirror → Cadabra
-							<ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-						</button>
-
-						<button
-							type="button"
-							onClick={() => navigate('/app/ledger')}
-							className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-400/40 bg-gradient-to-r from-emerald-500/20 to-cyan-400/10 px-4 py-3 text-xs font-bold uppercase tracking-wider text-emerald-200 shadow-[0_0_12px_rgba(16,185,129,0.15)] transition hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:border-emerald-400/60"
-						>
-							📋 View Whitelist Ledger
-						</button>
 					</div>
 				</div>
 			</section>
