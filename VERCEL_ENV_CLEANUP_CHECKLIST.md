@@ -104,7 +104,7 @@ This forces:
 ## STEP 6: Verify Deployed
 
 After redeploy completes:
-1. Go to your live Abraxas URL: `https://abraxas-ten.vercel.app` (or your domain)
+1. Go to your live Abraxas URL: `https://abraxas-tokenization-engine.vercel.app` (or your domain)
 2. Check that:
    - [ ] Landing page loads
    - [ ] Wallet connection works

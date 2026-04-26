@@ -48,7 +48,7 @@ const AbraxasCallout: React.FC = () => {
         </div>
 
         <a
-          href="https://abraxas-ten.vercel.app"
+          href="https://abraxas-tokenization-engine.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded font-grotesk text-[10px] font-semibold tracking-[0.1em] uppercase transition-all duration-200"

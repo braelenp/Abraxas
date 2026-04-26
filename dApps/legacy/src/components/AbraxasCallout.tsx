@@ -10,7 +10,7 @@ export function AbraxasCallout() {
       </p>
       <div className="text-xs text-slate-600 pt-2">
         <a
-          href="https://abraxas-ten.vercel.app"
+          href="https://abraxas-tokenization-engine.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-amber-400 hover:text-amber-300 transition-colors font-semibold"

@@ -19,7 +19,7 @@
 | **ABRA Token (Mainnet)** | `5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS` |
 | **Program ID (Devnet)** | `GBcDay9fAqn6WPCBVRkkar3VXgKS2MRozH3tWcG2SZXm` |
 | **Bags Market** | https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS |
-| **Live dApp** | https://abraxas-ten.vercel.app/ |
+| **Live dApp** | https://abraxas-tokenization-engine.vercel.app/ |
 | **OYM dApp** | https://own-your-moment.vercel.app/app |
 
 ---
@@ -94,7 +94,7 @@ npm run dev
 npm run build
 
 # Vercel (auto-deployed)
-https://abraxas-ten.vercel.app/
+https://abraxas-tokenization-engine.vercel.app/
 
 # Android APK
 npm run cap:sync && npm run android:apk

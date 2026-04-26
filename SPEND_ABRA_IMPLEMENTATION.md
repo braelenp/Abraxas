@@ -346,7 +346,7 @@ git add -A
 git commit -m "feat: add Spend ABRA component with on-chain balance query"
 git push origin main
 
-# Vercel auto-deploys → Feature live at https://abraxas-ten.vercel.app
+# Vercel auto-deploys → Feature live at https://abraxas-tokenization-engine.vercel.app
 ```
 
 ---

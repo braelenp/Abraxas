@@ -243,11 +243,11 @@ export function ProfilePage() {
           <p className="text-sm font-semibold text-slate-300">Share Your Referral Link</p>
         </div>
         <div className="bg-slate-950/60 rounded px-3 py-2 font-mono text-xs text-slate-400 truncate">
-          abraxas-ten.vercel.app/?ref={profile.abraxasId}
+          abraxas-tokenization-engine.vercel.app/?ref={profile.abraxasId}
         </div>
         <button
           onClick={() => {
-            navigator.clipboard.writeText(`abraxas-ten.vercel.app/?ref=${profile.abraxasId}`);
+            navigator.clipboard.writeText(`abraxas-tokenization-engine.vercel.app/?ref=${profile.abraxasId}`);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}

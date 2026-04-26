@@ -30,7 +30,7 @@ const AbraxasFooter = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://abraxas-ten.vercel.app/"
+              href="https://abraxas-tokenization-engine.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="ui-action ui-action-gold"

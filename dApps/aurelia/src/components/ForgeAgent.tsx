@@ -280,7 +280,7 @@ export default function ForgeAgent() {
 
       {/* Abraxas callout */}
       <a
-        href="https://abraxas-ten.vercel.app"
+        href="https://abraxas-tokenization-engine.vercel.app"
         target="_blank"
         rel="noopener noreferrer"
         className="group block rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-900/50 via-slate-800/80 to-slate-900/70 p-4 backdrop-blur transition hover:border-purple-400/60 hover:from-purple-900/60"

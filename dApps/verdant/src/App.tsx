@@ -49,7 +49,7 @@ const App: React.FC = () => {
           <div className="font-mono text-[10px] text-emerald-900/40">
             Part of the{' '}
             <a
-              href="https://abraxas-ten.vercel.app"
+              href="https://abraxas-tokenization-engine.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="text-purple-700/60 hover:text-purple-500/70 transition-colors"

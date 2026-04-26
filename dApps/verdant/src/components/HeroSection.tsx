@@ -135,7 +135,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
         </button>
 
         <a
-          href="https://abraxas-ten.vercel.app"
+          href="https://abraxas-tokenization-engine.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="px-6 py-2.5 font-grotesk text-xs font-semibold tracking-[0.12em] uppercase rounded-md transition-all duration-200"

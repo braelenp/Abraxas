@@ -5,7 +5,7 @@
 A cinematic Abraxas dApp showcasing esoteric design, sovereign power, and protective protocols. Fenrir is the eighth son of Sophia, embodying fierce protection and sovereign authority.
 
 **Live**: [fenrir.vercel.app](#) (Deploy to Vercel)  
-**Connected Ecosystem**: [Abraxas](https://abraxas-ten.vercel.app/) | Token: `$ABRA`
+**Connected Ecosystem**: [Abraxas](https://abraxas-tokenization-engine.vercel.app/) | Token: `$ABRA`
 
 ## Overview
 
@@ -267,7 +267,7 @@ Part of the Abraxas ecosystem. See parent repository for licensing.
 
 ## Related Projects
 
-- **Abraxas** - Main protocol dApp: https://abraxas-ten.vercel.app/
+- **Abraxas** - Main protocol dApp: https://abraxas-tokenization-engine.vercel.app/
 - **Raido** - Trading interface
 - **Cadabra** - Social layer
 

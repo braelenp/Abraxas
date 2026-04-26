@@ -126,7 +126,7 @@ recordSpendAbra({
 # Already committed! Just push:
 git push origin main
 
-# Vercel auto-deploys → Live at https://abraxas-ten.vercel.app
+# Vercel auto-deploys → Live at https://abraxas-tokenization-engine.vercel.app
 
 # Add environment variables in Vercel dashboard:
 VITE_RAMP_HOST_API_KEY=<your_key>

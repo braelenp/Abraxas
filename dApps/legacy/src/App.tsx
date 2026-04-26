@@ -162,7 +162,7 @@ function LandingView({ onEnterDApp }: { onEnterDApp: () => void }) {
                 Begin Athlete Equity Tokenization
               </button>
               <a
-                href="https://abraxas-ten.vercel.app"
+                href="https://abraxas-tokenization-engine.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-amber-500/20 border border-amber-400/50 text-amber-300 rounded-lg font-semibold hover:bg-amber-500/30 hover:shadow-lg hover:shadow-amber-500/20 transition-all inline-flex items-center gap-2"
@@ -249,7 +249,7 @@ function LandingView({ onEnterDApp }: { onEnterDApp: () => void }) {
             <p>
               Made by{' '}
               <a
-                href="https://abraxas-ten.vercel.app"
+                href="https://abraxas-tokenization-engine.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-amber-400 hover:text-amber-300 transition-colors"

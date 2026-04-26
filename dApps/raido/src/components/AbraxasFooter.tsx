@@ -13,7 +13,7 @@ export const AbraxasFooter: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="https://abraxas-ten.vercel.app/"
+                href="https://abraxas-tokenization-engine.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-gradient-to-r from-raido-gold to-raido-gold-light text-raido-deep-blue font-bold rounded-lg hover:shadow-lg hover:shadow-raido-gold/50 transition-all duration-300 text-center"

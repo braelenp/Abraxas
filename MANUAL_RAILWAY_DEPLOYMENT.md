@@ -39,7 +39,7 @@ Click **Variables** tab:
 ```
 NODE_ENV = production
 PORT = 3001
-FRONTEND_URL = https://abraxas-ten.vercel.app
+FRONTEND_URL = https://abraxas-tokenization-engine.vercel.app
 ```
 
 Click **Save** or **Update Configuration**

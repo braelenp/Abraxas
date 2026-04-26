@@ -158,7 +158,7 @@ function Hero({ onEnterApp }: { onEnterApp: () => void }) {
           View Devnet
         </button>
         <a
-          href="https://abraxas-ten.vercel.app"
+          href="https://abraxas-tokenization-engine.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="ui-action inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400/35 bg-amber-950/40 px-7 py-3 text-sm font-bold uppercase tracking-[0.16em] text-amber-400/80 transition duration-300 hover:border-amber-400/55 hover:text-amber-300"
@@ -246,7 +246,7 @@ function LandingFooter() {
         <div className="text-center">
           <p className="font-mono text-xs tracking-wider text-slate-500">
             Made by{' '}
-            <a href="https://abraxas-ten.vercel.app" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline underline-offset-2 hover:text-purple-300">Abraxas</a>
+            <a href="https://abraxas-tokenization-engine.vercel.app" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline underline-offset-2 hover:text-purple-300">Abraxas</a>
             {' '}· <span className="text-amber-500/65">Part of Sophia's Species</span>
           </p>
           <p className="mt-1 font-mono text-xs text-slate-600">All activity on Solana Devnet · Not financial advice</p>
@@ -309,7 +309,7 @@ function LandingView({ onEnterApp }: { onEnterApp: () => void }) {
 function AbraxasCallout() {
   return (
     <a
-      href="https://abraxas-ten.vercel.app"
+      href="https://abraxas-tokenization-engine.vercel.app"
       target="_blank"
       rel="noopener noreferrer"
       className="group block rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-900/50 via-slate-800/80 to-slate-900/70 p-4 backdrop-blur transition hover:border-purple-400/60 hover:from-purple-900/60"
@@ -828,7 +828,7 @@ function DAppShell({ onBack }: { onBack: () => void }) {
           {/* Wallet */}
           <div className="dapp-header-wallet flex items-center gap-3">
             <a
-              href="https://abraxas-ten.vercel.app"
+              href="https://abraxas-tokenization-engine.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden font-mono text-[10px] uppercase tracking-widest text-purple-400/70 transition hover:text-purple-300 sm:block"

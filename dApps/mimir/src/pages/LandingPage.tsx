@@ -257,7 +257,7 @@ export default function LandingPage() {
         {/* Footer Action Buttons */}
         <div className="flex flex-col md:flex-row items-center gap-3">
           <a
-            href="https://abraxas-ten.vercel.app/"
+            href="https://abraxas-tokenization-engine.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 rounded-lg font-bold tracking-widest text-sm md:text-base transition-colors duration-300 inline-flex items-center gap-2"

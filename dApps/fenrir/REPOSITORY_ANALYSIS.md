@@ -170,7 +170,7 @@ export const AbraxasFooter: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="https://abraxas-ten.vercel.app/"
+                href="https://abraxas-tokenization-engine.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-gradient-to-r from-raido-gold to-raido-gold-light 
@@ -210,7 +210,7 @@ export const AbraxasFooter: React.FC = () => {
 - **Heading**: "Connected to the Source" (text-2xl, bold, gold)
 - **Subtitle**: Explains relationship between Raido and Abraxas
 - **Buttons**:
-  1. "◆ Visit Abraxas" - Gold gradient button → `https://abraxas-ten.vercel.app/`
+  1. "◆ Visit Abraxas" - Gold gradient button → `https://abraxas-tokenization-engine.vercel.app/`
   2. "💰 Buy $ABRA" - Cyan gradient button → Bags FM link
 - **Styling**: Border-top, gradient background, backdrop blur
 - **Visual Element**: Large gold diamond symbol (◆) on desktop
@@ -663,7 +663,7 @@ className="px-6 py-3 bg-gradient-to-r from-[#e6c547] to-[#f9cc75]
 
 | Project | URL | Status |
 |---------|-----|--------|
-| **Abraxas** | `https://abraxas-ten.vercel.app/` | ✅ Live |
+| **Abraxas** | `https://abraxas-tokenization-engine.vercel.app/` | ✅ Live |
 | **Cadabra** | `https://cadabra-eight.vercel.app/` | ✅ Live |
 | **Raido** | Not explicitly listed | (Check repo) |
 | Echo (Music) | `https://echo-pied-phi.vercel.app/` | ✅ Live |

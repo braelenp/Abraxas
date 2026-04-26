@@ -434,7 +434,7 @@ const DUMMY_RECORDS: AsterankRecord[] = [
 function AbraxasPortal() {
   return (
     <a
-      href="https://abraxas-ten.vercel.app/"
+      href="https://abraxas-tokenization-engine.vercel.app/"
       target="_blank"
       rel="noopener noreferrer"
       className="group mt-2 flex items-center gap-4 rounded-2xl border border-vein-gold/20 bg-gradient-to-r from-slate-900/80 via-vein-gold/5 to-slate-900/80 p-4 transition-all duration-300 hover:border-vein-gold/45 hover:bg-vein-gold/8"

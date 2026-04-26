@@ -18,7 +18,7 @@ const AbraxasLink: React.FC = () => {
           Discover how your assets fit within the complete Sophia family ecosystem.
         </p>
         <a
-          href="https://abraxas-ten.vercel.app/"
+          href="https://abraxas-tokenization-engine.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-8 py-3 rounded-lg bg-gradient-to-r from-gold to-amber-400 text-slate-950 font-bold tracking-widest uppercase text-sm hover:from-amber-400 hover:to-gold transition-all duration-300 drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(249,204,117,0.6)]"

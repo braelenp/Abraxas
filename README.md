@@ -12,7 +12,7 @@ Abraxas is a living RWA protocol guarded by the Elder Futhark. Each tab in the d
 |---|---|
 | **ABRA Token** | `5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS` (Mainnet) |
 | **Buy ABRA** | https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS |
-| **Live dApp** | https://abraxas-ten.vercel.app/ |
+| **Live dApp** | https://abraxas-tokenization-engine.vercel.app/ |
 | **GitHub** | https://github.com/braelenp/Abraxas (Open Source) |
 
 ## 👥 Team
@@ -277,7 +277,7 @@ Abraxas is a complete platform for trading real-world assets (RWAs), predicting 
 |------|---------|
 | **ABRA Token** | `5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS` (Mainnet) |
 | **Buy ABRA** | https://bags.fm/5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS |
-| **Live dApp** | https://abraxas-ten.vercel.app/ |
+| **Live dApp** | https://abraxas-tokenization-engine.vercel.app/ |
 | **Docs** | See [GROK_BUILD_SYNOPSIS.md](GROK_BUILD_SYNOPSIS.md) & [QUICK_REFERENCE.md](QUICK_REFERENCE.md) |
 
 ---
@@ -656,7 +656,7 @@ git add -A
 git commit -m "feat: update features"
 git push origin main
 ```
-→ Auto-deployed to https://abraxas-ten.vercel.app/
+→ Auto-deployed to https://abraxas-tokenization-engine.vercel.app/
 
 ### Android APK (Local Build)
 ```bash

@@ -11,7 +11,7 @@ export default function BottomActionBar() {
       }}
     >
       <a
-        href="https://abraxas-ten.vercel.app/"
+        href="https://abraxas-tokenization-engine.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg rounded-lg font-bold tracking-widest uppercase bg-gradient-to-r from-purple-700 via-purple-600 to-violet-600 text-white border border-purple-500/50 transition-colors duration-300 cursor-pointer select-none"

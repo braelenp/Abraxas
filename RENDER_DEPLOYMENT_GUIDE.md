@@ -34,7 +34,7 @@ Click **Environment** and add:
 ```
 NODE_ENV=production
 PORT=3001
-FRONTEND_URL=https://abraxas-ten.vercel.app
+FRONTEND_URL=https://abraxas-tokenization-engine.vercel.app
 ```
 
 ## Step 5: Deploy

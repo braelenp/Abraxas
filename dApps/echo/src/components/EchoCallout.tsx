@@ -14,7 +14,7 @@ export default function EchoCallout() {
         Aurelia governs ABRA distribution and yield. Together they form a sovereign on-chain ecosystem.
       </p>
       <a
-        href="https://abraxas-ten.vercel.app/"
+        href="https://abraxas-tokenization-engine.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1.5 rounded-lg border border-cyan/30 bg-cyan/[0.10] px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-cyan transition hover:bg-cyan/[0.18]"

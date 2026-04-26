@@ -59,7 +59,7 @@ Set these in Railway dashboard (Settings → Environment):
 PORT=3001
 STRIPE_SECRET_KEY=sk_test_xxxx (from your Stripe dashboard)
 STRIPE_WEBHOOK_SECRET=whsec_xxxx (optional)
-FRONTEND_URL=https://abraxas-ten.vercel.app
+FRONTEND_URL=https://abraxas-tokenization-engine.vercel.app
 NODE_ENV=production
 ```
 
@@ -84,7 +84,7 @@ https://your-app-name-production-abc.up.railway.app
 ## Verify Deployment
 
 After updating Vercel:
-1. Hard refresh: https://abraxas-ten.vercel.app
+1. Hard refresh: https://abraxas-tokenization-engine.vercel.app
 2. Open browser console (F12)
 3. Look for logs like: `[Species Awakening] Using API_URL from env: https://...`
 4. Tasks should load in Active Quests section
