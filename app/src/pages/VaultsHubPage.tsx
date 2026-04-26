@@ -36,7 +36,7 @@ export function VaultsHubPage() {
         </div>
         <div className="mt-4 space-y-2 text-xs">
           <Link to="/app/deposit" className="block w-full rounded-xl border border-emerald-400/50 bg-gradient-to-r from-emerald-500/30 to-emerald-400/20 px-3 py-3 text-center font-bold text-emerald-100 transition hover:from-emerald-500/50 hover:to-emerald-400/40">🎯 Stake Your BlackBox NFT</Link>
-          <Link to="/app/stake" className="block w-full rounded-xl border border-slate-600 bg-slate-950/50 px-3 py-3 text-center text-slate-300 transition hover:border-slate-500 hover:text-slate-200">Optional: Stake ABRA</Link>
+          <Link to="/app/stake" className="block w-full rounded-xl border border-slate-600 bg-slate-950/50 px-3 py-3 text-center text-slate-300 transition hover:border-slate-500 hover:text-slate-200">Optional: Stake ABRAX</Link>
         </div>
       </article>
 
