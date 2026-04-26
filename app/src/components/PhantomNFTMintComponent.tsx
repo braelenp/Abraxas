@@ -32,7 +32,7 @@ export const PhantomNFTMintComponent: React.FC<PhantomNFTMintComponentProps> = (
   const [mintResult, setMintResult] = useState<{ signature?: string; mint?: string }>({});
 
   const isPhantomAvailable = isPhantomNFTCapable();
-  const nftTitle = nftType === 'sophia' ? 'La Casa Asset' : 'Genesis Monolith';
+  const nftTitle = nftType === 'sophia' ? 'BlackBox Asset' : 'Genesis Monolith';
   const nftIcon = nftType === 'sophia' ? '🏠' : '◆';
 
   /**

@@ -30,7 +30,7 @@ export function LivePage() {
         <div className="max-w-4xl">
           <p className="text-xs font-mono text-red-400 uppercase tracking-wide mb-2">Real-Time Tokenization</p>
           <h3 className="text-lg font-bold text-red-200 mb-2 font-mono">Capture. Clip. Own. Stream Live.</h3>
-          <p className="text-sm text-slate-300 leading-relaxed">No more 10-minute delays. Watch live, clip the moment, mint the NFT — all in real-time. Streamers earn tips instantly. Communities own the culture. This is the heartbeat of gaming on-chain. One click. One blockchain. One La Casa NFT.</p>
+          <p className="text-sm text-slate-300 leading-relaxed">No more 10-minute delays. Watch live, clip the moment, mint the NFT — all in real-time. Streamers earn tips instantly. Communities own the culture. This is the heartbeat of gaming on-chain. One click. One blockchain. One BlackBox NFT.</p>
         </div>
       </div>
 

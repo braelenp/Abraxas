@@ -204,7 +204,7 @@ export function FoundationMarket() {
               ORCA lending + Circuit protection + King AI audited
             </p>
             <p className="text-[9px] text-slate-400/65 mt-1 leading-tight">
-              Route La Casa deposits through Vaults into optimal Daughters tiers. Multi-agent Species coordination powered by Raido + Tide + Circuit.
+              Route BlackBox deposits through Vaults into optimal Daughters tiers. Multi-agent Species coordination powered by Raido + Tide + Circuit.
             </p>
           </div>
         </div>

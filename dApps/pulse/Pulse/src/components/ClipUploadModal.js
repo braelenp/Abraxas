@@ -37,7 +37,7 @@ export function ClipUploadModal({ onClose }) {
         // Simulate tokenization
         setTimeout(() => {
             console.log('Tokenized:', { title, file: selectedFile.name, category });
-            alert(`✓ Clip "${title}" tokenized as La Casa NFT!`);
+            alert(`✓ Clip "${title}" tokenized as BlackBox NFT!`);
             setIsTokenizing(false);
             onClose();
         }, 2000);

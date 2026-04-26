@@ -1863,7 +1863,7 @@ export function ForgePage() {
 						<div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-orange-300/40 bg-orange-500/15">
 							<CheckCircle size={22} className="text-orange-300" />
 						</div>
-						<p className="text-sm font-bold text-green-400 font-mono">✓ [NFT_MINTED] LA_CASA</p>
+						<p className="text-sm font-bold text-green-400 font-mono">✓ [NFT_MINTED] BLACKBOX</p>
 						<p className="mt-1 text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Asset tokenized | Auto-deposited to Sophia vault</p>
 						{previewUrl && (
 							<img src={previewUrl} alt="Minted asset" className="mx-auto mt-4 h-28 w-28 rounded-xl border border-orange-300/25 object-cover shadow-[0_0_20px_rgba(234,88,12,0.2)]" />

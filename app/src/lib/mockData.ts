@@ -22,7 +22,7 @@ export const starterVaults: VaultSummary[] = [
     protectiveBuffer: 11.4,
   },
   {
-    id: 'vault-worldlabs-rwa',
+    id: 'vault-abraxas-rwa',
     name: 'Abraxas Strategic Vault',
     assetType: 'real_estate',
     depositedAmount: 38500,
@@ -191,7 +191,7 @@ export const starterLogs: AgentActionLog[] = [
   {
     id: 'log-2',
     timestamp: '2026-03-18T13:15:00.000Z',
-    vaultId: 'vault-worldlabs-rwa',
+    vaultId: 'vault-abraxas-rwa',
     action: 'Circuit protective payout staged',
     detail: 'Expansion Vault widened its buffer after volatility crossed warning thresholds.',
   },
@@ -241,7 +241,7 @@ export const starterSophiaAgents: SophiaAgent[] = [
     monthlyWinRate: 74.2,
     sharpeRatio: 1.6,
     maxDrawdown: -6.1,
-    assignedToVaults: ['vault-worldlabs-rwa'],
+    assignedToVaults: ['vault-abraxas-rwa'],
     mintedTokenAmount: 350000,
   },
   {

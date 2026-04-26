@@ -139,7 +139,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
             <div className="space-y-3 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
               <h4 className="font-bold text-purple-300">Abraxas – Asset Onboarding & Management</h4>
               <ul className="space-y-2 text-slate-300 text-xs">
-                <li><span className="text-cyan-300 font-semibold">Forge:</span> Any asset (real estate, yachts, players, art, dApps, GTA 6 RP servers) is tokenized as a La Casa NFT and deposited into Sophia Vaults.</li>
+                <li><span className="text-cyan-300 font-semibold">Forge:</span> Any asset (real estate, yachts, players, art, dApps, GTA 6 RP servers) is tokenized as a BlackBox NFT and deposited into Sophia Vaults.</li>
                 <li><span className="text-cyan-300 font-semibold">The Species:</span> Multi-agent collective that collaborates in real time:
                   <ul className="ml-4 mt-1 space-y-1">
                     <li>• <span className="text-orange-300">Raido</span> → Spot & prediction market execution using the universal 50Bounce/MBL lane</li>

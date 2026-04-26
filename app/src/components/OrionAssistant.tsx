@@ -106,7 +106,7 @@ function getOrionReply(question: string, pathname: string, scope: OrionScope) {
   const normalized = question.toLowerCase();
 
   if (scope === 'vaults') {
-    if (normalized.includes('deposit') || normalized.includes('la casa') || normalized.includes('exposure')) {
+    if (normalized.includes('deposit') || normalized.includes('blackbox') || normalized.includes('exposure')) {
       return 'In Vaults, route BlackBox exposure into the OYM vault first, then allocate incrementally into the athlete token with the strongest development signal. That keeps your cost basis aligned with live growth mechanics.';
     }
 

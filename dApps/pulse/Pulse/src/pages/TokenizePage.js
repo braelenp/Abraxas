@@ -30,7 +30,7 @@ export function TokenizePage() {
                             { step: '01', title: 'Upload', desc: 'Select your gaming clip, sports highlight, or moment' },
                             { step: '02', title: 'Customize', desc: 'Add metadata, description, and royalty percentage' },
                             { step: '03', title: 'Set Revenue Split', desc: 'Configure your earnings for primary & secondary sales' },
-                            { step: '04', title: 'Forge NFT', desc: 'Mint instantly as La Casa NFT on Solana' },
+                            { step: '04', title: 'Forge NFT', desc: 'Mint instantly as BlackBox NFT on Solana' },
                             { step: '05', title: 'Auto-Vault', desc: 'Automatically deposited into Sophia-managed vault' },
                         ].map((item) => (_jsxs("div", { className: "flex gap-4", children: [_jsx("div", { className: "w-10 h-10 rounded-full bg-purple-600/30 border border-purple-500/50 flex items-center justify-center flex-shrink-0", children: _jsx("p", { className: "text-xs font-mono font-bold text-purple-300", children: item.step }) }), _jsxs("div", { className: "flex-1", children: [_jsx("p", { className: "text-sm font-bold text-slate-200", children: item.title }), _jsx("p", { className: "text-xs text-slate-400", children: item.desc })] })] }, item.step))) })] }), _jsx("div", { className: "mb-12 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6", children: [
                     { title: 'One-Click Minting', desc: 'Forge your NFT in seconds' },

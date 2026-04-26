@@ -49,7 +49,7 @@ export function SocialPage() {
     {
       id: '1',
       author: { name: 'streamer_xyz', handle: '@streamer_xyz', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=streamer_xyz' },
-      content: 'just hit a 360 no-scope clutch in ranked. minted it as an NFT on Pulse. LA CASA gonna moon 🚀',
+      content: 'just hit a 360 no-scope clutch in ranked. minted it as an NFT on Pulse. BLACKBOX gonna moon 🚀',
       timestamp: '2h ago',
       likes: 234,
       comments: 18,

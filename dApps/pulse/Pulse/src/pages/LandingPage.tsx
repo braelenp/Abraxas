@@ -144,7 +144,7 @@ export function LandingPage() {
                   <span className="text-purple-300 font-semibold">Daughter of Sophia</span> captures the living pulse of the game and the arena.
                 </p>
                 <p className="text-sm md:text-base lg:text-lg text-slate-400 leading-relaxed">
-                  <span className="font-bold text-slate-300">The problem:</span> Twitch and YouTube still have 10-minute delays. By 2026, that's unacceptable. Pulse fixes it — instant on-chain clipping, one-click La Casa NFT minting on Solana, automatic vault deposit, and 70% revenue to you.
+                  <span className="font-bold text-slate-300">The problem:</span> Twitch and YouTube still have 10-minute delays. By 2026, that's unacceptable. Pulse fixes it — instant on-chain clipping, one-click BlackBox NFT minting on Solana, automatic vault deposit, and 70% revenue to you.
                 </p>
                 <p className="text-sm md:text-base lg:text-lg text-slate-400 leading-relaxed">
                   Tokenize gaming clips, sports highlights, live streams, and DeFi play moments instantly. Every highlight becomes a sovereign, tradeable asset. Community owns. Creators earn. Culture survives forever on-chain.

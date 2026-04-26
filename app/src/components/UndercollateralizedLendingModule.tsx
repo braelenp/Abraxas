@@ -377,7 +377,7 @@ export function UndercollateralizedLendingModule() {
         {/* Abraxas Badge */}
         <div className="text-center border-t border-purple-300/20 pt-5 sm:pt-6">
           <a
-            href="https://worldlabsprotocol.carrd.co/"
+            href="https://abraxas.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-300/40 bg-gradient-to-r from-purple-500/10 to-purple-400/5 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-300 hover:border-purple-300/60 hover:from-purple-500/20 hover:to-purple-400/15 transition"

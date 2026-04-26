@@ -39,14 +39,14 @@ export function TokenizePage() {
             className="text-4xl md:text-5xl"
           />
         </div>
-        <p className="text-slate-400 text-sm font-mono mt-2">Upload your clip and instantly mint it as a La Casa NFT</p>
+        <p className="text-slate-400 text-sm font-mono mt-2">Upload your clip and instantly mint it as a BlackBox NFT</p>
       </div>
       {/* Pulse Intro Card */}
       <div className="mb-12 p-6 bg-gradient-to-br from-yellow-950/60 to-slate-950/40 border border-yellow-700/40 rounded-lg backdrop-blur">
         <div className="max-w-4xl">
           <p className="text-xs font-mono text-yellow-400 uppercase tracking-wide mb-2">Instant Minting</p>
           <h3 className="text-lg font-bold text-yellow-200 mb-2 font-mono">Forge in Seconds. Own Forever. Earn Instantly.</h3>
-          <p className="text-sm text-slate-300 leading-relaxed">Upload your clip. Set royalties. Forge instantly on Solana. Your La Casa NFT is now live, auto-deposited into your Sophia vault, earning you 70% of every trade. Five-second mint time. Zero transaction limits. Pure speed. Pure ownership. Pure revenue.</p>
+          <p className="text-sm text-slate-300 leading-relaxed">Upload your clip. Set royalties. Forge instantly on Solana. Your BlackBox NFT is now live, auto-deposited into your Sophia vault, earning you 70% of every trade. Five-second mint time. Zero transaction limits. Pure speed. Pure ownership. Pure revenue.</p>
         </div>
       </div>
       {/* Overview Stats */}
@@ -131,7 +131,7 @@ export function TokenizePage() {
             { step: '01', title: 'Upload', desc: 'Select your gaming clip, sports highlight, or moment' },
             { step: '02', title: 'Customize', desc: 'Add metadata, description, and royalty percentage' },
             { step: '03', title: 'Set Revenue Split', desc: 'Configure your earnings for primary & secondary sales' },
-            { step: '04', title: 'Forge NFT', desc: 'Mint instantly as La Casa NFT on Solana' },
+            { step: '04', title: 'Forge NFT', desc: 'Mint instantly as BlackBox NFT on Solana' },
             { step: '05', title: 'Auto-Vault', desc: 'Automatically deposited into Sophia-managed vault' },
           ].map((item) => (
             <div key={item.step} className="flex gap-4">
