@@ -44,7 +44,7 @@ export function ClipUploadModal({ onClose }: ClipUploadModalProps) {
     // Simulate tokenization
     setTimeout(() => {
       console.log('Tokenized:', { title, file: selectedFile.name, category })
-      alert(`✓ Clip "${title}" tokenized as La Casa NFT!`)
+      alert(`✓ Clip "${title}" tokenized as BlackBox NFT!`)
       setIsTokenizing(false)
       onClose()
     }, 2000)
@@ -134,7 +134,7 @@ export function ClipUploadModal({ onClose }: ClipUploadModalProps) {
           {/* Info Box */}
           <div className="rounded-lg bg-purple-950/30 border border-purple-700/20 p-4">
             <p className="text-xs text-purple-200/80">
-              <span className="font-bold">What happens next:</span> Your clip will be minted as a La Casa NFT on Solana, 
+              <span className="font-bold">What happens next:</span> Your clip will be minted as a BlackBox NFT on Solana, 
               deposited into a vault, and ready for revenue sharing. You'll receive 70% of all trading fees.
             </p>
           </div>

@@ -12,23 +12,23 @@ export function SophiaMintPage() {
     const selectedVaultId = vaults[0]?.id ?? 'global';
     addLog({
       vaultId: selectedVaultId,
-      action: `La Casa asset NFT minted successfully via Phantom`,
+      action: `BlackBox asset NFT minted successfully via Phantom`,
       tx: mintAddress,
     });
   };
 
   return (
     <section className="space-y-4">
-      {/* Phantom La Casa mint component */}
+      {/* Phantom BlackBox mint component */}
       <PhantomNFTMintComponent 
         nftType="sophia" 
         agentId="001"
         onSuccess={handleMintSuccess}
       />
 
-      {/* La Casa marketplace stub */}
+      {/* BlackBox marketplace stub */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
-        <p className="text-sm font-medium">La Casa Asset Marketplace (MVP Stub)</p>
+        <p className="text-sm font-medium">BlackBox Asset Marketplace (MVP Stub)</p>
         <p className="mt-2 text-xs text-slate-300/80">List your tokenized asset NFT so it can be routed into vault workflows and future marketplace integrations.</p>
         <label className="mt-3 block text-xs text-slate-300/80">Daily access fee (SOL)</label>
         <input
@@ -55,15 +55,15 @@ export function SophiaMintPage() {
         </div>
       </article>
 
-      {/* La Casa mint checkout info */}
+      {/* BlackBox mint checkout info */}
       <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
         <div className="flex items-center justify-between gap-2">
-          <p className="text-sm font-medium">La Casa Phantom Mint</p>
+          <p className="text-sm font-medium">BlackBox Phantom Mint</p>
           <span className="rounded-full border border-green-200/55 bg-green-300/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-green-100">
             Live
           </span>
         </div>
-        <p className="mt-2 text-xs text-slate-300/80">La Casa asset NFTs mint directly through Phantom using Metaplex. Your ownership record lands in-wallet immediately and is ready to move into vault management.</p>
+        <p className="mt-2 text-xs text-slate-300/80">BlackBox asset NFTs mint directly through Phantom using Metaplex. Your ownership record lands in-wallet immediately and is ready to move into vault management.</p>
         <div className="mt-3 space-y-1 text-xs text-slate-400">
           <p>✓ One-click minting with Phantom</p>
           <p>✓ Instant wallet delivery</p>

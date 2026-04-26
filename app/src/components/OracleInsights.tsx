@@ -59,7 +59,7 @@ export function OracleInsights() {
         <div className="space-y-2">
           <h2 className="text-xl sm:text-2xl font-bold text-red-200 tracking-widest uppercase">Oracle Insights — King AI Categories</h2>
           <p className="text-sm leading-relaxed text-slate-300/90">
-            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance. Powered by <a href="https://worldlabsprotocol.carrd.co/" target="_blank" rel="noopener noreferrer" className="font-semibold text-orange-300 hover:text-orange-200 transition">World Labs Protocol</a> institutional infrastructure.
+            King AI provides the foresight and intelligence to navigate the next frontier of DeFi. Undercollateralized lending and M1 pulldown mechanisms unlock capital efficiency and sovereign liquidity flows — the true next degree of finance. Powered by <a href="https://worldlabsprotocol.carrd.co/" target="_blank" rel="noopener noreferrer" className="font-semibold text-orange-300 hover:text-orange-200 transition">Abraxas Protocol</a> institutional infrastructure.
           </p>
         </div>
 

@@ -44,7 +44,7 @@ export function ProfilePage() {
     {
       icon: '◌',
       title: 'Tokenize',
-      description: 'Turn an asset into a vault-ready La Casa NFT record',
+      description: 'Turn an asset into a vault-ready BlackBox NFT record',
       path: '/app/tokenize',
     },
     {

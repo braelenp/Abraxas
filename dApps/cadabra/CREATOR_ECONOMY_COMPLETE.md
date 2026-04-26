@@ -12,7 +12,7 @@ A **complete on-chain creator economy system** that enables TikTok creators to:
 1. **Launch Creator Coins** - Enter any TikTok username, get a coin instantly
 2. **Earn Native Royalties** - All views, tips, donations flow to creator wallet  
 3. **Build Communities** - Fans become token holders with economic alignment
-4. **Tokenize Moments** - Gaming clips become La Casa NFTs with royalties
+4. **Tokenize Moments** - Gaming clips become BlackBox NFTs with royalties
 5. **Track Everything** - Full on-chain transparency & live metrics
 
 ---

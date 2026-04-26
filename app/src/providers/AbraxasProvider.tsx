@@ -239,7 +239,7 @@ export const AbraxasProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
       addLog({
         vaultId,
-        action: `La Casa NFT auto-deposited to vault`,
+        action: `BlackBox NFT auto-deposited to vault`,
         detail: `${label} routed ${amount.toLocaleString()} USDC of exposure${athleteTokenId ? ' into athlete equity' : ''}.`,
       });
     },

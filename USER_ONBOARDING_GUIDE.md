@@ -35,7 +35,7 @@ ABRA is the access token for Abraxas. You need to hold some to access the dApp a
 
 ---
 
-## Step 2: Mint a La Casa NFT (Asset Ownership Record)
+## Step 2: Mint a BlackBox NFT (Asset Ownership Record)
 
 This NFT represents your real-world asset on-chain. Could be real estate, music rights, art, gaming equity, etc.
 
@@ -44,7 +44,7 @@ This NFT represents your real-world asset on-chain. Could be real estate, music 
    - Asset name (e.g., "Brooklyn Brownstone")
    - Collection type (real estate, music rights, etc.)
    - Estimated value
-3. Click **"Mint La Casa NFT"** button
+3. Click **"Mint BlackBox NFT"** button
 4. Sign the Phantom transaction
 5. Your NFT appears in your Phantom wallet + in Abraxas dashboard
 
@@ -85,10 +85,10 @@ Sophia AI agents manage your vault 24/7.
 
 ## Step 5: Deposit Your NFT
 
-Move your La Casa NFT from your wallet into the vault for management.
+Move your BlackBox NFT from your wallet into the vault for management.
 
 1. In your vault details, click **"Deposit NFT"**
-2. Select the La Casa NFT you want to deposit
+2. Select the BlackBox NFT you want to deposit
 3. Confirm the transaction in Phantom
 4. Wait for settlement (~5 seconds)
 
@@ -141,7 +141,7 @@ If you want manual control:
 
 ### Q: What are the fees?
 **A:** 
-- Minting La Casa NFT: Small ABRA fee (exact amount TBD)
+- Minting BlackBox NFT: Small ABRA fee (exact amount TBD)
 - Vault management: **ZERO** fees (agents are airdrop-incentivized)
 - Rewards: 100% go to you (no hidden fees)
 
@@ -181,7 +181,7 @@ If you want manual control:
 
 1. ✅ Make sure you have Phantom wallet + crypto
 2. ✅ Go to Trade page and get ABRA tokens
-3. ✅ Come back and mint your first La Casa NFT
+3. ✅ Come back and mint your first BlackBox NFT
 4. ✅ Create your first vault
 5. ✅ Watch your AI manager work
 

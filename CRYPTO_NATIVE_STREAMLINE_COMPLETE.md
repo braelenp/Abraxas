@@ -9,7 +9,7 @@ Abraxas has been streamlined to be **Solana-native and crypto-only**. All fiat p
 
 1. **User pre-condition**: Must have crypto (SOL, USDC, etc.) in Phantom wallet
 2. **Step 1**: Acquire ABRA tokens (via TradePage: Jupiter or Bags DEX)
-3. **Step 2**: Mint RWA NFT (La Casa asset) with ABRA holding requirement
+3. **Step 2**: Mint RWA NFT (BlackBox asset) with ABRA holding requirement
 4. **Step 3**: Stake NFT in Sophia Vault with AI agent
 5. **Step 4**: Earn ABRAX rewards for vault staking
 
@@ -57,7 +57,7 @@ Abraxas has been streamlined to be **Solana-native and crypto-only**. All fiat p
 ```tsx
 // KEPT: Core vault operations
 <form onSubmit={onCreateVault}>  // Create vault
-<PhantomNFTMintComponent />       // Mint La Casa NFT
+<PhantomNFTMintComponent />       // Mint BlackBox NFT
 // ... vault list and management
 <button onClick={() => handleTaxReport(vault.id)}>  // Tax reporting
 ```
@@ -112,7 +112,7 @@ User with crypto (SOL, USDC, etc.) in Phantom
     ↓
 Visit TradePage → Swap to ABRA (Jupiter or Bags)
     ↓
-Hold ABRA minimum → Mint La Casa NFT
+Hold ABRA minimum → Mint BlackBox NFT
     ↓
 Stake in Sophia Vault with AI agent
     ↓
@@ -128,7 +128,7 @@ Earn ABRAX rewards
 2. **Existing crypto** (SOL, USDC, or other tokens) already in their wallet
 3. **ABRA token minimum** required to:
    - Access the dApp (token gating)
-   - Mint La Casa RWA NFTs
+   - Mint BlackBox RWA NFTs
    - Participate in vault operations
 
 ### Payment Method:
@@ -209,7 +209,7 @@ New onboarding guide:
 1. Install Phantom wallet
 2. Get SOL or USDC from exchange
 3. Use TradePage to swap for ABRA
-4. Mint La Casa NFT with ABRA
+4. Mint BlackBox NFT with ABRA
 5. Stake in Sophia Vault
 6. Earn ABRAX rewards
 ```
@@ -287,7 +287,7 @@ Before deploying this change:
 - [ ] **TradePage**: SOL → ABRA swap works via Jupiter
 - [ ] **TradePage**: Direct ABRA purchase via Bags works
 - [ ] **VaultsPage**: Can create vault (no crash from removed modals)
-- [ ] **VaultsPage**: Can mint La Casa NFT
+- [ ] **VaultsPage**: Can mint BlackBox NFT
 - [ ] **VaultsPage**: Can assign Sophia agent
 - [ ] **VaultsPage**: Tax report generation still works
 - [ ] **ProfilePage**: All navigation links functional

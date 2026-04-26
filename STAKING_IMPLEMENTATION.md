@@ -91,7 +91,7 @@ export type StakeConfig = {
 - Confirm stake button
 - Success modal showing:
   - "ABRA acquired and staked — you now hold equity + locked liquidity"
-  - "La Casa NFT airdrop coming soon to all ABRA holders"
+  - "BlackBox NFT airdrop coming soon to all ABRA holders"
 
 #### **StakePage** (`app/src/pages/StakePage.tsx`) — NEW
 Full-featured staking dashboard accessible via `/app/stake`:
@@ -189,7 +189,7 @@ Nav order:
    ↓
 8. Confirm stake
    ↓
-9. ✅ Success: "ABRA acquired and staked — you now hold equity + locked liquidity. La Casa NFT airdrop coming soon."
+9. ✅ Success: "ABRA acquired and staked — you now hold equity + locked liquidity. BlackBox NFT airdrop coming soon."
    ↓
 10. Browse to /app/stake to manage stakes, check countdowns, claim rewards
 ```
@@ -255,7 +255,7 @@ Nav order:
 ## Next Steps (Future Enhancement)
 
 1. **Reward Distribution**
-   - Implement airdrop claim mechanism for La Casa NFTs
+   - Implement airdrop claim mechanism for BlackBox NFTs
    - Set up reward token distribution
 
 2. **Token Integration**
@@ -279,7 +279,7 @@ Nav order:
 2. Immediately stake ABRA for 30/90/180 days
 3. Earn 1.2x / 1.8x / 2.5x multipliers
 4. Unlock and claim rewards after lock period
-5. See "La Casa NFT airdrop coming soon" message
+5. See "BlackBox NFT airdrop coming soon" message
 6. Access full devnet market, AI, and circuit flows
 
 **The complete token-first staking flow is live on devnet. Users have one seamless path to acquire equity and locked liquidity in Abraxas.**

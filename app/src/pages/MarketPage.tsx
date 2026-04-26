@@ -47,7 +47,7 @@ const initialPredictionMarkets: PredictionMarket[] = [
   },
   {
     id: 'pred-2',
-    question: 'Will La Casa REIT yield >7% this quarter?',
+    question: 'Will BlackBox REIT yield >7% this quarter?',
     category: 'real_estate',
     status: 'open',
     outcomes: ['Yes', 'No'],
@@ -292,9 +292,9 @@ const hypothesisExamples = [
     premise: 'For new institutional participants. ORCA Tier I validation + 90% collateral locks $10M+ positions with 16%+ APY and institutional-grade Circuit monitoring.',
   },
   {
-    title: 'La Casa Strategic Reserve',
+    title: 'BlackBox Strategic Reserve',
     classLabel: 'Capital Efficiency',
-    premise: 'Central deployment engine for La Casa deposits. Routed through Vaults to tier-optimized ORCA pools based on Circuit state and King AI recommendation score.',
+    premise: 'Central deployment engine for BlackBox deposits. Routed through Vaults to tier-optimized ORCA pools based on Circuit state and King AI recommendation score.',
   },
 ];
 
@@ -302,7 +302,7 @@ const hypothesisExamples = [
 type BreakingSignal = {
   id: string;
   title: string;
-  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol' | 'World Labs' | 'Sophia Protocol' | 'Pulse Network' | 'King AI' | 'Abraxas Protocol' | 'Vaults Protocol';
+  source: 'Solana' | 'Blockworks' | 'Bags' | 'Polymarket' | 'CoinDesk' | 'DeFi Protocol' | 'Abraxas' | 'Sophia Protocol' | 'Pulse Network' | 'King AI' | 'Abraxas Protocol' | 'Vaults Protocol';
   timestamp: string;
   snippet: string;
   category: 'dapp_equity' | 'rwa' | 'gaming' | 'defi' | 'market';
@@ -312,17 +312,17 @@ const breakingSignals: BreakingSignal[] = [
   {
     id: 'sig-1',
     title: 'Aurelia Completes $156.4M Real Estate Portfolio Milestone',
-    source: 'World Labs',
+    source: 'Abraxas',
     timestamp: '2 minutes ago',
-    snippet: 'Sophia\'s Daughters real estate arm reaches institutional scale. 278 properties across North America generating 7.2% APY with 98.4% occupancy. La Casa deployment accelerating.',
+    snippet: 'Sophia\'s Daughters real estate arm reaches institutional scale. 278 properties across North America generating 7.2% APY with 98.4% occupancy. BlackBox deployment accelerating.',
     category: 'rwa',
   },
   {
     id: 'sig-2',
     title: 'ORCA Uncollateralized Lending Hits $189.8M TVL',
-    source: 'World Labs',
+    source: 'Abraxas',
     timestamp: '8 minutes ago',
-    snippet: 'Institutional lending pools reaching critical mass. Tier I (90% LTV) at 16.2% APY with King AI audited collateral. Institutional participants deploying La Casa capital.',
+    snippet: 'Institutional lending pools reaching critical mass. Tier I (90% LTV) at 16.2% APY with King AI audited collateral. Institutional participants deploying BlackBox capital.',
     category: 'defi',
   },
   {
@@ -359,10 +359,10 @@ const breakingSignals: BreakingSignal[] = [
   },
   {
     id: 'sig-7',
-    title: 'La Casa Strategic Reserve Automates Vault Routing: $84M Deployed This Week',
+    title: 'BlackBox Strategic Reserve Automates Vault Routing: $84M Deployed This Week',
     source: 'Vaults Protocol',
     timestamp: '52 minutes ago',
-    snippet: 'Automated La Casa deposit routing reaches new scale. $84M deployed through Vaults into optimal ORCA tiers + overcollateral asset classes. Zero-friction institutional access.',
+    snippet: 'Automated BlackBox deposit routing reaches new scale. $84M deployed through Vaults into optimal ORCA tiers + overcollateral asset classes. Zero-friction institutional access.',
     category: 'market',
   },
 ];
@@ -1026,7 +1026,7 @@ export function MarketPage() {
         </button>
         {showMarketInfo && (
           <p className="mt-3 text-sm leading-relaxed text-slate-300/90">
-            The world's first viral, gamified RWA prediction market. Bet on dapp equity performance, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and World Labs for next-gen rewards. Top predictors win ABRA, La Casa NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the real world.</span>
+            The world's first viral, gamified RWA prediction market. Bet on dapp equity performance, real estate yields, and more—settled instantly with ABRA on Solana. Powered by Bags for ~0% fees, King AI for smart probabilities, and Abraxas for next-gen rewards. Top predictors win ABRA, BlackBox NFT fragments, and leaderboard glory. <span className="font-semibold text-cyan-200">Polymarket for the sovereign economy.</span>
           </p>
         )}
       </article>

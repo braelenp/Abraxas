@@ -60,9 +60,9 @@ const protocolPillars = [
   {
     icon: DatabaseZap,
     rune: 'ᚱ',
-    title: 'La Casa NFT Vaulting',
+    title: 'BlackBox NFT Vaulting',
     description:
-      'Each claim mints as a La Casa rights artifact with royalty splits, vault routing, and provenance metadata staged for devnet settlement on Solana.',
+      'Each claim mints as a BlackBox rights artifact with royalty splits, vault routing, and provenance metadata staged for devnet settlement on Solana.',
   },
   {
     icon: ShieldCheck,
@@ -181,7 +181,7 @@ function createMintPreview(asteroid: AsteroidAsset): MintPreview {
 
   return {
     title: `${asteroid.name} Mining Rights`,
-    collection: 'La Casa de Vein',
+    collection: 'BlackBox de Vein',
     rightsToken: `VEIN-${tokenSuffix}`,
     vaultStatus: `Vaulted ${formatCurrency(asteroid.vaultDeposit)} USDC equivalent into Vein Treasury`,
     settlement: `Royalty stream fixed at ${asteroid.royaltyRate.toFixed(1)}% across devnet extraction receipts`,
@@ -311,7 +311,7 @@ function LandingPage({ onEnter }: { onEnter: () => void }) {
           </div>
           <div className="vein-panel rounded-[1.4rem] p-4">
             <p className="text-[0.68rem] uppercase tracking-[0.28em] text-slate-500">Rights Engine</p>
-            <p className="mt-3 font-display text-3xl text-vein-cyan">La Casa</p>
+            <p className="mt-3 font-display text-3xl text-vein-cyan">BlackBox</p>
             <p className="mt-2 text-sm leading-6 text-slate-400">NFT rights packaging with vault deposits and royalty schedules.</p>
           </div>
           <div className="vein-panel rounded-[1.4rem] p-4">
@@ -622,7 +622,7 @@ function ProspectTab({ onDeposit }: { onDeposit: (asset: VaultRightsAsset) => vo
           <article className="vein-panel rounded-2xl border border-vein-purple/30 bg-gradient-to-br from-vein-purple/10 via-slate-800/75 to-slate-800/55 p-5">
               <div className="mb-3 flex items-center gap-3">
                 <Coins className="h-4 w-4 text-vein-gold" />
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-vein-gold/80">La Casa NFT Preview</p>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-vein-gold/80">BlackBox NFT Preview</p>
               </div>
               <h3 className="font-display text-lg text-stone-100">{mintPreview.title}</h3>
               <p className="mt-0.5 font-mono text-[10px] text-vein-cyan/70">{mintPreview.rightsToken}</p>
@@ -669,7 +669,7 @@ function ProspectTab({ onDeposit }: { onDeposit: (asset: VaultRightsAsset) => vo
                   className="ui-action mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-vein-emerald/45 bg-vein-emerald/12 py-3 text-xs uppercase tracking-[0.22em] text-vein-emerald disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <Gem size={13} />
-                  {isMinting ? 'Minting La Casa Rights…' : 'Mint & Auto-Vault Deposit'}
+                  {isMinting ? 'Minting BlackBox Rights…' : 'Mint & Auto-Vault Deposit'}
                 </button>
               )}
 
@@ -1334,7 +1334,7 @@ function ChainTab() {
           {[
             { k: 'Endpoint', v: 'https://api.devnet.solana.com', c: 'text-vein-cyan'    },
             { k: 'Wallet',   v: connected ? 'Connected' : 'Awaiting', c: connected ? 'text-vein-emerald' : 'text-vein-gold/70' },
-            { k: 'Mint',     v: 'La Casa NFT preview', c: 'text-vein-purple'  },
+            { k: 'Mint',     v: 'BlackBox NFT preview', c: 'text-vein-purple'  },
             { k: 'Vault',    v: 'Vein Treasury',       c: 'text-vein-orange'  },
           ].map(({ k, v, c }) => (
             <div key={k} className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/6 px-3 py-2.5">
@@ -1351,7 +1351,7 @@ function ChainTab() {
           {[
             { Icon: Radar,       title: 'Ingest Asterank Feed',     text: 'Pull live records, filter viable bodies, rank by extraction upside.' },
             { Icon: Gem,         title: 'Assemble Rights Metadata', text: 'Bind value, composition, and royalty terms into Vein NFT metadata.' },
-            { Icon: Coins,       title: 'Mint La Casa NFT',         text: 'Generate the SPL token identity and rights packet on Solana devnet.' },
+            { Icon: Coins,       title: 'Mint BlackBox NFT',         text: 'Generate the SPL token identity and rights packet on Solana devnet.' },
             { Icon: DatabaseZap, title: 'Auto-Vault Deposit',       text: 'Route the mock treasury seed into the Vein vault for reserve capitalization.' },
           ].map(({ Icon, title, text }) => (
             <div key={title} className="rounded-xl border border-white/10 bg-white/6 p-4">
@@ -1402,7 +1402,7 @@ function ProtocolTab() {
 function ClaimsTab() {
   const proposals = [
     { rune: 'ᚠ', title: 'Asteroid Belt Corridor Rights',    desc: 'Define sovereign extraction corridors across the main belt for multi-body mission packages.',                  status: 'blueprint'   },
-    { rune: 'ᚱ', title: 'Royalty Rate Governance',          desc: 'On-chain vote to adjust base royalty rates across all La Casa mining rights NFTs each epoch.',                status: 'coming_soon' },
+    { rune: 'ᚱ', title: 'Royalty Rate Governance',          desc: 'On-chain vote to adjust base royalty rates across all BlackBox mining rights NFTs each epoch.',                status: 'coming_soon' },
     { rune: 'ᛟ', title: 'Terrestrial Mineral Claims Layer', desc: 'Expand Vein to cover earth-based ore bodies, rare earths, and carbon credits under the same vault standard.', status: 'blueprint'   },
   ]
   return (

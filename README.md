@@ -15,6 +15,14 @@ Abraxas is a living RWA protocol guarded by the Elder Futhark. Each tab in the d
 | **Live dApp** | https://abraxas-ten.vercel.app/ |
 | **GitHub** | https://github.com/braelenp/Abraxas (Open Source) |
 
+## 👥 Team
+
+**Founder:** Acey (@Ac3yway)  
+**Co-Founders:** Neo & Chris  
+**Global Leaders:** Swiss & Nick  
+
+We believe in building **the people**, and letting **the people build the business.** Growth powered by word-of-mouth and genuine networking only. No hype. No paid ads. Just sovereign, forward-moving builders claiming their future.
+
 ---
 
 ## Security & Open Source
@@ -60,7 +68,7 @@ Each tab opens with a cinematic rune landing sequence before revealing its funct
 - Bet with ABRA or USDC
 
 ### RWA Trading Pairs via Jupiter DEX
-- ABRA/USDC, Golf PGA Points, Horse Racing, La Casa NFT, Athlete Equity tokens
+- ABRA/USDC, Golf PGA Points, Horse Racing, BlackBox NFT, Athlete Equity tokens
 - Live swap interface with quote routing
 - 24-hour candlestick charts for all pairs
 
@@ -72,7 +80,7 @@ Each tab opens with a cinematic rune landing sequence before revealing its funct
 ### RWA Tokenization (Forge Hub)
 - **Upload deed, title, or proof of ownership** for any real world asset
 - **Self-attestation flow** with on-chain verification
-- **Mint La Casa NFT** from uploaded documents
+- **Mint BlackBox NFT** (the on-chain Black Card) from uploaded documents
 - **Auto-deposit into Sophia-managed vault** for yield generation
 - **Access Specialized Daughters** through sacred family gallery:
   - **Phase 1 – Digital Content & Experiences** (Most Prominent):
@@ -299,7 +307,7 @@ Abraxas is a complete platform for trading real-world assets (RWAs), predicting 
   - ABRA ↔ USDC ($0.95)
   - Golf PGA Points ↔ USDC ($125.50)
   - Horse Racing Payout ↔ USDC ($3.75)
-  - La Casa NFT ↔ USDC ($2,500)
+  - BlackBox NFT ↔ USDC ($2,500)
   - Athlete Equity Tokens (OYM: $CDUBB, $AJWILL, $HAILEE)
 - **Quick Trade:** Direct swap interface on Trade page
 - **Charts:** 24-hour candlestick data for all pairs
@@ -362,7 +370,7 @@ Abraxas is a complete platform for trading real-world assets (RWAs), predicting 
 | **Dashboard** | `/app` | Portfolio overview, live Polymarket betting, quick actions (Buy, Swap, Cash Out, Send, Receive) |
 | **Trade** | `/app/trade` | ABRA acquisition, staking, RWA pair trading, quick trade box, live price chart |
 | **Market** | `/app/market` | Asset listings (athlete, real estate, trading, golf, horses), filtering, data book |
-| **Vaults** | `/app/vaults` | Vault management, La Casa deposits, agent assignment |
+| **Vaults** | `/app/vaults` | Vault management, BlackBox deposits, agent assignment |
 | **Orion** | `/app/orion` | King AI assistant, athlete metrics, market guidance |
 | **Circuit** | `/app/circuit` | Risk simulator, signal monitoring |
 | **Sophia Mint** | `/app/sophia-mint` | Agent NFT minting, marketplace |
@@ -688,7 +696,7 @@ anchor deploy
 - **Docs:** See [GROK_BUILD_SYNOPSIS.md](GROK_BUILD_SYNOPSIS.md) for detailed roadmap
 - **Quick Lookup:** View [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for common tasks
 - **Issues:** File GitHub issues with repro steps
-- **Discord:** [World Labs Community](https://discord.gg) (community-run)
+- **Discord:** [Abraxas Community](https://discord.gg/JmuXbx3MW)
 
 ---
 

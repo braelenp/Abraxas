@@ -186,7 +186,7 @@ function DappShell() {
                 <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [DAPP_MAP] CORE_SECTIONS</p>
                 <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
                   <li><span className="font-semibold text-cyan-300">• Dashboard.</span> Your operating overview: vault value, gains, tax summary, and recent activity.</li>
-                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Create a La Casa NFT record for the asset you want to bring into the system.</li>
+                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Create a BlackBox NFT record for the asset you want to bring into the system.</li>
                   <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Open a Sophia Vault, deposit assets, assign automation, and export reporting.</li>
                   <li><span className="font-semibold text-violet-300">• Agents.</span> Review the AI stack, protection tools, and execution performance.</li>
                 </ul>

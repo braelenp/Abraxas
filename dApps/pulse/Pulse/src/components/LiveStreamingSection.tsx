@@ -89,7 +89,7 @@ export function LiveStreamingSection({ onClose }: LiveStreamingSectionProps) {
             {/* Stream Description */}
             <div className="rounded-lg bg-purple-950/20 border border-purple-700/20 p-4">
               <p className="text-sm text-slate-300">
-                Watch live as we push to 5k RR in Valorant! Every moment is being tokenized. Top clip moments get auto-minted as La Casa NFTs with revenue sharing enabled. 
+                Watch live as we push to 5k RR in Valorant! Every moment is being tokenized. Top clip moments get auto-minted as BlackBox NFTs with revenue sharing enabled. 
                 <br /><br />
                 <span className="text-purple-300 font-mono text-xs">🎬 Moments auto-tokenize • 💰 Split revenue • 🔗 On-chain ownership</span>
               </p>

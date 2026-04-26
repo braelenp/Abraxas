@@ -104,7 +104,7 @@ When you do these actions, you earn points:
 | Referral Staking | 150 | Friend stakes $ABRA (after creating profile) |
 | Engagement | 5 | Community activities |
 
-**Goal**: Reach 500 points to claim $1,000 ABRA airdrop from World Labs Treasury
+**Goal**: Reach 500 points to claim $1,000 ABRA airdrop from Abraxas Treasury
 
 ---
 
@@ -311,7 +311,7 @@ const ELDER_FUTHARK_RUNES = [
 - [ ] Connect to backend database (Firebase, Supabase)
 - [ ] Implement wallet signature verification
 - [ ] Set up on-chain tracking (optional)
-- [ ] Configure World Labs Treasury integration for claims
+- [ ] Configure Abraxas Treasury integration for claims
 - [ ] Set campaign end date (30 days from launch)
 - [ ] Create admin dashboard for campaign monitoring
 - [ ] Set up analytics & reporting

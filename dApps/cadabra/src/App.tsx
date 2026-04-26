@@ -424,7 +424,7 @@ function App() {
 
   const tokenizePost = (postId: number) => {
     setFeed((prev) => prev.map((p) => (p.id === postId ? { ...p, tokenized: true } : p)))
-    setComposer((prev) => ({ ...prev, content: 'Forging this post as La Casa NFT on devnet.' }))
+    setComposer((prev) => ({ ...prev, content: 'Forging this post as BlackBox NFT on devnet.' }))
     setActiveTab('post')
     setToast('Redirected to Forge flow (mock)')
   }

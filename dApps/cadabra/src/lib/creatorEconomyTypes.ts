@@ -63,7 +63,7 @@ export interface TokenizedClip {
   description: string;
   thumbnail: string;
   nftMinted: boolean;
-  nftAddress?: string;        // La Casa NFT address
+  nftAddress?: string;        // BlackBox NFT address
   views: number;
   likes: number;
   shares: number;

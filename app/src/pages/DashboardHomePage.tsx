@@ -111,7 +111,7 @@ export function DashboardHomePage() {
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-950/50 px-3 py-3 sm:col-span-1 col-span-2">
             <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">Source</p>
-            <p className="mt-1 font-semibold text-white">Vault balances, La Casa basis, ABRAX activity</p>
+            <p className="mt-1 font-semibold text-white">Vault balances, BlackBox basis, ABRAX activity</p>
           </div>
         </div>
       </article>

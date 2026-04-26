@@ -202,7 +202,7 @@ export default function App() {
               {
                 icon: '🍷',
                 title: 'Liquid Asset Tokenization',
-                desc: 'Upload bottle certs & provenance, mint La Casa NFT, auto-route to Sophia Vault for yield compounding',
+                desc: 'Upload bottle certs & provenance, mint BlackBox NFT, auto-route to Sophia Vault for yield compounding',
               },
               {
                 icon: '🧠',
@@ -306,7 +306,7 @@ export default function App() {
               },
               {
                 step: '3️⃣',
-                label: 'Mint La Casa NFT',
+                label: 'Mint BlackBox NFT',
                 desc: 'On-chain tokenization with immutable bottle metadata, vintage records, temperature logs, auction history',
               },
               {

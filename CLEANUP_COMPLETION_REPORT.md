@@ -50,7 +50,7 @@ Successfully cleaned up the Abraxas dApp for Boomer and new-user clarity while m
    - **"What is Abraxas?"** title
    - **Sovereign Economy Overview**: Main value proposition
    - **4 Key Points** (numbered):
-     1. Tokenize Any Asset → La Casa NFTs
+     1. Tokenize Any Asset → BlackBox NFTs
      2. AI Species Management → Active asset growth
      3. Two Tokens → ABRAX (stablecoin) + $ABRA (utility)
      4. Validators → Network security & rewards
@@ -102,7 +102,7 @@ Added `WhitepaperSummaryPage` to page exports
 - Removed technical jargon
 - Explained concepts in simple terms
 - Used bullet points for clarity
-- Added context (e.g., "La Casa NFTs" explained)
+- Added context (e.g., "BlackBox NFTs" explained)
 - Non-crypto-focused explanations
 
 ## Build Status

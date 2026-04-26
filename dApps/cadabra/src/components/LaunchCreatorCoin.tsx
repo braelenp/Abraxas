@@ -306,7 +306,7 @@ export function LaunchCreatorCoin({ onSuccess }: LaunchCreatorCoinProps) {
                 <div className="space-y-2 text-xs text-slate-300">
                   <p>✓ Share your coin with your TikTok audience</p>
                   <p>✓ Monetize views, tips, and donations</p>
-                  <p>✓ Upload clips as La Casa NFTs in Forge</p>
+                  <p>✓ Upload clips as BlackBox NFTs in Forge</p>
                   <p>✓ Track earnings in Creator Dashboard</p>
                 </div>
               </div>

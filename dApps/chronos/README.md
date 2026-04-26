@@ -7,7 +7,7 @@ Welcome to Chronos, the precision-engineered daughter of Sophia dedicated to fra
 ### Tokenization Flow
 - **Upload Documentation**: Certificates of authenticity, provenance records, professional appraisals
 - **Smart Verification**: King AI validates authenticity and market comparables
-- **La Casa NFT Minting**: On-chain representation with immutable horology provenance
+- **BlackBox NFT Minting**: On-chain representation with immutable horology provenance
 - **Sophia Vault Auto-Deposit**: Automatic yield-bearing vault assignment
 
 ### King AI Valuation Assistant

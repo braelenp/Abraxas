@@ -113,7 +113,7 @@ export default function App() {
               {
                 icon: '📋',
                 title: 'Tokenization Flow',
-                desc: 'Upload certificates, mint La Casa NFT, auto-deposit to Sophia Vault',
+                desc: 'Upload certificates, mint BlackBox NFT, auto-deposit to Sophia Vault',
               },
               {
                 icon: '🧠',
@@ -191,7 +191,7 @@ export default function App() {
             {[
               { step: '1️⃣', label: 'Upload Documentation', desc: 'Certificates, provenance, appraisals' },
               { step: '2️⃣', label: 'Verify Ownership', desc: 'King AI confirms authenticity & value' },
-              { step: '3️⃣', label: 'Mint La Casa NFT', desc: 'On-chain tokenization complete' },
+              { step: '3️⃣', label: 'Mint BlackBox NFT', desc: 'On-chain tokenization complete' },
               { step: '4️⃣', label: 'Deploy Yields', desc: 'Auto-compound appreciation & earnings' },
             ].map((item, idx) => (
               <div key={idx} className="flex gap-4 items-start p-4 rounded-lg border border-purple-400/20 bg-purple-900/10 hover:bg-purple-900/20 transition">

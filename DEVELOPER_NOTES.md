@@ -148,7 +148,7 @@ navigate('/app/trade');
 ✅ Select asset type
 ✅ Assign Sophia agent
 ✅ Deposit vault amount
-✅ Mint La Casa NFT
+✅ Mint BlackBox NFT
 ✅ View vault metrics
 ✅ Generate tax report
 ✅ No leftover state warnings

@@ -255,7 +255,7 @@ export function AirdropPointsWidget({
           <ul className="ml-5 space-y-1 text-slate-400">
             <li>• Earn points by participating in the Sharathon campaign</li>
             <li>• Reach 500 points to become eligible for the airdrop</li>
-            <li>• Claim your $ABRA from the World Labs Treasury</li>
+            <li>• Claim your $ABRA from the Abraxas Treasury</li>
             <li>• Campaign ends in 30 days - maximum rewards distributed</li>
           </ul>
         </div>

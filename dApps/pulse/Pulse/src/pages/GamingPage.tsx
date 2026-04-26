@@ -19,7 +19,7 @@ export function GamingPage() {
     {
       id: '1',
       title: 'Apex Legends Integration',
-      content: 'Apex Legends integration is now in motion inside the Abraxas gaming layer.\nPulse will host the tokenized gaming experience.\nTournaments, leaderboards, $ABRA rewards, and La Casa NFT drops for top performers.\nThe battlefield is being prepared.\nThe Abraxas team rises.',
+      content: 'Apex Legends integration is now in motion inside the Abraxas gaming layer.\nPulse will host the tokenized gaming experience.\nTournaments, leaderboards, $ABRA rewards, and BlackBox NFT drops for top performers.\nThe battlefield is being prepared.\nThe Abraxas team rises.',
       icon: '⚔️',
       timestamp: 'Mar 28, 2026',
       likes: 2847,
@@ -150,7 +150,7 @@ export function GamingPage() {
 
           <div className="p-6 bg-gradient-to-br from-purple-950/40 to-slate-950/40 border border-purple-700/30 rounded-lg text-center hover:border-purple-500/50 transition-all">
             <h3 className="text-lg font-bold text-purple-300 mb-2 font-mono uppercase tracking-wide">🎁 NFT Drops</h3>
-            <p className="text-slate-400/80 text-sm">La Casa NFTs for top performers and tournaments</p>
+            <p className="text-slate-400/80 text-sm">BlackBox NFTs for top performers and tournaments</p>
           </div>
 
           <div className="p-6 bg-gradient-to-br from-purple-950/40 to-slate-950/40 border border-purple-700/30 rounded-lg text-center hover:border-purple-500/50 transition-all">

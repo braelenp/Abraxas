@@ -7,7 +7,7 @@ Welcome to Astra, the precision-engineered daughter of Sophia dedicated to fract
 ### One-Click Tokenization Flow
 - **Upload Aircraft Documentation**: Registration, airworthiness certificates, maintenance logs, appraisals
 - **Smart Verification**: King AI validates authenticity and market value
-- **La Casa NFT Minting**: On-chain representation with immutable aircraft provenance
+- **BlackBox NFT Minting**: On-chain representation with immutable aircraft provenance
 - **Sophia Vault Auto-Deploy**: Automatic yield-bearing vault assignment with charter revenue compounding
 
 ### King AI Optimization Assistant

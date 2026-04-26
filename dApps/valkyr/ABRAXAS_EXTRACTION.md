@@ -130,7 +130,7 @@ Each tab is centered around an Elder Futhark rune and represents a sacred domain
 ### Asset Conceptualization
 
 Assets are conceptualized as:
-- **La Casa NFTs**: Minted from proof of ownership (deed, title, registration)
+- **BlackBox NFTs**: Minted from proof of ownership (deed, title, registration)
 - **Asset Classes**: Athlete Equity, Real Estate, Trading Portfolios, Music Rights, Commodities
 - **Tokenized Positions**: RWA (Real World Assets) minted as on-chain tokens
 - **Yield Compounds**: Growth multipliers accumulate through vault cycles
@@ -847,13 +847,13 @@ text-slate-500     // Tertiary/muted text
 - Sophia (central), Valkyr, Raido, Fenrir, Mimir, Echo, Aurelia, Verdant, etc.
 
 **Layer 5 - Concept Names (Poetic):**
-- La Casa (the house/vault), OYM (Own Your Moment), Staking, Yield Cycles, etc.
+- BlackBox (the house/vault), OYM (Own Your Moment), Staking, Yield Cycles, etc.
 
 ### Narrative Arc Frameworks
 
 **Three-Act Tokenization Cycle:**
 1. **Upload & Attestation** - Proof of ownership (deed, title, registration)
-2. **Minting** - La Casa NFT creation
+2. **Minting** - BlackBox NFT creation
 3. **Vaulting** - Auto-deposit into Sophia ecosystem
 
 **Sophia's Operational Tiers:**
@@ -864,7 +864,7 @@ text-slate-500     // Tertiary/muted text
 
 **Value Creation Loop:**
 ```
-Asset Proof → La Casa NFT → Vault Deposit → Agent Assignment → 
+Asset Proof → BlackBox NFT → Vault Deposit → Agent Assignment → 
 Yield Accumulation → Protective Circuit → Value Growth → Rewards Distribution
 ```
 

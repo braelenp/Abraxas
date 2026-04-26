@@ -80,7 +80,7 @@ const RUNE_CONFIG = {
 	runeName: 'Kenaz',
 	runeEssence: 'Torch · Capital Forging',
 	agentName: 'FORGE',
-	lore: 'Kenaz is the rune of transformation. The Forge tokenizes World Labs institutional digital asset management, converting raw capital into dapp equity positions with algorithmic compounding, liquidity, and autonomous market participation. Institutional rigor. Retail accessibility. You do not choose the asset class. The one that burns for you reveals itself.',
+	lore: 'Kenaz is the rune of transformation. The Forge is the sovereign capital forge of Abraxas—where any real-world asset becomes an on-chain BlackBox NFT (the on-chain Black Card). Convert proof of ownership into liquid, tradeable positions. Institutional-grade infrastructure. Sovereign access for the people. The Forge does not choose which asset burns brightest. The one that burns for you reveals itself through time.',
 	ctaLabel: 'Enter the Forge',
 	coreGlow: '234, 88, 12',
 	fireGlow: '251, 191, 36',
@@ -90,7 +90,7 @@ const RUNE_CONFIG = {
 const STEPS = [
 	{ n: 1, label: 'Upload asset proof' },
 	{ n: 2, label: 'Self-attestation' },
-	{ n: 3, label: 'Mint La Casa NFT' },
+	{ n: 3, label: 'Mint BlackBox NFT' },
 	{ n: 4, label: 'Auto-deposit into Sophia vault' },
 ];
 
@@ -101,7 +101,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign of Sound',
 		headerReveal: 'Welcome to the frequency.',
 		description: 'Music Rights & Media',
-		lore: 'Echo tokenizes music rights, publishing royalties, and media IP. Fractional ownership of streaming revenue, publishing catalogs, and creator equity becomes on-chain La Casa NFTs. Artists, producers, and investors now share the harvest together.',
+		lore: 'Echo tokenizes music rights, publishing royalties, and media IP. Fractional ownership of streaming revenue, publishing catalogs, and creator equity becomes sovereign BlackBox NFTs. Artists, producers, and investors now share the harvest together—owned by no one but the collective.',
 		accentColor: 'orange',
 		icon: '📻',
 		flowSteps: [
@@ -113,7 +113,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable copyright provenance',
 				icon: '♪',
 			},
@@ -162,7 +162,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Guardian of Gameplay',
 		headerReveal: 'Welcome to the arena.',
 		description: 'Gaming Clips & Live Streams',
-		lore: 'Pulse tokenizes gaming clips, esports tournaments, and streamer content. Fractional ownership of tournament franchises, content rights, and player equity becomes on-chain La Casa NFTs. Gamers and investors now own the victories.',
+		lore: 'Pulse tokenizes gaming clips, esports tournaments, and streamer content. Fractional ownership of tournament franchises, content rights, and player equity becomes sovereign BlackBox NFTs. Gamers and investors now own the victories—sovereign and eternal.',
 		accentColor: 'cyan',
 		icon: '⚡',
 		flowSteps: [
@@ -174,7 +174,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable esports provenance',
 				icon: '🏅',
 			},
@@ -223,7 +223,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign of Structures',
 		headerReveal: 'Welcome to the foundation.',
 		description: 'Real Estate & Development',
-		lore: 'Aurelia tokenizes real estate, development rights, and property equity. Fractional ownership of commercial buildings, land development projects, and rental income becomes on-chain La Casa NFTs. Real property now lives in digital sovereignty.',
+		lore: 'Aurelia tokenizes real estate, development rights, and property equity. Fractional ownership of commercial buildings, land development projects, and rental income becomes sovereign BlackBox NFTs. Real property now transcends geography and jurisdiction.',
 		accentColor: 'amber',
 		icon: '🏛️',
 		flowSteps: [
@@ -235,7 +235,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable property records',
 				icon: '🔑',
 			},
@@ -284,7 +284,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign of the Deep',
 		headerReveal: 'Welcome to the mineral reserves.',
 		description: 'Minerals & Natural Resources',
-		lore: 'Vein tokenizes mineral rights, precious metals, and natural resource extraction. Fractional ownership of mining operations, commodity futures, and resource reserves becomes on-chain La Casa NFTs. The earth now yields to algorithmic sovereignty.',
+		lore: 'Vein tokenizes mineral rights, precious metals, and natural resource extraction. Fractional ownership of mining operations, commodity futures, and resource reserves becomes sovereign BlackBox NFTs. The earth now yields to algorithmic sovereignty.',
 		accentColor: 'purple',
 		icon: '⛏️',
 		flowSteps: [
@@ -296,7 +296,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable mineral provenance',
 				icon: '💎',
 			},
@@ -345,7 +345,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign of Sustainability',
 		headerReveal: 'Welcome to the living world.',
 		description: 'Carbon & Environmental Assets',
-		lore: 'Verdant tokenizes carbon credits, renewable energy, and environmental assets. Fractional ownership of wind farms, solar installations, and carbon offsets becomes on-chain La Casa NFTs. The planet now yields yield.',
+		lore: 'Verdant tokenizes carbon credits, renewable energy, and environmental assets. Fractional ownership of wind farms, solar installations, and carbon offsets becomes sovereign BlackBox NFTs. The planet now yields yield—regenerative and eternal.',
 		accentColor: 'emerald',
 		icon: '🌿',
 		flowSteps: [
@@ -357,7 +357,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable environmental provenance',
 				icon: '🌱',
 			},
@@ -406,7 +406,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign of the Seas',
 		headerReveal: 'Welcome to the next degree.',
 		description: 'Yachts & Luxury Maritime',
-		lore: 'Nautica tokenizes yachts and luxury maritime assets. Fractional ownership, charter rights, and high-value physical assets become on-chain La Casa NFTs. The species now claims the oceans.',
+		lore: 'Nautica tokenizes yachts and luxury maritime assets. Fractional ownership, charter rights, and high-value physical assets become sovereign BlackBox NFTs. The species now claims the oceans.',
 		accentColor: 'blue',
 		icon: '⛵',
 		flowSteps: [
@@ -418,7 +418,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable maritime provenance',
 				icon: '🚢',
 			},
@@ -467,7 +467,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Healer of the Species',
 		headerReveal: 'Welcome to the next degree.',
 		description: 'Healthcare & Biotech Assets',
-		lore: 'Eir tokenizes healthcare assets, medical data sovereignty, wellness protocols, and biotech innovations. Patient-owned records, tokenized treatments, fractional ownership of clinics, and regenerative health become on-chain La Casa NFTs. The species now claims the body, the healing arts, and the future of medicine.',
+		lore: 'Eir tokenizes healthcare assets, medical data sovereignty, wellness protocols, and biotech innovations. Patient-owned records, tokenized treatments, fractional ownership of clinics, and regenerative health become sovereign BlackBox NFTs. The species now claims the body, the healing arts, and the future of medicine.',
 		accentColor: 'emerald',
 		icon: '💚',
 		flowSteps: [
@@ -479,7 +479,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable medical provenance',
 				icon: '🏥',
 			},
@@ -528,7 +528,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			subtitle: 'Guardian of Velocity',
 			headerReveal: 'Welcome to the velocity.',
 			description: 'Luxury Mobility & Performance',
-			lore: 'Skaði tokenizes jets, aircraft, and high-performance vehicles. Fractional ownership of supercars, private aviation, and speed-racing assets becomes on-chain La Casa NFTs. The species now claims the skies and conquers velocity.',
+			lore: 'Skaði tokenizes jets, aircraft, and high-performance vehicles. Fractional ownership of supercars, private aviation, and speed-racing assets becomes sovereign BlackBox NFTs. The species now claims the skies and conquers velocity.',
 			accentColor: 'amber',
 			icon: '✈️',
 			flowSteps: [
@@ -540,7 +540,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 				},
 				{
 					step: 2,
-					label: 'Mint La Casa NFT',
+					label: 'Mint BlackBox NFT',
 					desc: 'On-chain tokenization with immutable vehicle provenance',
 					icon: '🏎️',
 				},
@@ -589,7 +589,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			subtitle: 'The Golden Sovereign',
 			headerReveal: 'Welcome to golden grace.',
 			description: 'Luxury Collectibles & Fine Goods',
-			lore: 'Freyja tokenizes watches, wine, fine art, and investment-grade luxury collectibles. Fractional ownership of timepieces, rare spirits, and museum-quality artifacts becomes on-chain La Casa NFTs. The species now claims beauty, rarity, and timeless value.',
+			lore: 'Freyja tokenizes watches, wine, fine art, and investment-grade luxury collectibles. Fractional ownership of timepieces, rare spirits, and museum-quality artifacts becomes sovereign BlackBox NFTs. The species now claims beauty, rarity, and timeless value.',
 			accentColor: 'amber',
 			icon: '👑',
 			flowSteps: [
@@ -601,7 +601,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 				},
 				{
 					step: 2,
-					label: 'Mint La Casa NFT',
+					label: 'Mint BlackBox NFT',
 					desc: 'On-chain tokenization with immutable collectible provenance',
 					icon: '✨',
 				},
@@ -650,7 +650,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			subtitle: 'The Botanical Sovereign',
 			headerReveal: 'Welcome to regeneration.',
 			description: 'Botanical & Cannabis Assets',
-			lore: 'Gaia tokenizes cannabis, medicinal plants, and regenerative agricultural assets. Fractional ownership of cultivation licenses, seed genetics, processing facilities, and botanical intellectual property becomes on-chain La Casa NFTs. The species now claims the botanical kingdom and its healing potential.',
+			lore: 'Gaia tokenizes cannabis, medicinal plants, and regenerative agricultural assets. Fractional ownership of cultivation licenses, seed genetics, processing facilities, and botanical intellectual property becomes sovereign BlackBox NFTs. The species now claims the botanical kingdom and its healing potential.',
 			accentColor: 'emerald',
 			icon: '🌱',
 			flowSteps: [
@@ -662,7 +662,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 				},
 				{
 					step: 2,
-					label: 'Mint La Casa NFT',
+					label: 'Mint BlackBox NFT',
 					desc: 'On-chain tokenization with immutable botanical provenance',
 					icon: '🌿',
 				},
@@ -711,7 +711,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Timeless Value, Tokenized',
 		headerReveal: 'Welcome to precision, rarity, and timelessness.',
 		description: 'Luxury Watches & Horology',
-		lore: 'Chronos tokenizes rare watches, vintage timepieces, and modern masterpieces from the world\'s most coveted horologists. Fractional ownership of Rolex, Patek Philippe, Audemars Piguet, and independent watchmakers becomes on-chain La Casa NFTs. Time itself now yields yield.',
+		lore: 'Chronos tokenizes rare watches, vintage timepieces, and modern masterpieces from the world\'s most coveted horologists. Fractional ownership of Rolex, Patek Philippe, Audemars Piguet, and independent watchmakers becomes sovereign BlackBox NFTs. Time itself now yields yield.',
 		accentColor: 'purple',
 		icon: '⌚',
 		flowSteps: [
@@ -723,7 +723,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable horology provenance',
 				icon: '⌚',
 			},
@@ -772,7 +772,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Sovereign Skies',
 		headerReveal: 'Welcome to the stratosphere.',
 		description: 'Private Jets & Aviation',
-		lore: 'Astra tokenizes private jets, flight hours, and premium aviation assets. Fractional ownership of Gulfstreams, Bombardiers, Embraers, and exclusive charter contracts becomes on-chain La Casa NFTs. Investors and operators now share the skies without capital constraints.',
+		lore: 'Astra tokenizes private jets, flight hours, and premium aviation assets. Fractional ownership of Gulfstreams, Bombardiers, Embraers, and exclusive charter contracts becomes sovereign BlackBox NFTs. Investors and operators now share the skies without capital constraints.',
 		accentColor: 'blue',
 		icon: '✈️',
 		flowSteps: [
@@ -784,7 +784,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable aircraft provenance',
 				icon: '✈️',
 			},
@@ -833,7 +833,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Timeless Art, Tokenized',
 		headerReveal: 'Welcome to the gallery eternal.',
 		description: 'Fine Art & Collectibles',
-		lore: 'Elysium tokenizes fine art, rare collectibles, and cultural masterpieces. Fractional ownership of paintings, sculptures, historical artifacts, and investment-grade collectibles becomes on-chain La Casa NFTs. The world\'s greatest art now yields yield.',
+		lore: 'Elysium tokenizes fine art, rare collectibles, and cultural masterpieces. Fractional ownership of paintings, sculptures, historical artifacts, and investment-grade collectibles becomes sovereign BlackBox NFTs. The world\'s greatest art now yields yield.',
 		accentColor: 'purple',
 		icon: '🎨',
 		flowSteps: [
@@ -845,7 +845,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable provenance and artwork metadata',
 				icon: '🎨',
 			},
@@ -894,7 +894,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'Liquid Assets, Tokenized',
 		headerReveal: 'Welcome to the cellar eternal.',
 		description: 'Fine Wine & Rare Spirits',
-		lore: 'Bacchus tokenizes fine wine, rare whiskies, and collectible spirits. Fractional ownership of premium liquid assets becomes on-chain La Casa NFTs. The world\'s most sought-after bottles now yield yield.',
+		lore: 'Bacchus tokenizes fine wine, rare whiskies, and collectible spirits. Fractional ownership of premium liquid assets becomes sovereign BlackBox NFTs. The world\'s most sought-after bottles now yield yield.',
 		accentColor: 'purple',
 		icon: '🍷',
 		flowSteps: [
@@ -906,7 +906,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 			},
 			{
 				step: 2,
-				label: 'Mint La Casa NFT',
+				label: 'Mint BlackBox NFT',
 				desc: 'On-chain tokenization with immutable bottle metadata and vintage records',
 				icon: '🍷',
 			},
@@ -1020,7 +1020,7 @@ const DAUGHTER_CONFIGS: Record<string, DaughterConfig> = {
 		subtitle: 'The Wise Guardian',
 		headerReveal: 'Welcome to the vigilance.',
 		description: 'The Wise Guardian',
-		lore: 'Valkyr is the guardian of protocol integrity. It manages permissions, access controls, and administrative governance across all Sophia infrastructure. Valkyr ensures only verified participants interact with La Casa NFTs and that institutional standards are maintained at every touchpoint.',
+		lore: 'Valkyr is the guardian of protocol integrity. It manages permissions, access controls, and administrative governance across all Sophia infrastructure. Valkyr ensures only verified participants interact with BlackBox NFTs and that institutional standards are maintained at every touchpoint.',
 		accentColor: 'purple',
 		icon: '🛡️',
 		flowSteps: [
@@ -1784,7 +1784,7 @@ export function ForgePage() {
 					</div>
 				</div>
 				<p className="text-[10px] leading-relaxed text-slate-400/70 mb-4 uppercase tracking-[0.05em]">
-					Upload proof of ownership | Abraxas mints La Casa NFT | Auto-deposit to Sophia Vault
+					Upload proof of ownership | Abraxas mints BlackBox NFT | Auto-deposit to Sophia Vault
 					</p>
 					<button
 						type="button"
@@ -1877,7 +1877,7 @@ export function ForgePage() {
 				{/* NFT preview — step 3 */}
 				{currentStep >= 3 && !minted && (
 					<article className="glow-panel rounded-2xl border border-orange-300/25 bg-slate-900/60 p-4 backdrop-blur">
-						<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70">La Casa NFT Preview</p>
+						<p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-orange-200/70"> BlackBox NFT Preview</p>
 						<div className="flex gap-4 items-center mb-4">
 							<div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-orange-300/25 bg-slate-950">
 								{previewUrl ? (
@@ -1893,7 +1893,7 @@ export function ForgePage() {
 								<p className="truncate text-[11px] font-bold text-cyan-300 font-mono">{firstFile?.name ?? 'Asset'}</p>
 								<p className="mt-0.5 text-[10px] text-slate-500">{files.length} file{files.length !== 1 ? 's' : ''} attached</p>
 								<div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-orange-300/30 bg-orange-500/10 px-2 py-0.5">
-									<span className="text-[10px] font-semibold text-orange-300">La Casa NFT</span>
+									<span className="text-[10px] font-semibold text-orange-300"> BlackBox NFT</span>
 								</div>
 							</div>
 						</div>

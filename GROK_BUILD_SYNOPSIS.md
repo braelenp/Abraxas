@@ -37,7 +37,7 @@ Abraxas is the first **Real-World Asset (RWA) Stock Market on Solana** integrati
   - ABRA ↔ USDC ($0.95, +5.2%, $125K 24h vol)
     - Golf PGA Points ↔ USDC ($125.50, +8.2%, $230K 24h vol)
       - Horse Racing Payout ↔ USDC ($3.75, +12.4%, $580K 24h vol)
-        - La Casa NFT ↔ USDC ($2,500, live)
+        - BlackBox NFT ↔ USDC ($2,500, live)
           - Athlete Equity Tokens (OYM: $CDUBB, $AJWILL, $HAILEE)
           - **Chart Data:** 24-hour candlestick (live)
           - **Category Filtering:** By asset class (token, golf, horses, nft, athlete)
@@ -79,7 +79,7 @@ Abraxas is the first **Real-World Asset (RWA) Stock Market on Solana** integrati
 
                 ### 1. **Vaults System** (Full structs, awaiting production rollout)
                 - **Concept:** On-chain RWA position buckets with multiplier growth
-                - **Types:** Athlete Equity, Real Estate, Trading Portfolio, La Casa NFT
+                - **Types:** Athlete Equity, Real Estate, Trading Portfolio, BlackBox NFT
                 - **Features:** Create, deposit, multiply, withdraw
                 - **Status:** Fully implemented in Rust, devnet-only demo
                 - **Next:** Production migration + airdrop eligibility
@@ -150,7 +150,7 @@ Abraxas is the first **Real-World Asset (RWA) Stock Market on Solana** integrati
 
                                 ### **Vaults Page** (`/app/vaults`)
                                 - **Vault List:** Create, view, deposit, withdraw
-                                - **La Casa NFT Deposits:** Record stablecoin on-chain
+                                - **BlackBox NFT Deposits:** Record stablecoin on-chain
                                 - **Agent Assignment:** Select Sophia (Sentinel/Yield/Defensive)
                                 - **Value Growth:** Real-time multiplier display
 

@@ -8,7 +8,7 @@ export function TokenizeHubPage() {
         <div className="inline-flex rounded-full border border-amber-300/35 bg-amber-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-100">
           Tokenize
         </div>
-        <h1 className="mt-4 text-2xl font-semibold text-white">Turn real-world ownership into La Casa NFTs.</h1>
+        <h1 className="mt-4 text-2xl font-semibold text-white">Turn real-world ownership into BlackBox NFTs.</h1>
         <p className="mt-3 text-sm leading-6 text-slate-300">
           This is the front door for getting assets on-chain. Mint the NFT, create the proof of ownership record, then route it into a Sophia Vault so the agents can work on top of it.
         </p>

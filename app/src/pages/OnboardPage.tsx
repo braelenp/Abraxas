@@ -268,7 +268,7 @@ export function OnboardPage() {
           </div>
           <div className="border-t border-white/10 pt-4">
             <p className="text-white/60 text-xs leading-relaxed">
-              You now hold equity in Abraxas + locked liquidity. La Casa NFT airdrops coming soon to all ABRA holders
+              You now hold equity in Abraxas + locked liquidity. BlackBox NFT airdrops coming soon to all ABRA holders
               at unlock.
             </p>
           </div>
@@ -510,7 +510,7 @@ export function OnboardPage() {
         <Wallet size={14} className="mt-0.5 shrink-0 text-cyan-300" />
         <p>
           You can stake your ABRA directly here after buying. Manage your stakes, check projections, and claim rewards after unlock all from this onboarding page.
-          La Casa NFT rewards will be airdropped to qualifying early ABRA holders, while the app release focuses on token acquisition and devnet market showcase.
+          BlackBox NFT rewards will be airdropped to qualifying early ABRA holders, while the app release focuses on token acquisition and devnet market showcase.
         </p>
       </div>
 

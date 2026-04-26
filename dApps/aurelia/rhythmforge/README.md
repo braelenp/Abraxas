@@ -46,7 +46,7 @@ Drives real on-chain activity, volume, and creator royalties (ideal for Bags.fm 
 ## Why Solana & Bags?
 Solana enables fast, cheap on-chain verification + ownership. Bags.fm powers creator launches & perpetual royalties—RhythmForge can help music projects on Bags gain viral engagement through playable NFTs.
 
-Built by World Labs Protocol for the Bags Hackathon.
+Built by Abraxas Protocol for the Bags Hackathon.
 
 Questions? Reach out on X @ [your handle] or check commits.
 

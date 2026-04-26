@@ -301,7 +301,7 @@ export function CreatorEconomyModule({ onContractInteraction }: CreatorEconomyMo
                 </div>
                 <div className="flex gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Tokenized clips become La Casa NFTs in Forge</span>
+                  <span>Tokenized clips become BlackBox NFTs in Forge</span>
                 </div>
               </div>
             </div>
@@ -320,7 +320,7 @@ export function CreatorEconomyModule({ onContractInteraction }: CreatorEconomyMo
               <Music size={48} className="text-purple-400 mx-auto opacity-60" />
               <h3 className="text-xl font-bold text-purple-200">Tokenize Your Clips</h3>
               <p className="text-slate-400 max-w-md mx-auto">
-                Upload TikTok clips directly to Abraxas. They're automatically minted as La Casa NFTs and earn royalties from trades.
+                Upload TikTok clips directly to Abraxas. They're automatically minted as BlackBox NFTs and earn royalties from trades.
               </p>
               <button className="px-6 py-3 rounded-lg border border-purple-400/60 bg-gradient-to-r from-purple-500/40 to-purple-400/30 text-sm font-bold uppercase text-purple-100 hover:border-purple-300/80 hover:shadow-[0_0_24px_rgba(153,69,255,0.4)] transition">
                 Upload Clip to Forge

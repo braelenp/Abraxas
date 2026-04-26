@@ -54,7 +54,7 @@ function getOrionScope(pathname: string, embedded: boolean): OrionScope {
 
 function getOrionChatIntro(pathname: string) {
   if (pathname.includes('/app/vaults')) {
-    return 'I am King AI. In Vaults, I can help route La Casa deposits, compare athlete-equity exposure, and highlight the safest next value-creation move.';
+    return 'I am King AI. In Vaults, I can help route BlackBox deposits, compare athlete-equity exposure, and highlight the safest next value-creation move.';
   }
 
   if (pathname.includes('/app/circuit')) {
@@ -107,14 +107,14 @@ function getOrionReply(question: string, pathname: string, scope: OrionScope) {
 
   if (scope === 'vaults') {
     if (normalized.includes('deposit') || normalized.includes('la casa') || normalized.includes('exposure')) {
-      return 'In Vaults, route La Casa exposure into the OYM vault first, then allocate incrementally into the athlete token with the strongest development signal. That keeps your cost basis aligned with live growth mechanics.';
+      return 'In Vaults, route BlackBox exposure into the OYM vault first, then allocate incrementally into the athlete token with the strongest development signal. That keeps your cost basis aligned with live growth mechanics.';
     }
 
     if (normalized.includes('risk') || normalized.includes('warning') || normalized.includes('protect')) {
-      return 'In Vaults, keep athlete-equity additions smaller when Circuit is already in warning. Build exposure through staged La Casa deposits and let Sophia widen the protective buffer before pushing harder.';
+      return 'In Vaults, keep athlete-equity additions smaller when Circuit is already in warning. Build exposure through staged BlackBox deposits and let Sophia widen the protective buffer before pushing harder.';
     }
 
-    return 'Vaults mode active. Ask me to compare athlete tokens, size a La Casa deposit, or identify the next safest allocation move.';
+    return 'Vaults mode active. Ask me to compare athlete tokens, size a BlackBox deposit, or identify the next safest allocation move.';
   }
 
   if (scope === 'circuit') {
@@ -151,7 +151,7 @@ function getOrionReply(question: string, pathname: string, scope: OrionScope) {
     }
 
     if (normalized.includes('vault') || normalized.includes('allocation') || normalized.includes('market')) {
-      return 'Use Vaults to route La Casa exposure into the OYM basket, then allocate gradually across the athlete tokens with the cleanest King AI signal. Smaller staged moves keep Circuit optionality intact.';
+      return 'Use Vaults to route BlackBox exposure into the OYM basket, then allocate gradually across the athlete tokens with the cleanest King AI signal. Smaller staged moves keep Circuit optionality intact.';
     }
 
     if (normalized.includes('sophia') || normalized.includes('agent') || normalized.includes('mint')) {
@@ -206,7 +206,7 @@ Live Family Snapshot:
 • Echo (Music Rights) — $42.3M est.
 • Pulse (Gaming) — $28.9M est.
 
-I help you optimize capital efficiency, route La Casa deposits, compare Daughters allocations, and highlight the safest next value-creation move — all while staying within Circuit safety rules.
+I help you optimize capital efficiency, route BlackBox deposits, compare Daughters allocations, and highlight the safest next value-creation move — all while staying within Circuit safety rules.
 
 Ask me anything:
 • "Show me best ORCA opportunities"
@@ -319,7 +319,7 @@ export function OrionAssistant({ embedded = false }: OrionAssistantProps) {
 
   const placeholder = useMemo(() => {
     if (pathname.includes('/app/circuit')) return 'How do I test a circuit trigger?';
-    if (pathname.includes('/app/vaults')) return 'Which athlete token should absorb the next La Casa deposit?';
+    if (pathname.includes('/app/vaults')) return 'Which athlete token should absorb the next BlackBox deposit?';
     if (pathname.includes('/app/sophia')) return 'Which Sophia profile fits this vault?';
     return 'Ask about athlete equity, King AI, or Circuit safety...';
   }, [pathname]);

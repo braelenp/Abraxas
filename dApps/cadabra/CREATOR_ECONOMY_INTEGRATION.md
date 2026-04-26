@@ -164,7 +164,7 @@ export const CREATOR_ECONOMY_FEATURES = {
         id: 'tokenize',
         name: 'Tokenize Clips',
         component: 'Coming Soon',
-        description: 'Upload clips as La Casa NFTs',
+        description: 'Upload clips as BlackBox NFTs',
       },
       {
         id: 'analytics',

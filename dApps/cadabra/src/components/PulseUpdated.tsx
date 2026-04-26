@@ -144,7 +144,7 @@ function ContentDiscoveryTab({ clips }: { clips: Clip[] }) {
       <div className="border-b border-purple-300/20 px-4 py-4 glass-sm">
         <p className="mb-2 text-sm text-purple-100">Tokenized Content</p>
         <p className="text-xs text-purple-100/70">
-          Gaming, sports, and DeFi moments instantly minted as La Casa NFTs.
+          Gaming, sports, and DeFi moments instantly minted as BlackBox NFTs.
           Creators earn 70% of all trading fees.
         </p>
       </div>
@@ -218,7 +218,7 @@ function ContentDiscoveryTab({ clips }: { clips: Clip[] }) {
               {/* NFT Minting Info */}
               {clip.nftMinted && (
                 <div className="mb-3 rounded-lg border border-orange-300/40 bg-orange-400/8 p-2">
-                  <p className="text-xs text-orange-100 font-semibold">✨ La Casa NFT</p>
+                  <p className="text-xs text-orange-100 font-semibold">✨ BlackBox NFT</p>
                   <p className="text-xs text-orange-100/70">
                     Floor: ${clip.tokenPrice.toFixed(2)}
                   </p>

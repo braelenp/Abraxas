@@ -8,7 +8,7 @@ This implementation adds a complete **on-chain creator economy layer** to Abraxa
 1. **Launch Creator Coins** - Any user can create a coin for any TikTok creator with just their username
 2. **Earn Native Royalties** - All views, tips, donations, and trades automatically generate ABRA rewards
 3. **Grow Communities** - Fans become coin holders, creating economic alignment
-4. **Tokenize Moments** - Gaming clips and TikTok moments become La Casa NFTs in Forge
+4. **Tokenize Moments** - Gaming clips and TikTok moments become BlackBox NFTs in Forge
 5. **Track Everything On-Chain** - Full transparency and verifiable earnings
 
 ---
@@ -21,7 +21,7 @@ This implementation adds a complete **on-chain creator economy layer** to Abraxa
 Main integration point with 4 tabs:
 - **Launch Coin**: One-click creator coin launching
 - **Dashboard**: Live earnings, metrics, and transactions
-- **Tokenize Clips**: Upload clips as La Casa NFTs
+- **Tokenize Clips**: Upload clips as BlackBox NFTs
 - **Analytics**: Creator economy insights
 
 #### 2. **LaunchCreatorCoin** (`LaunchCreatorCoin.tsx`)
@@ -229,7 +229,7 @@ All data from on-chain transactions
 ```
 Creator uploads TikTok clip to Abraxas
   ↓
-System mints as La Casa NFT in Forge
+System mints as BlackBox NFT in Forge
   ↓
 Clip becomes tradeable
   ↓
@@ -290,7 +290,7 @@ All components maintain Abraxas's cinematic esoteric style:
    - Automatic distribution
 
 3. **NFT Minting**
-   - La Casa NFT contract
+   - BlackBox NFT contract
    - Clip metadata storage
    - Royalty embedding
 

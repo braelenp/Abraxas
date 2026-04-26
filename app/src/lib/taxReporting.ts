@@ -246,7 +246,7 @@ export function buildVaultTaxReport({ vault, deposits, logs, tradeRecords, agent
     abraxHistoryRows,
     depreciationRows,
     notes: [
-      'This report is an estimated planning export generated from vault balances, La Casa deposit records, assigned-agent activity, and protocol log data.',
+      'This report is an estimated planning export generated from vault balances, BlackBox deposit records, assigned-agent activity, and protocol log data.',
       'Realized gain/loss figures use recorded trade PnL where available and an asset-class realization model where direct closing data is not present.',
       'ABRAX minting and redemption rows are marked estimated whenever the protocol does not yet have explicit tax-lot debt history on-chain or in-app.',
     ],
@@ -305,7 +305,7 @@ export function downloadVaultTaxReportCsv(report: VaultTaxReport) {
   rows.push(`Estimated Unrealized Gain/Loss,${report.estimatedUnrealizedGainLoss}`);
   rows.push(`Total Cost Basis,${report.totalCostBasis}`);
   rows.push('');
-  rows.push('Cost Basis Per La Casa NFT');
+  rows.push('Cost Basis Per BlackBox NFT');
   rows.push('Asset,Collection,Acquired On,Cost Basis,Current Value Estimate,Gain/Loss Estimate');
   report.costBasisRows.forEach((row) => {
     rows.push([
@@ -393,10 +393,10 @@ export function downloadVaultTaxReportPdf(report: VaultTaxReport) {
   y = renderPdfSection(pdf, 'Summary', [
     `Estimated realized gains/losses for the year: ${formatCurrency(report.estimatedRealizedGainLoss)}`,
     `Estimated unrealized gains/losses: ${formatCurrency(report.estimatedUnrealizedGainLoss)}`,
-    `Total La Casa cost basis tracked in this vault: ${formatCurrency(report.totalCostBasis)}`,
+    `Total BlackBox cost basis tracked in this vault: ${formatCurrency(report.totalCostBasis)}`,
   ], y);
 
-  y = renderPdfSection(pdf, 'Cost Basis Per La Casa NFT', report.costBasisRows.map((row) => (
+  y = renderPdfSection(pdf, 'Cost Basis Per BlackBox NFT', report.costBasisRows.map((row) => (
     `${row.assetLabel} • ${row.collection} • acquired ${row.acquiredOn} • basis ${formatCurrency(row.costBasis)} • current est. ${formatCurrency(row.currentValueEstimate)} • gain/loss est. ${formatCurrency(row.gainLossEstimate)}`
   )), y);
 

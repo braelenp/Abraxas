@@ -123,7 +123,7 @@ export function CircuitPage() {
               <p className="font-bold text-emerald-300 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
                 <Zap size={16} /> Institutional Grade
               </p>
-              <p className="text-xs text-slate-300">Built on World Labs Protocol infrastructure. The same defense mechanisms used by RWA institutions and family offices.</p>
+              <p className="text-xs text-slate-300">Built on Abraxas sovereign infrastructure. The same defense mechanisms used by RWA institutions and family offices.</p>
             </div>
           </div>
         </div>

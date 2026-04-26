@@ -248,7 +248,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               <ul className="space-y-1 text-slate-300 text-xs">
                 <li>• New asset classes and additional agent species</li>
                 <li>• Cross-ecosystem integrations</li>
-                <li>• Institutional custody layers (Utila / CV5 expansion)</li>
+                <li>• Multi-sig institutional custody infrastructure & Sovereign Regime governance</li>
                 <li>• The complete parallel financial system</li>
               </ul>
             </div>

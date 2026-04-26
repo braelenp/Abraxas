@@ -58,7 +58,7 @@ export function TrendingPage() {
             className="text-4xl md:text-5xl"
           />
         </div>
-        <p className="text-slate-400 text-sm font-mono mt-2">Watch the most popular clips being forged as La Casa NFTs</p>
+        <p className="text-slate-400 text-sm font-mono mt-2">Watch the most popular clips being forged as BlackBox NFTs</p>
       </div>
 
       {/* Pulse Intro Card */}

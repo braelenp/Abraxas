@@ -84,7 +84,7 @@ ABRA_TOKEN_CA: '5c1FHZj36pkA3cpXcyZxDhRmQyxzUqMNQn8K5neDBAGS' // Mainnet
 | `/app` | DashboardPage | Portfolio overview, Polymarket bets, AI recommendations | **Live** |
 | `/app/trade` | TradePage | ABRA acquisition, staking interface, RWA pairs | **Live** |
 | `/app/market` | MarketPage | RWA market listings, athlete equity, real estate, IP | **Live** |
-| `/app/vaults` | VaultsPage | Vault management, La Casa deposits, agent assignment | **Devnet Demo** |
+| `/app/vaults` | VaultsPage | Vault management, BlackBox deposits, agent assignment | **Devnet Demo** |
 | `/app/orion` | OrionPage | King AI assistant, athlete metrics, OYM integration | **Devnet Demo** |
 | `/app/circuit` | CircuitPage | Circuit breaker simulator, risk signals, thresholds | **Devnet Demo** |
 | `/app/sophia-mint` | SophiaMintPage | Sophia NFT minting stub, marketplace (MVP) | **Devnet Demo** |
@@ -197,7 +197,7 @@ Polymarket Odds:
   },
   {
     id: 'lacasa-usdc',
-    pair: 'La Casa NFT ↔ USDC',
+    pair: 'BlackBox NFT ↔ USDC',
     price: $2,500,
     change24h: -2.1%,
     volume24h: $45K,
@@ -261,7 +261,7 @@ Athlete Equity (LIVE):
   - $HAILEE   | Hailee Swain    | Price: $12.30 | ↑3.2% | Market Cap: $2.9M | Float: 21% | Vol: $56K
 
 Real Estate (PILOT):
-  - $LC-REIT  | La Casa REIT    | Price: $47.50 | ↓0.8% | Market Cap: $12M | Float: 8% | Vol: $340K
+  - $LC-REIT  | BlackBox REIT    | Price: $47.50 | ↓0.8% | Market Cap: $12M | Float: 8% | Vol: $340K
   - $SB-HOME  | SB Home Fund    | Price: $21.80 | ↑2.1% | Market Cap: $4.2M | Float: 15% | Vol: $78K
 
 Trading Portfolio (PILOT):
@@ -394,7 +394,7 @@ Search:
   - Name, asset type, policy (growth/balanced/defensive)
   - Deposited amount, vault value, gains %
   - Assigned agent name
-  - La Casa deposits count
+  - BlackBox deposits count
   - Athlete exposure $
   - Protective buffer %
 - **Agent Assignment:** Dropdown to assign Sophia Sentinel/Yield/Defensive
@@ -436,7 +436,7 @@ Search:
 ABRA ↔ USDC         (Base trading pair)
 Golf PGA ↔ USDC     (New asset class)
 Horse Racing ↔ USDC (New asset class)
-La Casa NFT ↔ USDC  (RWA collateral)
+BlackBox NFT ↔ USDC  (RWA collateral)
 USDC ↔ SOL          (Liquidity bridge)
 ```
 
@@ -854,7 +854,7 @@ usePolymarketBets(limit: number = 3)
 ```typescript
 RWA Prediction Markets:
   - "Will Caleb score >25 next game?" (Athlete)
-  - "Will La Casa REIT yield >7% this quarter?" (Real Estate)
+  - "Will BlackBox REIT yield >7% this quarter?" (Real Estate)
   - "Will $CDUBB appreciate 20% by month-end?" (Token)
   - "Will Fed cut rates in March?" (Macro)
 
@@ -911,11 +911,11 @@ $HAILEE  | Hailee Swain   | $12.30 | +3.2% | Score: 78/100
 
 ### Pilot Asset Classes
 
-#### Real Estate (La Casa REIT)
+#### Real Estate (BlackBox REIT)
 
 **Available Tokens:**
 ```typescript
-$LC-REIT | La Casa REIT      | $47.50 | -0.8%  | Score: 85/100
+$LC-REIT | BlackBox REIT      | $47.50 | -0.8%  | Score: 85/100
 $SB-HOME | SB Home Fund      | $21.80 | +2.1%  | Score: 72/100
 ```
 
@@ -1121,7 +1121,7 @@ Eligibility: Only active stakers at snapshot date
 ```typescript
 AssetType:
   - athlete_equity: Athlete token portfolio (OYM focus)
-  - real_estate: Real estate / REIT exposure (La Casa)
+  - real_estate: Real estate / REIT exposure (BlackBox)
   - trading_portfolio: Active trading portfolios (Sophia-managed)
 
 VaultSummary:

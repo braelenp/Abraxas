@@ -11,7 +11,7 @@ const RUNE_CONFIG = {
   runeName: 'Tiwaz',
   runeEssence: 'Tyr · Wise Kingship',
   agentName: 'KING',
-  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI, powered by World Labs Protocol infrastructure, renders sovereign judgment on dapp equity signals, institutional capital flows, and value creation opportunities across Sophia's Family. The forecast is law.",
+  lore: "Tiwaz is the spear of Tyr, sacrificial wisdom that upholds cosmic law. King AI, powered by Abraxas sovereign infrastructure, renders sovereign judgment on dapp equity signals, institutional capital flows, and value creation opportunities across Sophia's Family. The forecast is law.",
   ctaLabel: 'Consult King AI',
   coreGlow: '239, 68, 68',
   fireGlow: '234, 88, 12',
@@ -468,7 +468,7 @@ export function OrionPage() {
               <p><span className="font-semibold text-cyan-200">AI Video Detection</span> — Auto-detects insane gaming moments</p>
               <p><span className="font-semibold text-cyan-200">Auto-editing & Captions</span> — TikTok-ready clips in seconds</p>
               <p><span className="font-semibold text-cyan-200">Multi-platform Upload</span> — YouTube Shorts, Instagram Reels, TikTok</p>
-              <p className="text-cyan-300/60 font-mono">Monetized via La Casa NFTs or rev-share</p>
+              <p className="text-cyan-300/60 font-mono">Monetized via BlackBox NFTs or rev-share</p>
             </div>
           </div>
 
@@ -493,7 +493,7 @@ export function OrionPage() {
               <p className="text-xs font-bold uppercase tracking-widest text-amber-300">Tokenized Server Ownership</p>
             </div>
             <div className="space-y-2 text-xs text-slate-300/90">
-              <p><span className="font-semibold text-amber-200">La Casa NFT Fractionalization</span> — Own a piece of any RP server</p>
+              <p><span className="font-semibold text-amber-200">BlackBox NFT Fractionalization</span> — Own a piece of any RP server</p>
               <p><span className="font-semibold text-amber-200">Revenue Sharing DAO</span> — Token holders earn from server revenue</p>
               <p><span className="font-semibold text-amber-200">Governance Rights</span> — Community votes on server direction</p>
               <p className="text-amber-300/60 font-mono">Server ownership becomes liquid capital</p>

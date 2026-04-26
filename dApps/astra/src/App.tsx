@@ -191,7 +191,7 @@ export default function App() {
               {
                 icon: '📋',
                 title: 'One-Click Tokenization',
-                desc: 'Upload jet docs, mint La Casa NFT, auto-route to Sophia Vault in minutes',
+                desc: 'Upload jet docs, mint BlackBox NFT, auto-route to Sophia Vault in minutes',
               },
               {
                 icon: '🧠',
@@ -287,7 +287,7 @@ export default function App() {
               },
               {
                 step: '3️⃣',
-                label: 'Mint La Casa NFT',
+                label: 'Mint BlackBox NFT',
                 desc: 'On-chain tokenization with immutable aircraft provenance and fractional ownership',
               },
               {

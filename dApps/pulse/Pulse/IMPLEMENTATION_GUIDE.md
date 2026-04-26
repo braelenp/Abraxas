@@ -131,7 +131,7 @@
 6. Select category (gaming/sports/streaming)
 7. Click "Tokenize & Mint"
 8. 2s loading animation
-9. Success: "✓ Clip '[title]' tokenized as La Casa NFT!"
+9. Success: "✓ Clip '[title]' tokenized as BlackBox NFT!"
 10. Modal closes, user back at feed
 
 ### Workflow 2: Browse & Like Clips

@@ -5,7 +5,7 @@
 - **📊 Dashboard** (`/app`) - Portfolio overview, live Polymarket betting, King AI signals
 - **💰 Trade** (`/app/trade`) - ABRA acquisition, staking (30/90/180 day tiers), RWA pairs
 - **📈 Market** (`/app/market`) - Asset listings (athlete equity, real estate, golf, horses, IP)
-- **🏦 Vaults** (`/app/vaults`) - RWA vault management, La Casa deposits, agent assignment
+- **🏦 Vaults** (`/app/vaults`) - RWA vault management, BlackBox deposits, agent assignment
 - **🧠 King AI** (`/app/orion`) - Athlete metrics, OYM integration, training scores
 - **⚡ Circuit** (`/app/circuit`) - Risk signal simulator, protective buffer
 - **🤖 Sophia Mint** (`/app/sophia-mint`) - Agent NFT minting stub, marketplace MVP
@@ -31,7 +31,7 @@
 | ABRA ↔ USDC | $0.95 | Token | $125K | Live |
 | Golf PGA ↔ USDC | $125.50 | Golf | $230K | Live |
 | Horse Racing ↔ USDC | $3.75 | Horses | $580K | Live |
-| La Casa NFT ↔ USDC | $2,500 | RWA | $45K | Live |
+| BlackBox NFT ↔ USDC | $2,500 | RWA | $45K | Live |
 | USDC ↔ SOL | $0.024 | Stablecoin | $850K | Live |
 
 ---

@@ -8,7 +8,7 @@ Bacchus delivers a sommelier-grade, collector-friendly platform for tokenizing p
 
 ### Key Features
 
-- **🍷 One-Click Tokenization**: Upload bottle certificates, storage history, and appraisals. Mint La Casa NFTs and auto-route to Sophia Vault in minutes.
+- **🍷 One-Click Tokenization**: Upload bottle certificates, storage history, and appraisals. Mint BlackBox NFTs and auto-route to Sophia Vault in minutes.
 - **🧠 King AI Vintage Engine**: Automatic aging forecasts, market velocity analysis, peak drinking window projections, and rarity scoring.
 - **📊 Vintage Trading Floor**: Secondary market for wine & spirit equity with liquid pricing via Raido protocol.
 - **📈 Yield Generation**: Auto-compound appreciation from aging, auction gains, and storage optimization into Sophia Vault.
@@ -29,7 +29,7 @@ Bacchus supports tokenization across six major spirit categories:
 
 1. **Upload Wine Provenance**: UPC codes, certificates of authenticity, storage temperature logs, insurance records, appraisals
 2. **King AI Verification**: Automatic provenance checks, market valuation analysis, aging potential scoring, storage optimization
-3. **Mint La Casa NFT**: On-chain tokenization with immutable bottle metadata, vintage records, temperature logs, auction history
+3. **Mint BlackBox NFT**: On-chain tokenization with immutable bottle metadata, vintage records, temperature logs, auction history
 4. **Deploy Appreciation Yield**: Auto-compound market appreciation gains from aging, auction fees, storage optimization yields
 
 ## Technology Stack

@@ -23,7 +23,7 @@ export const starterVaults: VaultSummary[] = [
   },
   {
     id: 'vault-worldlabs-rwa',
-    name: 'World Labs Expansion Vault',
+    name: 'Abraxas Strategic Vault',
     assetType: 'real_estate',
     depositedAmount: 38500,
     vaultValue: 40120,
@@ -141,8 +141,8 @@ export const starterAthleteTokens: AthleteToken[] = [
 export const starterLaCasaDeposits: LaCasaDepositRecord[] = [
   {
     id: 'lacasa-1',
-    label: 'La Casa Genesis #014',
-    collection: 'La Casa Genesis',
+    label: 'BlackBox Genesis #014',
+    collection: 'BlackBox Genesis',
     stablecoinAmount: 12500,
     vaultId: 'vault-echo-foundation',
     athleteTokenId: 'token-cdubb',
@@ -150,8 +150,8 @@ export const starterLaCasaDeposits: LaCasaDepositRecord[] = [
   },
   {
     id: 'lacasa-2',
-    label: 'La Casa Athlete Series #031',
-    collection: 'La Casa Athlete Series',
+    label: 'BlackBox Athlete Series #031',
+    collection: 'BlackBox Athlete Series',
     stablecoinAmount: 8200,
     vaultId: 'vault-echo-foundation',
     athleteTokenId: 'token-hailee',

@@ -42,7 +42,7 @@ export function TokenizationModal(props: TokenizationModalProps) {
         <div className="sticky top-0 flex items-center justify-between p-6 border-b border-purple-700/30 bg-slate-900/95 backdrop-blur">
           <h2 className="text-xl font-bold text-purple-300 font-mono flex items-center gap-2">
             <Zap size={20} className="text-yellow-500" />
-            Forge La Casa NFT
+            Forge BlackBox NFT
           </h2>
           <button
             onClick={props.onClose}
@@ -81,7 +81,7 @@ export function TokenizationModal(props: TokenizationModalProps) {
 
               <div className="space-y-3">
                 <p className="text-sm text-slate-300">
-                  Your clip will be minted as a <span className="text-purple-300 font-semibold">La Casa NFT</span> on Solana. 
+                  Your clip will be minted as a <span className="text-purple-300 font-semibold">BlackBox NFT</span> on Solana. 
                   Once minted, it's auto-deposited into your Sophia-managed vault for safekeeping and revenue generation.
                 </p>
                 <div className="p-3 bg-cyan-950/30 border border-cyan-700/30 rounded-lg">
@@ -204,7 +204,7 @@ export function TokenizationModal(props: TokenizationModalProps) {
                     <div className="absolute inset-0 rounded-full border-4 border-purple-600 border-t-transparent animate-spin" />
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-purple-300 mb-2">Forging La Casa NFT...</p>
+                    <p className="text-lg font-bold text-purple-300 mb-2">Forging BlackBox NFT...</p>
                     <p className="text-sm text-slate-400 font-mono">Minting your sacred moment on Solana</p>
                   </div>
                 </>

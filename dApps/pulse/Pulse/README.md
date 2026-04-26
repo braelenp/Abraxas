@@ -4,7 +4,7 @@ A sovereign dApp for tokenizing gaming clips, sports highlights, live streams, a
 
 ## Features
 
-- **Clip Upload & Tokenization**: Upload video clips that get instantly minted as La Casa NFTs
+- **Clip Upload & Tokenization**: Upload video clips that get instantly minted as BlackBox NFTs
 - **Live Streaming**: "Go Live" with integrated chat and auto-tokenization of highlight moments
 - **Clip Feed**: YouTube-style feed featuring trending gaming, sports, and streaming content
 - **Community Features**: Like, comment, share, and follow creators

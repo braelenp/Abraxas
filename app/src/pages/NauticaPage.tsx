@@ -105,7 +105,7 @@ export function NauticaPage({ onClose, onBuyAbra }: NauticaPageProps) {
 						<div>
 							<p className="text-[11px] font-bold font-mono text-cyan-300 uppercase tracking-widest mb-3">&gt; [LORE_INITIATION] NAUTICAL_SOVEREIGNTY</p>
 							<p className="text-sm leading-relaxed text-slate-300/90 font-mono">
-								Nautica tokenizes yachts and luxury maritime assets. Fractional ownership, charter rights, and high-value physical assets become on-chain La Casa NFTs. The species now claims the oceans. From private superyachts to maritime trade rights, Nautica brings the sea within reach of every investor. The waves are liquid assets waiting to be discovered.
+								Nautica tokenizes yachts and luxury maritime assets. Fractional ownership, charter rights, and high-value physical assets become on-chain BlackBox NFTs. The species now claims the oceans. From private superyachts to maritime trade rights, Nautica brings the sea within reach of every investor. The waves are liquid assets waiting to be discovered.
 							</p>
 						</div>
 					</div>
@@ -132,7 +132,7 @@ export function NauticaPage({ onClose, onBuyAbra }: NauticaPageProps) {
 							},
 							{
 								step: 2,
-								label: 'Mint La Casa NFT',
+								label: 'Mint BlackBox NFT',
 								desc: 'On-chain tokenization with immutable maritime provenance',
 								icon: '⛵',
 							},

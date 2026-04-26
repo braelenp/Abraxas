@@ -134,7 +134,7 @@ Integrated profile creation with:
 ### Airdrop Threshold
 - **Target**: 500 points to become eligible
 - **Estimated Value**: $1,000 ABRA (adjustable)
-- **Claim Method**: After Sharathon ends, claim from World Labs Treasury
+- **Claim Method**: After Sharathon ends, claim from Abraxas Treasury
 - **Campaign Duration**: 30 days
 
 ---
@@ -194,7 +194,7 @@ https://abraxas.app/app?ref=CODE&rune=ᚲ&id=ABRAXAS-001234
 ### 4. **Claiming Airdrop**
 1. Reach 500 points (eligible)
 2. Click "Claim Your Airdrop" button
-3. Redirects to World Labs Treasury/Vault
+3. Redirects to Abraxas Treasury/Vault
 4. User retrieves $ABRA reward
 
 ---
@@ -285,7 +285,7 @@ app/src/
 ### Phase 3: Email & Rewards
 1. Integrate Resend or SendGrid
 2. Send ID card + points summary emails
-3. Connect World Labs Treasury API
+3. Connect Abraxas Treasury API
 4. Implement claim functionality
 
 ### Phase 4: Analytics

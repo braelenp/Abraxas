@@ -8,7 +8,7 @@ Elysium delivers a boomer-friendly, museum-grade platform for tokenizing artwork
 
 ### Key Features
 
-- **🎨 One-Click Tokenization**: Upload artwork images, provenance, and appraisals. Mint La Casa NFTs and auto-route to Sophia Vault in minutes.
+- **🎨 One-Click Tokenization**: Upload artwork images, provenance, and appraisals. Mint BlackBox NFTs and auto-route to Sophia Vault in minutes.
 - **🧠 King AI Provenance Engine**: Automatic authenticity verification, market comparable analysis, condition assessment, and rarity scoring.
 - **📊 Auction Floor Trading**: Secondary market for fractional art equity with price discovery via Raido protocol.
 - **📈 Yield Generation**: Auto-compound exhibition revenue, appreciation gains, and trading fees into Sophia Vault.
@@ -29,7 +29,7 @@ Elysium supports tokenization across six major art categories:
 
 1. **Upload Artwork & Provenance**: High-resolution images, certificates of authenticity, exhibition records, appraisals, chain of title
 2. **King AI Verification**: Automatic provenance checks, market comparables analysis, condition assessment, rarity scoring
-3. **Mint La Casa NFT**: On-chain tokenization with immutable artwork metadata, exhibition history, valuation records
+3. **Mint BlackBox NFT**: On-chain tokenization with immutable artwork metadata, exhibition history, valuation records
 4. **Deploy Appreciation Yield**: Auto-compound market appreciation gains, exhibition revenue, and secondary market fees into Sophia Vault
 
 ## Technology Stack

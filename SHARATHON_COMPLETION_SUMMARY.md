@@ -179,7 +179,7 @@ Components
 ### **Next Week**
 1. Wallet verification integration
 2. On-chain tracking (optional)
-3. World Labs Treasury integration
+3. Abraxas Treasury integration
 4. Analytics setup
 5. Campaign management dashboard
 
