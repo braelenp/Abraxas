@@ -41,7 +41,7 @@ export function DashboardHomePage() {
 
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Link
-            to="/app/tokenize"
+            to="/app/forge"
             className="rounded-2xl border border-amber-300/35 bg-amber-300/10 px-4 py-4 text-sm font-semibold text-amber-100 transition hover:border-amber-200/60 hover:bg-amber-300/16"
           >
             Tokenize New Asset
