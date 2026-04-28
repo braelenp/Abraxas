@@ -246,7 +246,7 @@ export function StakePage() {
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-300 font-semibold">3</span>
                 <div>
                   <p className="font-semibold text-emerald-200">Earn Yields</p>
-                  <p className="text-slate-400">AI agents manage 24/7. Collect yields distributed as ABRAX stablecoin</p>
+                  <p className="text-slate-400">AI agents manage 24/7. Collect yields distributed as ALLURE stablecoin</p>
                 </div>
               </div>
             </div>
@@ -261,18 +261,18 @@ export function StakePage() {
           </div>
         </section>
 
-        {/* Secondary: ABRAX Staking (Optional) */}
+        {/* Secondary: ALLURE Staking (Optional) */}
         <section className="max-w-3xl mx-auto px-4 border-t border-slate-700/30 pt-8">
-          <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-6">Optional: Additional Yield via ABRAX Staking</p>
+          <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-6">Optional: Additional Yield via ALLURE Staking</p>
           
           <div className="glow-panel p-6 space-y-5">
             <div className="flex items-center gap-2 font-mono">
               <span className="text-cyan-400">&gt;</span>
-              <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase">[LIQUIDITY] ABRAX_STAKING</h2>
+              <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase">[LIQUIDITY] ALLURE_STAKING</h2>
             </div>
 
             <p className="text-[10px] leading-relaxed text-slate-400/70 uppercase tracking-[0.05em]">
-              Optional: Stake ABRAX stablecoin for additional yield and liquidity provision
+              Optional: Stake ALLURE stablecoin for additional yield and liquidity provision
             </p>
 
             <div className="space-y-3">
@@ -297,7 +297,7 @@ export function StakePage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ABRAX_AMOUNT</label>
+              <label className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-mono">&gt; ALLURE_AMOUNT</label>
               <div className="flex gap-2">
                 <input
                   type="number"
@@ -319,7 +319,7 @@ export function StakePage() {
             {stakeAmount && projectedRewards > 0 && (
               <div className="rounded-lg border border-green-400/25 bg-green-500/10 p-3 space-y-1">
                 <p className="text-[10px] text-green-400 font-mono uppercase tracking-wider">PROJECTED_EARNINGS</p>
-                <p className="text-lg font-bold text-green-300">{projectedRewards.toFixed(0)} ABRAX</p>
+                <p className="text-lg font-bold text-green-300">{projectedRewards.toFixed(0)} ALLURE</p>
                 <p className="text-xs text-green-300/60">
                   Lock for {selectedDuration} days at {selectedConfig?.displayMultiplier} multiplier
                 </p>
@@ -331,7 +331,7 @@ export function StakePage() {
               disabled={!stakeAmount || isStaking || Number(stakeAmount) <= 0}
               className="w-full ui-action h-12 rounded-lg border border-violet-400/45 bg-violet-500/25 text-violet-100 font-semibold hover:bg-violet-500/35 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {isStaking ? 'Processing Stake...' : `Stake ${stakeAmount || '0'} ABRAX`}
+              {isStaking ? 'Processing Stake...' : `Stake ${stakeAmount || '0'} ALLURE`}
             </button>
 
             <p className="text-[11px] text-white/40 text-center">
@@ -357,7 +357,7 @@ export function StakePage() {
                   <div key={stake.address} className={`glow-panel p-4 space-y-3 ${stake.isActive ? '' : 'opacity-75'}`}>
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
-                        <p className="text-sm font-bold text-cyan-300 font-mono">{stake.abraAmount.toLocaleString()} ABRAX</p>
+                        <p className="text-sm font-bold text-cyan-300 font-mono">{stake.abraAmount.toLocaleString()} ALLURE</p>
                         <p className="text-xs text-white/50">
                           Duration: {stake.lockDurationDays} days • Multiplier: {(stake.multiplierBps / 10_000).toFixed(1)}x
                         </p>
@@ -376,7 +376,7 @@ export function StakePage() {
                             ? daysRemaining === 0
                               ? 'Ready to Unstake'
                               : `${daysRemaining}d Remaining`
-                            : `+${earnedRewards.toLocaleString()} ABRAX`}
+                            : `+${earnedRewards.toLocaleString()} ALLURE`}
                         </div>
                         <p className="text-xs text-white/40">
                           {new Date(stake.stakedAt).toLocaleDateString()}
@@ -388,7 +388,7 @@ export function StakePage() {
                       <div className="border-t border-white/10 pt-2">
                         <p className="text-[10px] text-green-400/60 font-mono uppercase tracking-wider">Value_at_unlock</p>
                         <p className="text-lg font-bold text-green-300">
-                          {(stake.abraAmount * (stake.multiplierBps / 10_000)).toLocaleString()} ABRAX
+                          {(stake.abraAmount * (stake.multiplierBps / 10_000)).toLocaleString()} ALLURE
                         </p>
                       </div>
                     )}
@@ -426,7 +426,7 @@ export function StakePage() {
             <div className="flex items-start gap-2">
               <Clock size={14} className="mt-0.5 shrink-0 text-emerald-300" />
               <p>
-                Stake your BlackBox NFT for maximum sovereignty. Your tokenized asset remains in your wallet while managed by our AI agents, generating yields distributed back to you in ABRAX stablecoin.
+                Stake your BlackBox NFT for maximum sovereignty. Your tokenized asset remains in your wallet while managed by our AI agents, generating yields distributed back to you in ALLURE stablecoin.
               </p>
             </div>
           </div>

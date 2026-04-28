@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAbraxas } from '../providers/AbraxasProvider';
 import { ACTIVE_TAX_YEAR, buildPortfolioTaxSummary } from '../lib/taxReporting';
 
-const dashboardHeroCopy = 'Own your own AI-powered digital asset management firm. Simplified flow: Get ABRA → Mint NFT → Create Vault → Assign Sophia Agent → Stake → Earn ABRAX. You own everything. The agents work 24/7. You keep the gains. No intermediaries. No fiat rails. Pure sovereign finance on Solana.';
+const dashboardHeroCopy = 'Own your own AI-powered digital asset management firm. Simplified flow: Get ABRA → Mint NFT → Create Vault → Assign Sophia Agent → Stake → Earn ALLURE. You own everything. The agents work 24/7. You keep the gains. No intermediaries. No fiat rails. Pure sovereign finance on Solana.';
 
 function formatUsd(value: number) {
   return new Intl.NumberFormat('en-US', {
@@ -32,11 +32,11 @@ export function DashboardHomePage() {
 
   return (
     <section className="space-y-4 pb-4">
-      <article className="glow-panel overflow-hidden rounded-[28px] border border-cyan-300/25 bg-slate-950/80 p-5 backdrop-blur-xl">
-        <div className="inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-          Own The Firm
+      <article className="glow-panel overflow-hidden rounded-[28px] border border-purple-400/25 bg-slate-950/80 p-5 backdrop-blur-xl">
+        <div className="inline-flex rounded-full border border-purple-400/30 bg-purple-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-purple-200">
+          Sovereign Dashboard
         </div>
-        <h1 className="mt-4 text-2xl font-semibold leading-tight text-white">AI-powered asset management that stays under your control.</h1>
+        <h1 className="mt-4 text-2xl font-semibold leading-tight text-white">Tokenization Engine Dashboard – Your Sovereign Capital Command Center.</h1>
         <p className="mt-3 text-sm leading-6 text-slate-300">{dashboardHeroCopy}</p>
 
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -48,9 +48,9 @@ export function DashboardHomePage() {
           </Link>
           <Link
             to="/app/vaults"
-            className="rounded-2xl border border-cyan-300/35 bg-cyan-300/10 px-4 py-4 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/60 hover:bg-cyan-300/16"
+            className="rounded-2xl border border-purple-400/35 bg-purple-400/10 px-4 py-4 text-sm font-semibold text-purple-100 transition hover:border-purple-200/60 hover:bg-purple-400/16"
           >
-            Open a Vault
+            Deploy BlackBox NFT to Vault
           </Link>
           <Link
             to="/app/vaults"
@@ -62,9 +62,9 @@ export function DashboardHomePage() {
       </article>
 
       <div className="grid grid-cols-2 gap-3">
-        <article className="glow-panel rounded-2xl border border-cyan-300/20 bg-slate-900/75 p-4 backdrop-blur">
+        <article className="glow-panel rounded-2xl border border-purple-400/20 bg-slate-900/75 p-4 backdrop-blur">
           <p className="text-[11px] uppercase tracking-[0.22em] text-slate-400">Total Vault Value</p>
-          <p className="mt-2 text-2xl font-semibold text-cyan-100">{formatUsd(totalVaultValue)}</p>
+          <p className="mt-2 text-2xl font-semibold text-purple-100">{formatUsd(totalVaultValue)}</p>
           <p className="mt-1 text-xs text-slate-400">Across {vaults.length} managed vaults</p>
         </article>
         <article className="glow-panel rounded-2xl border border-emerald-300/20 bg-slate-900/75 p-4 backdrop-blur">
@@ -111,7 +111,7 @@ export function DashboardHomePage() {
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-950/50 px-3 py-3 sm:col-span-1 col-span-2">
             <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">Source</p>
-            <p className="mt-1 font-semibold text-white">Vault balances, BlackBox basis, ABRAX activity</p>
+            <p className="mt-1 font-semibold text-white">Vault balances, BlackBox basis, ALLURE activity</p>
           </div>
         </div>
       </article>

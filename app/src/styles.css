@@ -44,7 +44,7 @@ textarea {
   filter: brightness(1.06);
   transform: translateY(-1px);
   box-shadow:
-    0 0 18px rgba(34, 211, 238, 0.28),
+    0 0 18px rgba(153, 69, 255, 0.28),
     0 0 12px rgba(251, 191, 36, 0.2);
 }
 
@@ -54,7 +54,7 @@ textarea {
 }
 
 .ui-action:focus-visible {
-  outline: 2px solid rgba(103, 232, 249, 0.65);
+  outline: 2px solid rgba(153, 69, 255, 0.65);
   outline-offset: 2px;
 }
 
@@ -96,12 +96,12 @@ textarea {
 
 .glow-panel {
   position: relative;
-  border-color: rgba(103, 232, 249, 0.5) !important;
+  border-color: rgba(153, 69, 255, 0.5) !important;
   box-shadow:
-    inset 0 0 0 1px rgba(103, 232, 249, 0.2),
+    inset 0 0 0 1px rgba(153, 69, 255, 0.2),
     inset 0 0 0 2px rgba(251, 191, 36, 0.07),
-    0 0 0 1px rgba(103, 232, 249, 0.2),
-    0 0 34px rgba(34, 211, 238, 0.24),
+    0 0 0 1px rgba(153, 69, 255, 0.2),
+    0 0 34px rgba(153, 69, 255, 0.24),
     0 0 22px rgba(251, 191, 36, 0.14);
 }
 
@@ -111,7 +111,7 @@ textarea {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(140deg, rgba(34, 211, 238, 0.24), rgba(251, 191, 36, 0.14) 28%, transparent 52%, rgba(96, 165, 250, 0.24));
+  background: linear-gradient(140deg, rgba(153, 69, 255, 0.24), rgba(251, 191, 36, 0.14) 28%, transparent 52%, rgba(139, 92, 246, 0.24));
   opacity: 0.72;
   mix-blend-mode: screen;
 }
@@ -119,7 +119,7 @@ textarea {
 .gold-accent-text {
   color: #e0f2fe;
   text-shadow:
-    0 0 10px rgba(34, 211, 238, 0.24),
+    0 0 10px rgba(153, 69, 255, 0.24),
     0 0 14px rgba(251, 191, 36, 0.2);
 }
 
@@ -129,7 +129,7 @@ textarea {
     0 0 10px rgba(245, 158, 11, 0.44),
     0 0 18px rgba(245, 158, 11, 0.32),
     0 0 30px rgba(217, 119, 6, 0.24);
-  animation: abraxas-gold-pulse 2s ease-in-out infinite;
+  animation: sovereign-gold-pulse 2s ease-in-out infinite;
 }
 
 .abraxas-entry-overlay {
@@ -160,17 +160,17 @@ textarea {
   width: 11rem;
   height: 11rem;
   border-radius: 9999px;
-  border: 1px solid rgba(34, 211, 238, 0.72);
+  border: 1px solid rgba(153, 69, 255, 0.72);
   box-shadow:
-    0 0 26px rgba(34, 211, 238, 0.28),
-    inset 0 0 20px rgba(103, 232, 249, 0.2);
+    0 0 26px rgba(153, 69, 255, 0.28),
+    inset 0 0 20px rgba(196, 181, 253, 0.2);
   animation: abraxas-entry-ring-zoom 1450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .abraxas-entry-ring-secondary {
   border-color: rgba(167, 139, 250, 0.7);
   box-shadow:
-    0 0 30px rgba(139, 92, 246, 0.28),
+    0 0 30px rgba(153, 69, 255, 0.28),
     inset 0 0 20px rgba(196, 181, 253, 0.15);
   animation-delay: 120ms;
 }
@@ -200,7 +200,7 @@ textarea {
   text-transform: uppercase;
   color: rgba(226, 232, 240, 0.9);
   text-shadow:
-    0 0 12px rgba(34, 211, 238, 0.4),
+    0 0 12px rgba(153, 69, 255, 0.4),
     0 0 18px rgba(251, 191, 36, 0.22);
   animation: abraxas-entry-text 1450ms ease-out forwards;
 }
@@ -226,14 +226,14 @@ textarea {
 .landing-frame-blue-glow {
   box-shadow:
     0 0 92px rgba(15, 23, 42, 0.72),
-    0 0 30px rgba(34, 211, 238, 0.34),
-    0 0 52px rgba(56, 189, 248, 0.26),
-    0 0 74px rgba(14, 165, 233, 0.18),
-    inset 0 0 0 1px rgba(34, 211, 238, 0.34);
+    0 0 30px rgba(153, 69, 255, 0.34),
+    0 0 52px rgba(139, 92, 246, 0.26),
+    0 0 74px rgba(153, 69, 255, 0.18),
+    inset 0 0 0 1px rgba(153, 69, 255, 0.34);
 }
 
 .enter-abraxas-pulse {
-  animation: enter-abraxas-pulse 2s ease-in-out infinite;
+  animation: enter-sovereign-pulse 2s ease-in-out infinite;
 }
 
 .white-paper-pulse {
@@ -273,7 +273,7 @@ textarea {
     0 0 8px rgba(245, 158, 11, 0.36),
     0 0 14px rgba(245, 158, 11, 0.26),
     0 0 22px rgba(217, 119, 6, 0.18);
-  animation: abraxas-gold-pulse 2s ease-in-out infinite;
+  animation: sovereign-gold-pulse 2s ease-in-out infinite;
 }
 
 .dapp-header-wallet .wallet-adapter-dropdown {
@@ -325,8 +325,8 @@ textarea {
       transparent 5px
     ),
     radial-gradient(circle at 54% 14%, rgba(251, 191, 36, 0.12), transparent 42%),
-    radial-gradient(circle at 18% 20%, rgba(34, 211, 238, 0.28), transparent 50%),
-    radial-gradient(circle at 82% 76%, rgba(96, 165, 250, 0.26), transparent 46%);
+    radial-gradient(circle at 18% 20%, rgba(153, 69, 255, 0.28), transparent 50%),
+    radial-gradient(circle at 82% 76%, rgba(139, 92, 246, 0.26), transparent 46%);
   mix-blend-mode: screen;
   animation: tech-flicker 7s ease-in-out infinite;
 }
@@ -335,11 +335,11 @@ textarea {
   z-index: 0;
   opacity: 0.36;
   background:
-    radial-gradient(circle at 50% 12%, rgba(34, 211, 238, 0.24), transparent 38%),
+    radial-gradient(circle at 50% 12%, rgba(153, 69, 255, 0.24), transparent 38%),
     linear-gradient(
       105deg,
       transparent 18%,
-      rgba(34, 211, 238, 0.16) 46%,
+      rgba(153, 69, 255, 0.16) 46%,
       rgba(251, 191, 36, 0.1) 60%,
       transparent 75%
     );
@@ -479,19 +479,37 @@ textarea {
   0%,
   100% {
     box-shadow:
-      0 0 14px rgba(34, 211, 238, 0.42),
-      0 0 24px rgba(34, 211, 238, 0.24);
+      0 0 14px rgba(153, 69, 255, 0.42),
+      0 0 24px rgba(153, 69, 255, 0.24);
     filter: brightness(1);
   }
   50% {
     box-shadow:
-      0 0 20px rgba(34, 211, 238, 0.78),
-      0 0 36px rgba(34, 211, 238, 0.36);
+      0 0 20px rgba(153, 69, 255, 0.78),
+      0 0 36px rgba(153, 69, 255, 0.36);
     filter: brightness(1.08);
   }
 }
 
 @keyframes abraxas-gold-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 10px rgba(245, 158, 11, 0.44),
+      0 0 18px rgba(245, 158, 11, 0.32),
+      0 0 30px rgba(217, 119, 6, 0.24);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 14px rgba(245, 158, 11, 0.62),
+      0 0 24px rgba(245, 158, 11, 0.46),
+      0 0 40px rgba(217, 119, 6, 0.3);
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes sovereign-gold-pulse {
   0%,
   100% {
     text-shadow:
@@ -522,21 +540,21 @@ textarea {
   88% {
     transform: translate3d(-0.4px, 0, 0);
     text-shadow:
-      -0.8px 0 rgba(34, 211, 238, 0.6),
+      -0.8px 0 rgba(153, 69, 255, 0.6),
       0.8px 0 rgba(244, 114, 182, 0.46),
       0 0 20px rgba(245, 158, 11, 0.34);
   }
   90% {
     transform: translate3d(0.5px, 0, 0);
     text-shadow:
-      0.8px 0 rgba(34, 211, 238, 0.66),
+      0.8px 0 rgba(153, 69, 255, 0.66),
       -0.8px 0 rgba(244, 114, 182, 0.5),
       0 0 22px rgba(245, 158, 11, 0.38);
   }
   92% {
     transform: translate3d(-0.25px, 0, 0);
     text-shadow:
-      -0.7px 0 rgba(34, 211, 238, 0.5),
+      -0.7px 0 rgba(153, 69, 255, 0.5),
       0.7px 0 rgba(244, 114, 182, 0.4),
       0 0 18px rgba(245, 158, 11, 0.32);
   }
@@ -555,7 +573,7 @@ textarea {
       saturate(1.18)
       contrast(1.06)
       brightness(1.03)
-      drop-shadow(-0.8px 0 rgba(34, 211, 238, 0.48))
+      drop-shadow(-0.8px 0 rgba(153, 69, 255, 0.48))
       drop-shadow(0.8px 0 rgba(244, 114, 182, 0.38));
   }
   90% {
@@ -564,7 +582,7 @@ textarea {
       saturate(1.22)
       contrast(1.08)
       brightness(1.04)
-      drop-shadow(0.8px 0 rgba(34, 211, 238, 0.52))
+      drop-shadow(0.8px 0 rgba(153, 69, 255, 0.52))
       drop-shadow(-0.8px 0 rgba(244, 114, 182, 0.42));
   }
   92% {
@@ -573,7 +591,7 @@ textarea {
       saturate(1.12)
       contrast(1.04)
       brightness(1.02)
-      drop-shadow(-0.7px 0 rgba(34, 211, 238, 0.36))
+      drop-shadow(-0.7px 0 rgba(153, 69, 255, 0.36))
       drop-shadow(0.7px 0 rgba(244, 114, 182, 0.3));
   }
 }
@@ -607,6 +625,22 @@ textarea {
   50% {
     box-shadow:
       0 0 20px rgba(245, 158, 11, 0.55),
+      0 0 32px rgba(251, 191, 36, 0.32);
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes enter-sovereign-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 14px rgba(153, 69, 255, 0.34),
+      0 0 22px rgba(251, 191, 36, 0.22);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(153, 69, 255, 0.55),
       0 0 32px rgba(251, 191, 36, 0.32);
     filter: brightness(1.08);
   }

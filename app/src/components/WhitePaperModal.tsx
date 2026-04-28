@@ -87,7 +87,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
             </p>
             <ul className="space-y-2 ml-4">
               <li className="text-slate-300">• <span className="text-purple-200 font-semibold">Abraxas</span> helps you bring assets online and place them in AI-managed vaults.</li>
-              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ABRAX</span> helps you move money through the system in a simpler way.</li>
+              <li className="text-slate-300">• <span className="text-purple-200 font-semibold">ALLURE</span> helps you move money through the system in a simpler way.</li>
             </ul>
             <p>
               <span className="text-orange-300 font-semibold">$ABRA</span> is the main access and utility token that powers the system.
@@ -124,7 +124,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               <span className="text-cyan-300 font-semibold">Abraxas helps you bring assets online and manage them with AI.</span>
             </p>
             <p className="text-slate-300">
-              <span className="text-purple-300 font-semibold">ABRAX helps you move capital when you need it.</span>
+              <span className="text-purple-300 font-semibold">ALLURE helps you move capital when you need it.</span>
             </p>
             <p>
               Together they give you a simpler way to stay in control while software handles the heavy lifting.
@@ -154,9 +154,9 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               </ul>
             </div>
 
-            {/* ABRAX - Capital Onboarding & Payment System */}
+            {/* ALLURE - Capital Onboarding & Payment System */}
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
-              <h4 className="font-bold text-purple-300">ABRAX – Capital Onboarding & Payment System</h4>
+              <h4 className="font-bold text-purple-300">ALLURE – Capital Onboarding & Payment System</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
                 <li>• Sovereign rails for instant P2P transfers, creator tips, royalties, in-app purchases, and vault funding.</li>
                 <li>• Global onboarding support (local currency → $ABRA) with priority on major crypto-adopting countries (Japan JPY first).</li>
@@ -170,7 +170,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               <h4 className="font-bold text-green-300">Validators – Decentralized Infrastructure Layer</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
                 <li>• Stake $ABRA or run dedicated nodes that support agent computation, oracle feeds, and prediction market resolution.</li>
-                <li>• Earn $ABRA staking rewards + share of protocol fees from trades, ABRAX volume, and ecosystem activity.</li>
+                <li>• Earn $ABRA staking rewards + share of protocol fees from trades, ALLURE volume, and ecosystem activity.</li>
               </ul>
             </div>
           </div>
@@ -224,7 +224,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
               <h4 className="font-bold text-purple-300">Phase 1 – Mainnet Activation (Q2 2026)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
                 <li>• Full migration of vaults and agents to mainnet</li>
-                <li>• ABRAX sovereign payment rails launch</li>
+                <li>• ALLURE sovereign payment rails launch</li>
                 <li>• Validator node program and staking rewards</li>
                 <li>• Athletic Equity asset class (player tokenization via academies)</li>
                 <li>• Expanded global capital onboarding (Japan JPY priority)</li>
@@ -235,7 +235,7 @@ export function WhitePaperModal({ isOpen, onClose }: WhitePaperModalProps) {
             <div className="space-y-2 bg-slate-900/40 border border-purple-500/20 rounded-lg p-4">
               <h4 className="font-bold text-purple-300">Phase 2 – Full Sovereign Economy (Q3–Q4 2026)</h4>
               <ul className="space-y-1 text-slate-300 text-xs">
-                <li>• Complete ABRAX feature set with embedded commerce</li>
+                <li>• Complete ALLURE feature set with embedded commerce</li>
                 <li>• Foundation Market expansion (dApp equity + tokenized RP servers)</li>
                 <li>• Apex gaming layer + tournaments</li>
                 <li>• Full Web5 biological ledger integration via Monolith NFT</li>

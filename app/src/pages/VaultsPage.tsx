@@ -331,7 +331,7 @@ export function VaultsPage() {
           <p className="text-sm font-bold text-cyan-300/80 uppercase tracking-widest font-mono mb-3">&gt; Own Your Asset Management Firm</p>
           <h1 className="text-2xl font-bold text-cyan-200 mb-2">🏦 Vault Management — Steps 3–6</h1>
           <p className="text-sm text-slate-300/90 leading-relaxed mb-4">
-            You've acquired ABRA and minted your NFT. Now create a vault to stake your asset with a Sophia agent who manages 24/7. You own everything. The agents do the work. You keep the ABRAX gains.
+            You've acquired ABRA and minted your NFT. Now create a vault to stake your asset with a Sophia agent who manages 24/7. You own everything. The agents do the work. You keep the ALLURE gains.
           </p>
           
           <div className="grid grid-cols-2 gap-3 text-xs mt-4">
@@ -585,26 +585,6 @@ export function VaultsPage() {
           </>
         )}
       </article>
-
-      {/* Investment Options */}
-      {futureAssetClasses.length > 0 && (
-        <article className="rounded-2xl border border-cyan-300/20 bg-slate-900/50 p-6 backdrop-blur">
-          <p className="mb-4 text-sm font-bold text-cyan-300 uppercase tracking-widest">🔮 Coming Soon</p>
-          <div className="space-y-3">
-            {futureAssetClasses.map((assetClass) => (
-              <div key={assetClass.id} className="rounded-lg border border-cyan-300/10 bg-slate-950/50 p-3">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-xs font-bold text-cyan-300">{assetClass.title}</p>
-                  <span className="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-2 py-0.5 text-[9px] font-bold text-cyan-100 uppercase">
-                    {assetClass.status === 'coming_soon' ? '⏳ Coming Soon' : '📋 Blueprint'}
-                  </span>
-                </div>
-                <p className="mt-2 text-[10px] text-slate-400">{assetClass.description}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-      )}
 
       {/* Wallet Status */}
       {!connected && (

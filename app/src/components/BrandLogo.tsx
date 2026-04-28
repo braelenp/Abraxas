@@ -13,23 +13,23 @@ const sizeClasses: Record<NonNullable<BrandLogoProps['size']>, string> = {
   '3xl': 'h-52 w-52 rounded-2xl',
 };
 
-const primaryLogoPath = '/assets/abraxas-logo-graphic.jpg';
-const fallbackLogoPath = '/assets/abraxas-wordmark.svg';
+const primaryLogoPath = '/assets/sovereign-logo.jpg';
+const fallbackLogoPath = '/assets/sovereign-regime-wordmark.svg';
 
 export function BrandLogo({ size = 'sm', showWordmark = true, className = '' }: BrandLogoProps) {
   return (
     <div className={`flex items-center gap-2 ${className}`.trim()}>
-      <div className={`overflow-hidden border border-cyan-300/35 bg-slate-950/70 ${sizeClasses[size]}`}>
+      <div className={`overflow-hidden border border-purple-400/35 bg-slate-950/70 ${sizeClasses[size]}`}>
         <img
           src={primaryLogoPath}
-          alt="Abraxas logo"
+          alt="Sovereign Regime logo"
           className="h-full w-full object-cover object-center"
           onError={(event) => {
             event.currentTarget.src = fallbackLogoPath;
           }}
         />
       </div>
-      {showWordmark ? <span className="gold-accent-text text-lg font-semibold tracking-wide">ABRAXAS</span> : null}
+      {showWordmark ? <span className="golden-accent-text text-base font-semibold tracking-wide bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">SOVEREIGN REGIME</span> : null}
     </div>
   );
 }

@@ -41,7 +41,7 @@ function DappShell() {
   const dappBackgroundCandidates = useMemo(
     () => [
       '/assets/sophia-minted.jpg',
-      '/assets/abraxas-logo-graphic.jpg',
+      '/assets/sovereign-logo.jpg',
     ],
     [],
   );
@@ -106,25 +106,25 @@ function DappShell() {
         onError={onBackgroundError}
       />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-slate-950/70" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.2),transparent_56%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(153,69,255,0.2),transparent_56%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-slate-900/0 via-slate-950/25 to-slate-950/55" />
-      <div className="pointer-events-none absolute -top-28 left-1/2 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
-      <div className="pointer-events-none absolute top-44 -right-24 -z-10 h-72 w-72 rounded-full bg-blue-300/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-28 left-1/2 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-purple-400/15 blur-3xl" />
+      <div className="pointer-events-none absolute top-44 -right-24 -z-10 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl" />
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-20 mix-blend-screen [background:repeating-linear-gradient(180deg,rgba(148,163,184,0.07)_0px,rgba(148,163,184,0.07)_1px,transparent_2px,transparent_5px)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-30 mix-blend-screen [background:linear-gradient(105deg,transparent_20%,rgba(34,211,238,0.18)_50%,transparent_78%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-30 mix-blend-screen [background:linear-gradient(105deg,transparent_20%,rgba(153,69,255,0.18)_50%,transparent_78%)] [animation:tech-pulse_8s_ease-in-out_infinite]" />
 
-      <header className="sticky top-0 z-50 flex-none border-b border-cyan-200/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 flex-none border-b border-purple-400/25 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
         <div className="mb-2 flex items-center justify-between gap-3">
-          <BrandLogo size="sm" showWordmark className="dapp-header-brand" />
+          <BrandLogo size="md" showWordmark className="dapp-header-brand" />
           <div className="flex items-center gap-2">
             <LanguageSwitcher variant="compact" />
             <div className="dapp-header-wallet">
-              <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-cyan-300/55 !bg-cyan-300/20 !px-2 !text-[11px] !font-semibold !text-cyan-50 hover:!bg-cyan-300/32" />
+              <WalletMultiButton className="ui-action !h-8 !max-w-[8.75rem] !rounded-xl !border !border-purple-400/55 !bg-purple-400/20 !px-2 !text-[11px] !font-semibold !text-purple-50 hover:!bg-purple-400/32" />
             </div>
           </div>
         </div>
         <p className="text-xs text-slate-300/85">{ABRAXAS_PRIMARY_VALUE_PROP}</p>
-        <p className="mt-1 text-[11px] text-slate-500">Tokenize assets. Put them in Sophia Vaults. Let agents manage the work while you keep ownership.</p>
+        <p className="mt-1 text-[11px] text-slate-500">The Sovereign Regime – Tokenization Engine. Mint BlackBox NFTs. Deploy into Sophia Vaults. Own your destiny.</p>
       </header>
 
       <main
@@ -157,9 +157,9 @@ function DappShell() {
         <>
           <div className="fixed top-0 left-1/2 z-[55] h-full w-full max-w-md -translate-x-1/2 bg-slate-950/18 backdrop-blur-[2px]" />
           <div className="fixed top-1/2 left-1/2 z-[56] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
-            <div className="glow-panel rounded-2xl border border-cyan-300/35 bg-slate-950/92 p-4 backdrop-blur-xl">
+            <div className="glow-panel rounded-2xl border border-purple-400/35 bg-slate-950/92 p-4 backdrop-blur-xl">
               <div className="max-h-[56dvh] overflow-y-auto pr-1 text-sm text-slate-200">
-                <p className="text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest">&gt; [INTRO_AWAITS] SOVEREIGN_ENGINE</p>
+                <p className="text-sm font-mono font-bold text-purple-300 uppercase tracking-widest">&gt; [SOVEREIGN_REGIME] TOKENIZATION_ENGINE</p>
                 <p className="mt-3 leading-relaxed text-slate-300 text-xs">
                   {ABRAXAS_PRIMARY_VALUE_PROP} {ABRAXAS_SUPPORTING_VALUE_PROP}
                 </p>
@@ -167,34 +167,33 @@ function DappShell() {
                   {ABRAXAS_PLAIN_ENGLISH_EXPLAINER}
                 </p>
 
-                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">&gt; [DAPP_MAP] CORE_SECTIONS</p>
+                <p className="mt-4 text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400">&gt; [SYSTEM_MAP] CORE_SECTIONS</p>
                 <ul className="mt-2 space-y-2 text-xs leading-relaxed text-slate-300">
-                  <li><span className="font-semibold text-cyan-300">• Dashboard.</span> Your operating overview: vault value, gains, tax summary, and recent activity.</li>
-                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Create a BlackBox NFT record for the asset you want to bring into the system.</li>
-                  <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Open a Sophia Vault, deposit assets, assign automation, and export reporting.</li>
-                  <li><span className="font-semibold text-violet-300">• Agents.</span> Review the AI stack, protection tools, and execution performance.</li>
+                  <li><span className="font-semibold text-purple-300">• Dashboard.</span> Your sovereign overview: vault value, ALLURE yields, tax summary, and recent activity.</li>
+                  <li><span className="font-semibold text-amber-300">• Tokenize.</span> Mint BlackBox NFTs for real-world assets (real estate, art, watches, jets, collectibles).</li>
+                  <li><span className="font-semibold text-emerald-300">• My Vaults.</span> Deploy BlackBox NFTs into Sophia Vaults, assign Species agents, and earn ALLURE yields.</li>
+                  <li><span className="font-semibold text-violet-300">• Agents.</span> Review Species AI stack, capital compounding, and autonomous execution performance.</li>
                 </ul>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-300">
-                  The navigation stays at four tabs so the user flow is obvious from the first screen.<br />
+                  The navigation stays at four tabs so the sovereignty flow is obvious from the first screen.<br />
                   Supporting tools still exist, but they sit behind these sections instead of crowding the main nav.
                 </p>
 
-                <div className="mt-6 border-t border-amber-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-2">&gt; [USER_FLOW]</p>
+                <div className="mt-4 border-t border-purple-400/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400 mb-2">&gt; [SOVEREIGNTY_FLOW]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Start on Dashboard to understand the account.<br />
-                    Use Tokenize to create the asset record, move into My Vaults to manage it, then use Agents when you want deeper automation and execution.<br />
-                    <span className="text-purple-300 font-semibold">Simple path in, deeper tools behind it.</span>
+                    Academy generates capital. Tokenize real assets into BlackBox NFTs. Deploy to Sophia Vaults. Species agents compound. Earn ALLURE while retaining full ownership.<br />
+                    <span className="text-purple-300 font-semibold">We build the people. The people build the business.</span>
                   </p>
                 </div>
 
-                <div className="mt-4 border-t border-cyan-300/20 pt-4">
-                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-400 mb-2">&gt; [SUPPORTING_TOOLS]</p>
+                <div className="mt-4 border-t border-purple-400/20 pt-4">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 mb-2">&gt; [SUPPORTING_TOOLS]</p>
                   <p className="text-xs leading-relaxed text-slate-300/90">
-                    Market, Trade, Circuit, King AI, and other legacy screens are still available where they are useful.<br />
-                    They no longer need dedicated tabs because the four main sections already frame the full workflow.<br />
-                    <span className="text-orange-300 font-semibold">Four tabs, one clean operating model.</span>
+                    Market, Trade, Circuit, and other tools remain available for advanced users.<br />
+                    The core sections frame your complete tokenization workflow.<br />
+                    <span className="text-amber-300 font-semibold">Sovereign simplicity. Enterprise depth.</span>
                   </p>
                 </div>
               </div>
@@ -208,9 +207,9 @@ function DappShell() {
                     console.warn('Could not save intro modal state:', e);
                   }
                 }}
-                className="enter-abraxas-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-amber-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:bg-slate-800/70 hover:border-amber-300/80 transition-all"
+                className="enter-sovereign-pulse ui-action mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-purple-400/60 bg-slate-900/60 px-4 text-xs font-mono font-bold text-purple-300 uppercase tracking-widest shadow-[0_0_16px_rgba(153,69,255,0.2)] hover:bg-slate-800/70 hover:border-purple-300/80 transition-all"
               >
-                &gt; [ENTER] {t('common.loading')}
+                &gt; [ENTER_SOVEREIGN_REGIME] {t('common.loading')}
               </button>
             </div>
           </div>

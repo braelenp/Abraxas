@@ -26,7 +26,7 @@ export function VaultsHubPage() {
           <div>
             <h1 className="text-2xl font-semibold text-white">Stake your BlackBox NFT into Sophia Vaults for autonomous AI management.</h1>
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              Tokenize real-world assets into BlackBox NFTs, stake them into intelligent Sophia Vaults, and let the Species AI agents (Raido, Tide, Circuit, King AI) manage, defend, and compound your wealth 24/7 — all while you keep full ownership. Yields flow back to you as ABRAX stablecoin.
+              Tokenize real-world assets into BlackBox NFTs, stake them into intelligent Sophia Vaults, and let the Species AI agents (Raido, Tide, Circuit, King AI) manage, defend, and compound your wealth 24/7 — all while you keep full ownership. Yields flow back to you as ALLURE stablecoin.
             </p>
           </div>
           <div className="min-w-[8rem] rounded-2xl border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 text-right">
@@ -36,7 +36,7 @@ export function VaultsHubPage() {
         </div>
         <div className="mt-4 space-y-2 text-xs">
           <Link to="/app/deposit" className="block w-full rounded-xl border border-emerald-400/50 bg-gradient-to-r from-emerald-500/30 to-emerald-400/20 px-3 py-3 text-center font-bold text-emerald-100 transition hover:from-emerald-500/50 hover:to-emerald-400/40">🎯 Stake Your BlackBox NFT</Link>
-          <Link to="/app/stake" className="block w-full rounded-xl border border-slate-600 bg-slate-950/50 px-3 py-3 text-center text-slate-300 transition hover:border-slate-500 hover:text-slate-200">Optional: Stake ABRAX</Link>
+          <Link to="/app/stake" className="block w-full rounded-xl border border-slate-600 bg-slate-950/50 px-3 py-3 text-center text-slate-300 transition hover:border-slate-500 hover:text-slate-200">Optional: Stake ALLURE</Link>
         </div>
       </article>
 
